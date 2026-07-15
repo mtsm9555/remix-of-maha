@@ -41,11 +41,11 @@ export class ToolExecutor {
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
       const { error } = await supabaseAdmin.from("tool_executions").insert({
         tool_name: toolName,
-        agent_name: context.agentName,
-        user_id: context.userId,
-        session_id: context.sessionId,
-        args,
-        result,
+        agent_name: context.agentName ?? null,
+        user_id: context.userId ?? null,
+        session_id: context.sessionId ?? null,
+        args: args as any,
+        result: result as any,
         execution_time_ms: result.executionTimeMs,
       });
 
