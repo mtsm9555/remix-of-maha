@@ -226,6 +226,42 @@ export type Database = {
         }
         Relationships: []
       }
+      tool_executions: {
+        Row: {
+          agent_name: string | null
+          args: Json | null
+          created_at: string
+          execution_time_ms: number | null
+          id: string
+          result: Json | null
+          session_id: string | null
+          tool_name: string
+          user_id: string | null
+        }
+        Insert: {
+          agent_name?: string | null
+          args?: Json | null
+          created_at?: string
+          execution_time_ms?: number | null
+          id?: string
+          result?: Json | null
+          session_id?: string | null
+          tool_name: string
+          user_id?: string | null
+        }
+        Update: {
+          agent_name?: string | null
+          args?: Json | null
+          created_at?: string
+          execution_time_ms?: number | null
+          id?: string
+          result?: Json | null
+          session_id?: string | null
+          tool_name?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       tools: {
         Row: {
           category: string | null
