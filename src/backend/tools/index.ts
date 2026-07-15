@@ -3,15 +3,38 @@ export * from "./types";
 export * from "./ToolRegistry";
 export * from "./ToolRouter";
 export * from "./ToolExecutor";
-export * from "./ToolPermissionEngine";
-export * from "./ToolMonitor";
 
-// Built-in tools
-export { WebSearchTool } from "./builtins/WebSearchTool";
-export { BrowserScrapeTool } from "./builtins/BrowserScrapeTool";
-export { CodeExecutionTool } from "./builtins/CodeExecutionTool";
-export { CalculatorTool } from "./builtins/CalculatorTool";
-export { FileReadTool } from "./builtins/FileReadTool";
-export { FileWriteTool } from "./builtins/FileWriteTool";
-export { ShellCommandTool } from "./builtins/ShellCommandTool";
-export { HttpRequestTool } from "./builtins/HttpRequestTool";
+import { globalToolRegistry } from "./ToolRegistry";
+import { WebSearchTool } from "./builtins/WebSearchTool";
+import { BrowserScrapeTool } from "./builtins/BrowserScrapeTool";
+import { CodeExecutionTool } from "./builtins/CodeExecutionTool";
+import { CalculatorTool } from "./builtins/CalculatorTool";
+import { FileReadTool } from "./builtins/FileReadTool";
+import { FileWriteTool } from "./builtins/FileWriteTool";
+import { ShellCommandTool } from "./builtins/ShellCommandTool";
+import { HttpRequestTool } from "./builtins/HttpRequestTool";
+
+// Register built-in tools on module load
+for (const t of [
+  WebSearchTool,
+  BrowserScrapeTool,
+  CodeExecutionTool,
+  CalculatorTool,
+  FileReadTool,
+  FileWriteTool,
+  ShellCommandTool,
+  HttpRequestTool,
+]) {
+  if (!globalToolRegistry.has(t.name)) globalToolRegistry.register(t);
+}
+
+export {
+  WebSearchTool,
+  BrowserScrapeTool,
+  CodeExecutionTool,
+  CalculatorTool,
+  FileReadTool,
+  FileWriteTool,
+  ShellCommandTool,
+  HttpRequestTool,
+};

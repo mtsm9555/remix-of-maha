@@ -1,32 +1,22 @@
 // src/backend/tools/ToolRegistry.ts
-import { BaseTool, ToolSchema } from "./types";
-import { Logger } from "../observability/Logger";
+import { ToolDefinition } from "./types";
 
 export class ToolRegistry {
-  private tools = new Map<string, BaseTool>();
-  private schemas = new Map<string, ToolSchema>();
-  private logger = new Logger();
+  private tools: Map<string, ToolDefinition> = new Map();
 
-  register(tool: BaseTool): void {
-    const name = tool.schema.name;
-    if (this.tools.has(name)) {
-      this.logger.warn(`Tool ${name} already registered. Overwriting.`, { tool: name });
+  register(tool: ToolDefinition): void {
+    if (this.tools.has(tool.name)) {
+      console.warn(`[ToolRegistry] Tool "${tool.name}" already registered. Overwriting.`);
     }
-    this.tools.set(name, tool);
-    this.schemas.set(name, tool.schema);
-    this.logger.info(`Tool registered: ${name}`, { category: tool.schema.category, risk: tool.schema.risk });
+    this.tools.set(tool.name, tool);
+    console.log(`[ToolRegistry] Registered tool: ${tool.name}`);
   }
 
   unregister(name: string): boolean {
-    const existed = this.tools.delete(name);
-    this.schemas.delete(name);
-    if (existed) {
-      this.logger.info(`Tool unregistered: ${name}`);
-    }
-    return existed;
+    return this.tools.delete(name);
   }
 
-  get(name: string): BaseTool | undefined {
+  get(name: string): ToolDefinition | undefined {
     return this.tools.get(name);
   }
 
@@ -34,25 +24,14 @@ export class ToolRegistry {
     return this.tools.has(name);
   }
 
-  getSchema(name: string): ToolSchema | undefined {
-    return this.schemas.get(name);
+  getAll(): ToolDefinition[] {
+    return Array.from(this.tools.values());
   }
 
-  list(): ToolSchema[] {
-    return Array.from(this.schemas.values());
-  }
-
-  listByCategory(category: string): ToolSchema[] {
-    return this.list().filter((s) => s.category === category);
-  }
-
-  search(query: string): ToolSchema[] {
+  search(query: string): ToolDefinition[] {
     const q = query.toLowerCase();
-    return this.list().filter(
-      (s) =>
-        s.name.toLowerCase().includes(q) ||
-        s.description.toLowerCase().includes(q) ||
-        s.category.toLowerCase().includes(q),
+    return this.getAll().filter(
+      (t) => t.name.toLowerCase().includes(q) || t.description.toLowerCase().includes(q),
     );
   }
 
@@ -62,9 +41,17 @@ export class ToolRegistry {
 
   clear(): void {
     this.tools.clear();
-    this.schemas.clear();
-    this.logger.info("Tool registry cleared");
+  }
+
+  // Formats tools for LLM Planner Agent function-calling
+  getLLMToolSpecs() {
+    return this.getAll().map((tool) => ({
+      name: tool.name,
+      description: tool.description,
+      parameters: tool.parameters,
+    }));
   }
 }
 
-export const toolRegistry = new ToolRegistry();
+export const globalToolRegistry = new ToolRegistry();
+export const toolRegistry = globalToolRegistry;

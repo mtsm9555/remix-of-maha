@@ -1,80 +1,41 @@
 // src/backend/tools/builtins/FileWriteTool.ts
-import { BaseTool, ToolSchema, ToolExecutionContext } from "../types";
+import { z } from "zod";
+import { ToolDefinition } from "../types";
 
-export class FileWriteTool extends BaseTool {
-  schema: ToolSchema = {
-    name: "file_write",
-    description: "Write content to a file in the workspace.",
-    category: "file",
-    risk: "medium",
-    parameters: [
-      {
-        name: "path",
-        type: "string",
-        description: "Relative path to the file",
-        required: true,
-      },
-      {
-        name: "content",
-        type: "string",
-        description: "Content to write",
-        required: true,
-      },
-      {
-        name: "append",
-        type: "boolean",
-        description: "Append to existing file instead of overwriting",
-        required: false,
-        default: false,
-      },
-      {
-        name: "encoding",
-        type: "string",
-        description: "File encoding",
-        required: false,
-        default: "utf-8",
-      },
-    ],
-    returns: {
-      type: "object",
-      description: "Write confirmation with bytes written",
-    },
-    examples: [
-      '{ "path": "output/report.md", "content": "# Report\n\nSummary..." }',
-      '{ "path": "logs/events.log", "content": "New event\n", "append": true }',
-    ],
-  };
-
-  async execute(params: Record<string, any>, _context: ToolExecutionContext): Promise<any> {
-    const path = params.path as string;
-    const content = params.content as string;
-    const append = params.append ?? false;
-    const encoding = params.encoding ?? "utf-8";
-    const safePath = this.sanitizePath(path);
-
-    if (typeof globalThis !== "undefined" && (globalThis as any).writeFile) {
-      await (globalThis as any).writeFile(safePath, content, { append, encoding });
-      return {
-        path: safePath,
-        bytesWritten: content.length,
-        append,
-        encoding,
-      };
-    }
-
-    return {
-      path: safePath,
-      bytesWritten: 0,
-      append,
-      encoding,
-      warning: "File system write requires Node.js environment",
-    };
-  }
-
-  private sanitizePath(path: string): string {
-    return path
-      .replace(/\.\./g, "")
-      .replace(/^\//, "")
-      .replace(/\/\//g, "/");
-  }
+function sanitizePath(p: string): string {
+  return p.replace(/\.\./g, "").replace(/^\//, "").replace(/\/\//g, "/");
 }
+
+export const FileWriteTool: ToolDefinition = {
+  name: "file_write",
+  description: "Write content to a file in the workspace.",
+  requiresAuth: true,
+  parameters: z.object({
+    path: z.string().min(1),
+    content: z.string(),
+    append: z.boolean().optional().default(false),
+    encoding: z.string().optional().default("utf-8"),
+  }),
+  execute: async (args) => {
+    const start = Date.now();
+    try {
+      const safePath = sanitizePath(args.path);
+      const wf = (globalThis as any).writeFile;
+      if (typeof wf === "function") {
+        await wf(safePath, args.content, { append: args.append, encoding: args.encoding });
+        return {
+          success: true,
+          data: { path: safePath, bytesWritten: args.content.length, append: args.append, encoding: args.encoding },
+          executionTimeMs: Date.now() - start,
+        };
+      }
+      return {
+        success: true,
+        data: { path: safePath, bytesWritten: 0, append: args.append, encoding: args.encoding, warning: "File system write requires a configured adapter" },
+        executionTimeMs: Date.now() - start,
+      };
+    } catch (e: any) {
+      return { success: false, error: e?.message ?? String(e), executionTimeMs: Date.now() - start };
+    }
+  },
+};
