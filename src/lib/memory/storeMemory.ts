@@ -11,7 +11,9 @@ export async function storeMemory(input: string) {
       existing.push(entry);
       localStorage.setItem(key, JSON.stringify(existing));
     }
-  } catch {}
+  } catch {
+    // localStorage may be unavailable (private mode, quota); memoryLog still holds it.
+  }
   return { stored: true, entry, total: memoryLog.length };
 }
 
