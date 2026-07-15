@@ -6,9 +6,33 @@ import NotificationCenter from "@/components/maha/NotificationCenter";
 import VisionPanel from "@/components/maha/VisionPanel";
 import { useNavigate } from "@tanstack/react-router";
 import { Mic, Cpu, Brain, Bell, Settings } from "lucide-react";
+import { useHudStore } from "@/stores/hudStore";
+import { plannerAgent } from "@/agents/plannerAgent";
+import orchestrator from "@/backend/bootstrap";
+import { useState } from "react";
 
 export default function MahaDashboard() {
   const navigate = useNavigate();
+  const activeTools = useHudStore((s) => s.activeTools);
+  const activeAgents = useHudStore((s) => s.activeAgents);
+  const status = useHudStore((s) => s.status);
+  const [input, setInput] = useState("");
+
+  const runCommand = async () => {
+    const text = input.trim();
+    if (!text) return;
+    setInput("");
+    // Fire orchestrator planning task (lights up agent HUD)
+    orchestrator.execute({
+      id: crypto.randomUUID(),
+      type: "planning",
+      payload: { goal: text },
+      createdAt: new Date(),
+    });
+    // Route through planner → tool (lights up tool HUD)
+    await plannerAgent(text);
+  };
+
   return (
     <div className="min-h-screen bg-[#05080C] text-white overflow-x-hidden">
       {/* TOP BAR */}
@@ -18,19 +42,36 @@ export default function MahaDashboard() {
             MAHA OS
           </h1>
           <div className="hidden md:flex gap-6 text-xs text-cyan-300 shrink-0">
-            <span>VOICE ONLINE</span>
-            <span>MEMORY READY</span>
-            <span>TOOLS READY</span>
+            <span>STATUS: {status.toUpperCase()}</span>
+            <span>AGENTS: {activeAgents.length}</span>
+            <span>TOOLS: {activeTools.length}</span>
           </div>
           <div className="md:hidden flex items-center gap-1 text-[10px] text-cyan-300/80 shrink-0">
             <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-            ONLINE
+            {status.toUpperCase()}
           </div>
         </div>
       </header>
 
       {/* MAIN CONTENT */}
       <main className="p-3 md:p-4 pb-[calc(9rem+env(safe-area-inset-bottom))] lg:pb-4">
+        {/* COMMAND BAR */}
+        <div className="mb-3 md:mb-4 flex gap-2">
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && runCommand()}
+            placeholder="Ask Maha… (try: remember buy milk / weather / search docs)"
+            className="flex-1 bg-[#0B1118] border border-[#152533] rounded-lg px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400"
+          />
+          <button
+            onClick={runCommand}
+            className="px-4 py-2 rounded-lg bg-cyan-400 text-black text-sm font-medium active:scale-95 transition-all"
+          >
+            RUN
+          </button>
+        </div>
+
         <div className="grid gap-3 md:gap-4 lg:grid-cols-12">
           {/* TOOL GRAPH */}
           <section className="lg:col-span-3">
@@ -39,7 +80,7 @@ export default function MahaDashboard() {
                 <Cpu size={16} />
                 <span className="text-xs tracking-[0.2em]">TOOL NETWORK</span>
               </div>
-              <LiveToolGraph activeTools={[]} />
+              <LiveToolGraph activeTools={activeTools} />
             </div>
           </section>
 
