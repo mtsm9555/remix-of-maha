@@ -14,6 +14,7 @@ import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as LogsRouteImport } from './routes/logs'
 import { Route as HudRouteImport } from './routes/hud'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AgencyRouteImport } from './routes/agency'
 import { Route as IndexRouteImport } from './routes/index'
@@ -43,6 +44,11 @@ const HudRoute = HudRouteImport.update({
   path: '/hud',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ChatRoute = ChatRouteImport.update({
   id: '/chat',
   path: '/chat',
@@ -63,6 +69,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agency': typeof AgencyRoute
   '/chat': typeof ChatRoute
+  '/dashboard': typeof DashboardRoute
   '/hud': typeof HudRoute
   '/logs': typeof LogsRoute
   '/settings': typeof SettingsRoute
@@ -73,6 +80,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agency': typeof AgencyRoute
   '/chat': typeof ChatRoute
+  '/dashboard': typeof DashboardRoute
   '/hud': typeof HudRoute
   '/logs': typeof LogsRoute
   '/settings': typeof SettingsRoute
@@ -84,6 +92,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/agency': typeof AgencyRoute
   '/chat': typeof ChatRoute
+  '/dashboard': typeof DashboardRoute
   '/hud': typeof HudRoute
   '/logs': typeof LogsRoute
   '/settings': typeof SettingsRoute
@@ -96,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/agency'
     | '/chat'
+    | '/dashboard'
     | '/hud'
     | '/logs'
     | '/settings'
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/agency'
     | '/chat'
+    | '/dashboard'
     | '/hud'
     | '/logs'
     | '/settings'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
     | '/'
     | '/agency'
     | '/chat'
+    | '/dashboard'
     | '/hud'
     | '/logs'
     | '/settings'
@@ -127,6 +139,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgencyRoute: typeof AgencyRoute
   ChatRoute: typeof ChatRoute
+  DashboardRoute: typeof DashboardRoute
   HudRoute: typeof HudRoute
   LogsRoute: typeof LogsRoute
   SettingsRoute: typeof SettingsRoute
@@ -171,6 +184,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HudRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/chat': {
       id: '/chat'
       path: '/chat'
@@ -199,6 +219,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgencyRoute: AgencyRoute,
   ChatRoute: ChatRoute,
+  DashboardRoute: DashboardRoute,
   HudRoute: HudRoute,
   LogsRoute: LogsRoute,
   SettingsRoute: SettingsRoute,
