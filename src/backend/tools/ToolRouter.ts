@@ -1,79 +1,96 @@
 // src/backend/tools/ToolRouter.ts
-import { ToolCall, ToolResult } from "./types";
-import { ToolRegistry, toolRegistry } from "./ToolRegistry";
+import { ZodError } from "zod";
+import { globalToolRegistry } from "./ToolRegistry";
 import { ToolExecutor } from "./ToolExecutor";
-import { ToolPermissionEngine, toolPermissionEngine } from "./ToolPermissionEngine";
-import { ToolMonitor, toolMonitor } from "./ToolMonitor";
-import { Logger } from "../observability/Logger";
-
-export interface RouterOptions {
-  parallel?: boolean;
-  timeoutMs?: number;
-}
+import { ToolExecutionContext, ToolResult } from "./types";
 
 export class ToolRouter {
-  private executor: ToolExecutor;
-  private logger = new Logger();
+  async route(
+    toolName: string,
+    rawArgs: any,
+    context: ToolExecutionContext,
+  ): Promise<ToolResult> {
+    console.log(`[ToolRouter] Routing request to: ${toolName}`);
 
-  constructor(
-    private registry: ToolRegistry,
-    permissions: ToolPermissionEngine,
-    monitor: ToolMonitor,
-  ) {
-    this.executor = new ToolExecutor(registry, permissions, monitor, {
-      defaultTimeoutMs: 30000,
-    });
-  }
-
-  async route(call: ToolCall, options?: RouterOptions): Promise<ToolResult> {
-    this.logger.info(`Routing tool call: ${call.tool}`, { callId: call.id });
-    return this.executor.execute(call);
-  }
-
-  async routeBatch(calls: ToolCall[], options?: RouterOptions): Promise<ToolResult[]> {
-    if (options?.parallel) {
-      return this.executor.executeBatch(calls);
+    const tool = globalToolRegistry.get(toolName);
+    if (!tool) {
+      return {
+        success: false,
+        error: `Tool "${toolName}" not found in registry.`,
+        executionTimeMs: 0,
+      };
     }
-    // Sequential execution
+
+    // 1. Validate arguments against Zod schema
+    let validatedArgs: any;
+    try {
+      validatedArgs = tool.parameters.parse(rawArgs);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        return {
+          success: false,
+          error: `Invalid arguments for ${toolName}: ${error.message}`,
+          executionTimeMs: 0,
+        };
+      }
+      throw error;
+    }
+
+    // 2. Check auth requirement
+    if (tool.requiresAuth && !context.userId) {
+      return {
+        success: false,
+        error: `Authentication required for tool: ${toolName}`,
+        executionTimeMs: 0,
+      };
+    }
+
+    // 3. Delegate to Executor
+    return await ToolExecutor.execute(tool, validatedArgs, context);
+  }
+
+  async routeBatch(
+    calls: Array<{ toolName: string; args: any }>,
+    context: ToolExecutionContext,
+    options?: { parallel?: boolean },
+  ): Promise<ToolResult[]> {
+    if (options?.parallel) {
+      return Promise.all(calls.map((c) => this.route(c.toolName, c.args, context)));
+    }
     const results: ToolResult[] = [];
-    for (const call of calls) {
-      results.push(await this.executor.execute(call));
+    for (const c of calls) {
+      results.push(await this.route(c.toolName, c.args, context));
     }
     return results;
   }
 
-  listAvailableTools(): any[] {
-    return this.registry.list().map((schema) => ({
-      name: schema.name,
-      description: schema.description,
-      category: schema.category,
-      risk: schema.risk,
-      parameters: schema.parameters,
+  listAvailableTools() {
+    return globalToolRegistry.getAll().map((t) => ({
+      name: t.name,
+      description: t.description,
+      parameters: t.parameters,
+      requiresAuth: t.requiresAuth ?? false,
     }));
   }
 
-  describeTool(name: string): any | null {
-    const schema = this.registry.getSchema(name);
-    if (!schema) return null;
+  describeTool(name: string) {
+    const t = globalToolRegistry.get(name);
+    if (!t) return null;
     return {
-      name: schema.name,
-      description: schema.description,
-      category: schema.category,
-      risk: schema.risk,
-      parameters: schema.parameters,
-      returns: schema.returns,
-      examples: schema.examples,
+      name: t.name,
+      description: t.description,
+      parameters: t.parameters,
+      requiresAuth: t.requiresAuth ?? false,
     };
   }
 
-  searchTools(query: string): any[] {
-    return this.registry.search(query).map((schema) => ({
-      name: schema.name,
-      description: schema.description,
-      category: schema.category,
-      risk: schema.risk,
+  searchTools(query: string) {
+    return globalToolRegistry.search(query).map((t) => ({
+      name: t.name,
+      description: t.description,
     }));
   }
 }
 
-export const toolRouter = new ToolRouter(toolRegistry, toolPermissionEngine, toolMonitor);
+export const globalToolRouter = new ToolRouter();
+export const toolRouter = globalToolRouter;
