@@ -8,7 +8,8 @@ export class BrowserManager {
 
   async getBrowser(): Promise<BrowserLike> {
     if (!this.browser) {
-      const mod: any = await import(/* @vite-ignore */ "playwright" as string).catch(() => null);
+      const pkg = "playwright";
+      const mod: any = await import(/* @vite-ignore */ pkg).catch(() => null);
       if (mod?.chromium) {
         this.browser = await mod.chromium.launch({ headless: true });
       } else {
