@@ -1,0 +1,11 @@
+{
+  "dashboard": {
+    "title": "Maha Operations",
+    "panels": [
+      { "title": "Model Requests", "type": "graph", "metric": "model_requests" },
+      { "title": "Queue Jobs", "type": "graph", "metric": "queue_jobs" },
+      { "title": "Errors", "type": "graph", "metric": "errors_total" },
+      { "title": "Latency (ms)", "type": "graph", "metric": "request_latency_ms" }
+    ]
+  }
+}
