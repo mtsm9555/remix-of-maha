@@ -4,8 +4,13 @@ import ReactFlow, {
   MarkerType,
   type Node,
   type Edge,
+  type NodeTypes,
+  type EdgeTypes,
 } from "reactflow";
 import "reactflow/dist/style.css";
+
+const nodeTypes: NodeTypes = {};
+const edgeTypes: EdgeTypes = {};
 
 function nodeStyle(color = "#16232E") {
   return {
@@ -56,6 +61,8 @@ export default function MemoryGraph() {
       <ReactFlow
         nodes={nodes}
         edges={edges}
+        nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         fitView
         proOptions={{ hideAttribution: true }}
       >
