@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import agencyData from "@/data/agency.json";
+import { audit } from "@/backend/observability";
 
 type Agent = {
   slug: string;
@@ -59,6 +60,7 @@ export const runAgent = createServerFn({ method: "POST" })
         message: `[agency:${agent.slug}] ${data.message.slice(0, 200)} → ${reply.slice(0, 300)}`,
       });
     } catch { /* ignore */ }
+    await audit.record("system", "agent.run", { slug: agent.slug, division: agent.division, messagePreview: data.message.slice(0, 200) });
     return {
       reply,
       agent: { name: agent.name, division: agent.division, emoji: agent.emoji },

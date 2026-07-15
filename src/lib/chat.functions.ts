@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { audit } from "@/backend/observability";
 
 const messageSchema = z.object({
   role: z.enum(["user", "assistant", "system"]),
@@ -101,6 +102,7 @@ export const sendChatMessage = createServerFn({ method: "POST" })
       .update({ updated_at: new Date().toISOString() })
       .eq("id", convId);
 
+    await audit.record("system", "chat.message", { conversationId: convId, messagePreview: data.message.slice(0, 200) });
     return { conversationId: convId, reply };
   });
 

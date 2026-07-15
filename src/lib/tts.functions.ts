@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireUnlocked } from "./gate.server";
+import { audit } from "@/backend/observability";
 
 export const synthesizeVoice = createServerFn({ method: "POST" })
   .inputValidator((input: { text: string }) => {
@@ -35,5 +36,6 @@ export const synthesizeVoice = createServerFn({ method: "POST" })
 
     const buf = await res.arrayBuffer();
     const audioBase64 = Buffer.from(buf).toString("base64");
+    await audit.record("system", "voice.synthesize", { textLength: data.text.length });
     return { audioBase64, mimeType: "audio/mpeg" };
   });
