@@ -46,8 +46,8 @@ export default function MahaDashboard() {
           {/* REACTOR */}
           <section className="lg:col-span-6 order-first lg:order-none">
             <div className="rounded-xl border border-[#152533] bg-[#0B1118] p-2 md:p-4 overflow-hidden">
-              <div className="flex justify-center items-center min-h-[260px] sm:min-h-[360px] md:min-h-[500px]">
-                <div className="scale-[0.55] sm:scale-[0.75] md:scale-90 lg:scale-100 origin-center">
+              <div className="mx-auto flex justify-center items-center w-[240px] h-[240px] sm:w-[320px] sm:h-[320px] md:w-[400px] md:h-[400px] lg:w-[420px] lg:h-[420px]">
+                <div className="scale-[0.57] sm:scale-[0.76] md:scale-[0.95] lg:scale-100 origin-center">
                   <ReactorCore state="idle" />
                 </div>
               </div>
