@@ -4,6 +4,7 @@ import MemoryGraph from "@/components/maha/MemoryGraph";
 import PlannerAgentPanel from "@/components/maha/PlannerAgentPanel";
 import NotificationCenter from "@/components/maha/NotificationCenter";
 import VisionPanel from "@/components/maha/VisionPanel";
+import KnowledgeGraphPanel from "@/components/maha/KnowledgeGraphPanel";
 import { useNavigate } from "@tanstack/react-router";
 import { Mic, Cpu, Brain, Bell, Settings } from "lucide-react";
 import { useHudStore } from "@/stores/hudStore";
@@ -150,6 +151,11 @@ export default function MahaDashboard() {
               ]}
               ocrText={`MAHA OS ONLINE\nVOICE READY\nMEMORY READY`}
             />
+          </section>
+
+          {/* KNOWLEDGE GRAPH */}
+          <section className="lg:col-span-12">
+            <KnowledgeGraphPanel />
           </section>
         </div>
       </main>
