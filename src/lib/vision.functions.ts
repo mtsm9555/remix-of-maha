@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { audit } from "@/backend/observability";
 
 const InputSchema = z.object({
   imageDataUrl: z
@@ -51,5 +52,6 @@ export const extractTextFromImage = createServerFn({ method: "POST" })
       choices?: Array<{ message?: { content?: string } }>;
     };
     const text = json.choices?.[0]?.message?.content ?? "";
+    await audit.record("system", "vision.extractText", { textLength: text.length });
     return { text };
   });

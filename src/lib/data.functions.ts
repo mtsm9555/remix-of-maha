@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { audit } from "@/backend/observability";
 
 /**
  * Gated CRUD for tasks/tools/logs. Every handler calls requireUnlocked()
@@ -48,6 +49,7 @@ export const addTask = createServerFn({ method: "POST" })
       completed: false,
     });
     if (error) throw new Error(error.message);
+    await audit.record("system", "task.add", { title: data.title.trim(), priority: data.priority ?? 1 });
     return { ok: true as const };
   });
 
@@ -65,6 +67,7 @@ export const toggleTask = createServerFn({ method: "POST" })
       .update({ completed: !data.completed })
       .eq("id", data.id);
     if (error) throw new Error(error.message);
+    await audit.record("system", "task.toggle", { id: data.id, completed: !data.completed });
     return { ok: true as const };
   });
 
@@ -79,6 +82,7 @@ export const deleteTask = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.from("tasks").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
+    await audit.record("system", "task.delete", { id: data.id });
     return { ok: true as const };
   });
 

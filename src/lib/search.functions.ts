@@ -1,6 +1,7 @@
 // src/lib/search.functions.ts
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { audit } from "@/backend/observability";
 
 const GATEWAY_URL = "https://ai.gateway.lovable.dev/v1/chat/completions";
 
@@ -41,5 +42,6 @@ export const webSearch = createServerFn({ method: "POST" })
       choices?: Array<{ message?: { content?: string } }>;
     };
     const answer = json.choices?.[0]?.message?.content ?? "";
+    await audit.record("system", "search.web", { query: data.query.slice(0, 200) });
     return { answer };
   });

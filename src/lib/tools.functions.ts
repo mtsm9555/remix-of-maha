@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { audit } from "@/backend/observability";
 
 const inputSchema = z.object({
   tool: z.enum(["hermes", "picoclaw", "nemotron-ocr", "nvidia-build", "n8n", "openclaw", "genspark", "orchestrator"]),
@@ -533,9 +534,11 @@ export const runTool = createServerFn({ method: "POST" })
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       await logResult("error", `[${data.tool}] input=${data.input.slice(0, 200)} → ${msg}`);
+      await audit.record("system", "tool.run.failed", { tool: data.tool, error: msg });
       throw err;
     }
     await logResult("success", `[${data.tool}] input=${data.input.slice(0, 200)} → ${output.slice(0, 500)}`);
+    await audit.record("system", "tool.run", { tool: data.tool, inputPreview: data.input.slice(0, 200) });
     return { output };
   });
 
@@ -560,6 +563,7 @@ export const routeTask = createServerFn({ method: "POST" })
     const t0 = Date.now();
     const plan = await pickTool(data.task);
     const routerMs = Date.now() - t0;
+    await audit.record("system", "tool.route", { task: data.task.slice(0, 200), tool: plan.tool, execute: !!data.execute });
     if (!data.execute) {
       return { tool: plan.tool, input: plan.input, reason: plan.reason, routerMs };
     }

@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireUnlocked } from "./gate.server";
+import { audit } from "@/backend/observability";
 
 const schema = z.object({
   audioBase64: z.string().min(1),
@@ -34,5 +35,6 @@ export const transcribeAudio = createServerFn({ method: "POST" })
       throw new Error(`Transcription failed: ${res.status} ${err}`);
     }
     const json = (await res.json()) as { text?: string };
+    await audit.record("system", "voice.transcribe", { mimeType: data.mimeType, textPreview: (json.text ?? "").slice(0, 200) });
     return { text: json.text ?? "" };
   });
