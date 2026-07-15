@@ -13,19 +13,27 @@ export const Route = createFileRoute("/voice")({
     ],
   }),
   component: VoicePage,
-  errorComponent: ({ error, reset }) => {
-    const router = useRouter();
-    return (
-      <div className="p-8 text-center">
-        <p className="text-destructive">{error.message}</p>
-        <button className="mt-4 underline" onClick={() => { router.invalidate(); reset(); }}>
-          Try again
-        </button>
-      </div>
-    );
-  },
+  errorComponent: VoiceError,
   notFoundComponent: () => <div className="p-8">Not found</div>,
 });
+
+function VoiceError({ error, reset }: { error: Error; reset: () => void }) {
+  const router = useRouter();
+  return (
+    <div className="p-8 text-center">
+      <p className="text-destructive">{error.message}</p>
+      <button
+        className="mt-4 underline"
+        onClick={() => {
+          router.invalidate();
+          reset();
+        }}
+      >
+        Try again
+      </button>
+    </div>
+  );
+}
 
 type Status = "idle" | "recording" | "transcribing" | "thinking" | "speaking" | "error";
 
