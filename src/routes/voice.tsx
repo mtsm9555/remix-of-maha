@@ -70,6 +70,44 @@ function VoicePage() {
     return "";
   };
 
+  const handleAudio = useCallback(
+    async (blob: Blob) => {
+      try {
+        if (blob.size < 1500) {
+          setStatus("idle");
+          setError("Recording was too short — try again.");
+          return;
+        }
+        setStatus("transcribing");
+        const audioBase64 = await blobToBase64(blob);
+        const t = await transcribe({ data: { audioBase64, mimeType: blob.type || "audio/webm" } });
+        const text = (t.text || "").trim();
+        setTranscript(text);
+        if (!text) {
+          setStatus("idle");
+          setError("Didn't catch that.");
+          return;
+        }
+
+        setStatus("thinking");
+        const chat = await sendChat({ data: { conversationId, message: text } });
+        setConversationId(chat.conversationId);
+        setReply(chat.reply);
+
+        setStatus("speaking");
+        const tts = await speak({ data: { text: chat.reply } });
+        const audio = new Audio(`data:${tts.mimeType};base64,${tts.audioBase64}`);
+        audio.onended = () => setStatus("idle");
+        audio.onerror = () => setStatus("idle");
+        await audio.play();
+      } catch (err) {
+        setError((err as Error).message);
+        setStatus("error");
+      }
+    },
+    [conversationId, sendChat, speak, transcribe],
+  );
+
   const startRecording = useCallback(async () => {
     setError(null);
     setTranscript("");
@@ -93,43 +131,12 @@ function VoicePage() {
       setError((err as Error).message || "Microphone access denied");
       setStatus("error");
     }
-  }, []);
+  }, [handleAudio]);
 
   const stopRecording = useCallback(() => {
     recorderRef.current?.stop();
     recorderRef.current = null;
   }, []);
-
-  const handleAudio = async (blob: Blob) => {
-    try {
-      if (blob.size < 1500) {
-        setStatus("idle");
-        setError("Recording was too short — try again.");
-        return;
-      }
-      setStatus("transcribing");
-      const audioBase64 = await blobToBase64(blob);
-      const t = await transcribe({ data: { audioBase64, mimeType: blob.type || "audio/webm" } });
-      const text = (t.text || "").trim();
-      setTranscript(text);
-      if (!text) { setStatus("idle"); setError("Didn't catch that."); return; }
-
-      setStatus("thinking");
-      const chat = await sendChat({ data: { conversationId, message: text } });
-      setConversationId(chat.conversationId);
-      setReply(chat.reply);
-
-      setStatus("speaking");
-      const tts = await speak({ data: { text: chat.reply } });
-      const audio = new Audio(`data:${tts.mimeType};base64,${tts.audioBase64}`);
-      audio.onended = () => setStatus("idle");
-      audio.onerror = () => setStatus("idle");
-      await audio.play();
-    } catch (err) {
-      setError((err as Error).message);
-      setStatus("error");
-    }
-  };
 
   const isRecording = status === "recording";
   const busy = status === "transcribing" || status === "thinking" || status === "speaking";
