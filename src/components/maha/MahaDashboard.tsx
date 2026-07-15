@@ -4,32 +4,37 @@ import MemoryGraph from "@/components/maha/MemoryGraph";
 import PlannerAgentPanel from "@/components/maha/PlannerAgentPanel";
 import NotificationCenter from "@/components/maha/NotificationCenter";
 import VisionPanel from "@/components/maha/VisionPanel";
-
-import { Mic, Cpu, Brain, Bell } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import { Mic, Cpu, Brain, Bell, Settings } from "lucide-react";
 
 export default function MahaDashboard() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-[#05080C] text-white overflow-x-hidden">
       {/* TOP BAR */}
-      <header className="sticky top-0 z-50 h-14 border-b border-[#152533] bg-[#05080C]/90 backdrop-blur">
-        <div className="h-full px-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-cyan-300 tracking-[0.35em] font-bold">MAHA OS</h1>
-          </div>
-          <div className="hidden md:flex gap-6 text-xs text-cyan-300">
+      <header className="sticky top-0 z-50 h-14 border-b border-[#152533] bg-[#05080C]/90 backdrop-blur pt-[env(safe-area-inset-top)]">
+        <div className="h-full px-3 md:px-4 flex items-center justify-between gap-3">
+          <h1 className="text-cyan-300 tracking-[0.25em] md:tracking-[0.35em] font-bold text-sm md:text-base truncate">
+            MAHA OS
+          </h1>
+          <div className="hidden md:flex gap-6 text-xs text-cyan-300 shrink-0">
             <span>VOICE ONLINE</span>
             <span>MEMORY READY</span>
             <span>TOOLS READY</span>
+          </div>
+          <div className="md:hidden flex items-center gap-1 text-[10px] text-cyan-300/80 shrink-0">
+            <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+            ONLINE
           </div>
         </div>
       </header>
 
       {/* MAIN CONTENT */}
-      <main className="p-3 md:p-4">
-        <div className="grid gap-4 lg:grid-cols-12">
+      <main className="p-3 md:p-4 pb-[calc(9rem+env(safe-area-inset-bottom))] lg:pb-4">
+        <div className="grid gap-3 md:gap-4 lg:grid-cols-12">
           {/* TOOL GRAPH */}
           <section className="lg:col-span-3">
-            <div className="rounded-xl border border-[#152533] bg-[#0B1118] p-3">
+            <div className="rounded-xl border border-[#152533] bg-[#0B1118] p-3 overflow-hidden">
               <div className="mb-3 flex items-center gap-2 text-cyan-300">
                 <Cpu size={16} />
                 <span className="text-xs tracking-[0.2em]">TOOL NETWORK</span>
@@ -39,10 +44,10 @@ export default function MahaDashboard() {
           </section>
 
           {/* REACTOR */}
-          <section className="lg:col-span-6">
-            <div className="rounded-xl border border-[#152533] bg-[#0B1118] p-4">
-              <div className="flex justify-center items-center min-h-[320px] md:min-h-[500px]">
-                <div className="scale-[0.75] sm:scale-90 md:scale-100">
+          <section className="lg:col-span-6 order-first lg:order-none">
+            <div className="rounded-xl border border-[#152533] bg-[#0B1118] p-2 md:p-4 overflow-hidden">
+              <div className="flex justify-center items-center min-h-[260px] sm:min-h-[360px] md:min-h-[500px]">
+                <div className="scale-[0.55] sm:scale-[0.75] md:scale-90 lg:scale-100 origin-center">
                   <ReactorCore state="idle" />
                 </div>
               </div>
@@ -51,7 +56,7 @@ export default function MahaDashboard() {
 
           {/* MEMORY */}
           <section className="lg:col-span-3">
-            <div className="rounded-xl border border-[#152533] bg-[#0B1118] p-3">
+            <div className="rounded-xl border border-[#152533] bg-[#0B1118] p-3 overflow-hidden">
               <div className="mb-3 flex items-center gap-2 text-cyan-300">
                 <Brain size={16} />
                 <span className="text-xs tracking-[0.2em]">MEMORY GRAPH</span>
@@ -108,20 +113,33 @@ export default function MahaDashboard() {
         </div>
       </main>
 
-      {/* MOBILE MIC BUTTON */}
+      {/* FLOATING MIC (mobile only) */}
       <button
-        className="fixed bottom-24 right-5 md:right-8 w-16 h-16 rounded-full bg-cyan-400 text-black flex items-center justify-center shadow-[0_0_40px_#4FD8FF] hover:scale-105 transition-all"
+        onClick={() => navigate({ to: "/voice" })}
+        className="lg:hidden fixed right-4 z-50 w-14 h-14 rounded-full bg-cyan-400 text-black flex items-center justify-center shadow-[0_0_30px_#4FD8FF] active:scale-95 transition-all"
+        style={{ bottom: "calc(5rem + env(safe-area-inset-bottom))" }}
         aria-label="Activate microphone"
       >
-        <Mic size={28} />
+        <Mic size={24} />
       </button>
 
       {/* MOBILE NAVIGATION */}
-      <nav className="fixed bottom-0 left-0 right-0 lg:hidden h-16 border-t border-[#152533] bg-[#0B1118] flex justify-around items-center">
-        <Cpu size={20} />
-        <Brain size={20} />
-        <Bell size={20} />
-        <Mic size={20} />
+      <nav
+        className="fixed bottom-0 left-0 right-0 lg:hidden border-t border-[#152533] bg-[#0B1118] flex justify-around items-center z-40"
+        style={{ height: "calc(4rem + env(safe-area-inset-bottom))", paddingBottom: "env(safe-area-inset-bottom)" }}
+      >
+        <button onClick={() => navigate({ to: "/" })} aria-label="Home" className="p-3 text-cyan-300 active:scale-90">
+          <Cpu size={22} />
+        </button>
+        <button onClick={() => navigate({ to: "/chat" })} aria-label="Chat" className="p-3 text-cyan-300 active:scale-90">
+          <Brain size={22} />
+        </button>
+        <button aria-label="Alerts" className="p-3 text-cyan-300 active:scale-90">
+          <Bell size={22} />
+        </button>
+        <button onClick={() => navigate({ to: "/settings" })} aria-label="Settings" className="p-3 text-cyan-300 active:scale-90">
+          <Settings size={22} />
+        </button>
       </nav>
     </div>
   );
