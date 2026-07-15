@@ -1,10 +1,17 @@
+export type MemoryType =
+  | "episodic"
+  | "semantic"
+  | "fact"
+  | "task"
+  | "preference";
+
 export interface Memory {
   id: string;
   userId: string;
-  type: "episodic" | "semantic" | "procedural";
+  type: MemoryType;
   content: string;
   importance: number;
-  embedding: number[];
+  embedding?: number[];
   metadata?: Record<string, any>;
   createdAt: Date;
   lastAccessed: Date;
