@@ -25,7 +25,6 @@ export class ToolMonitor {
       tool: call.tool,
       callId: call.id,
       userId: call.userId,
-      timestamp: call.timestamp,
     });
   }
 
@@ -79,7 +78,6 @@ export class ToolMonitor {
       callId: result.callId,
       success: result.success,
       durationMs: result.durationMs,
-      timestamp: result.timestamp,
     });
   }
 

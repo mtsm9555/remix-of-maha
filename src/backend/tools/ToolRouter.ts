@@ -1,9 +1,9 @@
 // src/backend/tools/ToolRouter.ts
 import { ToolCall, ToolResult } from "./types";
-import { ToolRegistry } from "./ToolRegistry";
+import { ToolRegistry, toolRegistry } from "./ToolRegistry";
 import { ToolExecutor } from "./ToolExecutor";
-import { ToolPermissionEngine } from "./ToolPermissionEngine";
-import { ToolMonitor } from "./ToolMonitor";
+import { ToolPermissionEngine, toolPermissionEngine } from "./ToolPermissionEngine";
+import { ToolMonitor, toolMonitor } from "./ToolMonitor";
 import { Logger } from "../observability/Logger";
 
 export interface RouterOptions {
