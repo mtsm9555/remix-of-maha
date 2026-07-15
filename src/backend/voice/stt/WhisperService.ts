@@ -10,7 +10,7 @@ export class WhisperService {
     const res = await fetch(this.endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/octet-stream" },
-      body: audio,
+      body: audio as BodyInit,
     });
     if (!res.ok) throw new Error(`Whisper failed: ${res.status}`);
     const data = (await res.json()) as Partial<TranscriptResult>;
