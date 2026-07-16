@@ -69,7 +69,7 @@ export class PlannerAgent implements Agent {
     // and Zod validation still apply.
     const registered = globalToolRegistry.getAll();
     const toolCalls: Array<{ name: string; args: unknown }> = [];
-    const tools: Record<string, ReturnType<typeof tool>> = {};
+    const tools: Record<string, any> = {};
     for (const t of registered) {
       tools[t.name] = tool({
         description: t.description,
