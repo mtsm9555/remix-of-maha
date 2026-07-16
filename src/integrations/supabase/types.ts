@@ -298,6 +298,36 @@ export type Database = {
         }
         Relationships: []
       }
+      user_profiles: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          permissions: string[]
+          preferences: Json
+          role: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id: string
+          permissions?: string[]
+          preferences?: Json
+          role?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          permissions?: string[]
+          preferences?: Json
+          role?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       workflow_definitions: {
         Row: {
           created_at: string
@@ -386,7 +416,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_admin: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
