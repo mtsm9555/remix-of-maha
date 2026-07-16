@@ -321,7 +321,7 @@ const spec = {
   },
 } as const;
 
-export const Route = createFileRoute("/api/workflows/openapi/json")({
+export const Route = createFileRoute("/api/workflows/openapi.json")({
   server: {
     handlers: {
       GET: async () =>
