@@ -24,6 +24,9 @@ import { TrendAgent } from "./Research/TrendAgent";
 import { SupportAgent } from "./Support/SupportAgent";
 import { TicketAgent } from "./Support/TicketAgent";
 import { KnowledgeAgent } from "./Support/KnowledgeAgent";
+import { InvoiceAgent } from "./Finance/InvoiceAgent";
+import { AccountingAgent } from "./Finance/AccountingAgent";
+import { ReportingAgent } from "./Finance/ReportingAgent";
 
 export class DepartmentRegistry {
   private departments: Map<Department, DepartmentConfig> = new Map();
@@ -113,6 +116,15 @@ export class DepartmentRegistry {
       tools: ["zendesk", "freshdesk", "jira", "intercom", "wiki", "documentation"],
       workflows: ["ticket-resolution", "knowledge-creation", "customer-onboarding", "issue-escalation"],
     });
+
+    this.departments.set("finance", {
+      name: "finance",
+      displayName: "Finance Department",
+      description: "Handles invoicing, accounting, and financial reporting",
+      agents: ["finance-invoice-agent", "finance-accounting-agent", "finance-reporting-agent"],
+      tools: ["quickbooks", "xero", "invoicing-system", "payment-gateway", "excel", "tableau"],
+      workflows: ["invoice-generation", "account-reconciliation", "financial-reporting", "tax-preparation"],
+    });
   }
 
   private initializeAgents() {
@@ -141,6 +153,9 @@ export class DepartmentRegistry {
     this.registerAgent(new SupportAgent());
     this.registerAgent(new TicketAgent());
     this.registerAgent(new KnowledgeAgent());
+    this.registerAgent(new InvoiceAgent());
+    this.registerAgent(new AccountingAgent());
+    this.registerAgent(new ReportingAgent());
   }
 
   private registerAgent(agent: DepartmentAgent) {
@@ -211,6 +226,12 @@ export class DepartmentRegistry {
       return agents.find((a) => a.role.includes("Knowledge"));
     if (t.includes("support") || t.includes("customer") || t.includes("help") || t.includes("issue") || t.includes("problem") || t.includes("troubleshoot"))
       return agents.find((a) => a.role.includes("Support"));
+    if (t.includes("invoice") || t.includes("bill") || t.includes("payment") || t.includes("billing") || t.includes("quote"))
+      return agents.find((a) => a.role.includes("Invoice"));
+    if (t.includes("accounting") || t.includes("bookkeep") || t.includes("reconcil") || t.includes("expense") || t.includes("categorize transaction") || t.includes("journal entry"))
+      return agents.find((a) => a.role.includes("Accounting"));
+    if (t.includes("report") || t.includes("financial") || t.includes("p&l") || t.includes("profit") || t.includes("balance sheet") || t.includes("cash flow") || t.includes("forecast") || t.includes("kpi") || t.includes("budget"))
+      return agents.find((a) => a.role.includes("Reporting"));
     return agents.find((a) => a.status === "idle");
   }
 
