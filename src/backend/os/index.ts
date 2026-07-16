@@ -16,4 +16,5 @@ export * from "./context/ContextBuilder";
 export * from "./memory/DepartmentMemoryConsolidator";
 export * from "./permissions/ToolPermissionTypes";
 export * from "./permissions/DepartmentToolPermissions";
+export * from "./approvals/ApprovalBridge";
 export * from "./bootstrap";
