@@ -2,6 +2,8 @@ export * from "./types";
 export * from "./AgentPool";
 export * from "./InterDepartmentBus";
 export * from "./DepartmentManager";
+export * from "./TaskBoard";
+export * from "./QualityAssurance";
 export * from "./DepartmentManagerAgent";
 export * from "./ArchitectureRegistry";
 export * from "./bootstrap";
