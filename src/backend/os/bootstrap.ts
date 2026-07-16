@@ -1,6 +1,8 @@
 import { ArchitectureRegistry } from "./ArchitectureRegistry";
 import { globalDepartmentRegistry } from "../agents/departments/DepartmentRegistry";
 import type { Department } from "../agents/departments/types";
+import { initializeMarketingTools } from "./departments/marketing/MarketingTools";
+import { initializeMarketingWorkflows } from "./departments/marketing/MarketingWorkflows";
 
 const DEPARTMENTS: Array<{
   id: Department;
@@ -23,6 +25,8 @@ let initialized = false;
 export async function initializeMahaOS() {
   if (initialized) return;
   console.log("🚀 Initializing Maha AI OS Architecture...");
+  initializeMarketingTools();
+  initializeMarketingWorkflows();
   const config = DEPARTMENTS.map((d) => ({
     ...d,
     agents: globalDepartmentRegistry.getDepartmentAgents(d.id),
