@@ -15,6 +15,7 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as MahaRouteImport } from './routes/maha'
 import { Route as LogsRouteImport } from './routes/logs'
 import { Route as HudRouteImport } from './routes/hud'
+import { Route as DepartmentsRouteImport } from './routes/departments'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AgencyRouteImport } from './routes/agency'
@@ -60,6 +61,11 @@ const LogsRoute = LogsRouteImport.update({
 const HudRoute = HudRouteImport.update({
   id: '/hud',
   path: '/hud',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DepartmentsRoute = DepartmentsRouteImport.update({
+  id: '/departments',
+  path: '/departments',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -149,6 +155,7 @@ export interface FileRoutesByFullPath {
   '/agency': typeof AgencyRoute
   '/chat': typeof ChatRoute
   '/dashboard': typeof DashboardRoute
+  '/departments': typeof DepartmentsRoute
   '/hud': typeof HudRoute
   '/logs': typeof LogsRoute
   '/maha': typeof MahaRoute
@@ -173,6 +180,7 @@ export interface FileRoutesByTo {
   '/agency': typeof AgencyRoute
   '/chat': typeof ChatRoute
   '/dashboard': typeof DashboardRoute
+  '/departments': typeof DepartmentsRoute
   '/hud': typeof HudRoute
   '/logs': typeof LogsRoute
   '/maha': typeof MahaRoute
@@ -198,6 +206,7 @@ export interface FileRoutesById {
   '/agency': typeof AgencyRoute
   '/chat': typeof ChatRoute
   '/dashboard': typeof DashboardRoute
+  '/departments': typeof DepartmentsRoute
   '/hud': typeof HudRoute
   '/logs': typeof LogsRoute
   '/maha': typeof MahaRoute
@@ -224,6 +233,7 @@ export interface FileRouteTypes {
     | '/agency'
     | '/chat'
     | '/dashboard'
+    | '/departments'
     | '/hud'
     | '/logs'
     | '/maha'
@@ -248,6 +258,7 @@ export interface FileRouteTypes {
     | '/agency'
     | '/chat'
     | '/dashboard'
+    | '/departments'
     | '/hud'
     | '/logs'
     | '/maha'
@@ -272,6 +283,7 @@ export interface FileRouteTypes {
     | '/agency'
     | '/chat'
     | '/dashboard'
+    | '/departments'
     | '/hud'
     | '/logs'
     | '/maha'
@@ -297,6 +309,7 @@ export interface RootRouteChildren {
   AgencyRoute: typeof AgencyRoute
   ChatRoute: typeof ChatRoute
   DashboardRoute: typeof DashboardRoute
+  DepartmentsRoute: typeof DepartmentsRoute
   HudRoute: typeof HudRoute
   LogsRoute: typeof LogsRoute
   MahaRoute: typeof MahaRoute
@@ -359,6 +372,13 @@ declare module '@tanstack/react-router' {
       path: '/hud'
       fullPath: '/hud'
       preLoaderRoute: typeof HudRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/departments': {
+      id: '/departments'
+      path: '/departments'
+      fullPath: '/departments'
+      preLoaderRoute: typeof DepartmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -481,6 +501,7 @@ const rootRouteChildren: RootRouteChildren = {
   AgencyRoute: AgencyRoute,
   ChatRoute: ChatRoute,
   DashboardRoute: DashboardRoute,
+  DepartmentsRoute: DepartmentsRoute,
   HudRoute: HudRoute,
   LogsRoute: LogsRoute,
   MahaRoute: MahaRoute,
