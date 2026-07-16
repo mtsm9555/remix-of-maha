@@ -168,7 +168,7 @@ export class ImageUnderstandingService {
               type: 'image',
               source: {
                 type: 'base64',
-                media_type: `image/${image.format}`,
+                media_type: `image/${image.format}` as any,
                 data: image.buffer.toString('base64')
               }
             }
