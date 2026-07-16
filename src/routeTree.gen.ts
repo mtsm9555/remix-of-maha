@@ -31,6 +31,8 @@ import { Route as ApiPoliciesSplatRouteImport } from './routes/api/policies/$'
 import { Route as ApiManagerSplatRouteImport } from './routes/api/manager/$'
 import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
 import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
+import { Route as ApiCollaborationSessionsRouteImport } from './routes/api/collaboration/sessions'
+import { Route as ApiCollaborationInitiateRouteImport } from './routes/api/collaboration/initiate'
 import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
 import { Route as ApiInfrastructureDiscoveryRouteRouteImport } from './routes/api/infrastructure/discovery/route'
@@ -60,6 +62,8 @@ import { Route as ApiInfrastructureDiscoverySimulateRouteImport } from './routes
 import { Route as ApiInfrastructureCapabilitiesSearchRouteImport } from './routes/api/infrastructure/capabilities/search'
 import { Route as ApiInfrastructureCapabilitiesRevokeToolRouteImport } from './routes/api/infrastructure/capabilities/revoke-tool'
 import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './routes/api/infrastructure/capabilities/$agentId'
+import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
+import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
 import { Route as ApiIntelligenceLearnHistoryAgentIdRouteImport } from './routes/api/intelligence/learn/history.$agentId'
 import { Route as ApiInfrastructureRegistryCapacityDepartmentRouteImport } from './routes/api/infrastructure/registry/capacity.$department'
@@ -178,6 +182,18 @@ const ApiDepartmentsSplatRoute = ApiDepartmentsSplatRouteImport.update({
   path: '/api/departments/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiCollaborationSessionsRoute =
+  ApiCollaborationSessionsRouteImport.update({
+    id: '/api/collaboration/sessions',
+    path: '/api/collaboration/sessions',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiCollaborationInitiateRoute =
+  ApiCollaborationInitiateRouteImport.update({
+    id: '/api/collaboration/initiate',
+    path: '/api/collaboration/initiate',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiBudgetSplatRoute = ApiBudgetSplatRouteImport.update({
   id: '/api/budget/$',
   path: '/api/budget/$',
@@ -350,6 +366,18 @@ const ApiInfrastructureCapabilitiesAgentIdRoute =
     path: '/api/infrastructure/capabilities/$agentId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiCollaborationSessionIdProposalRoute =
+  ApiCollaborationSessionIdProposalRouteImport.update({
+    id: '/api/collaboration/$sessionId/proposal',
+    path: '/api/collaboration/$sessionId/proposal',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiCollaborationSessionIdBlackboardRoute =
+  ApiCollaborationSessionIdBlackboardRouteImport.update({
+    id: '/api/collaboration/$sessionId/blackboard',
+    path: '/api/collaboration/$sessionId/blackboard',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiIntelligenceReflectionMetricsResetRoute =
   ApiIntelligenceReflectionMetricsResetRouteImport.update({
     id: '/reset',
@@ -397,6 +425,8 @@ export interface FileRoutesByFullPath {
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
+  '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
+  '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
@@ -407,6 +437,8 @@ export interface FileRoutesByFullPath {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
+  '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -455,6 +487,8 @@ export interface FileRoutesByTo {
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
+  '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
+  '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
@@ -465,6 +499,8 @@ export interface FileRoutesByTo {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
+  '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -514,6 +550,8 @@ export interface FileRoutesById {
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
+  '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
+  '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
@@ -524,6 +562,8 @@ export interface FileRoutesById {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
+  '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -574,6 +614,8 @@ export interface FileRouteTypes {
     | '/api/infrastructure/discovery'
     | '/api/approvals/$'
     | '/api/budget/$'
+    | '/api/collaboration/initiate'
+    | '/api/collaboration/sessions'
     | '/api/departments/$'
     | '/api/goals/$'
     | '/api/manager/$'
@@ -584,6 +626,8 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/collaboration/$sessionId/blackboard'
+    | '/api/collaboration/$sessionId/proposal'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
     | '/api/infrastructure/capabilities/search'
@@ -632,6 +676,8 @@ export interface FileRouteTypes {
     | '/api/infrastructure/discovery'
     | '/api/approvals/$'
     | '/api/budget/$'
+    | '/api/collaboration/initiate'
+    | '/api/collaboration/sessions'
     | '/api/departments/$'
     | '/api/goals/$'
     | '/api/manager/$'
@@ -642,6 +688,8 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/collaboration/$sessionId/blackboard'
+    | '/api/collaboration/$sessionId/proposal'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
     | '/api/infrastructure/capabilities/search'
@@ -690,6 +738,8 @@ export interface FileRouteTypes {
     | '/api/infrastructure/discovery'
     | '/api/approvals/$'
     | '/api/budget/$'
+    | '/api/collaboration/initiate'
+    | '/api/collaboration/sessions'
     | '/api/departments/$'
     | '/api/goals/$'
     | '/api/manager/$'
@@ -700,6 +750,8 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/collaboration/$sessionId/blackboard'
+    | '/api/collaboration/$sessionId/proposal'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
     | '/api/infrastructure/capabilities/search'
@@ -749,6 +801,8 @@ export interface RootRouteChildren {
   ApiInfrastructureDiscoveryRouteRoute: typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   ApiApprovalsSplatRoute: typeof ApiApprovalsSplatRoute
   ApiBudgetSplatRoute: typeof ApiBudgetSplatRoute
+  ApiCollaborationInitiateRoute: typeof ApiCollaborationInitiateRoute
+  ApiCollaborationSessionsRoute: typeof ApiCollaborationSessionsRoute
   ApiDepartmentsSplatRoute: typeof ApiDepartmentsSplatRoute
   ApiGoalsSplatRoute: typeof ApiGoalsSplatRoute
   ApiManagerSplatRoute: typeof ApiManagerSplatRoute
@@ -759,6 +813,8 @@ export interface RootRouteChildren {
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
+  ApiCollaborationSessionIdBlackboardRoute: typeof ApiCollaborationSessionIdBlackboardRoute
+  ApiCollaborationSessionIdProposalRoute: typeof ApiCollaborationSessionIdProposalRoute
   ApiInfrastructureCapabilitiesAgentIdRoute: typeof ApiInfrastructureCapabilitiesAgentIdRoute
   ApiInfrastructureCapabilitiesRevokeToolRoute: typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   ApiInfrastructureCapabilitiesSearchRoute: typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -943,6 +999,20 @@ declare module '@tanstack/react-router' {
       path: '/api/departments/$'
       fullPath: '/api/departments/$'
       preLoaderRoute: typeof ApiDepartmentsSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/collaboration/sessions': {
+      id: '/api/collaboration/sessions'
+      path: '/api/collaboration/sessions'
+      fullPath: '/api/collaboration/sessions'
+      preLoaderRoute: typeof ApiCollaborationSessionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/collaboration/initiate': {
+      id: '/api/collaboration/initiate'
+      path: '/api/collaboration/initiate'
+      fullPath: '/api/collaboration/initiate'
+      preLoaderRoute: typeof ApiCollaborationInitiateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/budget/$': {
@@ -1148,6 +1218,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureCapabilitiesAgentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/collaboration/$sessionId/proposal': {
+      id: '/api/collaboration/$sessionId/proposal'
+      path: '/api/collaboration/$sessionId/proposal'
+      fullPath: '/api/collaboration/$sessionId/proposal'
+      preLoaderRoute: typeof ApiCollaborationSessionIdProposalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/collaboration/$sessionId/blackboard': {
+      id: '/api/collaboration/$sessionId/blackboard'
+      path: '/api/collaboration/$sessionId/blackboard'
+      fullPath: '/api/collaboration/$sessionId/blackboard'
+      preLoaderRoute: typeof ApiCollaborationSessionIdBlackboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/intelligence/reflection/metrics/reset': {
       id: '/api/intelligence/reflection/metrics/reset'
       path: '/reset'
@@ -1236,6 +1320,8 @@ const rootRouteChildren: RootRouteChildren = {
     ApiInfrastructureDiscoveryRouteRouteWithChildren,
   ApiApprovalsSplatRoute: ApiApprovalsSplatRoute,
   ApiBudgetSplatRoute: ApiBudgetSplatRoute,
+  ApiCollaborationInitiateRoute: ApiCollaborationInitiateRoute,
+  ApiCollaborationSessionsRoute: ApiCollaborationSessionsRoute,
   ApiDepartmentsSplatRoute: ApiDepartmentsSplatRoute,
   ApiGoalsSplatRoute: ApiGoalsSplatRoute,
   ApiManagerSplatRoute: ApiManagerSplatRoute,
@@ -1246,6 +1332,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
+  ApiCollaborationSessionIdBlackboardRoute:
+    ApiCollaborationSessionIdBlackboardRoute,
+  ApiCollaborationSessionIdProposalRoute:
+    ApiCollaborationSessionIdProposalRoute,
   ApiInfrastructureCapabilitiesAgentIdRoute:
     ApiInfrastructureCapabilitiesAgentIdRoute,
   ApiInfrastructureCapabilitiesRevokeToolRoute:

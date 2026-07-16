@@ -176,6 +176,42 @@ export type Database = {
         }
         Relationships: []
       }
+      agent_message_logs: {
+        Row: {
+          collaboration_id: string | null
+          created_at: string
+          id: string
+          intent: string
+          payload: Json
+          receiver_dept: string | null
+          receiver_id: string | null
+          sender_dept: string | null
+          sender_id: string
+        }
+        Insert: {
+          collaboration_id?: string | null
+          created_at?: string
+          id: string
+          intent: string
+          payload?: Json
+          receiver_dept?: string | null
+          receiver_id?: string | null
+          sender_dept?: string | null
+          sender_id: string
+        }
+        Update: {
+          collaboration_id?: string | null
+          created_at?: string
+          id?: string
+          intent?: string
+          payload?: Json
+          receiver_dept?: string | null
+          receiver_id?: string | null
+          sender_dept?: string | null
+          sender_id?: string
+        }
+        Relationships: []
+      }
       agent_messages: {
         Row: {
           content: string
@@ -394,6 +430,44 @@ export type Database = {
         }
         Relationships: []
       }
+      blackboard_artifacts: {
+        Row: {
+          collaboration_id: string
+          content: Json
+          id: string
+          locked_by: string | null
+          owner_agent_id: string
+          updated_at: string
+          version: number
+        }
+        Insert: {
+          collaboration_id: string
+          content?: Json
+          id: string
+          locked_by?: string | null
+          owner_agent_id: string
+          updated_at?: string
+          version?: number
+        }
+        Update: {
+          collaboration_id?: string
+          content?: Json
+          id?: string
+          locked_by?: string | null
+          owner_agent_id?: string
+          updated_at?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blackboard_artifacts_collaboration_id_fkey"
+            columns: ["collaboration_id"]
+            isOneToOne: false
+            referencedRelation: "collaboration_blackboards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       budget_transactions: {
         Row: {
           agent_id: string
@@ -424,6 +498,54 @@ export type Database = {
           id?: string
           metadata?: Json
           resource_type?: string
+        }
+        Relationships: []
+      }
+      collaboration_blackboards: {
+        Row: {
+          created_at: string
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      collaboration_sessions: {
+        Row: {
+          blackboard_id: string
+          completed_at: string | null
+          created_at: string
+          id: string
+          initiator_id: string
+          objective: string
+          participants: string[]
+          status: string
+        }
+        Insert: {
+          blackboard_id: string
+          completed_at?: string | null
+          created_at?: string
+          id: string
+          initiator_id: string
+          objective: string
+          participants?: string[]
+          status: string
+        }
+        Update: {
+          blackboard_id?: string
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          initiator_id?: string
+          objective?: string
+          participants?: string[]
+          status?: string
         }
         Relationships: []
       }
