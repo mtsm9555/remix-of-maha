@@ -28,6 +28,7 @@ import { Route as ApiVisionSplatRouteImport } from './routes/api/vision/$'
 import { Route as ApiManagerSplatRouteImport } from './routes/api/manager/$'
 import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
 import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
+import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
@@ -125,6 +126,11 @@ const ApiDepartmentsSplatRoute = ApiDepartmentsSplatRouteImport.update({
   path: '/api/departments/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiApprovalsSplatRoute = ApiApprovalsSplatRouteImport.update({
+  id: '/api/approvals/$',
+  path: '/api/approvals/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -138,6 +144,7 @@ export interface FileRoutesByFullPath {
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
+  '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
@@ -159,6 +166,7 @@ export interface FileRoutesByTo {
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
+  '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
@@ -181,6 +189,7 @@ export interface FileRoutesById {
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
+  '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
@@ -204,6 +213,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/voice'
     | '/api/planner-test'
+    | '/api/approvals/$'
     | '/api/departments/$'
     | '/api/goals/$'
     | '/api/manager/$'
@@ -225,6 +235,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/voice'
     | '/api/planner-test'
+    | '/api/approvals/$'
     | '/api/departments/$'
     | '/api/goals/$'
     | '/api/manager/$'
@@ -246,6 +257,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/voice'
     | '/api/planner-test'
+    | '/api/approvals/$'
     | '/api/departments/$'
     | '/api/goals/$'
     | '/api/manager/$'
@@ -268,6 +280,7 @@ export interface RootRouteChildren {
   ToolsRoute: typeof ToolsRoute
   VoiceRoute: typeof VoiceRoute
   ApiPlannerTestRoute: typeof ApiPlannerTestRoute
+  ApiApprovalsSplatRoute: typeof ApiApprovalsSplatRoute
   ApiDepartmentsSplatRoute: typeof ApiDepartmentsSplatRoute
   ApiGoalsSplatRoute: typeof ApiGoalsSplatRoute
   ApiManagerSplatRoute: typeof ApiManagerSplatRoute
@@ -413,6 +426,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDepartmentsSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/approvals/$': {
+      id: '/api/approvals/$'
+      path: '/api/approvals/$'
+      fullPath: '/api/approvals/$'
+      preLoaderRoute: typeof ApiApprovalsSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -428,6 +448,7 @@ const rootRouteChildren: RootRouteChildren = {
   ToolsRoute: ToolsRoute,
   VoiceRoute: VoiceRoute,
   ApiPlannerTestRoute: ApiPlannerTestRoute,
+  ApiApprovalsSplatRoute: ApiApprovalsSplatRoute,
   ApiDepartmentsSplatRoute: ApiDepartmentsSplatRoute,
   ApiGoalsSplatRoute: ApiGoalsSplatRoute,
   ApiManagerSplatRoute: ApiManagerSplatRoute,
