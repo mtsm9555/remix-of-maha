@@ -67,7 +67,7 @@ export class MCPGatewayManager {
       .maybeSingle();
 
     if (data?.exposed_tools) {
-      for (const tool of data.exposed_tools as MCPToolDefinition[]) {
+      for (const tool of data.exposed_tools as unknown as MCPToolDefinition[]) {
         globalToolRegistry.unregister(`mcp_${serverId}_${tool.name}`);
       }
     }
@@ -106,7 +106,7 @@ export class MCPGatewayManager {
     const config: MCPServerConfig = {
       id: data.server_id,
       name: data.name,
-      transportType: data.transport_type,
+      transportType: data.transport_type as "sse" | "http",
       endpoint: data.endpoint,
       apiKeySecretName: data.api_key_secret_name ?? undefined,
       allowedTools: data.allowed_tools,
