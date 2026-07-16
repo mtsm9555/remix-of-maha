@@ -31,4 +31,5 @@ export interface ToolAccessDecision {
   requiresApproval: boolean;
   reason: string;
   appliedConstraints?: ParameterConstraint[];
+  approvalId?: string;
 }

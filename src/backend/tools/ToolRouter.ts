@@ -6,7 +6,7 @@ import { ToolExecutionContext, ToolResult } from "./types";
 import { PermissionEngine } from "../auth/PermissionEngine";
 import type { AuthContext } from "../auth/types";
 import { DepartmentToolPermissions } from "../os/permissions/DepartmentToolPermissions";
-import { PolicyEngine } from "../os/PolicyEngine";
+import { ApprovalBridge } from "../os/approvals/ApprovalBridge";
 import type { Department } from "../agents/departments/types";
 
 export class ToolRouter {
@@ -29,16 +29,19 @@ export class ToolRouter {
       void this.logDecision(context, toolName, rawArgs, decision);
       if (!decision.allowed) {
         if (decision.requiresApproval) {
-          const approval = PolicyEngine.evaluate({
-            userId: context.userId ?? "system",
-            department: context.department as Department,
-            action: `tool:${toolName}`,
-            metadata: { args: rawArgs, reason: decision.reason, destructive: true },
-          });
-          if (!approval.allowed || approval.requiresApproval) {
+          const approvalId =
+            decision.approvalId ??
+            `apr_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+          console.log(`[ToolRouter] Pausing execution for tool: ${toolName}`);
+          const approved = await ApprovalBridge.requestApproval(
+            approvalId,
+            decision,
+            `Agent ${context.agentName ?? "unknown"} wants to use tool: ${toolName}`,
+          );
+          if (!approved) {
             return {
               success: false,
-              error: `Tool execution paused. ${approval.reason ?? decision.reason}`,
+              error: `Execution rejected by human operator.`,
               executionTimeMs: 0,
             };
           }
