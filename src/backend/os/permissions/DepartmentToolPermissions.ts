@@ -173,6 +173,13 @@ export class DepartmentToolPermissions {
         case "equals":
           if (value !== constraint.value) violated.push(constraint);
           break;
+        case "eq":
+          if (value !== constraint.value) violated.push(constraint);
+          break;
+        case "in":
+          if (!Array.isArray(constraint.value) || !constraint.value.includes(value))
+            violated.push(constraint);
+          break;
         case "not_equals":
           if (value === constraint.value) violated.push(constraint);
           break;
