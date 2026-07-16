@@ -41,6 +41,7 @@ import { Route as ApiIntelligenceLearnIndexRouteImport } from './routes/api/inte
 import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/api/intelligence/consolidate/index'
 import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
 import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/infrastructure/fleet/index'
+import { Route as ApiToolsVersioningPinRouteImport } from './routes/api/tools/versioning/pin'
 import { Route as ApiToolsMcpConnectionsRouteImport } from './routes/api/tools/mcp/connections'
 import { Route as ApiToolsMcpConnectRouteImport } from './routes/api/tools/mcp/connect'
 import { Route as ApiToolsMcpCallRouteImport } from './routes/api/tools/mcp/call'
@@ -75,7 +76,11 @@ import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './rout
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
 import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
+import { Route as ApiToolsVersioningToolNameVersionsRouteImport } from './routes/api/tools/versioning/$toolName/versions'
+import { Route as ApiToolsVersioningToolNameRollbackRouteImport } from './routes/api/tools/versioning/$toolName/rollback'
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
+import { Route as ApiPublicToolsVersioningSweepRouteImport } from './routes/api/public/tools/versioning/sweep'
+import { Route as ApiPublicToolsVersioningHealthCheckRouteImport } from './routes/api/public/tools/versioning/health-check'
 import { Route as ApiPublicAnalyticsToolsRollupRouteImport } from './routes/api/public/analytics/tools/rollup'
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
 import { Route as ApiIntelligenceLearnHistoryAgentIdRouteImport } from './routes/api/intelligence/learn/history.$agentId'
@@ -262,6 +267,11 @@ const ApiInfrastructureFleetIndexRoute =
     path: '/api/infrastructure/fleet/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiToolsVersioningPinRoute = ApiToolsVersioningPinRouteImport.update({
+  id: '/api/tools/versioning/pin',
+  path: '/api/tools/versioning/pin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiToolsMcpConnectionsRoute = ApiToolsMcpConnectionsRouteImport.update({
   id: '/api/tools/mcp/connections',
   path: '/api/tools/mcp/connections',
@@ -463,10 +473,34 @@ const ApiAnalyticsToolsOverviewRoute =
     path: '/api/analytics/tools/overview',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiToolsVersioningToolNameVersionsRoute =
+  ApiToolsVersioningToolNameVersionsRouteImport.update({
+    id: '/api/tools/versioning/$toolName/versions',
+    path: '/api/tools/versioning/$toolName/versions',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiToolsVersioningToolNameRollbackRoute =
+  ApiToolsVersioningToolNameRollbackRouteImport.update({
+    id: '/api/tools/versioning/$toolName/rollback',
+    path: '/api/tools/versioning/$toolName/rollback',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiToolsMcpDisconnectServerIdRoute =
   ApiToolsMcpDisconnectServerIdRouteImport.update({
     id: '/api/tools/mcp/disconnect/$serverId',
     path: '/api/tools/mcp/disconnect/$serverId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicToolsVersioningSweepRoute =
+  ApiPublicToolsVersioningSweepRouteImport.update({
+    id: '/api/public/tools/versioning/sweep',
+    path: '/api/public/tools/versioning/sweep',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicToolsVersioningHealthCheckRoute =
+  ApiPublicToolsVersioningHealthCheckRouteImport.update({
+    id: '/api/public/tools/versioning/health-check',
+    path: '/api/public/tools/versioning/health-check',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiPublicAnalyticsToolsRollupRoute =
@@ -622,6 +656,7 @@ export interface FileRoutesByFullPath {
   '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
   '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
   '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
+  '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
@@ -641,7 +676,11 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
   '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
+  '/api/public/tools/versioning/health-check': typeof ApiPublicToolsVersioningHealthCheckRoute
+  '/api/public/tools/versioning/sweep': typeof ApiPublicToolsVersioningSweepRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
+  '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
+  '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRoutesByTo {
@@ -706,6 +745,7 @@ export interface FileRoutesByTo {
   '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
   '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
   '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
+  '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/infrastructure/fleet': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate': typeof ApiIntelligenceConsolidateIndexRoute
@@ -725,7 +765,11 @@ export interface FileRoutesByTo {
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
   '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
+  '/api/public/tools/versioning/health-check': typeof ApiPublicToolsVersioningHealthCheckRoute
+  '/api/public/tools/versioning/sweep': typeof ApiPublicToolsVersioningSweepRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
+  '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
+  '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRoutesById {
@@ -791,6 +835,7 @@ export interface FileRoutesById {
   '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
   '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
   '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
+  '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
@@ -810,7 +855,11 @@ export interface FileRoutesById {
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
   '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
+  '/api/public/tools/versioning/health-check': typeof ApiPublicToolsVersioningHealthCheckRoute
+  '/api/public/tools/versioning/sweep': typeof ApiPublicToolsVersioningSweepRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
+  '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
+  '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRouteTypes {
@@ -877,6 +926,7 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/call'
     | '/api/tools/mcp/connect'
     | '/api/tools/mcp/connections'
+    | '/api/tools/versioning/pin'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
@@ -896,7 +946,11 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
     | '/api/public/analytics/tools/rollup'
+    | '/api/public/tools/versioning/health-check'
+    | '/api/public/tools/versioning/sweep'
     | '/api/tools/mcp/disconnect/$serverId'
+    | '/api/tools/versioning/$toolName/rollback'
+    | '/api/tools/versioning/$toolName/versions'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -961,6 +1015,7 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/call'
     | '/api/tools/mcp/connect'
     | '/api/tools/mcp/connections'
+    | '/api/tools/versioning/pin'
     | '/api/infrastructure/fleet'
     | '/api/infrastructure/registry'
     | '/api/intelligence/consolidate'
@@ -980,7 +1035,11 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
     | '/api/public/analytics/tools/rollup'
+    | '/api/public/tools/versioning/health-check'
+    | '/api/public/tools/versioning/sweep'
     | '/api/tools/mcp/disconnect/$serverId'
+    | '/api/tools/versioning/$toolName/rollback'
+    | '/api/tools/versioning/$toolName/versions'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   id:
     | '__root__'
@@ -1045,6 +1104,7 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/call'
     | '/api/tools/mcp/connect'
     | '/api/tools/mcp/connections'
+    | '/api/tools/versioning/pin'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
@@ -1064,7 +1124,11 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
     | '/api/public/analytics/tools/rollup'
+    | '/api/public/tools/versioning/health-check'
+    | '/api/public/tools/versioning/sweep'
     | '/api/tools/mcp/disconnect/$serverId'
+    | '/api/tools/versioning/$toolName/rollback'
+    | '/api/tools/versioning/$toolName/versions'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesById: FileRoutesById
 }
@@ -1129,6 +1193,7 @@ export interface RootRouteChildren {
   ApiToolsMcpCallRoute: typeof ApiToolsMcpCallRoute
   ApiToolsMcpConnectRoute: typeof ApiToolsMcpConnectRoute
   ApiToolsMcpConnectionsRoute: typeof ApiToolsMcpConnectionsRoute
+  ApiToolsVersioningPinRoute: typeof ApiToolsVersioningPinRoute
   ApiInfrastructureFleetIndexRoute: typeof ApiInfrastructureFleetIndexRoute
   ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
   ApiIntelligenceConsolidateIndexRoute: typeof ApiIntelligenceConsolidateIndexRoute
@@ -1145,7 +1210,11 @@ export interface RootRouteChildren {
   ApiInfrastructureRegistryCapacityDepartmentRoute: typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   ApiIntelligenceLearnHistoryAgentIdRoute: typeof ApiIntelligenceLearnHistoryAgentIdRoute
   ApiPublicAnalyticsToolsRollupRoute: typeof ApiPublicAnalyticsToolsRollupRoute
+  ApiPublicToolsVersioningHealthCheckRoute: typeof ApiPublicToolsVersioningHealthCheckRoute
+  ApiPublicToolsVersioningSweepRoute: typeof ApiPublicToolsVersioningSweepRoute
   ApiToolsMcpDisconnectServerIdRoute: typeof ApiToolsMcpDisconnectServerIdRoute
+  ApiToolsVersioningToolNameRollbackRoute: typeof ApiToolsVersioningToolNameRollbackRoute
+  ApiToolsVersioningToolNameVersionsRoute: typeof ApiToolsVersioningToolNameVersionsRoute
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 
@@ -1373,6 +1442,13 @@ declare module '@tanstack/react-router' {
       path: '/api/infrastructure/fleet'
       fullPath: '/api/infrastructure/fleet/'
       preLoaderRoute: typeof ApiInfrastructureFleetIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tools/versioning/pin': {
+      id: '/api/tools/versioning/pin'
+      path: '/api/tools/versioning/pin'
+      fullPath: '/api/tools/versioning/pin'
+      preLoaderRoute: typeof ApiToolsVersioningPinRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/tools/mcp/connections': {
@@ -1613,11 +1689,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAnalyticsToolsOverviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/tools/versioning/$toolName/versions': {
+      id: '/api/tools/versioning/$toolName/versions'
+      path: '/api/tools/versioning/$toolName/versions'
+      fullPath: '/api/tools/versioning/$toolName/versions'
+      preLoaderRoute: typeof ApiToolsVersioningToolNameVersionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tools/versioning/$toolName/rollback': {
+      id: '/api/tools/versioning/$toolName/rollback'
+      path: '/api/tools/versioning/$toolName/rollback'
+      fullPath: '/api/tools/versioning/$toolName/rollback'
+      preLoaderRoute: typeof ApiToolsVersioningToolNameRollbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/tools/mcp/disconnect/$serverId': {
       id: '/api/tools/mcp/disconnect/$serverId'
       path: '/api/tools/mcp/disconnect/$serverId'
       fullPath: '/api/tools/mcp/disconnect/$serverId'
       preLoaderRoute: typeof ApiToolsMcpDisconnectServerIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/tools/versioning/sweep': {
+      id: '/api/public/tools/versioning/sweep'
+      path: '/api/public/tools/versioning/sweep'
+      fullPath: '/api/public/tools/versioning/sweep'
+      preLoaderRoute: typeof ApiPublicToolsVersioningSweepRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/tools/versioning/health-check': {
+      id: '/api/public/tools/versioning/health-check'
+      path: '/api/public/tools/versioning/health-check'
+      fullPath: '/api/public/tools/versioning/health-check'
+      preLoaderRoute: typeof ApiPublicToolsVersioningHealthCheckRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/analytics/tools/rollup': {
@@ -1850,6 +1954,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiToolsMcpCallRoute: ApiToolsMcpCallRoute,
   ApiToolsMcpConnectRoute: ApiToolsMcpConnectRoute,
   ApiToolsMcpConnectionsRoute: ApiToolsMcpConnectionsRoute,
+  ApiToolsVersioningPinRoute: ApiToolsVersioningPinRoute,
   ApiInfrastructureFleetIndexRoute: ApiInfrastructureFleetIndexRoute,
   ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,
   ApiIntelligenceConsolidateIndexRoute: ApiIntelligenceConsolidateIndexRoute,
@@ -1873,7 +1978,14 @@ const rootRouteChildren: RootRouteChildren = {
   ApiIntelligenceLearnHistoryAgentIdRoute:
     ApiIntelligenceLearnHistoryAgentIdRoute,
   ApiPublicAnalyticsToolsRollupRoute: ApiPublicAnalyticsToolsRollupRoute,
+  ApiPublicToolsVersioningHealthCheckRoute:
+    ApiPublicToolsVersioningHealthCheckRoute,
+  ApiPublicToolsVersioningSweepRoute: ApiPublicToolsVersioningSweepRoute,
   ApiToolsMcpDisconnectServerIdRoute: ApiToolsMcpDisconnectServerIdRoute,
+  ApiToolsVersioningToolNameRollbackRoute:
+    ApiToolsVersioningToolNameRollbackRoute,
+  ApiToolsVersioningToolNameVersionsRoute:
+    ApiToolsVersioningToolNameVersionsRoute,
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute:
     ApiInfrastructureBudgetTopupsRequestIdApproveRoute,
 }
