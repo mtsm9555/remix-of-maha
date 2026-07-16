@@ -1,6 +1,7 @@
 import type { ContextChunk, ContextRequest } from "./ContextTypes";
 import { ArchitectureRegistry } from "../ArchitectureRegistry";
 import { DepartmentManager } from "../DepartmentManager";
+import { DepartmentMemoryEngine } from "../memory/DepartmentMemoryEngine";
 import type { Department } from "../../agents/departments/types";
 
 export class ContextSources {
@@ -58,19 +59,41 @@ KPIs: ${dept.kpis.map((k) => `${k.name} (${k.current}/${k.target} ${k.unit})`).j
   }
 
   static async getMemoryContext(request: ContextRequest): Promise<ContextChunk[]> {
-    console.log(
-      `[Context] Fetching memory for: "${request.currentTask.substring(0, 30)}..."`,
-    );
-    return [
-      {
-        id: "mem_001",
-        source: "memory",
-        content:
-          "User prefers concise, executive-style summaries. Previous project 'Alpha' failed due to budget overruns.",
-        relevanceScore: 0.85,
-        tokenEstimate: 25,
-      },
-    ];
+    if (!request.actorDepartment) return [];
+    try {
+      const memories = await DepartmentMemoryEngine.searchMemories({
+        departmentId: request.actorDepartment as Department,
+        query: request.currentTask,
+        queryEmbedding: [],
+        types: ["procedural", "semantic"],
+        limit: 3,
+        minImportance: 0.6,
+      });
+      if (memories.length === 0) return [];
+      const content = `
+<DEPARTMENT_MEMORY: ${request.actorDepartment.toUpperCase()}>
+Relevant past experiences and procedures:
+${memories
+  .map(
+    (m) =>
+      `- [${m.type.toUpperCase()}] (Importance: ${m.importanceScore}) ${m.content}`,
+  )
+  .join("\n")}
+</DEPARTMENT_MEMORY>
+      `.trim();
+      return [
+        {
+          id: `dept_mem_${request.actorDepartment}`,
+          source: "memory",
+          content,
+          relevanceScore: 0.95,
+          tokenEstimate: Math.ceil(content.length / 4),
+        },
+      ];
+    } catch (err) {
+      console.error("[Context] Department memory fetch failed:", err);
+      return [];
+    }
   }
 
   static async getGraphContext(_request: ContextRequest): Promise<ContextChunk[]> {
