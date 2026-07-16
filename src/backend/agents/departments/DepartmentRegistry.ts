@@ -2,6 +2,11 @@ import type { Department, DepartmentAgent, DepartmentConfig } from "./types";
 import { CodeAgent } from "./Development/CodeAgent";
 import { DebugAgent } from "./Development/DebugAgent";
 import { DevOpsAgent } from "./Development/DevOpsAgent";
+import { ContentAgent } from "./Marketing/ContentAgent";
+import { SEOAgent } from "./Marketing/SEOAgent";
+import { SocialMediaAgent } from "./Marketing/SocialMediaAgent";
+import { AnalyticsAgent } from "./Marketing/AnalyticsAgent";
+import { AdsAgent } from "./Marketing/AdsAgent";
 
 export class DepartmentRegistry {
   private departments: Map<Department, DepartmentConfig> = new Map();
@@ -25,10 +30,16 @@ export class DepartmentRegistry {
     this.departments.set("marketing", {
       name: "marketing",
       displayName: "Marketing Department",
-      description: "Handles marketing and content creation",
-      agents: [],
-      tools: ["google-analytics", "meta", "linkedin", "twitter"],
-      workflows: ["content-creation", "seo-optimization"],
+      description: "Handles marketing, content creation, and brand growth",
+      agents: [
+        "marketing-content-agent",
+        "marketing-seo-agent",
+        "marketing-social-agent",
+        "marketing-analytics-agent",
+        "marketing-ads-agent",
+      ],
+      tools: ["google-analytics", "meta", "linkedin", "twitter", "google-ads", "blog-cms"],
+      workflows: ["content-creation", "seo-optimization", "social-campaign", "ad-campaign"],
     });
   }
 
@@ -36,6 +47,11 @@ export class DepartmentRegistry {
     this.registerAgent(new CodeAgent());
     this.registerAgent(new DebugAgent());
     this.registerAgent(new DevOpsAgent());
+    this.registerAgent(new ContentAgent());
+    this.registerAgent(new SEOAgent());
+    this.registerAgent(new SocialMediaAgent());
+    this.registerAgent(new AnalyticsAgent());
+    this.registerAgent(new AdsAgent());
   }
 
   private registerAgent(agent: DepartmentAgent) {
