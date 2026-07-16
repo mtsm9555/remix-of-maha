@@ -46,3 +46,7 @@ export * from "./departments/operations/OpsConfig";
 export * from "./departments/operations/OpsTools";
 export * from "./departments/operations/OpsWorkflows";
 export * from "./departments/operations/OpsQualityAssurance";
+export * from "./departments/finance/FinanceConfig";
+export * from "./departments/finance/FinanceTools";
+export * from "./departments/finance/FinanceWorkflows";
+export * from "./departments/finance/FinanceQualityAssurance";
