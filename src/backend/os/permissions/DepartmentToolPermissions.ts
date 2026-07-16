@@ -185,6 +185,12 @@ export class DepartmentToolPermissions {
         case "min_value":
           if (Number(value) < constraint.value) violated.push(constraint);
           break;
+        case "gt":
+          if (Number(value) > constraint.value) violated.push(constraint);
+          break;
+        case "lt":
+          if (Number(value) < constraint.value) violated.push(constraint);
+          break;
         case "regex":
           if (!new RegExp(constraint.value).test(String(value ?? ""))) violated.push(constraint);
           break;
