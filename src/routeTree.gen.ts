@@ -41,6 +41,7 @@ import { Route as ApiIntelligenceLearnIndexRouteImport } from './routes/api/inte
 import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/api/intelligence/consolidate/index'
 import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
 import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/infrastructure/fleet/index'
+import { Route as ApiToolsVersioningPinRouteImport } from './routes/api/tools/versioning/pin'
 import { Route as ApiToolsMcpConnectionsRouteImport } from './routes/api/tools/mcp/connections'
 import { Route as ApiToolsMcpConnectRouteImport } from './routes/api/tools/mcp/connect'
 import { Route as ApiToolsMcpCallRouteImport } from './routes/api/tools/mcp/call'
@@ -263,6 +264,11 @@ const ApiInfrastructureFleetIndexRoute =
     path: '/api/infrastructure/fleet/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiToolsVersioningPinRoute = ApiToolsVersioningPinRouteImport.update({
+  id: '/api/tools/versioning/pin',
+  path: '/api/tools/versioning/pin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiToolsMcpConnectionsRoute = ApiToolsMcpConnectionsRouteImport.update({
   id: '/api/tools/mcp/connections',
   path: '/api/tools/mcp/connections',
@@ -629,6 +635,7 @@ export interface FileRoutesByFullPath {
   '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
   '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
   '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
+  '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
@@ -714,6 +721,7 @@ export interface FileRoutesByTo {
   '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
   '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
   '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
+  '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/infrastructure/fleet': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate': typeof ApiIntelligenceConsolidateIndexRoute
@@ -800,6 +808,7 @@ export interface FileRoutesById {
   '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
   '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
   '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
+  '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
@@ -887,6 +896,7 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/call'
     | '/api/tools/mcp/connect'
     | '/api/tools/mcp/connections'
+    | '/api/tools/versioning/pin'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
@@ -972,6 +982,7 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/call'
     | '/api/tools/mcp/connect'
     | '/api/tools/mcp/connections'
+    | '/api/tools/versioning/pin'
     | '/api/infrastructure/fleet'
     | '/api/infrastructure/registry'
     | '/api/intelligence/consolidate'
@@ -1057,6 +1068,7 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/call'
     | '/api/tools/mcp/connect'
     | '/api/tools/mcp/connections'
+    | '/api/tools/versioning/pin'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
@@ -1142,6 +1154,7 @@ export interface RootRouteChildren {
   ApiToolsMcpCallRoute: typeof ApiToolsMcpCallRoute
   ApiToolsMcpConnectRoute: typeof ApiToolsMcpConnectRoute
   ApiToolsMcpConnectionsRoute: typeof ApiToolsMcpConnectionsRoute
+  ApiToolsVersioningPinRoute: typeof ApiToolsVersioningPinRoute
   ApiInfrastructureFleetIndexRoute: typeof ApiInfrastructureFleetIndexRoute
   ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
   ApiIntelligenceConsolidateIndexRoute: typeof ApiIntelligenceConsolidateIndexRoute
@@ -1387,6 +1400,13 @@ declare module '@tanstack/react-router' {
       path: '/api/infrastructure/fleet'
       fullPath: '/api/infrastructure/fleet/'
       preLoaderRoute: typeof ApiInfrastructureFleetIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tools/versioning/pin': {
+      id: '/api/tools/versioning/pin'
+      path: '/api/tools/versioning/pin'
+      fullPath: '/api/tools/versioning/pin'
+      preLoaderRoute: typeof ApiToolsVersioningPinRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/tools/mcp/connections': {
@@ -1871,6 +1891,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiToolsMcpCallRoute: ApiToolsMcpCallRoute,
   ApiToolsMcpConnectRoute: ApiToolsMcpConnectRoute,
   ApiToolsMcpConnectionsRoute: ApiToolsMcpConnectionsRoute,
+  ApiToolsVersioningPinRoute: ApiToolsVersioningPinRoute,
   ApiInfrastructureFleetIndexRoute: ApiInfrastructureFleetIndexRoute,
   ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,
   ApiIntelligenceConsolidateIndexRoute: ApiIntelligenceConsolidateIndexRoute,
