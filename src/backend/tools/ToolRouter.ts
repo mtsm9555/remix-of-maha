@@ -3,14 +3,25 @@ import { ZodError } from "zod";
 import { globalToolRegistry } from "./ToolRegistry";
 import { ToolExecutor } from "./ToolExecutor";
 import { ToolExecutionContext, ToolResult } from "./types";
+import { PermissionEngine } from "../auth/PermissionEngine";
+import type { AuthContext } from "../auth/types";
 
 export class ToolRouter {
   async route(
     toolName: string,
     rawArgs: any,
     context: ToolExecutionContext,
+    authContext?: AuthContext,
   ): Promise<ToolResult> {
     console.log(`[ToolRouter] Routing request to: ${toolName}`);
+
+    if (authContext) {
+      try {
+        PermissionEngine.requirePermission(authContext, "tool", "execute", toolName);
+      } catch (error: any) {
+        return { success: false, error: error.message, executionTimeMs: 0 };
+      }
+    }
 
     const tool = globalToolRegistry.get(toolName);
     if (!tool) {
