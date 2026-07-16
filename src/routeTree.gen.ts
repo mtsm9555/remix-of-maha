@@ -22,6 +22,7 @@ import { Route as ApiPlannerTestRouteImport } from './routes/api/planner-test'
 import { Route as ApiWorkflowsOpenapiDotjsonRouteImport } from './routes/api/workflows/openapi[.]json'
 import { Route as ApiWorkflowsDocsRouteImport } from './routes/api/workflows/docs'
 import { Route as ApiWorkflowsSplatRouteImport } from './routes/api/workflows/$'
+import { Route as ApiVoiceSplatRouteImport } from './routes/api/voice/$'
 import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
 import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
 
@@ -91,6 +92,11 @@ const ApiWorkflowsSplatRoute = ApiWorkflowsSplatRouteImport.update({
   path: '/api/workflows/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiVoiceSplatRoute = ApiVoiceSplatRouteImport.update({
+  id: '/api/voice/$',
+  path: '/api/voice/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiGoalsSplatRoute = ApiGoalsSplatRouteImport.update({
   id: '/api/goals/$',
   path: '/api/goals/$',
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
+  '/api/voice/$': typeof ApiVoiceSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -132,6 +139,7 @@ export interface FileRoutesByTo {
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
+  '/api/voice/$': typeof ApiVoiceSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -150,6 +158,7 @@ export interface FileRoutesById {
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
+  '/api/voice/$': typeof ApiVoiceSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -169,6 +178,7 @@ export interface FileRouteTypes {
     | '/api/planner-test'
     | '/api/departments/$'
     | '/api/goals/$'
+    | '/api/voice/$'
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
@@ -186,6 +196,7 @@ export interface FileRouteTypes {
     | '/api/planner-test'
     | '/api/departments/$'
     | '/api/goals/$'
+    | '/api/voice/$'
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
@@ -203,6 +214,7 @@ export interface FileRouteTypes {
     | '/api/planner-test'
     | '/api/departments/$'
     | '/api/goals/$'
+    | '/api/voice/$'
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
@@ -221,6 +233,7 @@ export interface RootRouteChildren {
   ApiPlannerTestRoute: typeof ApiPlannerTestRoute
   ApiDepartmentsSplatRoute: typeof ApiDepartmentsSplatRoute
   ApiGoalsSplatRoute: typeof ApiGoalsSplatRoute
+  ApiVoiceSplatRoute: typeof ApiVoiceSplatRoute
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -319,6 +332,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiWorkflowsSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/voice/$': {
+      id: '/api/voice/$'
+      path: '/api/voice/$'
+      fullPath: '/api/voice/$'
+      preLoaderRoute: typeof ApiVoiceSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/goals/$': {
       id: '/api/goals/$'
       path: '/api/goals/$'
@@ -349,6 +369,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPlannerTestRoute: ApiPlannerTestRoute,
   ApiDepartmentsSplatRoute: ApiDepartmentsSplatRoute,
   ApiGoalsSplatRoute: ApiGoalsSplatRoute,
+  ApiVoiceSplatRoute: ApiVoiceSplatRoute,
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
