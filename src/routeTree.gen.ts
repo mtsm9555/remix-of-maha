@@ -35,6 +35,7 @@ import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
 import { Route as ApiIntelligenceLearnIndexRouteImport } from './routes/api/intelligence/learn/index'
 import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/api/intelligence/consolidate/index'
+import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/infrastructure/fleet/index'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
 import { Route as ApiIntelligenceReflectionMetricsRouteImport } from './routes/api/intelligence/reflection/metrics'
@@ -44,8 +45,11 @@ import { Route as ApiIntelligenceGraphExpandRouteImport } from './routes/api/int
 import { Route as ApiIntelligenceConsolidateStatsRouteImport } from './routes/api/intelligence/consolidate/stats'
 import { Route as ApiIntelligenceCompressionTestRouteImport } from './routes/api/intelligence/compression/test'
 import { Route as ApiIntelligenceCompressionStatsRouteImport } from './routes/api/intelligence/compression/stats'
+import { Route as ApiInfrastructureFleetLogsRouteImport } from './routes/api/infrastructure/fleet/logs'
+import { Route as ApiInfrastructureFleetHealthRouteImport } from './routes/api/infrastructure/fleet/health'
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
 import { Route as ApiIntelligenceLearnHistoryAgentIdRouteImport } from './routes/api/intelligence/learn/history.$agentId'
+import { Route as ApiInfrastructureFleetKillInstanceIdRouteImport } from './routes/api/infrastructure/fleet/kill.$instanceId'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
@@ -181,6 +185,12 @@ const ApiIntelligenceConsolidateIndexRoute =
     path: '/api/intelligence/consolidate/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiInfrastructureFleetIndexRoute =
+  ApiInfrastructureFleetIndexRouteImport.update({
+    id: '/api/infrastructure/fleet/',
+    path: '/api/infrastructure/fleet/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPrioritizationQueuePlanIdRoute =
   ApiPrioritizationQueuePlanIdRouteImport.update({
     id: '/api/prioritization/queue/$planId',
@@ -235,6 +245,18 @@ const ApiIntelligenceCompressionStatsRoute =
     path: '/api/intelligence/compression/stats',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiInfrastructureFleetLogsRoute =
+  ApiInfrastructureFleetLogsRouteImport.update({
+    id: '/api/infrastructure/fleet/logs',
+    path: '/api/infrastructure/fleet/logs',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureFleetHealthRoute =
+  ApiInfrastructureFleetHealthRouteImport.update({
+    id: '/api/infrastructure/fleet/health',
+    path: '/api/infrastructure/fleet/health',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiIntelligenceReflectionMetricsResetRoute =
   ApiIntelligenceReflectionMetricsResetRouteImport.update({
     id: '/reset',
@@ -245,6 +267,12 @@ const ApiIntelligenceLearnHistoryAgentIdRoute =
   ApiIntelligenceLearnHistoryAgentIdRouteImport.update({
     id: '/api/intelligence/learn/history/$agentId',
     path: '/api/intelligence/learn/history/$agentId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureFleetKillInstanceIdRoute =
+  ApiInfrastructureFleetKillInstanceIdRouteImport.update({
+    id: '/api/infrastructure/fleet/kill/$instanceId',
+    path: '/api/infrastructure/fleet/kill/$instanceId',
     getParentRoute: () => rootRouteImport,
   } as any)
 
@@ -273,6 +301,8 @@ export interface FileRoutesByFullPath {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/infrastructure/fleet/health': typeof ApiInfrastructureFleetHealthRoute
+  '/api/infrastructure/fleet/logs': typeof ApiInfrastructureFleetLogsRoute
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
   '/api/intelligence/consolidate/stats': typeof ApiIntelligenceConsolidateStatsRoute
@@ -282,8 +312,10 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
+  '/api/infrastructure/fleet/kill/$instanceId': typeof ApiInfrastructureFleetKillInstanceIdRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
 }
@@ -312,6 +344,8 @@ export interface FileRoutesByTo {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/infrastructure/fleet/health': typeof ApiInfrastructureFleetHealthRoute
+  '/api/infrastructure/fleet/logs': typeof ApiInfrastructureFleetLogsRoute
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
   '/api/intelligence/consolidate/stats': typeof ApiIntelligenceConsolidateStatsRoute
@@ -321,8 +355,10 @@ export interface FileRoutesByTo {
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/infrastructure/fleet': typeof ApiInfrastructureFleetIndexRoute
   '/api/intelligence/consolidate': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn': typeof ApiIntelligenceLearnIndexRoute
+  '/api/infrastructure/fleet/kill/$instanceId': typeof ApiInfrastructureFleetKillInstanceIdRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
 }
@@ -352,6 +388,8 @@ export interface FileRoutesById {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/infrastructure/fleet/health': typeof ApiInfrastructureFleetHealthRoute
+  '/api/infrastructure/fleet/logs': typeof ApiInfrastructureFleetLogsRoute
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
   '/api/intelligence/consolidate/stats': typeof ApiIntelligenceConsolidateStatsRoute
@@ -361,8 +399,10 @@ export interface FileRoutesById {
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
+  '/api/infrastructure/fleet/kill/$instanceId': typeof ApiInfrastructureFleetKillInstanceIdRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
 }
@@ -393,6 +433,8 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/infrastructure/fleet/health'
+    | '/api/infrastructure/fleet/logs'
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
     | '/api/intelligence/consolidate/stats'
@@ -402,8 +444,10 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/infrastructure/fleet/'
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
+    | '/api/infrastructure/fleet/kill/$instanceId'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
   fileRoutesByTo: FileRoutesByTo
@@ -432,6 +476,8 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/infrastructure/fleet/health'
+    | '/api/infrastructure/fleet/logs'
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
     | '/api/intelligence/consolidate/stats'
@@ -441,8 +487,10 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/infrastructure/fleet'
     | '/api/intelligence/consolidate'
     | '/api/intelligence/learn'
+    | '/api/infrastructure/fleet/kill/$instanceId'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
   id:
@@ -471,6 +519,8 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/infrastructure/fleet/health'
+    | '/api/infrastructure/fleet/logs'
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
     | '/api/intelligence/consolidate/stats'
@@ -480,8 +530,10 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/infrastructure/fleet/'
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
+    | '/api/infrastructure/fleet/kill/$instanceId'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
   fileRoutesById: FileRoutesById
@@ -511,6 +563,8 @@ export interface RootRouteChildren {
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
+  ApiInfrastructureFleetHealthRoute: typeof ApiInfrastructureFleetHealthRoute
+  ApiInfrastructureFleetLogsRoute: typeof ApiInfrastructureFleetLogsRoute
   ApiIntelligenceCompressionStatsRoute: typeof ApiIntelligenceCompressionStatsRoute
   ApiIntelligenceCompressionTestRoute: typeof ApiIntelligenceCompressionTestRoute
   ApiIntelligenceConsolidateStatsRoute: typeof ApiIntelligenceConsolidateStatsRoute
@@ -520,8 +574,10 @@ export interface RootRouteChildren {
   ApiIntelligenceReflectionMetricsRoute: typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
+  ApiInfrastructureFleetIndexRoute: typeof ApiInfrastructureFleetIndexRoute
   ApiIntelligenceConsolidateIndexRoute: typeof ApiIntelligenceConsolidateIndexRoute
   ApiIntelligenceLearnIndexRoute: typeof ApiIntelligenceLearnIndexRoute
+  ApiInfrastructureFleetKillInstanceIdRoute: typeof ApiInfrastructureFleetKillInstanceIdRoute
   ApiIntelligenceLearnHistoryAgentIdRoute: typeof ApiIntelligenceLearnHistoryAgentIdRoute
 }
 
@@ -709,6 +765,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiIntelligenceConsolidateIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/infrastructure/fleet/': {
+      id: '/api/infrastructure/fleet/'
+      path: '/api/infrastructure/fleet'
+      fullPath: '/api/infrastructure/fleet/'
+      preLoaderRoute: typeof ApiInfrastructureFleetIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/prioritization/queue/$planId': {
       id: '/api/prioritization/queue/$planId'
       path: '/api/prioritization/queue/$planId'
@@ -772,6 +835,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiIntelligenceCompressionStatsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/infrastructure/fleet/logs': {
+      id: '/api/infrastructure/fleet/logs'
+      path: '/api/infrastructure/fleet/logs'
+      fullPath: '/api/infrastructure/fleet/logs'
+      preLoaderRoute: typeof ApiInfrastructureFleetLogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/fleet/health': {
+      id: '/api/infrastructure/fleet/health'
+      path: '/api/infrastructure/fleet/health'
+      fullPath: '/api/infrastructure/fleet/health'
+      preLoaderRoute: typeof ApiInfrastructureFleetHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/intelligence/reflection/metrics/reset': {
       id: '/api/intelligence/reflection/metrics/reset'
       path: '/reset'
@@ -784,6 +861,13 @@ declare module '@tanstack/react-router' {
       path: '/api/intelligence/learn/history/$agentId'
       fullPath: '/api/intelligence/learn/history/$agentId'
       preLoaderRoute: typeof ApiIntelligenceLearnHistoryAgentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/fleet/kill/$instanceId': {
+      id: '/api/infrastructure/fleet/kill/$instanceId'
+      path: '/api/infrastructure/fleet/kill/$instanceId'
+      fullPath: '/api/infrastructure/fleet/kill/$instanceId'
+      preLoaderRoute: typeof ApiInfrastructureFleetKillInstanceIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -829,6 +913,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
+  ApiInfrastructureFleetHealthRoute: ApiInfrastructureFleetHealthRoute,
+  ApiInfrastructureFleetLogsRoute: ApiInfrastructureFleetLogsRoute,
   ApiIntelligenceCompressionStatsRoute: ApiIntelligenceCompressionStatsRoute,
   ApiIntelligenceCompressionTestRoute: ApiIntelligenceCompressionTestRoute,
   ApiIntelligenceConsolidateStatsRoute: ApiIntelligenceConsolidateStatsRoute,
@@ -839,8 +925,11 @@ const rootRouteChildren: RootRouteChildren = {
     ApiIntelligenceReflectionMetricsRouteWithChildren,
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
   ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
+  ApiInfrastructureFleetIndexRoute: ApiInfrastructureFleetIndexRoute,
   ApiIntelligenceConsolidateIndexRoute: ApiIntelligenceConsolidateIndexRoute,
   ApiIntelligenceLearnIndexRoute: ApiIntelligenceLearnIndexRoute,
+  ApiInfrastructureFleetKillInstanceIdRoute:
+    ApiInfrastructureFleetKillInstanceIdRoute,
   ApiIntelligenceLearnHistoryAgentIdRoute:
     ApiIntelligenceLearnHistoryAgentIdRoute,
 }
