@@ -80,6 +80,7 @@ import { Route as ApiInfrastructureCapabilitiesSearchRouteImport } from './route
 import { Route as ApiInfrastructureCapabilitiesRevokeToolRouteImport } from './routes/api/infrastructure/capabilities/revoke-tool'
 import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './routes/api/infrastructure/capabilities/$agentId'
 import { Route as ApiFinanceCostsTopToolsRouteImport } from './routes/api/finance/costs/top-tools'
+import { Route as ApiFinanceCostsPricingRouteImport } from './routes/api/finance/costs/pricing'
 import { Route as ApiFinanceCostsDepartmentsRouteImport } from './routes/api/finance/costs/departments'
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
@@ -501,6 +502,11 @@ const ApiFinanceCostsTopToolsRoute = ApiFinanceCostsTopToolsRouteImport.update({
   path: '/api/finance/costs/top-tools',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiFinanceCostsPricingRoute = ApiFinanceCostsPricingRouteImport.update({
+  id: '/api/finance/costs/pricing',
+  path: '/api/finance/costs/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiFinanceCostsDepartmentsRoute =
   ApiFinanceCostsDepartmentsRouteImport.update({
     id: '/api/finance/costs/departments',
@@ -678,6 +684,7 @@ export interface FileRoutesByFullPath {
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
+  '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
@@ -775,6 +782,7 @@ export interface FileRoutesByTo {
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
+  '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
@@ -873,6 +881,7 @@ export interface FileRoutesById {
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
+  '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
@@ -972,6 +981,7 @@ export interface FileRouteTypes {
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/finance/costs/departments'
+    | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
@@ -1069,6 +1079,7 @@ export interface FileRouteTypes {
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/finance/costs/departments'
+    | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
@@ -1166,6 +1177,7 @@ export interface FileRouteTypes {
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/finance/costs/departments'
+    | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
@@ -1264,6 +1276,7 @@ export interface RootRouteChildren {
   ApiCollaborationSessionIdBlackboardRoute: typeof ApiCollaborationSessionIdBlackboardRoute
   ApiCollaborationSessionIdProposalRoute: typeof ApiCollaborationSessionIdProposalRoute
   ApiFinanceCostsDepartmentsRoute: typeof ApiFinanceCostsDepartmentsRoute
+  ApiFinanceCostsPricingRoute: typeof ApiFinanceCostsPricingRoute
   ApiFinanceCostsTopToolsRoute: typeof ApiFinanceCostsTopToolsRoute
   ApiInfrastructureCapabilitiesAgentIdRoute: typeof ApiInfrastructureCapabilitiesAgentIdRoute
   ApiInfrastructureCapabilitiesRevokeToolRoute: typeof ApiInfrastructureCapabilitiesRevokeToolRoute
@@ -1825,6 +1838,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiFinanceCostsTopToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/finance/costs/pricing': {
+      id: '/api/finance/costs/pricing'
+      path: '/api/finance/costs/pricing'
+      fullPath: '/api/finance/costs/pricing'
+      preLoaderRoute: typeof ApiFinanceCostsPricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/finance/costs/departments': {
       id: '/api/finance/costs/departments'
       path: '/api/finance/costs/departments'
@@ -2079,6 +2099,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiCollaborationSessionIdProposalRoute:
     ApiCollaborationSessionIdProposalRoute,
   ApiFinanceCostsDepartmentsRoute: ApiFinanceCostsDepartmentsRoute,
+  ApiFinanceCostsPricingRoute: ApiFinanceCostsPricingRoute,
   ApiFinanceCostsTopToolsRoute: ApiFinanceCostsTopToolsRoute,
   ApiInfrastructureCapabilitiesAgentIdRoute:
     ApiInfrastructureCapabilitiesAgentIdRoute,
