@@ -11,6 +11,10 @@ import { LeadAgent } from "./Sales/LeadAgent";
 import { CRMAgent } from "./Sales/CRMAgent";
 import { OutreachAgent } from "./Sales/OutreachAgent";
 import { ProposalAgent } from "./Sales/ProposalAgent";
+import { UIAgent } from "./Design/UIAgent";
+import { UXAgent } from "./Design/UXAgent";
+import { GraphicAgent } from "./Design/GraphicAgent";
+import { VideoAgent } from "./Design/VideoAgent";
 
 export class DepartmentRegistry {
   private departments: Map<Department, DepartmentConfig> = new Map();
@@ -59,6 +63,20 @@ export class DepartmentRegistry {
       tools: ["salesforce", "hubspot", "linkedin", "email", "crm", "docs"],
       workflows: ["lead-generation", "outreach-campaign", "proposal-creation"],
     });
+
+    this.departments.set("design", {
+      name: "design",
+      displayName: "Design Department",
+      description: "Handles UI/UX design, graphics, and video content creation",
+      agents: [
+        "design-ui-agent",
+        "design-ux-agent",
+        "design-graphic-agent",
+        "design-video-agent",
+      ],
+      tools: ["figma", "canva", "image-models", "video-models", "tailwind"],
+      workflows: ["ui-design", "ux-research", "brand-creation", "video-production"],
+    });
   }
 
   private initializeAgents() {
@@ -74,6 +92,10 @@ export class DepartmentRegistry {
     this.registerAgent(new CRMAgent());
     this.registerAgent(new OutreachAgent());
     this.registerAgent(new ProposalAgent());
+    this.registerAgent(new UIAgent());
+    this.registerAgent(new UXAgent());
+    this.registerAgent(new GraphicAgent());
+    this.registerAgent(new VideoAgent());
   }
 
   private registerAgent(agent: DepartmentAgent) {
@@ -118,6 +140,14 @@ export class DepartmentRegistry {
       return agents.find((a) => a.role.includes("Outreach"));
     if (t.includes("proposal") || t.includes("quote") || t.includes("pricing"))
       return agents.find((a) => a.role.includes("Proposal"));
+    if (t.includes("ui") || t.includes("interface") || t.includes("component") || t.includes("layout"))
+      return agents.find((a) => a.role.includes("UI"));
+    if (t.includes("ux") || t.includes("user experience") || t.includes("user flow") || t.includes("journey") || t.includes("wireframe"))
+      return agents.find((a) => a.role.includes("UX") || a.role.includes("User Experience"));
+    if (t.includes("logo") || t.includes("graphic") || t.includes("brand") || t.includes("illustration") || t.includes("banner") || t.includes("poster"))
+      return agents.find((a) => a.role.includes("Graphic"));
+    if (t.includes("video") || t.includes("storyboard") || t.includes("script") || t.includes("animation"))
+      return agents.find((a) => a.role.includes("Video"));
     return agents.find((a) => a.status === "idle");
   }
 
