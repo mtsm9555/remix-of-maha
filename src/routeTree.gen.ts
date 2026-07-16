@@ -58,6 +58,7 @@ import { Route as ApiIntelligenceConsolidateStatsRouteImport } from './routes/ap
 import { Route as ApiIntelligenceCompressionTestRouteImport } from './routes/api/intelligence/compression/test'
 import { Route as ApiIntelligenceCompressionStatsRouteImport } from './routes/api/intelligence/compression/stats'
 import { Route as ApiInfrastructureSandboxExecutionsRouteImport } from './routes/api/infrastructure/sandbox/executions'
+import { Route as ApiInfrastructureSandboxAlertsRouteImport } from './routes/api/infrastructure/sandbox/alerts'
 import { Route as ApiInfrastructureReputationOverrideRouteImport } from './routes/api/infrastructure/reputation/override'
 import { Route as ApiInfrastructureReputationEventRouteImport } from './routes/api/infrastructure/reputation/event'
 import { Route as ApiInfrastructureReputationAgentIdRouteImport } from './routes/api/infrastructure/reputation/$agentId'
@@ -366,6 +367,12 @@ const ApiInfrastructureSandboxExecutionsRoute =
     path: '/api/infrastructure/sandbox/executions',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiInfrastructureSandboxAlertsRoute =
+  ApiInfrastructureSandboxAlertsRouteImport.update({
+    id: '/api/infrastructure/sandbox/alerts',
+    path: '/api/infrastructure/sandbox/alerts',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiInfrastructureReputationOverrideRoute =
   ApiInfrastructureReputationOverrideRouteImport.update({
     id: '/api/infrastructure/reputation/override',
@@ -648,6 +655,7 @@ export interface FileRoutesByFullPath {
   '/api/infrastructure/reputation/$agentId': typeof ApiInfrastructureReputationAgentIdRoute
   '/api/infrastructure/reputation/event': typeof ApiInfrastructureReputationEventRoute
   '/api/infrastructure/reputation/override': typeof ApiInfrastructureReputationOverrideRoute
+  '/api/infrastructure/sandbox/alerts': typeof ApiInfrastructureSandboxAlertsRoute
   '/api/infrastructure/sandbox/executions': typeof ApiInfrastructureSandboxExecutionsRoute
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
@@ -738,6 +746,7 @@ export interface FileRoutesByTo {
   '/api/infrastructure/reputation/$agentId': typeof ApiInfrastructureReputationAgentIdRoute
   '/api/infrastructure/reputation/event': typeof ApiInfrastructureReputationEventRoute
   '/api/infrastructure/reputation/override': typeof ApiInfrastructureReputationOverrideRoute
+  '/api/infrastructure/sandbox/alerts': typeof ApiInfrastructureSandboxAlertsRoute
   '/api/infrastructure/sandbox/executions': typeof ApiInfrastructureSandboxExecutionsRoute
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
@@ -829,6 +838,7 @@ export interface FileRoutesById {
   '/api/infrastructure/reputation/$agentId': typeof ApiInfrastructureReputationAgentIdRoute
   '/api/infrastructure/reputation/event': typeof ApiInfrastructureReputationEventRoute
   '/api/infrastructure/reputation/override': typeof ApiInfrastructureReputationOverrideRoute
+  '/api/infrastructure/sandbox/alerts': typeof ApiInfrastructureSandboxAlertsRoute
   '/api/infrastructure/sandbox/executions': typeof ApiInfrastructureSandboxExecutionsRoute
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
@@ -921,6 +931,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/reputation/$agentId'
     | '/api/infrastructure/reputation/event'
     | '/api/infrastructure/reputation/override'
+    | '/api/infrastructure/sandbox/alerts'
     | '/api/infrastructure/sandbox/executions'
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
@@ -1011,6 +1022,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/reputation/$agentId'
     | '/api/infrastructure/reputation/event'
     | '/api/infrastructure/reputation/override'
+    | '/api/infrastructure/sandbox/alerts'
     | '/api/infrastructure/sandbox/executions'
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
@@ -1101,6 +1113,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/reputation/$agentId'
     | '/api/infrastructure/reputation/event'
     | '/api/infrastructure/reputation/override'
+    | '/api/infrastructure/sandbox/alerts'
     | '/api/infrastructure/sandbox/executions'
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
@@ -1191,6 +1204,7 @@ export interface RootRouteChildren {
   ApiInfrastructureReputationAgentIdRoute: typeof ApiInfrastructureReputationAgentIdRoute
   ApiInfrastructureReputationEventRoute: typeof ApiInfrastructureReputationEventRoute
   ApiInfrastructureReputationOverrideRoute: typeof ApiInfrastructureReputationOverrideRoute
+  ApiInfrastructureSandboxAlertsRoute: typeof ApiInfrastructureSandboxAlertsRoute
   ApiInfrastructureSandboxExecutionsRoute: typeof ApiInfrastructureSandboxExecutionsRoute
   ApiIntelligenceCompressionStatsRoute: typeof ApiIntelligenceCompressionStatsRoute
   ApiIntelligenceCompressionTestRoute: typeof ApiIntelligenceCompressionTestRoute
@@ -1577,6 +1591,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureSandboxExecutionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/infrastructure/sandbox/alerts': {
+      id: '/api/infrastructure/sandbox/alerts'
+      path: '/api/infrastructure/sandbox/alerts'
+      fullPath: '/api/infrastructure/sandbox/alerts'
+      preLoaderRoute: typeof ApiInfrastructureSandboxAlertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/infrastructure/reputation/override': {
       id: '/api/infrastructure/reputation/override'
       path: '/api/infrastructure/reputation/override'
@@ -1959,6 +1980,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiInfrastructureReputationEventRoute: ApiInfrastructureReputationEventRoute,
   ApiInfrastructureReputationOverrideRoute:
     ApiInfrastructureReputationOverrideRoute,
+  ApiInfrastructureSandboxAlertsRoute: ApiInfrastructureSandboxAlertsRoute,
   ApiInfrastructureSandboxExecutionsRoute:
     ApiInfrastructureSandboxExecutionsRoute,
   ApiIntelligenceCompressionStatsRoute: ApiIntelligenceCompressionStatsRoute,
