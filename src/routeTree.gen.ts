@@ -74,6 +74,7 @@ import { Route as ApiInfrastructureCapabilitiesRevokeToolRouteImport } from './r
 import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './routes/api/infrastructure/capabilities/$agentId'
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
+import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
 import { Route as ApiIntelligenceLearnHistoryAgentIdRouteImport } from './routes/api/intelligence/learn/history.$agentId'
@@ -452,6 +453,12 @@ const ApiCollaborationSessionIdBlackboardRoute =
     path: '/api/collaboration/$sessionId/blackboard',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiAnalyticsToolsOverviewRoute =
+  ApiAnalyticsToolsOverviewRouteImport.update({
+    id: '/api/analytics/tools/overview',
+    path: '/api/analytics/tools/overview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiToolsMcpDisconnectServerIdRoute =
   ApiToolsMcpDisconnectServerIdRouteImport.update({
     id: '/api/tools/mcp/disconnect/$serverId',
@@ -553,6 +560,7 @@ export interface FileRoutesByFullPath {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
@@ -632,6 +640,7 @@ export interface FileRoutesByTo {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
@@ -712,6 +721,7 @@ export interface FileRoutesById {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
@@ -793,6 +803,7 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/infrastructure/capabilities/$agentId'
@@ -872,6 +883,7 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/infrastructure/capabilities/$agentId'
@@ -951,6 +963,7 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/infrastructure/capabilities/$agentId'
@@ -1031,6 +1044,7 @@ export interface RootRouteChildren {
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
+  ApiAnalyticsToolsOverviewRoute: typeof ApiAnalyticsToolsOverviewRoute
   ApiCollaborationSessionIdBlackboardRoute: typeof ApiCollaborationSessionIdBlackboardRoute
   ApiCollaborationSessionIdProposalRoute: typeof ApiCollaborationSessionIdProposalRoute
   ApiInfrastructureCapabilitiesAgentIdRoute: typeof ApiInfrastructureCapabilitiesAgentIdRoute
@@ -1536,6 +1550,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCollaborationSessionIdBlackboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/analytics/tools/overview': {
+      id: '/api/analytics/tools/overview'
+      path: '/api/analytics/tools/overview'
+      fullPath: '/api/analytics/tools/overview'
+      preLoaderRoute: typeof ApiAnalyticsToolsOverviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/tools/mcp/disconnect/$serverId': {
       id: '/api/tools/mcp/disconnect/$serverId'
       path: '/api/tools/mcp/disconnect/$serverId'
@@ -1700,6 +1721,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
+  ApiAnalyticsToolsOverviewRoute: ApiAnalyticsToolsOverviewRoute,
   ApiCollaborationSessionIdBlackboardRoute:
     ApiCollaborationSessionIdBlackboardRoute,
   ApiCollaborationSessionIdProposalRoute:
