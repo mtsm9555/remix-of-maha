@@ -17,7 +17,7 @@ export interface PlannerInput {
 export interface PlannerOutput {
   text: string;
   steps: number;
-  toolCalls: Array<{ name: string; args: unknown }>;
+  toolCalls: Array<{ name: string; args: any }>;
 }
 
 /**
@@ -68,7 +68,7 @@ export class PlannerAgent implements Agent {
     // Build tool set from the registry, executing via the ToolRouter so RBAC
     // and Zod validation still apply.
     const registered = globalToolRegistry.getAll();
-    const toolCalls: Array<{ name: string; args: unknown }> = [];
+    const toolCalls: Array<{ name: string; args: any }> = [];
     const tools: Record<string, any> = {};
     for (const t of registered) {
       tools[t.name] = tool({
