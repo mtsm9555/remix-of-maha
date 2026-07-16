@@ -35,6 +35,7 @@ import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
 import { Route as ApiIntelligenceLearnIndexRouteImport } from './routes/api/intelligence/learn/index'
 import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/api/intelligence/consolidate/index'
+import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
 import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/infrastructure/fleet/index'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
@@ -45,10 +46,15 @@ import { Route as ApiIntelligenceGraphExpandRouteImport } from './routes/api/int
 import { Route as ApiIntelligenceConsolidateStatsRouteImport } from './routes/api/intelligence/consolidate/stats'
 import { Route as ApiIntelligenceCompressionTestRouteImport } from './routes/api/intelligence/compression/test'
 import { Route as ApiIntelligenceCompressionStatsRouteImport } from './routes/api/intelligence/compression/stats'
+import { Route as ApiInfrastructureRegistryRegisterRouteImport } from './routes/api/infrastructure/registry/register'
+import { Route as ApiInfrastructureRegistryHeartbeatRouteImport } from './routes/api/infrastructure/registry/heartbeat'
+import { Route as ApiInfrastructureRegistryDiscoverRouteImport } from './routes/api/infrastructure/registry/discover'
+import { Route as ApiInfrastructureRegistryCleanupRouteImport } from './routes/api/infrastructure/registry/cleanup'
 import { Route as ApiInfrastructureFleetLogsRouteImport } from './routes/api/infrastructure/fleet/logs'
 import { Route as ApiInfrastructureFleetHealthRouteImport } from './routes/api/infrastructure/fleet/health'
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
 import { Route as ApiIntelligenceLearnHistoryAgentIdRouteImport } from './routes/api/intelligence/learn/history.$agentId'
+import { Route as ApiInfrastructureRegistryCapacityDepartmentRouteImport } from './routes/api/infrastructure/registry/capacity.$department'
 import { Route as ApiInfrastructureFleetKillInstanceIdRouteImport } from './routes/api/infrastructure/fleet/kill.$instanceId'
 
 const VoiceRoute = VoiceRouteImport.update({
@@ -185,6 +191,12 @@ const ApiIntelligenceConsolidateIndexRoute =
     path: '/api/intelligence/consolidate/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiInfrastructureRegistryIndexRoute =
+  ApiInfrastructureRegistryIndexRouteImport.update({
+    id: '/api/infrastructure/registry/',
+    path: '/api/infrastructure/registry/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiInfrastructureFleetIndexRoute =
   ApiInfrastructureFleetIndexRouteImport.update({
     id: '/api/infrastructure/fleet/',
@@ -245,6 +257,30 @@ const ApiIntelligenceCompressionStatsRoute =
     path: '/api/intelligence/compression/stats',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiInfrastructureRegistryRegisterRoute =
+  ApiInfrastructureRegistryRegisterRouteImport.update({
+    id: '/api/infrastructure/registry/register',
+    path: '/api/infrastructure/registry/register',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureRegistryHeartbeatRoute =
+  ApiInfrastructureRegistryHeartbeatRouteImport.update({
+    id: '/api/infrastructure/registry/heartbeat',
+    path: '/api/infrastructure/registry/heartbeat',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureRegistryDiscoverRoute =
+  ApiInfrastructureRegistryDiscoverRouteImport.update({
+    id: '/api/infrastructure/registry/discover',
+    path: '/api/infrastructure/registry/discover',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureRegistryCleanupRoute =
+  ApiInfrastructureRegistryCleanupRouteImport.update({
+    id: '/api/infrastructure/registry/cleanup',
+    path: '/api/infrastructure/registry/cleanup',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiInfrastructureFleetLogsRoute =
   ApiInfrastructureFleetLogsRouteImport.update({
     id: '/api/infrastructure/fleet/logs',
@@ -267,6 +303,12 @@ const ApiIntelligenceLearnHistoryAgentIdRoute =
   ApiIntelligenceLearnHistoryAgentIdRouteImport.update({
     id: '/api/intelligence/learn/history/$agentId',
     path: '/api/intelligence/learn/history/$agentId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureRegistryCapacityDepartmentRoute =
+  ApiInfrastructureRegistryCapacityDepartmentRouteImport.update({
+    id: '/api/infrastructure/registry/capacity/$department',
+    path: '/api/infrastructure/registry/capacity/$department',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiInfrastructureFleetKillInstanceIdRoute =
@@ -303,6 +345,10 @@ export interface FileRoutesByFullPath {
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/infrastructure/fleet/health': typeof ApiInfrastructureFleetHealthRoute
   '/api/infrastructure/fleet/logs': typeof ApiInfrastructureFleetLogsRoute
+  '/api/infrastructure/registry/cleanup': typeof ApiInfrastructureRegistryCleanupRoute
+  '/api/infrastructure/registry/discover': typeof ApiInfrastructureRegistryDiscoverRoute
+  '/api/infrastructure/registry/heartbeat': typeof ApiInfrastructureRegistryHeartbeatRoute
+  '/api/infrastructure/registry/register': typeof ApiInfrastructureRegistryRegisterRoute
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
   '/api/intelligence/consolidate/stats': typeof ApiIntelligenceConsolidateStatsRoute
@@ -313,9 +359,11 @@ export interface FileRoutesByFullPath {
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
+  '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/infrastructure/fleet/kill/$instanceId': typeof ApiInfrastructureFleetKillInstanceIdRoute
+  '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
 }
@@ -346,6 +394,10 @@ export interface FileRoutesByTo {
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/infrastructure/fleet/health': typeof ApiInfrastructureFleetHealthRoute
   '/api/infrastructure/fleet/logs': typeof ApiInfrastructureFleetLogsRoute
+  '/api/infrastructure/registry/cleanup': typeof ApiInfrastructureRegistryCleanupRoute
+  '/api/infrastructure/registry/discover': typeof ApiInfrastructureRegistryDiscoverRoute
+  '/api/infrastructure/registry/heartbeat': typeof ApiInfrastructureRegistryHeartbeatRoute
+  '/api/infrastructure/registry/register': typeof ApiInfrastructureRegistryRegisterRoute
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
   '/api/intelligence/consolidate/stats': typeof ApiIntelligenceConsolidateStatsRoute
@@ -356,9 +408,11 @@ export interface FileRoutesByTo {
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
   '/api/infrastructure/fleet': typeof ApiInfrastructureFleetIndexRoute
+  '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn': typeof ApiIntelligenceLearnIndexRoute
   '/api/infrastructure/fleet/kill/$instanceId': typeof ApiInfrastructureFleetKillInstanceIdRoute
+  '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
 }
@@ -390,6 +444,10 @@ export interface FileRoutesById {
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/infrastructure/fleet/health': typeof ApiInfrastructureFleetHealthRoute
   '/api/infrastructure/fleet/logs': typeof ApiInfrastructureFleetLogsRoute
+  '/api/infrastructure/registry/cleanup': typeof ApiInfrastructureRegistryCleanupRoute
+  '/api/infrastructure/registry/discover': typeof ApiInfrastructureRegistryDiscoverRoute
+  '/api/infrastructure/registry/heartbeat': typeof ApiInfrastructureRegistryHeartbeatRoute
+  '/api/infrastructure/registry/register': typeof ApiInfrastructureRegistryRegisterRoute
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
   '/api/intelligence/consolidate/stats': typeof ApiIntelligenceConsolidateStatsRoute
@@ -400,9 +458,11 @@ export interface FileRoutesById {
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
+  '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/infrastructure/fleet/kill/$instanceId': typeof ApiInfrastructureFleetKillInstanceIdRoute
+  '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
 }
@@ -435,6 +495,10 @@ export interface FileRouteTypes {
     | '/api/workflows/openapi.json'
     | '/api/infrastructure/fleet/health'
     | '/api/infrastructure/fleet/logs'
+    | '/api/infrastructure/registry/cleanup'
+    | '/api/infrastructure/registry/discover'
+    | '/api/infrastructure/registry/heartbeat'
+    | '/api/infrastructure/registry/register'
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
     | '/api/intelligence/consolidate/stats'
@@ -445,9 +509,11 @@ export interface FileRouteTypes {
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
     | '/api/infrastructure/fleet/'
+    | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
     | '/api/infrastructure/fleet/kill/$instanceId'
+    | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
   fileRoutesByTo: FileRoutesByTo
@@ -478,6 +544,10 @@ export interface FileRouteTypes {
     | '/api/workflows/openapi.json'
     | '/api/infrastructure/fleet/health'
     | '/api/infrastructure/fleet/logs'
+    | '/api/infrastructure/registry/cleanup'
+    | '/api/infrastructure/registry/discover'
+    | '/api/infrastructure/registry/heartbeat'
+    | '/api/infrastructure/registry/register'
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
     | '/api/intelligence/consolidate/stats'
@@ -488,9 +558,11 @@ export interface FileRouteTypes {
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
     | '/api/infrastructure/fleet'
+    | '/api/infrastructure/registry'
     | '/api/intelligence/consolidate'
     | '/api/intelligence/learn'
     | '/api/infrastructure/fleet/kill/$instanceId'
+    | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
   id:
@@ -521,6 +593,10 @@ export interface FileRouteTypes {
     | '/api/workflows/openapi.json'
     | '/api/infrastructure/fleet/health'
     | '/api/infrastructure/fleet/logs'
+    | '/api/infrastructure/registry/cleanup'
+    | '/api/infrastructure/registry/discover'
+    | '/api/infrastructure/registry/heartbeat'
+    | '/api/infrastructure/registry/register'
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
     | '/api/intelligence/consolidate/stats'
@@ -531,9 +607,11 @@ export interface FileRouteTypes {
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
     | '/api/infrastructure/fleet/'
+    | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
     | '/api/infrastructure/fleet/kill/$instanceId'
+    | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
   fileRoutesById: FileRoutesById
@@ -565,6 +643,10 @@ export interface RootRouteChildren {
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
   ApiInfrastructureFleetHealthRoute: typeof ApiInfrastructureFleetHealthRoute
   ApiInfrastructureFleetLogsRoute: typeof ApiInfrastructureFleetLogsRoute
+  ApiInfrastructureRegistryCleanupRoute: typeof ApiInfrastructureRegistryCleanupRoute
+  ApiInfrastructureRegistryDiscoverRoute: typeof ApiInfrastructureRegistryDiscoverRoute
+  ApiInfrastructureRegistryHeartbeatRoute: typeof ApiInfrastructureRegistryHeartbeatRoute
+  ApiInfrastructureRegistryRegisterRoute: typeof ApiInfrastructureRegistryRegisterRoute
   ApiIntelligenceCompressionStatsRoute: typeof ApiIntelligenceCompressionStatsRoute
   ApiIntelligenceCompressionTestRoute: typeof ApiIntelligenceCompressionTestRoute
   ApiIntelligenceConsolidateStatsRoute: typeof ApiIntelligenceConsolidateStatsRoute
@@ -575,9 +657,11 @@ export interface RootRouteChildren {
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
   ApiInfrastructureFleetIndexRoute: typeof ApiInfrastructureFleetIndexRoute
+  ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
   ApiIntelligenceConsolidateIndexRoute: typeof ApiIntelligenceConsolidateIndexRoute
   ApiIntelligenceLearnIndexRoute: typeof ApiIntelligenceLearnIndexRoute
   ApiInfrastructureFleetKillInstanceIdRoute: typeof ApiInfrastructureFleetKillInstanceIdRoute
+  ApiInfrastructureRegistryCapacityDepartmentRoute: typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   ApiIntelligenceLearnHistoryAgentIdRoute: typeof ApiIntelligenceLearnHistoryAgentIdRoute
 }
 
@@ -765,6 +849,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiIntelligenceConsolidateIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/infrastructure/registry/': {
+      id: '/api/infrastructure/registry/'
+      path: '/api/infrastructure/registry'
+      fullPath: '/api/infrastructure/registry/'
+      preLoaderRoute: typeof ApiInfrastructureRegistryIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/infrastructure/fleet/': {
       id: '/api/infrastructure/fleet/'
       path: '/api/infrastructure/fleet'
@@ -835,6 +926,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiIntelligenceCompressionStatsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/infrastructure/registry/register': {
+      id: '/api/infrastructure/registry/register'
+      path: '/api/infrastructure/registry/register'
+      fullPath: '/api/infrastructure/registry/register'
+      preLoaderRoute: typeof ApiInfrastructureRegistryRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/registry/heartbeat': {
+      id: '/api/infrastructure/registry/heartbeat'
+      path: '/api/infrastructure/registry/heartbeat'
+      fullPath: '/api/infrastructure/registry/heartbeat'
+      preLoaderRoute: typeof ApiInfrastructureRegistryHeartbeatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/registry/discover': {
+      id: '/api/infrastructure/registry/discover'
+      path: '/api/infrastructure/registry/discover'
+      fullPath: '/api/infrastructure/registry/discover'
+      preLoaderRoute: typeof ApiInfrastructureRegistryDiscoverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/registry/cleanup': {
+      id: '/api/infrastructure/registry/cleanup'
+      path: '/api/infrastructure/registry/cleanup'
+      fullPath: '/api/infrastructure/registry/cleanup'
+      preLoaderRoute: typeof ApiInfrastructureRegistryCleanupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/infrastructure/fleet/logs': {
       id: '/api/infrastructure/fleet/logs'
       path: '/api/infrastructure/fleet/logs'
@@ -861,6 +980,13 @@ declare module '@tanstack/react-router' {
       path: '/api/intelligence/learn/history/$agentId'
       fullPath: '/api/intelligence/learn/history/$agentId'
       preLoaderRoute: typeof ApiIntelligenceLearnHistoryAgentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/registry/capacity/$department': {
+      id: '/api/infrastructure/registry/capacity/$department'
+      path: '/api/infrastructure/registry/capacity/$department'
+      fullPath: '/api/infrastructure/registry/capacity/$department'
+      preLoaderRoute: typeof ApiInfrastructureRegistryCapacityDepartmentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/infrastructure/fleet/kill/$instanceId': {
@@ -915,6 +1041,13 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
   ApiInfrastructureFleetHealthRoute: ApiInfrastructureFleetHealthRoute,
   ApiInfrastructureFleetLogsRoute: ApiInfrastructureFleetLogsRoute,
+  ApiInfrastructureRegistryCleanupRoute: ApiInfrastructureRegistryCleanupRoute,
+  ApiInfrastructureRegistryDiscoverRoute:
+    ApiInfrastructureRegistryDiscoverRoute,
+  ApiInfrastructureRegistryHeartbeatRoute:
+    ApiInfrastructureRegistryHeartbeatRoute,
+  ApiInfrastructureRegistryRegisterRoute:
+    ApiInfrastructureRegistryRegisterRoute,
   ApiIntelligenceCompressionStatsRoute: ApiIntelligenceCompressionStatsRoute,
   ApiIntelligenceCompressionTestRoute: ApiIntelligenceCompressionTestRoute,
   ApiIntelligenceConsolidateStatsRoute: ApiIntelligenceConsolidateStatsRoute,
@@ -926,10 +1059,13 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
   ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
   ApiInfrastructureFleetIndexRoute: ApiInfrastructureFleetIndexRoute,
+  ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,
   ApiIntelligenceConsolidateIndexRoute: ApiIntelligenceConsolidateIndexRoute,
   ApiIntelligenceLearnIndexRoute: ApiIntelligenceLearnIndexRoute,
   ApiInfrastructureFleetKillInstanceIdRoute:
     ApiInfrastructureFleetKillInstanceIdRoute,
+  ApiInfrastructureRegistryCapacityDepartmentRoute:
+    ApiInfrastructureRegistryCapacityDepartmentRoute,
   ApiIntelligenceLearnHistoryAgentIdRoute:
     ApiIntelligenceLearnHistoryAgentIdRoute,
 }
