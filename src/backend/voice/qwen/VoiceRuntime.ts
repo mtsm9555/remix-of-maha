@@ -11,9 +11,6 @@ import {
   TextToSpeechRequest,
   VoiceLanguage 
 } from "./types";
-import { PlannerAgent } from "../agents/PlannerAgent";
-import { ContextBuilder } from "../context/ContextBuilder";
-import { AuthService } from "../auth/AuthService";
 
 export class VoiceRuntime {
   private static sessions: Map<string, VoiceSession> = new Map();

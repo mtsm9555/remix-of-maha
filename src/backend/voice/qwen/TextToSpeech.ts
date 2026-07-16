@@ -293,7 +293,7 @@ export class TextToSpeech {
   /**
    * Get available voices
    */
-  static getAvailableVoices(provider?: VoiceProvider): Record<string, string[]> {
+  static getAvailableVoices(provider?: VoiceProvider): any {
     if (provider) {
       return (this.VOICES as any)[provider] || {};
     }

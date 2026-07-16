@@ -55,16 +55,16 @@ export class SpeechToText {
     }
 
     // Convert to WAV if needed (Whisper prefers WAV/MP3/M4A)
-    let audioBuffer = request.audioBuffer instanceof Buffer 
+    let audioBuffer: Buffer = request.audioBuffer instanceof Buffer 
       ? request.audioBuffer 
-      : Buffer.from(request.audioBuffer);
+      : Buffer.from(new Uint8Array(request.audioBuffer));
 
     if (request.format !== 'wav' && request.format !== 'mp3') {
       audioBuffer = await AudioProcessor.convertFormat(audioBuffer, request.format, 'wav');
     }
 
     // Create a File-like object for OpenAI API
-    const file = new File([audioBuffer], 'audio.wav', { type: 'audio/wav' });
+    const file = new File([new Uint8Array(audioBuffer)], 'audio.wav', { type: 'audio/wav' });
 
     const response = await this.openai.audio.transcriptions.create({
       model: request.model || 'whisper-1',

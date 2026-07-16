@@ -15,7 +15,7 @@ export class AudioProcessor {
     // For now, return as-is (most APIs accept multiple formats)
     console.log(`[AudioProcessor] Converting ${fromFormat} → ${toFormat}`);
     
-    const buffer = audioBuffer instanceof Buffer ? audioBuffer : Buffer.from(audioBuffer);
+    const buffer = audioBuffer instanceof Buffer ? audioBuffer : Buffer.from(new Uint8Array(audioBuffer));
     
     // Placeholder for actual conversion logic
     // In production: use fluent-ffmpeg, @ffmpeg/ffmpeg, or sox
