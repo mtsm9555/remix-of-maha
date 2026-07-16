@@ -40,6 +40,9 @@ import { Route as ApiIntelligenceLearnIndexRouteImport } from './routes/api/inte
 import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/api/intelligence/consolidate/index'
 import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
 import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/infrastructure/fleet/index'
+import { Route as ApiToolsMcpConnectionsRouteImport } from './routes/api/tools/mcp/connections'
+import { Route as ApiToolsMcpConnectRouteImport } from './routes/api/tools/mcp/connect'
+import { Route as ApiToolsMcpCallRouteImport } from './routes/api/tools/mcp/call'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
 import { Route as ApiIntelligenceReflectionMetricsRouteImport } from './routes/api/intelligence/reflection/metrics'
@@ -67,6 +70,7 @@ import { Route as ApiInfrastructureCapabilitiesRevokeToolRouteImport } from './r
 import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './routes/api/infrastructure/capabilities/$agentId'
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
+import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
 import { Route as ApiIntelligenceLearnHistoryAgentIdRouteImport } from './routes/api/intelligence/learn/history.$agentId'
 import { Route as ApiInfrastructureRegistryCapacityDepartmentRouteImport } from './routes/api/infrastructure/registry/capacity.$department'
@@ -243,6 +247,21 @@ const ApiInfrastructureFleetIndexRoute =
     path: '/api/infrastructure/fleet/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiToolsMcpConnectionsRoute = ApiToolsMcpConnectionsRouteImport.update({
+  id: '/api/tools/mcp/connections',
+  path: '/api/tools/mcp/connections',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiToolsMcpConnectRoute = ApiToolsMcpConnectRouteImport.update({
+  id: '/api/tools/mcp/connect',
+  path: '/api/tools/mcp/connect',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiToolsMcpCallRoute = ApiToolsMcpCallRouteImport.update({
+  id: '/api/tools/mcp/call',
+  path: '/api/tools/mcp/call',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPrioritizationQueuePlanIdRoute =
   ApiPrioritizationQueuePlanIdRouteImport.update({
     id: '/api/prioritization/queue/$planId',
@@ -405,6 +424,12 @@ const ApiCollaborationSessionIdBlackboardRoute =
     path: '/api/collaboration/$sessionId/blackboard',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiToolsMcpDisconnectServerIdRoute =
+  ApiToolsMcpDisconnectServerIdRouteImport.update({
+    id: '/api/tools/mcp/disconnect/$serverId',
+    path: '/api/tools/mcp/disconnect/$serverId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiIntelligenceReflectionMetricsResetRoute =
   ApiIntelligenceReflectionMetricsResetRouteImport.update({
     id: '/reset',
@@ -527,6 +552,9 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
+  '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
+  '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
@@ -541,6 +569,7 @@ export interface FileRoutesByFullPath {
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
+  '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRoutesByTo {
@@ -598,6 +627,9 @@ export interface FileRoutesByTo {
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
+  '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
+  '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
   '/api/infrastructure/fleet': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate': typeof ApiIntelligenceConsolidateIndexRoute
@@ -612,6 +644,7 @@ export interface FileRoutesByTo {
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
+  '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRoutesById {
@@ -670,6 +703,9 @@ export interface FileRoutesById {
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
+  '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
+  '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
@@ -684,6 +720,7 @@ export interface FileRoutesById {
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
+  '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRouteTypes {
@@ -743,6 +780,9 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/tools/mcp/call'
+    | '/api/tools/mcp/connect'
+    | '/api/tools/mcp/connections'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
@@ -757,6 +797,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
+    | '/api/tools/mcp/disconnect/$serverId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -814,6 +855,9 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/tools/mcp/call'
+    | '/api/tools/mcp/connect'
+    | '/api/tools/mcp/connections'
     | '/api/infrastructure/fleet'
     | '/api/infrastructure/registry'
     | '/api/intelligence/consolidate'
@@ -828,6 +872,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
+    | '/api/tools/mcp/disconnect/$serverId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   id:
     | '__root__'
@@ -885,6 +930,9 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/tools/mcp/call'
+    | '/api/tools/mcp/connect'
+    | '/api/tools/mcp/connections'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
@@ -899,6 +947,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
+    | '/api/tools/mcp/disconnect/$serverId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesById: FileRoutesById
 }
@@ -956,6 +1005,9 @@ export interface RootRouteChildren {
   ApiIntelligenceReflectionMetricsRoute: typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
+  ApiToolsMcpCallRoute: typeof ApiToolsMcpCallRoute
+  ApiToolsMcpConnectRoute: typeof ApiToolsMcpConnectRoute
+  ApiToolsMcpConnectionsRoute: typeof ApiToolsMcpConnectionsRoute
   ApiInfrastructureFleetIndexRoute: typeof ApiInfrastructureFleetIndexRoute
   ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
   ApiIntelligenceConsolidateIndexRoute: typeof ApiIntelligenceConsolidateIndexRoute
@@ -967,6 +1019,7 @@ export interface RootRouteChildren {
   ApiInfrastructureHealthAlertsCriticalRoute: typeof ApiInfrastructureHealthAlertsCriticalRoute
   ApiInfrastructureRegistryCapacityDepartmentRoute: typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   ApiIntelligenceLearnHistoryAgentIdRoute: typeof ApiIntelligenceLearnHistoryAgentIdRoute
+  ApiToolsMcpDisconnectServerIdRoute: typeof ApiToolsMcpDisconnectServerIdRoute
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 
@@ -1189,6 +1242,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureFleetIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/tools/mcp/connections': {
+      id: '/api/tools/mcp/connections'
+      path: '/api/tools/mcp/connections'
+      fullPath: '/api/tools/mcp/connections'
+      preLoaderRoute: typeof ApiToolsMcpConnectionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tools/mcp/connect': {
+      id: '/api/tools/mcp/connect'
+      path: '/api/tools/mcp/connect'
+      fullPath: '/api/tools/mcp/connect'
+      preLoaderRoute: typeof ApiToolsMcpConnectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tools/mcp/call': {
+      id: '/api/tools/mcp/call'
+      path: '/api/tools/mcp/call'
+      fullPath: '/api/tools/mcp/call'
+      preLoaderRoute: typeof ApiToolsMcpCallRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/prioritization/queue/$planId': {
       id: '/api/prioritization/queue/$planId'
       path: '/api/prioritization/queue/$planId'
@@ -1376,6 +1450,13 @@ declare module '@tanstack/react-router' {
       path: '/api/collaboration/$sessionId/blackboard'
       fullPath: '/api/collaboration/$sessionId/blackboard'
       preLoaderRoute: typeof ApiCollaborationSessionIdBlackboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tools/mcp/disconnect/$serverId': {
+      id: '/api/tools/mcp/disconnect/$serverId'
+      path: '/api/tools/mcp/disconnect/$serverId'
+      fullPath: '/api/tools/mcp/disconnect/$serverId'
+      preLoaderRoute: typeof ApiToolsMcpDisconnectServerIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/intelligence/reflection/metrics/reset': {
@@ -1573,6 +1654,9 @@ const rootRouteChildren: RootRouteChildren = {
     ApiIntelligenceReflectionMetricsRouteWithChildren,
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
   ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
+  ApiToolsMcpCallRoute: ApiToolsMcpCallRoute,
+  ApiToolsMcpConnectRoute: ApiToolsMcpConnectRoute,
+  ApiToolsMcpConnectionsRoute: ApiToolsMcpConnectionsRoute,
   ApiInfrastructureFleetIndexRoute: ApiInfrastructureFleetIndexRoute,
   ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,
   ApiIntelligenceConsolidateIndexRoute: ApiIntelligenceConsolidateIndexRoute,
@@ -1591,6 +1675,7 @@ const rootRouteChildren: RootRouteChildren = {
     ApiInfrastructureRegistryCapacityDepartmentRoute,
   ApiIntelligenceLearnHistoryAgentIdRoute:
     ApiIntelligenceLearnHistoryAgentIdRoute,
+  ApiToolsMcpDisconnectServerIdRoute: ApiToolsMcpDisconnectServerIdRoute,
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute:
     ApiInfrastructureBudgetTopupsRequestIdApproveRoute,
 }
