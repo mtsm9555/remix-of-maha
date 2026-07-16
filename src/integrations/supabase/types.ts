@@ -1013,6 +1013,33 @@ export type Database = {
         }
         Relationships: []
       }
+      installed_tools: {
+        Row: {
+          installed_at: string
+          mcp_server_id: string | null
+          name: string
+          status: string
+          updated_at: string
+          version: string
+        }
+        Insert: {
+          installed_at?: string
+          mcp_server_id?: string | null
+          name: string
+          status: string
+          updated_at?: string
+          version: string
+        }
+        Update: {
+          installed_at?: string
+          mcp_server_id?: string | null
+          name?: string
+          status?: string
+          updated_at?: string
+          version?: string
+        }
+        Relationships: []
+      }
       learning_cycles: {
         Row: {
           agent_id: string
@@ -1087,6 +1114,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      marketplace_listings: {
+        Row: {
+          author: string
+          category: string
+          created_at: string
+          description: string
+          downloads: number
+          is_verified: boolean
+          manifest_json: Json
+          name: string
+          rating: number
+          tags: string[]
+          updated_at: string
+          version: string
+        }
+        Insert: {
+          author: string
+          category: string
+          created_at?: string
+          description: string
+          downloads?: number
+          is_verified?: boolean
+          manifest_json: Json
+          name: string
+          rating?: number
+          tags?: string[]
+          updated_at?: string
+          version: string
+        }
+        Update: {
+          author?: string
+          category?: string
+          created_at?: string
+          description?: string
+          downloads?: number
+          is_verified?: boolean
+          manifest_json?: Json
+          name?: string
+          rating?: number
+          tags?: string[]
+          updated_at?: string
+          version?: string
+        }
+        Relationships: []
       }
       mcp_server_connections: {
         Row: {
@@ -1492,6 +1564,36 @@ export type Database = {
           parameter_constraints?: Json
           tool_name?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      tool_security_scans: {
+        Row: {
+          id: string
+          passed: boolean
+          risk_level: string
+          scanned_at: string
+          tool_name: string
+          version: string
+          warnings: string[]
+        }
+        Insert: {
+          id?: string
+          passed: boolean
+          risk_level: string
+          scanned_at?: string
+          tool_name: string
+          version: string
+          warnings?: string[]
+        }
+        Update: {
+          id?: string
+          passed?: boolean
+          risk_level?: string
+          scanned_at?: string
+          tool_name?: string
+          version?: string
+          warnings?: string[]
         }
         Relationships: []
       }
