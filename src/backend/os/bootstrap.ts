@@ -13,6 +13,8 @@ import { initializeOperationsTools } from "./departments/operations/OpsTools";
 import { initializeOperationsWorkflows } from "./departments/operations/OpsWorkflows";
 import { initializeFinanceTools } from "./departments/finance/FinanceTools";
 import { initializeFinanceWorkflows } from "./departments/finance/FinanceWorkflows";
+import { initializeHRTools } from "./departments/hr/HRTools";
+import { initializeHRWorkflows } from "./departments/hr/HRWorkflows";
 
 const DEPARTMENTS: Array<{
   id: Department;
@@ -28,6 +30,7 @@ const DEPARTMENTS: Array<{
   { id: "research", name: "Research", budget: { allocated: 1500, spent: 0, limit: 7500 }, kpis: [{ name: "Reports", target: 20, current: 0, unit: "reports" }] },
   { id: "support", name: "Support", budget: { allocated: 1000, spent: 0, limit: 5000 }, kpis: [{ name: "CSAT", target: 95, current: 0, unit: "%" }] },
   { id: "finance", name: "Finance", budget: { allocated: 1000, spent: 0, limit: 5000 }, kpis: [{ name: "Budget Adherence", target: 100, current: 0, unit: "%" }] },
+  { id: "hr", name: "HR", budget: { allocated: 6000, spent: 0, limit: 8000 }, kpis: [{ name: "Time to Hire", target: 35, current: 0, unit: "days" }] },
 ];
 
 let initialized = false;
@@ -47,6 +50,8 @@ export async function initializeMahaOS() {
   initializeOperationsWorkflows();
   initializeFinanceTools();
   initializeFinanceWorkflows();
+  initializeHRTools();
+  initializeHRWorkflows();
   const config = DEPARTMENTS.map((d) => ({
     ...d,
     agents: globalDepartmentRegistry.getDepartmentAgents(d.id),
