@@ -41,6 +41,48 @@ export type Database = {
         }
         Relationships: []
       }
+      agent_capability_maps: {
+        Row: {
+          agent_id: string
+          agent_type: string
+          capability_embedding: string | null
+          department: string
+          expertise: Json
+          input_modalities: string[]
+          last_updated: string
+          output_modalities: string[]
+          primary_model: Json
+          tools: Json
+          version: string
+        }
+        Insert: {
+          agent_id: string
+          agent_type: string
+          capability_embedding?: string | null
+          department: string
+          expertise?: Json
+          input_modalities?: string[]
+          last_updated?: string
+          output_modalities?: string[]
+          primary_model?: Json
+          tools?: Json
+          version?: string
+        }
+        Update: {
+          agent_id?: string
+          agent_type?: string
+          capability_embedding?: string | null
+          department?: string
+          expertise?: Json
+          input_modalities?: string[]
+          last_updated?: string
+          output_modalities?: string[]
+          primary_model?: Json
+          tools?: Json
+          version?: string
+        }
+        Relationships: []
+      }
       agent_execution_logs: {
         Row: {
           created_at: string

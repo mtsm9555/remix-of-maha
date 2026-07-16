@@ -54,6 +54,9 @@ import { Route as ApiInfrastructureRegistryCleanupRouteImport } from './routes/a
 import { Route as ApiInfrastructureFleetLogsRouteImport } from './routes/api/infrastructure/fleet/logs'
 import { Route as ApiInfrastructureFleetHealthRouteImport } from './routes/api/infrastructure/fleet/health'
 import { Route as ApiInfrastructureDiscoverySimulateRouteImport } from './routes/api/infrastructure/discovery/simulate'
+import { Route as ApiInfrastructureCapabilitiesSearchRouteImport } from './routes/api/infrastructure/capabilities/search'
+import { Route as ApiInfrastructureCapabilitiesRevokeToolRouteImport } from './routes/api/infrastructure/capabilities/revoke-tool'
+import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './routes/api/infrastructure/capabilities/$agentId'
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
 import { Route as ApiIntelligenceLearnHistoryAgentIdRouteImport } from './routes/api/intelligence/learn/history.$agentId'
 import { Route as ApiInfrastructureRegistryCapacityDepartmentRouteImport } from './routes/api/infrastructure/registry/capacity.$department'
@@ -308,6 +311,24 @@ const ApiInfrastructureDiscoverySimulateRoute =
     path: '/simulate',
     getParentRoute: () => ApiInfrastructureDiscoveryRouteRoute,
   } as any)
+const ApiInfrastructureCapabilitiesSearchRoute =
+  ApiInfrastructureCapabilitiesSearchRouteImport.update({
+    id: '/api/infrastructure/capabilities/search',
+    path: '/api/infrastructure/capabilities/search',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureCapabilitiesRevokeToolRoute =
+  ApiInfrastructureCapabilitiesRevokeToolRouteImport.update({
+    id: '/api/infrastructure/capabilities/revoke-tool',
+    path: '/api/infrastructure/capabilities/revoke-tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureCapabilitiesAgentIdRoute =
+  ApiInfrastructureCapabilitiesAgentIdRouteImport.update({
+    id: '/api/infrastructure/capabilities/$agentId',
+    path: '/api/infrastructure/capabilities/$agentId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiIntelligenceReflectionMetricsResetRoute =
   ApiIntelligenceReflectionMetricsResetRouteImport.update({
     id: '/reset',
@@ -365,6 +386,9 @@ export interface FileRoutesByFullPath {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
+  '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
+  '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
   '/api/infrastructure/discovery/simulate': typeof ApiInfrastructureDiscoverySimulateRoute
   '/api/infrastructure/fleet/health': typeof ApiInfrastructureFleetHealthRoute
   '/api/infrastructure/fleet/logs': typeof ApiInfrastructureFleetLogsRoute
@@ -417,6 +441,9 @@ export interface FileRoutesByTo {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
+  '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
+  '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
   '/api/infrastructure/discovery/simulate': typeof ApiInfrastructureDiscoverySimulateRoute
   '/api/infrastructure/fleet/health': typeof ApiInfrastructureFleetHealthRoute
   '/api/infrastructure/fleet/logs': typeof ApiInfrastructureFleetLogsRoute
@@ -470,6 +497,9 @@ export interface FileRoutesById {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
+  '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
+  '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
   '/api/infrastructure/discovery/simulate': typeof ApiInfrastructureDiscoverySimulateRoute
   '/api/infrastructure/fleet/health': typeof ApiInfrastructureFleetHealthRoute
   '/api/infrastructure/fleet/logs': typeof ApiInfrastructureFleetLogsRoute
@@ -524,6 +554,9 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/infrastructure/capabilities/$agentId'
+    | '/api/infrastructure/capabilities/revoke-tool'
+    | '/api/infrastructure/capabilities/search'
     | '/api/infrastructure/discovery/simulate'
     | '/api/infrastructure/fleet/health'
     | '/api/infrastructure/fleet/logs'
@@ -576,6 +609,9 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/infrastructure/capabilities/$agentId'
+    | '/api/infrastructure/capabilities/revoke-tool'
+    | '/api/infrastructure/capabilities/search'
     | '/api/infrastructure/discovery/simulate'
     | '/api/infrastructure/fleet/health'
     | '/api/infrastructure/fleet/logs'
@@ -628,6 +664,9 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/infrastructure/capabilities/$agentId'
+    | '/api/infrastructure/capabilities/revoke-tool'
+    | '/api/infrastructure/capabilities/search'
     | '/api/infrastructure/discovery/simulate'
     | '/api/infrastructure/fleet/health'
     | '/api/infrastructure/fleet/logs'
@@ -681,6 +720,9 @@ export interface RootRouteChildren {
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
+  ApiInfrastructureCapabilitiesAgentIdRoute: typeof ApiInfrastructureCapabilitiesAgentIdRoute
+  ApiInfrastructureCapabilitiesRevokeToolRoute: typeof ApiInfrastructureCapabilitiesRevokeToolRoute
+  ApiInfrastructureCapabilitiesSearchRoute: typeof ApiInfrastructureCapabilitiesSearchRoute
   ApiInfrastructureFleetHealthRoute: typeof ApiInfrastructureFleetHealthRoute
   ApiInfrastructureFleetLogsRoute: typeof ApiInfrastructureFleetLogsRoute
   ApiInfrastructureRegistryCleanupRoute: typeof ApiInfrastructureRegistryCleanupRoute
@@ -1022,6 +1064,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureDiscoverySimulateRouteImport
       parentRoute: typeof ApiInfrastructureDiscoveryRouteRoute
     }
+    '/api/infrastructure/capabilities/search': {
+      id: '/api/infrastructure/capabilities/search'
+      path: '/api/infrastructure/capabilities/search'
+      fullPath: '/api/infrastructure/capabilities/search'
+      preLoaderRoute: typeof ApiInfrastructureCapabilitiesSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/capabilities/revoke-tool': {
+      id: '/api/infrastructure/capabilities/revoke-tool'
+      path: '/api/infrastructure/capabilities/revoke-tool'
+      fullPath: '/api/infrastructure/capabilities/revoke-tool'
+      preLoaderRoute: typeof ApiInfrastructureCapabilitiesRevokeToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/capabilities/$agentId': {
+      id: '/api/infrastructure/capabilities/$agentId'
+      path: '/api/infrastructure/capabilities/$agentId'
+      fullPath: '/api/infrastructure/capabilities/$agentId'
+      preLoaderRoute: typeof ApiInfrastructureCapabilitiesAgentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/intelligence/reflection/metrics/reset': {
       id: '/api/intelligence/reflection/metrics/reset'
       path: '/reset'
@@ -1120,6 +1183,12 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
+  ApiInfrastructureCapabilitiesAgentIdRoute:
+    ApiInfrastructureCapabilitiesAgentIdRoute,
+  ApiInfrastructureCapabilitiesRevokeToolRoute:
+    ApiInfrastructureCapabilitiesRevokeToolRoute,
+  ApiInfrastructureCapabilitiesSearchRoute:
+    ApiInfrastructureCapabilitiesSearchRoute,
   ApiInfrastructureFleetHealthRoute: ApiInfrastructureFleetHealthRoute,
   ApiInfrastructureFleetLogsRoute: ApiInfrastructureFleetLogsRoute,
   ApiInfrastructureRegistryCleanupRoute: ApiInfrastructureRegistryCleanupRoute,
