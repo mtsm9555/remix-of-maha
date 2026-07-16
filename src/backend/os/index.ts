@@ -50,3 +50,7 @@ export * from "./departments/finance/FinanceConfig";
 export * from "./departments/finance/FinanceTools";
 export * from "./departments/finance/FinanceWorkflows";
 export * from "./departments/finance/FinanceQualityAssurance";
+export * from "./departments/hr/HRConfig";
+export * from "./departments/hr/HRTools";
+export * from "./departments/hr/HRWorkflows";
+export * from "./departments/hr/HRQualityAssurance";
