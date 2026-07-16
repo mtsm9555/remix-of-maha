@@ -113,6 +113,42 @@ export type Database = {
         }
         Relationships: []
       }
+      agent_instance_wallets: {
+        Row: {
+          agent_type: string
+          current_balance_usd: number
+          department: string
+          initial_allocation_usd: number
+          instance_id: string
+          last_topup_at: string | null
+          throttle_state: string
+          total_spent_usd: number
+          updated_at: string
+        }
+        Insert: {
+          agent_type: string
+          current_balance_usd?: number
+          department: string
+          initial_allocation_usd?: number
+          instance_id: string
+          last_topup_at?: string | null
+          throttle_state?: string
+          total_spent_usd?: number
+          updated_at?: string
+        }
+        Update: {
+          agent_type?: string
+          current_balance_usd?: number
+          department?: string
+          initial_allocation_usd?: number
+          instance_id?: string
+          last_topup_at?: string | null
+          throttle_state?: string
+          total_spent_usd?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       agent_instances_registry: {
         Row: {
           agent_id: string
@@ -467,6 +503,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      budget_topup_requests: {
+        Row: {
+          id: string
+          instance_id: string
+          processed_at: string | null
+          reason: string
+          requested_amount_usd: number
+          requested_at: string
+          status: string
+        }
+        Insert: {
+          id: string
+          instance_id: string
+          processed_at?: string | null
+          reason: string
+          requested_amount_usd: number
+          requested_at?: string
+          status?: string
+        }
+        Update: {
+          id?: string
+          instance_id?: string
+          processed_at?: string | null
+          reason?: string
+          requested_amount_usd?: number
+          requested_at?: string
+          status?: string
+        }
+        Relationships: []
       }
       budget_transactions: {
         Row: {
@@ -1008,6 +1074,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      micro_transaction_ledger: {
+        Row: {
+          agent_type: string
+          amount_usd: number
+          balance_after: number
+          department: string
+          id: string
+          instance_id: string
+          reference_id: string
+          resource_type: string
+          timestamp: string
+        }
+        Insert: {
+          agent_type: string
+          amount_usd: number
+          balance_after: number
+          department: string
+          id: string
+          instance_id: string
+          reference_id: string
+          resource_type: string
+          timestamp?: string
+        }
+        Update: {
+          agent_type?: string
+          amount_usd?: number
+          balance_after?: number
+          department?: string
+          id?: string
+          instance_id?: string
+          reference_id?: string
+          resource_type?: string
+          timestamp?: string
+        }
+        Relationships: []
       }
       raw_memories: {
         Row: {
