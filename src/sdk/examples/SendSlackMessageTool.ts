@@ -8,7 +8,7 @@ const SlackMessageSchema = z.object({
   isUrgent: z.boolean().optional().default(false),
 });
 
-type SlackMessageArgs = z.infer<typeof SlackMessageSchema>;
+type SlackMessageArgs = z.input<typeof SlackMessageSchema>;
 type SlackMessageResult = { messageId: string; threadTs: string };
 
 export class SendSlackMessageTool extends MahaTool<SlackMessageArgs, SlackMessageResult> {
