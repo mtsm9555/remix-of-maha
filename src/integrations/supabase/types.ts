@@ -14,6 +14,91 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_messages: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          is_consolidated: boolean
+          metadata: Json
+          role: string
+          session_id: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          is_consolidated?: boolean
+          metadata?: Json
+          role: string
+          session_id: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          is_consolidated?: boolean
+          metadata?: Json
+          role?: string
+          session_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_messages_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      consolidated_memories: {
+        Row: {
+          created_at: string
+          embedding: string | null
+          entities: string[]
+          id: string
+          importance_score: number
+          last_accessed: string
+          relationships: Json
+          summary: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          embedding?: string | null
+          entities?: string[]
+          id?: string
+          importance_score?: number
+          last_accessed?: string
+          relationships?: Json
+          summary: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          embedding?: string | null
+          entities?: string[]
+          id?: string
+          importance_score?: number
+          last_accessed?: string
+          relationships?: Json
+          summary?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "consolidated_memories_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       conversations: {
         Row: {
           created_at: string
@@ -58,6 +143,96 @@ export type Database = {
           type?: string
         }
         Relationships: []
+      }
+      graph_edges: {
+        Row: {
+          created_at: string
+          id: string
+          properties: Json
+          relation: string
+          source_id: string
+          target_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          properties?: Json
+          relation: string
+          source_id: string
+          target_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          properties?: Json
+          relation?: string
+          source_id?: string
+          target_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "graph_edges_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "graph_nodes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "graph_edges_target_id_fkey"
+            columns: ["target_id"]
+            isOneToOne: false
+            referencedRelation: "graph_nodes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "graph_edges_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      graph_nodes: {
+        Row: {
+          created_at: string
+          embedding: string | null
+          id: string
+          label: string
+          name: string
+          properties: Json
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          embedding?: string | null
+          id?: string
+          label?: string
+          name: string
+          properties?: Json
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          embedding?: string | null
+          id?: string
+          label?: string
+          name?: string
+          properties?: Json
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "graph_nodes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       logs: {
         Row: {
@@ -417,6 +592,19 @@ export type Database = {
     }
     Functions: {
       is_admin: { Args: { _user_id: string }; Returns: boolean }
+      match_memories: {
+        Args: {
+          match_count?: number
+          match_threshold?: number
+          query_embedding: string
+          target_user_id: string
+        }
+        Returns: {
+          id: string
+          similarity: number
+          summary: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
