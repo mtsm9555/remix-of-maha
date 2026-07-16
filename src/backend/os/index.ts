@@ -38,3 +38,7 @@ export * from "./departments/design/DesignConfig";
 export * from "./departments/design/DesignTools";
 export * from "./departments/design/DesignWorkflows";
 export * from "./departments/design/DesignQualityAssurance";
+export * from "./departments/development/DevConfig";
+export * from "./departments/development/DevTools";
+export * from "./departments/development/DevWorkflows";
+export * from "./departments/development/DevQualityAssurance";
