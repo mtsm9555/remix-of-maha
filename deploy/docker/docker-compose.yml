@@ -1,0 +1,132 @@
+version: '3.8'
+
+services:
+  # Maha Backend API
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: maha-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - ENABLE_AUTOSCALER=false
+    volumes:
+      - ./src:/app/src
+      - ./package.json:/app/package.json
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - maha-network
+    restart: unless-stopped
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    container_name: maha-frontend
+    ports:
+      - "80:80"
+    environment:
+      - VITE_API_URL=http://localhost:3000
+    depends_on:
+      - backend
+    networks:
+      - maha-network
+    restart: unless-stopped
+
+  # Redis (Queue & Cache)
+  redis:
+    image: redis:7-alpine
+    container_name: maha-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - maha-network
+    restart: unless-stopped
+
+  # Worker Service (Background Jobs)
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: maha-worker
+    command: bun run src/backend/workers/WorkerService.ts
+    environment:
+      - NODE_ENV=development
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - WORKER_CONCURRENCY=5
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - maha-network
+    restart: unless-stopped
+    deploy:
+      replicas: 2
+
+  # Optional: Local Postgres (if not using Supabase)
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: maha-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=maha
+      - POSTGRES_PASSWORD=maha_password
+      - POSTGRES_DB=maha_db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - maha-network
+    restart: unless-stopped
+    profiles:
+      - local-db
+
+  # Optional: pgAdmin for database management
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: maha-pgadmin
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@maha.local
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    depends_on:
+      - postgres
+    networks:
+      - maha-network
+    profiles:
+      - local-db
+
+volumes:
+  redis-data:
+  postgres-data:
+
+networks:
+  maha-network:
+    driver: bridge

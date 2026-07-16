@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: maha-config
+  namespace: maha
+data:
+  NODE_ENV: "production"
+  PORT: "3000"
+  REDIS_HOST: "maha-redis"
+  REDIS_PORT: "6379"
+  ENABLE_AUTOSCALER: "true"
+  WORKER_CONCURRENCY: "5"
+  LOG_LEVEL: "info"
