@@ -1,7 +1,7 @@
 // src/backend/workers/QueueManager.ts
 // NOTE: Node.js-only. Do not import from client or SSR code.
 import { Queue, QueueEvents } from "bullmq";
-import { RedisManager } from "./RedisManager";
+import { getRedisOptions } from "./RedisManager";
 import { JobType, WorkerJob } from "./types";
 
 export class QueueManager {
@@ -11,7 +11,7 @@ export class QueueManager {
   static getQueue(jobType: JobType): Queue {
     if (!this.queues.has(jobType)) {
       const queue = new Queue(jobType, {
-        connection: RedisManager.getConnection(),
+        connection: getRedisOptions(),
         defaultJobOptions: {
           removeOnComplete: 100,
           removeOnFail: 50,
@@ -22,7 +22,7 @@ export class QueueManager {
       this.queues.set(jobType, queue);
 
       const queueEvents = new QueueEvents(jobType, {
-        connection: RedisManager.getConnection(),
+        connection: getRedisOptions(),
       });
       queueEvents.on("completed", ({ jobId }) => {
         console.log(`[QueueManager] Job ${jobId} completed in ${jobType} queue`);

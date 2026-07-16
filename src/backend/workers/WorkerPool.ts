@@ -1,7 +1,7 @@
 // src/backend/workers/WorkerPool.ts
 // NOTE: Node.js-only. Run in a separate `bun run` process.
 import { Worker, Job } from "bullmq";
-import { RedisManager } from "./RedisManager";
+import { getRedisOptions } from "./RedisManager";
 import { JobType, JobResult } from "./types";
 import { globalToolRouter } from "../tools/ToolRouter";
 import { WorkflowEngine } from "../workflows/WorkflowEngine";
@@ -22,7 +22,7 @@ export class WorkerPool {
 
   private static startWorker<T>(jobType: JobType, processor: (job: Job<T>) => Promise<any>) {
     const worker = new Worker(jobType, processor, {
-      connection: RedisManager.getConnection(),
+      connection: getRedisOptions(),
       concurrency: this.concurrency,
       limiter: { max: 100, duration: 1000 },
     });

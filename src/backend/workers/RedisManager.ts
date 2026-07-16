@@ -2,16 +2,22 @@
 // NOTE: Node.js-only. Run in a separate `bun run` process, not in the Worker/SSR bundle.
 import { Redis } from "ioredis";
 
+export function getRedisOptions() {
+  return {
+    host: process.env.REDIS_HOST || "localhost",
+    port: parseInt(process.env.REDIS_PORT || "6379"),
+    password: process.env.REDIS_PASSWORD,
+    maxRetriesPerRequest: null as null,
+  };
+}
+
 export class RedisManager {
   private static connection: Redis | null = null;
 
   static getConnection(): Redis {
     if (!this.connection) {
       this.connection = new Redis({
-        host: process.env.REDIS_HOST || "localhost",
-        port: parseInt(process.env.REDIS_PORT || "6379"),
-        password: process.env.REDIS_PASSWORD,
-        maxRetriesPerRequest: null,
+        ...getRedisOptions(),
         retryStrategy: (times) => {
           if (times > 3) {
             console.error("[RedisManager] Max retry attempts reached");
