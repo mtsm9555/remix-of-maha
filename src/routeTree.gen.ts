@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as VoiceRouteImport } from './routes/voice'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as MahaRouteImport } from './routes/maha'
 import { Route as LogsRouteImport } from './routes/logs'
 import { Route as HudRouteImport } from './routes/hud'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -40,6 +41,11 @@ const ToolsRoute = ToolsRouteImport.update({
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MahaRoute = MahaRouteImport.update({
+  id: '/maha',
+  path: '/maha',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LogsRoute = LogsRouteImport.update({
@@ -121,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/hud': typeof HudRoute
   '/logs': typeof LogsRoute
+  '/maha': typeof MahaRoute
   '/settings': typeof SettingsRoute
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
@@ -140,6 +147,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/hud': typeof HudRoute
   '/logs': typeof LogsRoute
+  '/maha': typeof MahaRoute
   '/settings': typeof SettingsRoute
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
@@ -160,6 +168,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/hud': typeof HudRoute
   '/logs': typeof LogsRoute
+  '/maha': typeof MahaRoute
   '/settings': typeof SettingsRoute
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
@@ -181,6 +190,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/hud'
     | '/logs'
+    | '/maha'
     | '/settings'
     | '/tools'
     | '/voice'
@@ -200,6 +210,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/hud'
     | '/logs'
+    | '/maha'
     | '/settings'
     | '/tools'
     | '/voice'
@@ -219,6 +230,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/hud'
     | '/logs'
+    | '/maha'
     | '/settings'
     | '/tools'
     | '/voice'
@@ -239,6 +251,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   HudRoute: typeof HudRoute
   LogsRoute: typeof LogsRoute
+  MahaRoute: typeof MahaRoute
   SettingsRoute: typeof SettingsRoute
   ToolsRoute: typeof ToolsRoute
   VoiceRoute: typeof VoiceRoute
@@ -273,6 +286,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/maha': {
+      id: '/maha'
+      path: '/maha'
+      fullPath: '/maha'
+      preLoaderRoute: typeof MahaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/logs': {
@@ -383,6 +403,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   HudRoute: HudRoute,
   LogsRoute: LogsRoute,
+  MahaRoute: MahaRoute,
   SettingsRoute: SettingsRoute,
   ToolsRoute: ToolsRoute,
   VoiceRoute: VoiceRoute,
