@@ -36,6 +36,8 @@ import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
 import { Route as ApiIntelligenceReflectionMetricsRouteImport } from './routes/api/intelligence/reflection/metrics'
+import { Route as ApiIntelligenceCompressionTestRouteImport } from './routes/api/intelligence/compression/test'
+import { Route as ApiIntelligenceCompressionStatsRouteImport } from './routes/api/intelligence/compression/stats'
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
 
 const VoiceRoute = VoiceRouteImport.update({
@@ -178,6 +180,18 @@ const ApiIntelligenceReflectionMetricsRoute =
     path: '/api/intelligence/reflection/metrics',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiIntelligenceCompressionTestRoute =
+  ApiIntelligenceCompressionTestRouteImport.update({
+    id: '/api/intelligence/compression/test',
+    path: '/api/intelligence/compression/test',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiIntelligenceCompressionStatsRoute =
+  ApiIntelligenceCompressionStatsRouteImport.update({
+    id: '/api/intelligence/compression/stats',
+    path: '/api/intelligence/compression/stats',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiIntelligenceReflectionMetricsResetRoute =
   ApiIntelligenceReflectionMetricsResetRouteImport.update({
     id: '/reset',
@@ -210,6 +224,8 @@ export interface FileRoutesByFullPath {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
+  '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
@@ -240,6 +256,8 @@ export interface FileRoutesByTo {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
+  '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
@@ -271,6 +289,8 @@ export interface FileRoutesById {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
+  '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
@@ -303,6 +323,8 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/intelligence/compression/stats'
+    | '/api/intelligence/compression/test'
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
@@ -333,6 +355,8 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/intelligence/compression/stats'
+    | '/api/intelligence/compression/test'
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
@@ -363,6 +387,8 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/intelligence/compression/stats'
+    | '/api/intelligence/compression/test'
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
@@ -394,6 +420,8 @@ export interface RootRouteChildren {
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
+  ApiIntelligenceCompressionStatsRoute: typeof ApiIntelligenceCompressionStatsRoute
+  ApiIntelligenceCompressionTestRoute: typeof ApiIntelligenceCompressionTestRoute
   ApiIntelligenceReflectionMetricsRoute: typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
@@ -590,6 +618,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiIntelligenceReflectionMetricsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/intelligence/compression/test': {
+      id: '/api/intelligence/compression/test'
+      path: '/api/intelligence/compression/test'
+      fullPath: '/api/intelligence/compression/test'
+      preLoaderRoute: typeof ApiIntelligenceCompressionTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/intelligence/compression/stats': {
+      id: '/api/intelligence/compression/stats'
+      path: '/api/intelligence/compression/stats'
+      fullPath: '/api/intelligence/compression/stats'
+      preLoaderRoute: typeof ApiIntelligenceCompressionStatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/intelligence/reflection/metrics/reset': {
       id: '/api/intelligence/reflection/metrics/reset'
       path: '/reset'
@@ -640,6 +682,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
+  ApiIntelligenceCompressionStatsRoute: ApiIntelligenceCompressionStatsRoute,
+  ApiIntelligenceCompressionTestRoute: ApiIntelligenceCompressionTestRoute,
   ApiIntelligenceReflectionMetricsRoute:
     ApiIntelligenceReflectionMetricsRouteWithChildren,
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
