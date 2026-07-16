@@ -499,6 +499,33 @@ export type Database = {
         }
         Relationships: []
       }
+      agent_tool_pins: {
+        Row: {
+          agent_id: string
+          id: string
+          pinned_at: string
+          pinned_version: string
+          reason: string | null
+          tool_name: string
+        }
+        Insert: {
+          agent_id: string
+          id?: string
+          pinned_at?: string
+          pinned_version: string
+          reason?: string | null
+          tool_name: string
+        }
+        Update: {
+          agent_id?: string
+          id?: string
+          pinned_at?: string
+          pinned_version?: string
+          reason?: string | null
+          tool_name?: string
+        }
+        Relationships: []
+      }
       blackboard_artifacts: {
         Row: {
           collaboration_id: string
@@ -1678,6 +1705,51 @@ export type Database = {
           tool_name?: string
           version?: string
           warnings?: string[]
+        }
+        Relationships: []
+      }
+      tool_versions: {
+        Row: {
+          archived_at: string | null
+          changelog: string | null
+          deprecated_at: string | null
+          id: string
+          major: number
+          manifest: Json
+          minor: number
+          patch: number
+          published_at: string
+          status: string
+          tool_name: string
+          version: string
+        }
+        Insert: {
+          archived_at?: string | null
+          changelog?: string | null
+          deprecated_at?: string | null
+          id: string
+          major: number
+          manifest: Json
+          minor: number
+          patch: number
+          published_at?: string
+          status: string
+          tool_name: string
+          version: string
+        }
+        Update: {
+          archived_at?: string | null
+          changelog?: string | null
+          deprecated_at?: string | null
+          id?: string
+          major?: number
+          manifest?: Json
+          minor?: number
+          patch?: number
+          published_at?: string
+          status?: string
+          tool_name?: string
+          version?: string
         }
         Relationships: []
       }
