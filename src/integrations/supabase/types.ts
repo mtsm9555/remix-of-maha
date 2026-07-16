@@ -1752,6 +1752,99 @@ export type Database = {
         }
         Relationships: []
       }
+      tool_policies: {
+        Row: {
+          action: string
+          action_config: Json | null
+          conditions: Json
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          logic: string
+          name: string
+          priority: number
+          scope: string
+          target_agent_id: string | null
+          target_department: string | null
+          target_tool_name: string
+          updated_at: string
+        }
+        Insert: {
+          action: string
+          action_config?: Json | null
+          conditions?: Json
+          created_at?: string
+          description?: string | null
+          id: string
+          is_active?: boolean
+          logic: string
+          name: string
+          priority?: number
+          scope: string
+          target_agent_id?: string | null
+          target_department?: string | null
+          target_tool_name: string
+          updated_at?: string
+        }
+        Update: {
+          action?: string
+          action_config?: Json | null
+          conditions?: Json
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          logic?: string
+          name?: string
+          priority?: number
+          scope?: string
+          target_agent_id?: string | null
+          target_department?: string | null
+          target_tool_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      tool_policy_logs: {
+        Row: {
+          action: string
+          agent_id: string
+          allowed: boolean
+          department: string
+          evaluated_at: string
+          id: string
+          latency_ms: number
+          policy_id: string | null
+          reason: string | null
+          tool_name: string
+        }
+        Insert: {
+          action: string
+          agent_id: string
+          allowed: boolean
+          department: string
+          evaluated_at?: string
+          id?: string
+          latency_ms: number
+          policy_id?: string | null
+          reason?: string | null
+          tool_name: string
+        }
+        Update: {
+          action?: string
+          agent_id?: string
+          allowed?: boolean
+          department?: string
+          evaluated_at?: string
+          id?: string
+          latency_ms?: number
+          policy_id?: string | null
+          reason?: string | null
+          tool_name?: string
+        }
+        Relationships: []
+      }
       tool_security_scans: {
         Row: {
           id: string

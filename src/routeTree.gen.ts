@@ -36,12 +36,15 @@ import { Route as ApiCollaborationInitiateRouteImport } from './routes/api/colla
 import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
 import { Route as ApiInfrastructureDiscoveryRouteRouteImport } from './routes/api/infrastructure/discovery/route'
+import { Route as ApiToolsPoliciesIndexRouteImport } from './routes/api/tools/policies/index'
 import { Route as ApiToolsMarketplaceIndexRouteImport } from './routes/api/tools/marketplace/index'
 import { Route as ApiIntelligenceLearnIndexRouteImport } from './routes/api/intelligence/learn/index'
 import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/api/intelligence/consolidate/index'
 import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
 import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/infrastructure/fleet/index'
 import { Route as ApiToolsVersioningPinRouteImport } from './routes/api/tools/versioning/pin'
+import { Route as ApiToolsPoliciesTestRouteImport } from './routes/api/tools/policies/test'
+import { Route as ApiToolsPoliciesLogsRouteImport } from './routes/api/tools/policies/logs'
 import { Route as ApiToolsMcpConnectionsRouteImport } from './routes/api/tools/mcp/connections'
 import { Route as ApiToolsMcpConnectRouteImport } from './routes/api/tools/mcp/connect'
 import { Route as ApiToolsMcpCallRouteImport } from './routes/api/tools/mcp/call'
@@ -240,6 +243,11 @@ const ApiInfrastructureDiscoveryRouteRoute =
     path: '/api/infrastructure/discovery',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiToolsPoliciesIndexRoute = ApiToolsPoliciesIndexRouteImport.update({
+  id: '/api/tools/policies/',
+  path: '/api/tools/policies/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiToolsMarketplaceIndexRoute =
   ApiToolsMarketplaceIndexRouteImport.update({
     id: '/api/tools/marketplace/',
@@ -273,6 +281,16 @@ const ApiInfrastructureFleetIndexRoute =
 const ApiToolsVersioningPinRoute = ApiToolsVersioningPinRouteImport.update({
   id: '/api/tools/versioning/pin',
   path: '/api/tools/versioning/pin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiToolsPoliciesTestRoute = ApiToolsPoliciesTestRouteImport.update({
+  id: '/api/tools/policies/test',
+  path: '/api/tools/policies/test',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiToolsPoliciesLogsRoute = ApiToolsPoliciesLogsRouteImport.update({
+  id: '/api/tools/policies/logs',
+  path: '/api/tools/policies/logs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiToolsMcpConnectionsRoute = ApiToolsMcpConnectionsRouteImport.update({
@@ -680,12 +698,15 @@ export interface FileRoutesByFullPath {
   '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
   '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
   '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
+  '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
+  '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
+  '/api/tools/policies/': typeof ApiToolsPoliciesIndexRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -772,12 +793,15 @@ export interface FileRoutesByTo {
   '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
   '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
   '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
+  '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
+  '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/infrastructure/fleet': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace': typeof ApiToolsMarketplaceIndexRoute
+  '/api/tools/policies': typeof ApiToolsPoliciesIndexRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -865,12 +889,15 @@ export interface FileRoutesById {
   '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
   '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
   '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
+  '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
+  '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
+  '/api/tools/policies/': typeof ApiToolsPoliciesIndexRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -959,12 +986,15 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/call'
     | '/api/tools/mcp/connect'
     | '/api/tools/mcp/connections'
+    | '/api/tools/policies/logs'
+    | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
     | '/api/tools/marketplace/'
+    | '/api/tools/policies/'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
@@ -1051,12 +1081,15 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/call'
     | '/api/tools/mcp/connect'
     | '/api/tools/mcp/connections'
+    | '/api/tools/policies/logs'
+    | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
     | '/api/infrastructure/fleet'
     | '/api/infrastructure/registry'
     | '/api/intelligence/consolidate'
     | '/api/intelligence/learn'
     | '/api/tools/marketplace'
+    | '/api/tools/policies'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
@@ -1143,12 +1176,15 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/call'
     | '/api/tools/mcp/connect'
     | '/api/tools/mcp/connections'
+    | '/api/tools/policies/logs'
+    | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
     | '/api/tools/marketplace/'
+    | '/api/tools/policies/'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
@@ -1235,12 +1271,15 @@ export interface RootRouteChildren {
   ApiToolsMcpCallRoute: typeof ApiToolsMcpCallRoute
   ApiToolsMcpConnectRoute: typeof ApiToolsMcpConnectRoute
   ApiToolsMcpConnectionsRoute: typeof ApiToolsMcpConnectionsRoute
+  ApiToolsPoliciesLogsRoute: typeof ApiToolsPoliciesLogsRoute
+  ApiToolsPoliciesTestRoute: typeof ApiToolsPoliciesTestRoute
   ApiToolsVersioningPinRoute: typeof ApiToolsVersioningPinRoute
   ApiInfrastructureFleetIndexRoute: typeof ApiInfrastructureFleetIndexRoute
   ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
   ApiIntelligenceConsolidateIndexRoute: typeof ApiIntelligenceConsolidateIndexRoute
   ApiIntelligenceLearnIndexRoute: typeof ApiIntelligenceLearnIndexRoute
   ApiToolsMarketplaceIndexRoute: typeof ApiToolsMarketplaceIndexRoute
+  ApiToolsPoliciesIndexRoute: typeof ApiToolsPoliciesIndexRoute
   ApiAnalyticsToolsToolNameErrorsRoute: typeof ApiAnalyticsToolsToolNameErrorsRoute
   ApiAnalyticsToolsToolNameHistoryRoute: typeof ApiAnalyticsToolsToolNameHistoryRoute
   ApiAnalyticsToolsToolNameRpmRoute: typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -1451,6 +1490,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureDiscoveryRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/tools/policies/': {
+      id: '/api/tools/policies/'
+      path: '/api/tools/policies'
+      fullPath: '/api/tools/policies/'
+      preLoaderRoute: typeof ApiToolsPoliciesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/tools/marketplace/': {
       id: '/api/tools/marketplace/'
       path: '/api/tools/marketplace'
@@ -1491,6 +1537,20 @@ declare module '@tanstack/react-router' {
       path: '/api/tools/versioning/pin'
       fullPath: '/api/tools/versioning/pin'
       preLoaderRoute: typeof ApiToolsVersioningPinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tools/policies/test': {
+      id: '/api/tools/policies/test'
+      path: '/api/tools/policies/test'
+      fullPath: '/api/tools/policies/test'
+      preLoaderRoute: typeof ApiToolsPoliciesTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tools/policies/logs': {
+      id: '/api/tools/policies/logs'
+      path: '/api/tools/policies/logs'
+      fullPath: '/api/tools/policies/logs'
+      preLoaderRoute: typeof ApiToolsPoliciesLogsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/tools/mcp/connections': {
@@ -2021,12 +2081,15 @@ const rootRouteChildren: RootRouteChildren = {
   ApiToolsMcpCallRoute: ApiToolsMcpCallRoute,
   ApiToolsMcpConnectRoute: ApiToolsMcpConnectRoute,
   ApiToolsMcpConnectionsRoute: ApiToolsMcpConnectionsRoute,
+  ApiToolsPoliciesLogsRoute: ApiToolsPoliciesLogsRoute,
+  ApiToolsPoliciesTestRoute: ApiToolsPoliciesTestRoute,
   ApiToolsVersioningPinRoute: ApiToolsVersioningPinRoute,
   ApiInfrastructureFleetIndexRoute: ApiInfrastructureFleetIndexRoute,
   ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,
   ApiIntelligenceConsolidateIndexRoute: ApiIntelligenceConsolidateIndexRoute,
   ApiIntelligenceLearnIndexRoute: ApiIntelligenceLearnIndexRoute,
   ApiToolsMarketplaceIndexRoute: ApiToolsMarketplaceIndexRoute,
+  ApiToolsPoliciesIndexRoute: ApiToolsPoliciesIndexRoute,
   ApiAnalyticsToolsToolNameErrorsRoute: ApiAnalyticsToolsToolNameErrorsRoute,
   ApiAnalyticsToolsToolNameHistoryRoute: ApiAnalyticsToolsToolNameHistoryRoute,
   ApiAnalyticsToolsToolNameRpmRoute: ApiAnalyticsToolsToolNameRpmRoute,
