@@ -56,6 +56,9 @@ import { Route as ApiInfrastructureRegistryRegisterRouteImport } from './routes/
 import { Route as ApiInfrastructureRegistryHeartbeatRouteImport } from './routes/api/infrastructure/registry/heartbeat'
 import { Route as ApiInfrastructureRegistryDiscoverRouteImport } from './routes/api/infrastructure/registry/discover'
 import { Route as ApiInfrastructureRegistryCleanupRouteImport } from './routes/api/infrastructure/registry/cleanup'
+import { Route as ApiInfrastructureHealthTelemetryRouteImport } from './routes/api/infrastructure/health/telemetry'
+import { Route as ApiInfrastructureHealthSweepRouteImport } from './routes/api/infrastructure/health/sweep'
+import { Route as ApiInfrastructureHealthInstanceIdRouteImport } from './routes/api/infrastructure/health/$instanceId'
 import { Route as ApiInfrastructureFleetLogsRouteImport } from './routes/api/infrastructure/fleet/logs'
 import { Route as ApiInfrastructureFleetHealthRouteImport } from './routes/api/infrastructure/fleet/health'
 import { Route as ApiInfrastructureDiscoverySimulateRouteImport } from './routes/api/infrastructure/discovery/simulate'
@@ -67,6 +70,8 @@ import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './route
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
 import { Route as ApiIntelligenceLearnHistoryAgentIdRouteImport } from './routes/api/intelligence/learn/history.$agentId'
 import { Route as ApiInfrastructureRegistryCapacityDepartmentRouteImport } from './routes/api/infrastructure/registry/capacity.$department'
+import { Route as ApiInfrastructureHealthAlertsCriticalRouteImport } from './routes/api/infrastructure/health/alerts.critical'
+import { Route as ApiInfrastructureHealthInstanceIdHistoryRouteImport } from './routes/api/infrastructure/health/$instanceId.history'
 import { Route as ApiInfrastructureFleetKillInstanceIdRouteImport } from './routes/api/infrastructure/fleet/kill.$instanceId'
 import { Route as ApiInfrastructureDiscoveryReputationAgentIdRouteImport } from './routes/api/infrastructure/discovery/reputation.$agentId'
 import { Route as ApiInfrastructureBudgetWalletInstanceIdRouteImport } from './routes/api/infrastructure/budget/wallet.$instanceId'
@@ -334,6 +339,24 @@ const ApiInfrastructureRegistryCleanupRoute =
     path: '/api/infrastructure/registry/cleanup',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiInfrastructureHealthTelemetryRoute =
+  ApiInfrastructureHealthTelemetryRouteImport.update({
+    id: '/api/infrastructure/health/telemetry',
+    path: '/api/infrastructure/health/telemetry',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureHealthSweepRoute =
+  ApiInfrastructureHealthSweepRouteImport.update({
+    id: '/api/infrastructure/health/sweep',
+    path: '/api/infrastructure/health/sweep',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureHealthInstanceIdRoute =
+  ApiInfrastructureHealthInstanceIdRouteImport.update({
+    id: '/api/infrastructure/health/$instanceId',
+    path: '/api/infrastructure/health/$instanceId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiInfrastructureFleetLogsRoute =
   ApiInfrastructureFleetLogsRouteImport.update({
     id: '/api/infrastructure/fleet/logs',
@@ -399,6 +422,18 @@ const ApiInfrastructureRegistryCapacityDepartmentRoute =
     id: '/api/infrastructure/registry/capacity/$department',
     path: '/api/infrastructure/registry/capacity/$department',
     getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureHealthAlertsCriticalRoute =
+  ApiInfrastructureHealthAlertsCriticalRouteImport.update({
+    id: '/api/infrastructure/health/alerts/critical',
+    path: '/api/infrastructure/health/alerts/critical',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureHealthInstanceIdHistoryRoute =
+  ApiInfrastructureHealthInstanceIdHistoryRouteImport.update({
+    id: '/history',
+    path: '/history',
+    getParentRoute: () => ApiInfrastructureHealthInstanceIdRoute,
   } as any)
 const ApiInfrastructureFleetKillInstanceIdRoute =
   ApiInfrastructureFleetKillInstanceIdRouteImport.update({
@@ -473,6 +508,9 @@ export interface FileRoutesByFullPath {
   '/api/infrastructure/discovery/simulate': typeof ApiInfrastructureDiscoverySimulateRoute
   '/api/infrastructure/fleet/health': typeof ApiInfrastructureFleetHealthRoute
   '/api/infrastructure/fleet/logs': typeof ApiInfrastructureFleetLogsRoute
+  '/api/infrastructure/health/$instanceId': typeof ApiInfrastructureHealthInstanceIdRouteWithChildren
+  '/api/infrastructure/health/sweep': typeof ApiInfrastructureHealthSweepRoute
+  '/api/infrastructure/health/telemetry': typeof ApiInfrastructureHealthTelemetryRoute
   '/api/infrastructure/registry/cleanup': typeof ApiInfrastructureRegistryCleanupRoute
   '/api/infrastructure/registry/discover': typeof ApiInfrastructureRegistryDiscoverRoute
   '/api/infrastructure/registry/heartbeat': typeof ApiInfrastructureRegistryHeartbeatRoute
@@ -498,6 +536,8 @@ export interface FileRoutesByFullPath {
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
   '/api/infrastructure/discovery/reputation/$agentId': typeof ApiInfrastructureDiscoveryReputationAgentIdRoute
   '/api/infrastructure/fleet/kill/$instanceId': typeof ApiInfrastructureFleetKillInstanceIdRoute
+  '/api/infrastructure/health/$instanceId/history': typeof ApiInfrastructureHealthInstanceIdHistoryRoute
+  '/api/infrastructure/health/alerts/critical': typeof ApiInfrastructureHealthAlertsCriticalRoute
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
@@ -539,6 +579,9 @@ export interface FileRoutesByTo {
   '/api/infrastructure/discovery/simulate': typeof ApiInfrastructureDiscoverySimulateRoute
   '/api/infrastructure/fleet/health': typeof ApiInfrastructureFleetHealthRoute
   '/api/infrastructure/fleet/logs': typeof ApiInfrastructureFleetLogsRoute
+  '/api/infrastructure/health/$instanceId': typeof ApiInfrastructureHealthInstanceIdRouteWithChildren
+  '/api/infrastructure/health/sweep': typeof ApiInfrastructureHealthSweepRoute
+  '/api/infrastructure/health/telemetry': typeof ApiInfrastructureHealthTelemetryRoute
   '/api/infrastructure/registry/cleanup': typeof ApiInfrastructureRegistryCleanupRoute
   '/api/infrastructure/registry/discover': typeof ApiInfrastructureRegistryDiscoverRoute
   '/api/infrastructure/registry/heartbeat': typeof ApiInfrastructureRegistryHeartbeatRoute
@@ -564,6 +607,8 @@ export interface FileRoutesByTo {
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
   '/api/infrastructure/discovery/reputation/$agentId': typeof ApiInfrastructureDiscoveryReputationAgentIdRoute
   '/api/infrastructure/fleet/kill/$instanceId': typeof ApiInfrastructureFleetKillInstanceIdRoute
+  '/api/infrastructure/health/$instanceId/history': typeof ApiInfrastructureHealthInstanceIdHistoryRoute
+  '/api/infrastructure/health/alerts/critical': typeof ApiInfrastructureHealthAlertsCriticalRoute
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
@@ -606,6 +651,9 @@ export interface FileRoutesById {
   '/api/infrastructure/discovery/simulate': typeof ApiInfrastructureDiscoverySimulateRoute
   '/api/infrastructure/fleet/health': typeof ApiInfrastructureFleetHealthRoute
   '/api/infrastructure/fleet/logs': typeof ApiInfrastructureFleetLogsRoute
+  '/api/infrastructure/health/$instanceId': typeof ApiInfrastructureHealthInstanceIdRouteWithChildren
+  '/api/infrastructure/health/sweep': typeof ApiInfrastructureHealthSweepRoute
+  '/api/infrastructure/health/telemetry': typeof ApiInfrastructureHealthTelemetryRoute
   '/api/infrastructure/registry/cleanup': typeof ApiInfrastructureRegistryCleanupRoute
   '/api/infrastructure/registry/discover': typeof ApiInfrastructureRegistryDiscoverRoute
   '/api/infrastructure/registry/heartbeat': typeof ApiInfrastructureRegistryHeartbeatRoute
@@ -631,6 +679,8 @@ export interface FileRoutesById {
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
   '/api/infrastructure/discovery/reputation/$agentId': typeof ApiInfrastructureDiscoveryReputationAgentIdRoute
   '/api/infrastructure/fleet/kill/$instanceId': typeof ApiInfrastructureFleetKillInstanceIdRoute
+  '/api/infrastructure/health/$instanceId/history': typeof ApiInfrastructureHealthInstanceIdHistoryRoute
+  '/api/infrastructure/health/alerts/critical': typeof ApiInfrastructureHealthAlertsCriticalRoute
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
@@ -674,6 +724,9 @@ export interface FileRouteTypes {
     | '/api/infrastructure/discovery/simulate'
     | '/api/infrastructure/fleet/health'
     | '/api/infrastructure/fleet/logs'
+    | '/api/infrastructure/health/$instanceId'
+    | '/api/infrastructure/health/sweep'
+    | '/api/infrastructure/health/telemetry'
     | '/api/infrastructure/registry/cleanup'
     | '/api/infrastructure/registry/discover'
     | '/api/infrastructure/registry/heartbeat'
@@ -699,6 +752,8 @@ export interface FileRouteTypes {
     | '/api/infrastructure/budget/wallet/$instanceId'
     | '/api/infrastructure/discovery/reputation/$agentId'
     | '/api/infrastructure/fleet/kill/$instanceId'
+    | '/api/infrastructure/health/$instanceId/history'
+    | '/api/infrastructure/health/alerts/critical'
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
@@ -740,6 +795,9 @@ export interface FileRouteTypes {
     | '/api/infrastructure/discovery/simulate'
     | '/api/infrastructure/fleet/health'
     | '/api/infrastructure/fleet/logs'
+    | '/api/infrastructure/health/$instanceId'
+    | '/api/infrastructure/health/sweep'
+    | '/api/infrastructure/health/telemetry'
     | '/api/infrastructure/registry/cleanup'
     | '/api/infrastructure/registry/discover'
     | '/api/infrastructure/registry/heartbeat'
@@ -765,6 +823,8 @@ export interface FileRouteTypes {
     | '/api/infrastructure/budget/wallet/$instanceId'
     | '/api/infrastructure/discovery/reputation/$agentId'
     | '/api/infrastructure/fleet/kill/$instanceId'
+    | '/api/infrastructure/health/$instanceId/history'
+    | '/api/infrastructure/health/alerts/critical'
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
@@ -806,6 +866,9 @@ export interface FileRouteTypes {
     | '/api/infrastructure/discovery/simulate'
     | '/api/infrastructure/fleet/health'
     | '/api/infrastructure/fleet/logs'
+    | '/api/infrastructure/health/$instanceId'
+    | '/api/infrastructure/health/sweep'
+    | '/api/infrastructure/health/telemetry'
     | '/api/infrastructure/registry/cleanup'
     | '/api/infrastructure/registry/discover'
     | '/api/infrastructure/registry/heartbeat'
@@ -831,6 +894,8 @@ export interface FileRouteTypes {
     | '/api/infrastructure/budget/wallet/$instanceId'
     | '/api/infrastructure/discovery/reputation/$agentId'
     | '/api/infrastructure/fleet/kill/$instanceId'
+    | '/api/infrastructure/health/$instanceId/history'
+    | '/api/infrastructure/health/alerts/critical'
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
@@ -872,6 +937,9 @@ export interface RootRouteChildren {
   ApiInfrastructureCapabilitiesSearchRoute: typeof ApiInfrastructureCapabilitiesSearchRoute
   ApiInfrastructureFleetHealthRoute: typeof ApiInfrastructureFleetHealthRoute
   ApiInfrastructureFleetLogsRoute: typeof ApiInfrastructureFleetLogsRoute
+  ApiInfrastructureHealthInstanceIdRoute: typeof ApiInfrastructureHealthInstanceIdRouteWithChildren
+  ApiInfrastructureHealthSweepRoute: typeof ApiInfrastructureHealthSweepRoute
+  ApiInfrastructureHealthTelemetryRoute: typeof ApiInfrastructureHealthTelemetryRoute
   ApiInfrastructureRegistryCleanupRoute: typeof ApiInfrastructureRegistryCleanupRoute
   ApiInfrastructureRegistryDiscoverRoute: typeof ApiInfrastructureRegistryDiscoverRoute
   ApiInfrastructureRegistryHeartbeatRoute: typeof ApiInfrastructureRegistryHeartbeatRoute
@@ -896,6 +964,7 @@ export interface RootRouteChildren {
   ApiInfrastructureBudgetTopupsPendingRoute: typeof ApiInfrastructureBudgetTopupsPendingRoute
   ApiInfrastructureBudgetWalletInstanceIdRoute: typeof ApiInfrastructureBudgetWalletInstanceIdRoute
   ApiInfrastructureFleetKillInstanceIdRoute: typeof ApiInfrastructureFleetKillInstanceIdRoute
+  ApiInfrastructureHealthAlertsCriticalRoute: typeof ApiInfrastructureHealthAlertsCriticalRoute
   ApiInfrastructureRegistryCapacityDepartmentRoute: typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   ApiIntelligenceLearnHistoryAgentIdRoute: typeof ApiIntelligenceLearnHistoryAgentIdRoute
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
@@ -1232,6 +1301,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureRegistryCleanupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/infrastructure/health/telemetry': {
+      id: '/api/infrastructure/health/telemetry'
+      path: '/api/infrastructure/health/telemetry'
+      fullPath: '/api/infrastructure/health/telemetry'
+      preLoaderRoute: typeof ApiInfrastructureHealthTelemetryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/health/sweep': {
+      id: '/api/infrastructure/health/sweep'
+      path: '/api/infrastructure/health/sweep'
+      fullPath: '/api/infrastructure/health/sweep'
+      preLoaderRoute: typeof ApiInfrastructureHealthSweepRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/health/$instanceId': {
+      id: '/api/infrastructure/health/$instanceId'
+      path: '/api/infrastructure/health/$instanceId'
+      fullPath: '/api/infrastructure/health/$instanceId'
+      preLoaderRoute: typeof ApiInfrastructureHealthInstanceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/infrastructure/fleet/logs': {
       id: '/api/infrastructure/fleet/logs'
       path: '/api/infrastructure/fleet/logs'
@@ -1309,6 +1399,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureRegistryCapacityDepartmentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/infrastructure/health/alerts/critical': {
+      id: '/api/infrastructure/health/alerts/critical'
+      path: '/api/infrastructure/health/alerts/critical'
+      fullPath: '/api/infrastructure/health/alerts/critical'
+      preLoaderRoute: typeof ApiInfrastructureHealthAlertsCriticalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/health/$instanceId/history': {
+      id: '/api/infrastructure/health/$instanceId/history'
+      path: '/history'
+      fullPath: '/api/infrastructure/health/$instanceId/history'
+      preLoaderRoute: typeof ApiInfrastructureHealthInstanceIdHistoryRouteImport
+      parentRoute: typeof ApiInfrastructureHealthInstanceIdRoute
+    }
     '/api/infrastructure/fleet/kill/$instanceId': {
       id: '/api/infrastructure/fleet/kill/$instanceId'
       path: '/api/infrastructure/fleet/kill/$instanceId'
@@ -1372,6 +1476,21 @@ const ApiInfrastructureDiscoveryRouteRouteWithChildren =
     ApiInfrastructureDiscoveryRouteRouteChildren,
   )
 
+interface ApiInfrastructureHealthInstanceIdRouteChildren {
+  ApiInfrastructureHealthInstanceIdHistoryRoute: typeof ApiInfrastructureHealthInstanceIdHistoryRoute
+}
+
+const ApiInfrastructureHealthInstanceIdRouteChildren: ApiInfrastructureHealthInstanceIdRouteChildren =
+  {
+    ApiInfrastructureHealthInstanceIdHistoryRoute:
+      ApiInfrastructureHealthInstanceIdHistoryRoute,
+  }
+
+const ApiInfrastructureHealthInstanceIdRouteWithChildren =
+  ApiInfrastructureHealthInstanceIdRoute._addFileChildren(
+    ApiInfrastructureHealthInstanceIdRouteChildren,
+  )
+
 interface ApiIntelligenceReflectionMetricsRouteChildren {
   ApiIntelligenceReflectionMetricsResetRoute: typeof ApiIntelligenceReflectionMetricsResetRoute
 }
@@ -1428,6 +1547,10 @@ const rootRouteChildren: RootRouteChildren = {
     ApiInfrastructureCapabilitiesSearchRoute,
   ApiInfrastructureFleetHealthRoute: ApiInfrastructureFleetHealthRoute,
   ApiInfrastructureFleetLogsRoute: ApiInfrastructureFleetLogsRoute,
+  ApiInfrastructureHealthInstanceIdRoute:
+    ApiInfrastructureHealthInstanceIdRouteWithChildren,
+  ApiInfrastructureHealthSweepRoute: ApiInfrastructureHealthSweepRoute,
+  ApiInfrastructureHealthTelemetryRoute: ApiInfrastructureHealthTelemetryRoute,
   ApiInfrastructureRegistryCleanupRoute: ApiInfrastructureRegistryCleanupRoute,
   ApiInfrastructureRegistryDiscoverRoute:
     ApiInfrastructureRegistryDiscoverRoute,
@@ -1462,6 +1585,8 @@ const rootRouteChildren: RootRouteChildren = {
     ApiInfrastructureBudgetWalletInstanceIdRoute,
   ApiInfrastructureFleetKillInstanceIdRoute:
     ApiInfrastructureFleetKillInstanceIdRoute,
+  ApiInfrastructureHealthAlertsCriticalRoute:
+    ApiInfrastructureHealthAlertsCriticalRoute,
   ApiInfrastructureRegistryCapacityDepartmentRoute:
     ApiInfrastructureRegistryCapacityDepartmentRoute,
   ApiIntelligenceLearnHistoryAgentIdRoute:
