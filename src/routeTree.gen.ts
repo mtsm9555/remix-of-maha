@@ -47,6 +47,9 @@ import { Route as ApiIntelligenceGraphExpandRouteImport } from './routes/api/int
 import { Route as ApiIntelligenceConsolidateStatsRouteImport } from './routes/api/intelligence/consolidate/stats'
 import { Route as ApiIntelligenceCompressionTestRouteImport } from './routes/api/intelligence/compression/test'
 import { Route as ApiIntelligenceCompressionStatsRouteImport } from './routes/api/intelligence/compression/stats'
+import { Route as ApiInfrastructureReputationOverrideRouteImport } from './routes/api/infrastructure/reputation/override'
+import { Route as ApiInfrastructureReputationEventRouteImport } from './routes/api/infrastructure/reputation/event'
+import { Route as ApiInfrastructureReputationAgentIdRouteImport } from './routes/api/infrastructure/reputation/$agentId'
 import { Route as ApiInfrastructureRegistryRegisterRouteImport } from './routes/api/infrastructure/registry/register'
 import { Route as ApiInfrastructureRegistryHeartbeatRouteImport } from './routes/api/infrastructure/registry/heartbeat'
 import { Route as ApiInfrastructureRegistryDiscoverRouteImport } from './routes/api/infrastructure/registry/discover'
@@ -269,6 +272,24 @@ const ApiIntelligenceCompressionStatsRoute =
     path: '/api/intelligence/compression/stats',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiInfrastructureReputationOverrideRoute =
+  ApiInfrastructureReputationOverrideRouteImport.update({
+    id: '/api/infrastructure/reputation/override',
+    path: '/api/infrastructure/reputation/override',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureReputationEventRoute =
+  ApiInfrastructureReputationEventRouteImport.update({
+    id: '/api/infrastructure/reputation/event',
+    path: '/api/infrastructure/reputation/event',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureReputationAgentIdRoute =
+  ApiInfrastructureReputationAgentIdRouteImport.update({
+    id: '/api/infrastructure/reputation/$agentId',
+    path: '/api/infrastructure/reputation/$agentId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiInfrastructureRegistryRegisterRoute =
   ApiInfrastructureRegistryRegisterRouteImport.update({
     id: '/api/infrastructure/registry/register',
@@ -396,6 +417,9 @@ export interface FileRoutesByFullPath {
   '/api/infrastructure/registry/discover': typeof ApiInfrastructureRegistryDiscoverRoute
   '/api/infrastructure/registry/heartbeat': typeof ApiInfrastructureRegistryHeartbeatRoute
   '/api/infrastructure/registry/register': typeof ApiInfrastructureRegistryRegisterRoute
+  '/api/infrastructure/reputation/$agentId': typeof ApiInfrastructureReputationAgentIdRoute
+  '/api/infrastructure/reputation/event': typeof ApiInfrastructureReputationEventRoute
+  '/api/infrastructure/reputation/override': typeof ApiInfrastructureReputationOverrideRoute
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
   '/api/intelligence/consolidate/stats': typeof ApiIntelligenceConsolidateStatsRoute
@@ -451,6 +475,9 @@ export interface FileRoutesByTo {
   '/api/infrastructure/registry/discover': typeof ApiInfrastructureRegistryDiscoverRoute
   '/api/infrastructure/registry/heartbeat': typeof ApiInfrastructureRegistryHeartbeatRoute
   '/api/infrastructure/registry/register': typeof ApiInfrastructureRegistryRegisterRoute
+  '/api/infrastructure/reputation/$agentId': typeof ApiInfrastructureReputationAgentIdRoute
+  '/api/infrastructure/reputation/event': typeof ApiInfrastructureReputationEventRoute
+  '/api/infrastructure/reputation/override': typeof ApiInfrastructureReputationOverrideRoute
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
   '/api/intelligence/consolidate/stats': typeof ApiIntelligenceConsolidateStatsRoute
@@ -507,6 +534,9 @@ export interface FileRoutesById {
   '/api/infrastructure/registry/discover': typeof ApiInfrastructureRegistryDiscoverRoute
   '/api/infrastructure/registry/heartbeat': typeof ApiInfrastructureRegistryHeartbeatRoute
   '/api/infrastructure/registry/register': typeof ApiInfrastructureRegistryRegisterRoute
+  '/api/infrastructure/reputation/$agentId': typeof ApiInfrastructureReputationAgentIdRoute
+  '/api/infrastructure/reputation/event': typeof ApiInfrastructureReputationEventRoute
+  '/api/infrastructure/reputation/override': typeof ApiInfrastructureReputationOverrideRoute
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
   '/api/intelligence/consolidate/stats': typeof ApiIntelligenceConsolidateStatsRoute
@@ -564,6 +594,9 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/discover'
     | '/api/infrastructure/registry/heartbeat'
     | '/api/infrastructure/registry/register'
+    | '/api/infrastructure/reputation/$agentId'
+    | '/api/infrastructure/reputation/event'
+    | '/api/infrastructure/reputation/override'
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
     | '/api/intelligence/consolidate/stats'
@@ -619,6 +652,9 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/discover'
     | '/api/infrastructure/registry/heartbeat'
     | '/api/infrastructure/registry/register'
+    | '/api/infrastructure/reputation/$agentId'
+    | '/api/infrastructure/reputation/event'
+    | '/api/infrastructure/reputation/override'
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
     | '/api/intelligence/consolidate/stats'
@@ -674,6 +710,9 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/discover'
     | '/api/infrastructure/registry/heartbeat'
     | '/api/infrastructure/registry/register'
+    | '/api/infrastructure/reputation/$agentId'
+    | '/api/infrastructure/reputation/event'
+    | '/api/infrastructure/reputation/override'
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
     | '/api/intelligence/consolidate/stats'
@@ -729,6 +768,9 @@ export interface RootRouteChildren {
   ApiInfrastructureRegistryDiscoverRoute: typeof ApiInfrastructureRegistryDiscoverRoute
   ApiInfrastructureRegistryHeartbeatRoute: typeof ApiInfrastructureRegistryHeartbeatRoute
   ApiInfrastructureRegistryRegisterRoute: typeof ApiInfrastructureRegistryRegisterRoute
+  ApiInfrastructureReputationAgentIdRoute: typeof ApiInfrastructureReputationAgentIdRoute
+  ApiInfrastructureReputationEventRoute: typeof ApiInfrastructureReputationEventRoute
+  ApiInfrastructureReputationOverrideRoute: typeof ApiInfrastructureReputationOverrideRoute
   ApiIntelligenceCompressionStatsRoute: typeof ApiIntelligenceCompressionStatsRoute
   ApiIntelligenceCompressionTestRoute: typeof ApiIntelligenceCompressionTestRoute
   ApiIntelligenceConsolidateStatsRoute: typeof ApiIntelligenceConsolidateStatsRoute
@@ -1015,6 +1057,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiIntelligenceCompressionStatsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/infrastructure/reputation/override': {
+      id: '/api/infrastructure/reputation/override'
+      path: '/api/infrastructure/reputation/override'
+      fullPath: '/api/infrastructure/reputation/override'
+      preLoaderRoute: typeof ApiInfrastructureReputationOverrideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/reputation/event': {
+      id: '/api/infrastructure/reputation/event'
+      path: '/api/infrastructure/reputation/event'
+      fullPath: '/api/infrastructure/reputation/event'
+      preLoaderRoute: typeof ApiInfrastructureReputationEventRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/reputation/$agentId': {
+      id: '/api/infrastructure/reputation/$agentId'
+      path: '/api/infrastructure/reputation/$agentId'
+      fullPath: '/api/infrastructure/reputation/$agentId'
+      preLoaderRoute: typeof ApiInfrastructureReputationAgentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/infrastructure/registry/register': {
       id: '/api/infrastructure/registry/register'
       path: '/api/infrastructure/registry/register'
@@ -1198,6 +1261,11 @@ const rootRouteChildren: RootRouteChildren = {
     ApiInfrastructureRegistryHeartbeatRoute,
   ApiInfrastructureRegistryRegisterRoute:
     ApiInfrastructureRegistryRegisterRoute,
+  ApiInfrastructureReputationAgentIdRoute:
+    ApiInfrastructureReputationAgentIdRoute,
+  ApiInfrastructureReputationEventRoute: ApiInfrastructureReputationEventRoute,
+  ApiInfrastructureReputationOverrideRoute:
+    ApiInfrastructureReputationOverrideRoute,
   ApiIntelligenceCompressionStatsRoute: ApiIntelligenceCompressionStatsRoute,
   ApiIntelligenceCompressionTestRoute: ApiIntelligenceCompressionTestRoute,
   ApiIntelligenceConsolidateStatsRoute: ApiIntelligenceConsolidateStatsRoute,
