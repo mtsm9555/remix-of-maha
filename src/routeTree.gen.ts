@@ -26,12 +26,14 @@ import { Route as ApiWorkflowsDocsRouteImport } from './routes/api/workflows/doc
 import { Route as ApiWorkflowsSplatRouteImport } from './routes/api/workflows/$'
 import { Route as ApiVoiceSplatRouteImport } from './routes/api/voice/$'
 import { Route as ApiVisionSplatRouteImport } from './routes/api/vision/$'
+import { Route as ApiPrioritizationIncidentRouteImport } from './routes/api/prioritization/incident'
 import { Route as ApiPoliciesSplatRouteImport } from './routes/api/policies/$'
 import { Route as ApiManagerSplatRouteImport } from './routes/api/manager/$'
 import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
 import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
 import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
+import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
 
 const VoiceRoute = VoiceRouteImport.update({
@@ -120,6 +122,12 @@ const ApiVisionSplatRoute = ApiVisionSplatRouteImport.update({
   path: '/api/vision/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPrioritizationIncidentRoute =
+  ApiPrioritizationIncidentRouteImport.update({
+    id: '/api/prioritization/incident',
+    path: '/api/prioritization/incident',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPoliciesSplatRoute = ApiPoliciesSplatRouteImport.update({
   id: '/api/policies/$',
   path: '/api/policies/$',
@@ -150,6 +158,12 @@ const ApiApprovalsSplatRoute = ApiApprovalsSplatRouteImport.update({
   path: '/api/approvals/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPrioritizationQueuePlanIdRoute =
+  ApiPrioritizationQueuePlanIdRouteImport.update({
+    id: '/api/prioritization/queue/$planId',
+    path: '/api/prioritization/queue/$planId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPlanningGoalIntelligentRoute =
   ApiPlanningGoalIntelligentRouteImport.update({
     id: '/api/planning/goal/intelligent',
@@ -176,12 +190,14 @@ export interface FileRoutesByFullPath {
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/policies/$': typeof ApiPoliciesSplatRoute
+  '/api/prioritization/incident': typeof ApiPrioritizationIncidentRoute
   '/api/vision/$': typeof ApiVisionSplatRoute
   '/api/voice/$': typeof ApiVoiceSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
+  '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -202,12 +218,14 @@ export interface FileRoutesByTo {
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/policies/$': typeof ApiPoliciesSplatRoute
+  '/api/prioritization/incident': typeof ApiPrioritizationIncidentRoute
   '/api/vision/$': typeof ApiVisionSplatRoute
   '/api/voice/$': typeof ApiVoiceSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
+  '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -229,12 +247,14 @@ export interface FileRoutesById {
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/policies/$': typeof ApiPoliciesSplatRoute
+  '/api/prioritization/incident': typeof ApiPrioritizationIncidentRoute
   '/api/vision/$': typeof ApiVisionSplatRoute
   '/api/voice/$': typeof ApiVoiceSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
+  '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -257,12 +277,14 @@ export interface FileRouteTypes {
     | '/api/goals/$'
     | '/api/manager/$'
     | '/api/policies/$'
+    | '/api/prioritization/incident'
     | '/api/vision/$'
     | '/api/voice/$'
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
     | '/api/planning/goal/intelligent'
+    | '/api/prioritization/queue/$planId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -283,12 +305,14 @@ export interface FileRouteTypes {
     | '/api/goals/$'
     | '/api/manager/$'
     | '/api/policies/$'
+    | '/api/prioritization/incident'
     | '/api/vision/$'
     | '/api/voice/$'
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
     | '/api/planning/goal/intelligent'
+    | '/api/prioritization/queue/$planId'
   id:
     | '__root__'
     | '/'
@@ -309,12 +333,14 @@ export interface FileRouteTypes {
     | '/api/goals/$'
     | '/api/manager/$'
     | '/api/policies/$'
+    | '/api/prioritization/incident'
     | '/api/vision/$'
     | '/api/voice/$'
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
     | '/api/planning/goal/intelligent'
+    | '/api/prioritization/queue/$planId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -336,12 +362,14 @@ export interface RootRouteChildren {
   ApiGoalsSplatRoute: typeof ApiGoalsSplatRoute
   ApiManagerSplatRoute: typeof ApiManagerSplatRoute
   ApiPoliciesSplatRoute: typeof ApiPoliciesSplatRoute
+  ApiPrioritizationIncidentRoute: typeof ApiPrioritizationIncidentRoute
   ApiVisionSplatRoute: typeof ApiVisionSplatRoute
   ApiVoiceSplatRoute: typeof ApiVoiceSplatRoute
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
+  ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -465,6 +493,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiVisionSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/prioritization/incident': {
+      id: '/api/prioritization/incident'
+      path: '/api/prioritization/incident'
+      fullPath: '/api/prioritization/incident'
+      preLoaderRoute: typeof ApiPrioritizationIncidentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/policies/$': {
       id: '/api/policies/$'
       path: '/api/policies/$'
@@ -507,6 +542,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiApprovalsSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/prioritization/queue/$planId': {
+      id: '/api/prioritization/queue/$planId'
+      path: '/api/prioritization/queue/$planId'
+      fullPath: '/api/prioritization/queue/$planId'
+      preLoaderRoute: typeof ApiPrioritizationQueuePlanIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/planning/goal/intelligent': {
       id: '/api/planning/goal/intelligent'
       path: '/api/planning/goal/intelligent'
@@ -536,12 +578,14 @@ const rootRouteChildren: RootRouteChildren = {
   ApiGoalsSplatRoute: ApiGoalsSplatRoute,
   ApiManagerSplatRoute: ApiManagerSplatRoute,
   ApiPoliciesSplatRoute: ApiPoliciesSplatRoute,
+  ApiPrioritizationIncidentRoute: ApiPrioritizationIncidentRoute,
   ApiVisionSplatRoute: ApiVisionSplatRoute,
   ApiVoiceSplatRoute: ApiVoiceSplatRoute,
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
+  ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
