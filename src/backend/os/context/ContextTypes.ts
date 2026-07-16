@@ -5,7 +5,8 @@ export type ContextSourceType =
   | "knowledge_graph"
   | "conversation"
   | "tool_result"
-  | "user_profile";
+  | "user_profile"
+  | "compressed";
 
 export interface ContextChunk {
   id: string;
