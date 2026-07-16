@@ -33,9 +33,11 @@ import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
 import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
 import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
+import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/api/intelligence/consolidate/index'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
 import { Route as ApiIntelligenceReflectionMetricsRouteImport } from './routes/api/intelligence/reflection/metrics'
+import { Route as ApiIntelligenceConsolidateStatsRouteImport } from './routes/api/intelligence/consolidate/stats'
 import { Route as ApiIntelligenceCompressionTestRouteImport } from './routes/api/intelligence/compression/test'
 import { Route as ApiIntelligenceCompressionStatsRouteImport } from './routes/api/intelligence/compression/stats'
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
@@ -162,6 +164,12 @@ const ApiApprovalsSplatRoute = ApiApprovalsSplatRouteImport.update({
   path: '/api/approvals/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiIntelligenceConsolidateIndexRoute =
+  ApiIntelligenceConsolidateIndexRouteImport.update({
+    id: '/api/intelligence/consolidate/',
+    path: '/api/intelligence/consolidate/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPrioritizationQueuePlanIdRoute =
   ApiPrioritizationQueuePlanIdRouteImport.update({
     id: '/api/prioritization/queue/$planId',
@@ -178,6 +186,12 @@ const ApiIntelligenceReflectionMetricsRoute =
   ApiIntelligenceReflectionMetricsRouteImport.update({
     id: '/api/intelligence/reflection/metrics',
     path: '/api/intelligence/reflection/metrics',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiIntelligenceConsolidateStatsRoute =
+  ApiIntelligenceConsolidateStatsRouteImport.update({
+    id: '/api/intelligence/consolidate/stats',
+    path: '/api/intelligence/consolidate/stats',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiIntelligenceCompressionTestRoute =
@@ -226,9 +240,11 @@ export interface FileRoutesByFullPath {
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
+  '/api/intelligence/consolidate/stats': typeof ApiIntelligenceConsolidateStatsRoute
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
 }
 export interface FileRoutesByTo {
@@ -258,9 +274,11 @@ export interface FileRoutesByTo {
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
+  '/api/intelligence/consolidate/stats': typeof ApiIntelligenceConsolidateStatsRoute
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/intelligence/consolidate': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
 }
 export interface FileRoutesById {
@@ -291,9 +309,11 @@ export interface FileRoutesById {
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
+  '/api/intelligence/consolidate/stats': typeof ApiIntelligenceConsolidateStatsRoute
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
 }
 export interface FileRouteTypes {
@@ -325,9 +345,11 @@ export interface FileRouteTypes {
     | '/api/workflows/openapi.json'
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
+    | '/api/intelligence/consolidate/stats'
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/intelligence/consolidate/'
     | '/api/intelligence/reflection/metrics/reset'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -357,9 +379,11 @@ export interface FileRouteTypes {
     | '/api/workflows/openapi.json'
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
+    | '/api/intelligence/consolidate/stats'
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/intelligence/consolidate'
     | '/api/intelligence/reflection/metrics/reset'
   id:
     | '__root__'
@@ -389,9 +413,11 @@ export interface FileRouteTypes {
     | '/api/workflows/openapi.json'
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
+    | '/api/intelligence/consolidate/stats'
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/intelligence/consolidate/'
     | '/api/intelligence/reflection/metrics/reset'
   fileRoutesById: FileRoutesById
 }
@@ -422,9 +448,11 @@ export interface RootRouteChildren {
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
   ApiIntelligenceCompressionStatsRoute: typeof ApiIntelligenceCompressionStatsRoute
   ApiIntelligenceCompressionTestRoute: typeof ApiIntelligenceCompressionTestRoute
+  ApiIntelligenceConsolidateStatsRoute: typeof ApiIntelligenceConsolidateStatsRoute
   ApiIntelligenceReflectionMetricsRoute: typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
+  ApiIntelligenceConsolidateIndexRoute: typeof ApiIntelligenceConsolidateIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -597,6 +625,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiApprovalsSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/intelligence/consolidate/': {
+      id: '/api/intelligence/consolidate/'
+      path: '/api/intelligence/consolidate'
+      fullPath: '/api/intelligence/consolidate/'
+      preLoaderRoute: typeof ApiIntelligenceConsolidateIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/prioritization/queue/$planId': {
       id: '/api/prioritization/queue/$planId'
       path: '/api/prioritization/queue/$planId'
@@ -616,6 +651,13 @@ declare module '@tanstack/react-router' {
       path: '/api/intelligence/reflection/metrics'
       fullPath: '/api/intelligence/reflection/metrics'
       preLoaderRoute: typeof ApiIntelligenceReflectionMetricsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/intelligence/consolidate/stats': {
+      id: '/api/intelligence/consolidate/stats'
+      path: '/api/intelligence/consolidate/stats'
+      fullPath: '/api/intelligence/consolidate/stats'
+      preLoaderRoute: typeof ApiIntelligenceConsolidateStatsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/intelligence/compression/test': {
@@ -684,10 +726,12 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
   ApiIntelligenceCompressionStatsRoute: ApiIntelligenceCompressionStatsRoute,
   ApiIntelligenceCompressionTestRoute: ApiIntelligenceCompressionTestRoute,
+  ApiIntelligenceConsolidateStatsRoute: ApiIntelligenceConsolidateStatsRoute,
   ApiIntelligenceReflectionMetricsRoute:
     ApiIntelligenceReflectionMetricsRouteWithChildren,
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
   ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
+  ApiIntelligenceConsolidateIndexRoute: ApiIntelligenceConsolidateIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

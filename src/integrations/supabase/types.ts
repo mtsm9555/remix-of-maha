@@ -321,29 +321,38 @@ export type Database = {
       graph_edges: {
         Row: {
           created_at: string
+          department: string | null
           id: string
           properties: Json
           relation: string
           source_id: string
+          source_name: string | null
           target_id: string
+          target_name: string | null
           user_id: string
         }
         Insert: {
           created_at?: string
+          department?: string | null
           id?: string
           properties?: Json
           relation: string
           source_id: string
+          source_name?: string | null
           target_id: string
+          target_name?: string | null
           user_id: string
         }
         Update: {
           created_at?: string
+          department?: string | null
           id?: string
           properties?: Json
           relation?: string
           source_id?: string
+          source_name?: string | null
           target_id?: string
+          target_name?: string | null
           user_id?: string
         }
         Relationships: [
@@ -373,6 +382,7 @@ export type Database = {
       graph_nodes: {
         Row: {
           created_at: string
+          department: string | null
           embedding: string | null
           id: string
           label: string
@@ -382,6 +392,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          department?: string | null
           embedding?: string | null
           id?: string
           label?: string
@@ -391,6 +402,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          department?: string | null
           embedding?: string | null
           id?: string
           label?: string
@@ -502,6 +514,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      raw_memories: {
+        Row: {
+          content: string
+          created_at: string
+          department: string
+          id: string
+          is_consolidated: boolean
+          source: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          department: string
+          id?: string
+          is_consolidated?: boolean
+          source: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          department?: string
+          id?: string
+          is_consolidated?: boolean
+          source?: string
+        }
+        Relationships: []
       }
       relationships: {
         Row: {
