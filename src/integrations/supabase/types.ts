@@ -55,6 +55,39 @@ export type Database = {
           },
         ]
       }
+      budget_transactions: {
+        Row: {
+          agent_id: string
+          amount: number
+          cost_usd: number
+          created_at: string
+          department: string
+          id: string
+          metadata: Json
+          resource_type: string
+        }
+        Insert: {
+          agent_id: string
+          amount: number
+          cost_usd: number
+          created_at?: string
+          department: string
+          id: string
+          metadata?: Json
+          resource_type: string
+        }
+        Update: {
+          agent_id?: string
+          amount?: number
+          cost_usd?: number
+          created_at?: string
+          department?: string
+          id?: string
+          metadata?: Json
+          resource_type?: string
+        }
+        Relationships: []
+      }
       consolidated_memories: {
         Row: {
           created_at: string
@@ -120,6 +153,42 @@ export type Database = {
           title?: string | null
           updated_at?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      daily_budget_usage: {
+        Row: {
+          agent_id: string
+          department: string
+          id: string
+          llm_cost_usd: number | null
+          llm_tokens: number | null
+          tool_cost_usd: number | null
+          tool_executions: number | null
+          total_cost_usd: number | null
+          usage_date: string
+        }
+        Insert: {
+          agent_id: string
+          department: string
+          id?: string
+          llm_cost_usd?: number | null
+          llm_tokens?: number | null
+          tool_cost_usd?: number | null
+          tool_executions?: number | null
+          total_cost_usd?: number | null
+          usage_date?: string
+        }
+        Update: {
+          agent_id?: string
+          department?: string
+          id?: string
+          llm_cost_usd?: number | null
+          llm_tokens?: number | null
+          tool_cost_usd?: number | null
+          tool_executions?: number | null
+          total_cost_usd?: number | null
+          usage_date?: string
         }
         Relationships: []
       }
@@ -738,6 +807,18 @@ export type Database = {
           similarity: number
           summary: string
         }[]
+      }
+      upsert_daily_usage: {
+        Args: {
+          p_agent_id: string
+          p_department: string
+          p_llm_cost_usd: number
+          p_llm_tokens: number
+          p_tool_cost_usd: number
+          p_tool_executions: number
+          p_total_cost_usd: number
+        }
+        Returns: undefined
       }
     }
     Enums: {
