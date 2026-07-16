@@ -6,7 +6,7 @@ import type {
 } from "@/backend/infrastructure/discovery/DiscoveryTypes";
 import type { Department } from "@/backend/agents/departments/types";
 
-export const Route = createFileRoute("/api/infrastructure/discovery/route")({
+export const Route = createFileRoute("/api/infrastructure/discovery")({
   server: {
     handlers: {
       POST: async ({ request }) => {
