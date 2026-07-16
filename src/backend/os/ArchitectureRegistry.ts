@@ -34,11 +34,19 @@ export class ArchitectureRegistry {
       InterDepartmentBus.registerHandler(dept.id, async (req: InterDeptRequest) => {
         const mockMilestone: OSMilestone = {
           id: req.id,
+          wave: 1,
           department: dept.id,
           objective: req.payload?.objective || req.requestType,
           successCriteria: [],
-          estimatedBudget: 0,
           dependencies: [],
+          resources: {
+            apiCostUSD: 0,
+            estimatedAgentHours: 0,
+            estimatedWallClockMinutes: 0,
+            tokenUsageEstimate: 0,
+          },
+          risks: [],
+          status: "pending",
         };
         return await manager.executeMilestone(mockMilestone);
       });
