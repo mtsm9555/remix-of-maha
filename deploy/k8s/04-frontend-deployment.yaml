@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maha-frontend
+  namespace: maha
+  labels:
+    app: maha-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: maha-frontend
+  template:
+    metadata:
+      labels:
+        app: maha-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: maha/frontend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: http
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10

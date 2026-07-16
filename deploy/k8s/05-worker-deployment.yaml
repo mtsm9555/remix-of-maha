@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maha-worker
+  namespace: maha
+  labels:
+    app: maha-worker
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: maha-worker
+  template:
+    metadata:
+      labels:
+        app: maha-worker
+    spec:
+      containers:
+      - name: worker
+        image: maha/backend:latest
+        imagePullPolicy: Always
+        command: ["bun", "run", "src/backend/workers/WorkerService.ts"]
+        envFrom:
+        - configMapRef:
+            name: maha-config
+        - secretRef:
+            name: maha-secrets
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+      restartPolicy: Always
