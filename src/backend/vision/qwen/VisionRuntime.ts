@@ -44,7 +44,7 @@ export class VisionRuntime {
       
       const visionTask: VisionTask = {
         id: taskId,
-        type: task,
+        type: (task === 'objects' ? 'object_detection' : task) as VisionTask['type'],
         status: 'processing',
         input: image,
         createdAt: new Date()
