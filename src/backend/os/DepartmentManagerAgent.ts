@@ -1,90 +1,166 @@
-import { AgentPool } from "./AgentPool";
+import { AgentPool, type AgentInstance } from "./AgentPool";
+import { TaskBoard, type DepartmentTask } from "./TaskBoard";
+import { QualityAssurance, type QAResult } from "./QualityAssurance";
+import { DepartmentManager } from "./DepartmentManager";
 import { osGenerate } from "./llm";
 import type { OSMilestone } from "./types";
 import type { Department, DepartmentAgent } from "../agents/departments/types";
 
-export interface MicroTask {
-  id: string;
-  description: string;
-  assignedAgentId: string;
-  status: "pending" | "in_progress" | "completed" | "failed";
-  result?: any;
-}
-
 export class DepartmentManagerAgent {
   private departmentId: Department;
   private pool: AgentPool;
-  private activeTasks: Map<string, MicroTask> = new Map();
+  private taskBoard: TaskBoard;
+  private isProcessing: boolean = false;
 
   constructor(departmentId: Department, agents: DepartmentAgent[]) {
     this.departmentId = departmentId;
     this.pool = new AgentPool(departmentId, agents);
+    this.taskBoard = new TaskBoard();
   }
 
-  async executeMilestone(milestone: OSMilestone): Promise<{ success: boolean; result: any }> {
-    const microTasks = await this.decomposeMilestone(milestone);
-    const executionPromises = microTasks.map((t) => this.executeMicroTask(t));
-    const results = await Promise.allSettled(executionPromises);
-    const finalReport = await this.synthesizeReport(milestone, results);
-    return { success: true, result: finalReport };
-  }
-
-  private async decomposeMilestone(milestone: OSMilestone): Promise<MicroTask[]> {
-    const prompt = `You are the Manager of the ${this.departmentId} department.
-Objective: "${milestone.objective}"
-Success criteria: ${milestone.successCriteria.join(", ")}
-Break this into 2-4 actionable micro-tasks.
-Output JSON: { "tasks": [ { "description": "...", "agentType": "..." } ] }`;
-    const response = await osGenerate(prompt, { responseFormat: "json" });
-    let parsed: any = { tasks: [] };
-    try {
-      parsed = JSON.parse(response.content);
-    } catch {
-      parsed = { tasks: [{ description: milestone.objective, agentType: "Generalist" }] };
+  async executeMilestone(milestone: OSMilestone): Promise<{ success: boolean; report: string }> {
+    if (this.isProcessing) {
+      throw new Error(`[Manager: ${this.departmentId}] Already processing a milestone.`);
     }
-    const tasks: MicroTask[] = (parsed.tasks ?? []).map((t: any, i: number) => ({
-      id: `task_${milestone.id}_${i}`,
-      description: t.description,
-      assignedAgentId: t.agentType,
-      status: "pending" as const,
-    }));
-    tasks.forEach((t) => this.activeTasks.set(t.id, t));
-    return tasks;
+    this.isProcessing = true;
+    console.log(`🏢 [Manager: ${this.departmentId}] Milestone: "${milestone.objective}"`);
+    try {
+      const tasks = await this.decomposeMilestone(milestone);
+      tasks.forEach((t) => this.taskBoard.addTask(t));
+      await this.processTaskBoard();
+      const report = await this.generateFinalReport(milestone);
+      DepartmentManager.updateKPI(
+        this.departmentId,
+        "Tasks Completed",
+        this.taskBoard.getMetrics().completed,
+      );
+      return { success: true, report };
+    } catch (error: any) {
+      console.error(`[Manager: ${this.departmentId}] Milestone failed:`, error.message);
+      return { success: false, report: `Failed: ${error.message}` };
+    } finally {
+      this.isProcessing = false;
+    }
   }
 
-  private async executeMicroTask(task: MicroTask): Promise<any> {
-    const agentInstance = this.pool.getAvailableAgent();
-    if (!agentInstance) {
-      throw new Error(`[Manager: ${this.departmentId}] No available agents in pool`);
+  private async processTaskBoard() {
+    let guard = 0;
+    while (
+      (this.taskBoard.getMetrics().backlog > 0 ||
+        this.taskBoard.getMetrics().inProgress > 0 ||
+        this.taskBoard.getTasksByStatus("in_review").length > 0) &&
+      guard++ < 200
+    ) {
+      await this.assignBacklogTasks();
+      await this.reviewTasksInQA();
+      await this.handleFailedTasks();
+      await new Promise((r) => setTimeout(r, 50));
     }
-    this.pool.assignTask(agentInstance.id, task.id);
-    task.status = "in_progress";
+  }
+
+  private async assignBacklogTasks() {
+    let task = this.taskBoard.getNextBacklogTask();
+    while (task) {
+      const agentInstance = this.pool.getAvailableAgent();
+      if (!agentInstance) break;
+      const budgetCheck = DepartmentManager.canExecuteTask(this.departmentId, 0.1);
+      if (!budgetCheck.allowed) {
+        this.taskBoard.updateStatus(task.id, "failed", { reviewNotes: budgetCheck.reason });
+        task = this.taskBoard.getNextBacklogTask();
+        continue;
+      }
+      this.pool.assignTask(agentInstance.id, task.id);
+      this.taskBoard.updateStatus(task.id, "in_progress", {
+        assignedAgentId: agentInstance.agent.id,
+        agentInstanceId: agentInstance.id,
+      });
+      void this.executeAgentTask(agentInstance, task);
+      task = this.taskBoard.getNextBacklogTask();
+    }
+  }
+
+  private async executeAgentTask(instance: AgentInstance, task: DepartmentTask) {
     try {
-      const result = await agentInstance.agent.executeTask(task.description, {
+      const result = await instance.agent.executeTask(task.description, {
         department: this.departmentId,
         milestoneContext: true,
       });
-      this.pool.completeTask(agentInstance.id, true);
-      task.status = "completed";
-      task.result = result;
-      return result;
-    } catch (error) {
-      this.pool.completeTask(agentInstance.id, false);
-      task.status = "failed";
-      throw error;
+      this.taskBoard.updateStatus(task.id, "in_review", { output: result });
+      this.pool.completeTask(instance.id, true);
+    } catch (error: any) {
+      this.taskBoard.updateStatus(task.id, "failed", { reviewNotes: error.message });
+      this.pool.completeTask(instance.id, false);
     }
   }
 
-  private async synthesizeReport(milestone: OSMilestone, results: any[]): Promise<string> {
+  private async reviewTasksInQA() {
+    const tasksInReview = this.taskBoard.getTasksByStatus("in_review");
+    for (const task of tasksInReview) {
+      const qaResult: QAResult = await QualityAssurance.reviewTask(task, task.output);
+      if (qaResult.passed) {
+        this.taskBoard.updateStatus(task.id, "completed", { reviewNotes: qaResult.feedback });
+      } else if (task.attempts < task.maxAttempts) {
+        this.taskBoard.updateStatus(task.id, "backlog", {
+          attempts: task.attempts + 1,
+          description: `${task.description}\n\n[REVISION REQUIRED: ${qaResult.feedback}]`,
+        });
+      } else {
+        this.taskBoard.updateStatus(task.id, "failed", {
+          reviewNotes: `QA Failed after max attempts: ${qaResult.feedback}`,
+        });
+      }
+    }
+  }
+
+  private async handleFailedTasks() {
+    const failed = this.taskBoard.getTasksByStatus("failed");
+    if (failed.length > 0) {
+      console.warn(`[Manager: ${this.departmentId}] ${failed.length} tasks failed permanently.`);
+    }
+  }
+
+  private async decomposeMilestone(
+    milestone: OSMilestone,
+  ): Promise<Omit<DepartmentTask, "id" | "status" | "attempts" | "createdAt" | "updatedAt">[]> {
     const prompt = `You are the Manager of the ${this.departmentId} department.
 Objective: "${milestone.objective}"
-Task Results: ${JSON.stringify(results, null, 2)}
-Write a concise executive summary.`;
+Success Criteria: ${milestone.successCriteria.join(", ")}
+Break this into micro-tasks. Output JSON: { "tasks": [{ "description": "...", "successCriteria": ["..."] }] }`;
+    const response = await osGenerate(prompt, { responseFormat: "json" });
+    let parsed: any = {};
+    try {
+      parsed = JSON.parse(response.content);
+    } catch {
+      parsed = {
+        tasks: [{ description: milestone.objective, successCriteria: milestone.successCriteria }],
+      };
+    }
+    const list: any[] = Array.isArray(parsed) ? parsed : (parsed.tasks ?? []);
+    return list.map((t: any) => ({
+      milestoneId: milestone.id,
+      description: t.description,
+      successCriteria: t.successCriteria || milestone.successCriteria,
+      maxAttempts: 2,
+    }));
+  }
+
+  private async generateFinalReport(milestone: OSMilestone): Promise<string> {
+    const metrics = this.taskBoard.getMetrics();
+    const prompt = `You are the Manager of the ${this.departmentId} department.
+Milestone: "${milestone.objective}"
+Stats: ${metrics.completed} completed, ${metrics.failed} failed.
+Write a brief executive summary.`;
     const response = await osGenerate(prompt);
     return response.content;
   }
 
+  getTaskBoardMetrics() {
+    return this.taskBoard.getMetrics();
+  }
   getPoolMetrics() {
     return this.pool.getMetrics();
+  }
+  getTaskBoardDetails() {
+    return this.taskBoard.getAllTasks();
   }
 }

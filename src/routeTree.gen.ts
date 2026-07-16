@@ -25,6 +25,7 @@ import { Route as ApiWorkflowsDocsRouteImport } from './routes/api/workflows/doc
 import { Route as ApiWorkflowsSplatRouteImport } from './routes/api/workflows/$'
 import { Route as ApiVoiceSplatRouteImport } from './routes/api/voice/$'
 import { Route as ApiVisionSplatRouteImport } from './routes/api/vision/$'
+import { Route as ApiManagerSplatRouteImport } from './routes/api/manager/$'
 import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
 import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
 
@@ -109,6 +110,11 @@ const ApiVisionSplatRoute = ApiVisionSplatRouteImport.update({
   path: '/api/vision/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiManagerSplatRoute = ApiManagerSplatRouteImport.update({
+  id: '/api/manager/$',
+  path: '/api/manager/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiGoalsSplatRoute = ApiGoalsSplatRouteImport.update({
   id: '/api/goals/$',
   path: '/api/goals/$',
@@ -134,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
+  '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/vision/$': typeof ApiVisionSplatRoute
   '/api/voice/$': typeof ApiVoiceSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
@@ -154,6 +161,7 @@ export interface FileRoutesByTo {
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
+  '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/vision/$': typeof ApiVisionSplatRoute
   '/api/voice/$': typeof ApiVoiceSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
@@ -175,6 +183,7 @@ export interface FileRoutesById {
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
+  '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/vision/$': typeof ApiVisionSplatRoute
   '/api/voice/$': typeof ApiVoiceSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
@@ -197,6 +206,7 @@ export interface FileRouteTypes {
     | '/api/planner-test'
     | '/api/departments/$'
     | '/api/goals/$'
+    | '/api/manager/$'
     | '/api/vision/$'
     | '/api/voice/$'
     | '/api/workflows/$'
@@ -217,6 +227,7 @@ export interface FileRouteTypes {
     | '/api/planner-test'
     | '/api/departments/$'
     | '/api/goals/$'
+    | '/api/manager/$'
     | '/api/vision/$'
     | '/api/voice/$'
     | '/api/workflows/$'
@@ -237,6 +248,7 @@ export interface FileRouteTypes {
     | '/api/planner-test'
     | '/api/departments/$'
     | '/api/goals/$'
+    | '/api/manager/$'
     | '/api/vision/$'
     | '/api/voice/$'
     | '/api/workflows/$'
@@ -258,6 +270,7 @@ export interface RootRouteChildren {
   ApiPlannerTestRoute: typeof ApiPlannerTestRoute
   ApiDepartmentsSplatRoute: typeof ApiDepartmentsSplatRoute
   ApiGoalsSplatRoute: typeof ApiGoalsSplatRoute
+  ApiManagerSplatRoute: typeof ApiManagerSplatRoute
   ApiVisionSplatRoute: typeof ApiVisionSplatRoute
   ApiVoiceSplatRoute: typeof ApiVoiceSplatRoute
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
@@ -379,6 +392,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiVisionSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/manager/$': {
+      id: '/api/manager/$'
+      path: '/api/manager/$'
+      fullPath: '/api/manager/$'
+      preLoaderRoute: typeof ApiManagerSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/goals/$': {
       id: '/api/goals/$'
       path: '/api/goals/$'
@@ -410,6 +430,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPlannerTestRoute: ApiPlannerTestRoute,
   ApiDepartmentsSplatRoute: ApiDepartmentsSplatRoute,
   ApiGoalsSplatRoute: ApiGoalsSplatRoute,
+  ApiManagerSplatRoute: ApiManagerSplatRoute,
   ApiVisionSplatRoute: ApiVisionSplatRoute,
   ApiVoiceSplatRoute: ApiVoiceSplatRoute,
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
