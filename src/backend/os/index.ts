@@ -54,3 +54,7 @@ export * from "./departments/hr/HRConfig";
 export * from "./departments/hr/HRTools";
 export * from "./departments/hr/HRWorkflows";
 export * from "./departments/hr/HRQualityAssurance";
+export * from "./departments/support/SupportConfig";
+export * from "./departments/support/SupportTools";
+export * from "./departments/support/SupportWorkflows";
+export * from "./departments/support/SupportQualityAssurance";

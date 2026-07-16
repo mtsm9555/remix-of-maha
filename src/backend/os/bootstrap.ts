@@ -15,6 +15,8 @@ import { initializeFinanceTools } from "./departments/finance/FinanceTools";
 import { initializeFinanceWorkflows } from "./departments/finance/FinanceWorkflows";
 import { initializeHRTools } from "./departments/hr/HRTools";
 import { initializeHRWorkflows } from "./departments/hr/HRWorkflows";
+import { initializeSupportTools } from "./departments/support/SupportTools";
+import { initializeSupportWorkflows } from "./departments/support/SupportWorkflows";
 
 const DEPARTMENTS: Array<{
   id: Department;
@@ -52,6 +54,8 @@ export async function initializeMahaOS() {
   initializeFinanceWorkflows();
   initializeHRTools();
   initializeHRWorkflows();
+  initializeSupportTools();
+  initializeSupportWorkflows();
   const config = DEPARTMENTS.map((d) => ({
     ...d,
     agents: globalDepartmentRegistry.getDepartmentAgents(d.id),
