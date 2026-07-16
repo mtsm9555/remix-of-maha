@@ -75,6 +75,7 @@ import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './rout
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
 import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
+import { Route as ApiToolsVersioningToolNameVersionsRouteImport } from './routes/api/tools/versioning/$toolName/versions'
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
 import { Route as ApiPublicAnalyticsToolsRollupRouteImport } from './routes/api/public/analytics/tools/rollup'
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
@@ -463,6 +464,12 @@ const ApiAnalyticsToolsOverviewRoute =
     path: '/api/analytics/tools/overview',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiToolsVersioningToolNameVersionsRoute =
+  ApiToolsVersioningToolNameVersionsRouteImport.update({
+    id: '/api/tools/versioning/$toolName/versions',
+    path: '/api/tools/versioning/$toolName/versions',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiToolsMcpDisconnectServerIdRoute =
   ApiToolsMcpDisconnectServerIdRouteImport.update({
     id: '/api/tools/mcp/disconnect/$serverId',
@@ -642,6 +649,7 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
   '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
+  '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRoutesByTo {
@@ -726,6 +734,7 @@ export interface FileRoutesByTo {
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
   '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
+  '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRoutesById {
@@ -811,6 +820,7 @@ export interface FileRoutesById {
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
   '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
+  '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRouteTypes {
@@ -897,6 +907,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics/reset'
     | '/api/public/analytics/tools/rollup'
     | '/api/tools/mcp/disconnect/$serverId'
+    | '/api/tools/versioning/$toolName/versions'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -981,6 +992,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics/reset'
     | '/api/public/analytics/tools/rollup'
     | '/api/tools/mcp/disconnect/$serverId'
+    | '/api/tools/versioning/$toolName/versions'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   id:
     | '__root__'
@@ -1065,6 +1077,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics/reset'
     | '/api/public/analytics/tools/rollup'
     | '/api/tools/mcp/disconnect/$serverId'
+    | '/api/tools/versioning/$toolName/versions'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesById: FileRoutesById
 }
@@ -1146,6 +1159,7 @@ export interface RootRouteChildren {
   ApiIntelligenceLearnHistoryAgentIdRoute: typeof ApiIntelligenceLearnHistoryAgentIdRoute
   ApiPublicAnalyticsToolsRollupRoute: typeof ApiPublicAnalyticsToolsRollupRoute
   ApiToolsMcpDisconnectServerIdRoute: typeof ApiToolsMcpDisconnectServerIdRoute
+  ApiToolsVersioningToolNameVersionsRoute: typeof ApiToolsVersioningToolNameVersionsRoute
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 
@@ -1613,6 +1627,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAnalyticsToolsOverviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/tools/versioning/$toolName/versions': {
+      id: '/api/tools/versioning/$toolName/versions'
+      path: '/api/tools/versioning/$toolName/versions'
+      fullPath: '/api/tools/versioning/$toolName/versions'
+      preLoaderRoute: typeof ApiToolsVersioningToolNameVersionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/tools/mcp/disconnect/$serverId': {
       id: '/api/tools/mcp/disconnect/$serverId'
       path: '/api/tools/mcp/disconnect/$serverId'
@@ -1874,6 +1895,8 @@ const rootRouteChildren: RootRouteChildren = {
     ApiIntelligenceLearnHistoryAgentIdRoute,
   ApiPublicAnalyticsToolsRollupRoute: ApiPublicAnalyticsToolsRollupRoute,
   ApiToolsMcpDisconnectServerIdRoute: ApiToolsMcpDisconnectServerIdRoute,
+  ApiToolsVersioningToolNameVersionsRoute:
+    ApiToolsVersioningToolNameVersionsRoute,
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute:
     ApiInfrastructureBudgetTopupsRequestIdApproveRoute,
 }
