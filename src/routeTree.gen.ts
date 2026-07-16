@@ -37,6 +37,8 @@ import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/ap
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
 import { Route as ApiIntelligenceReflectionMetricsRouteImport } from './routes/api/intelligence/reflection/metrics'
+import { Route as ApiIntelligenceGraphSearchRouteImport } from './routes/api/intelligence/graph/search'
+import { Route as ApiIntelligenceGraphExpandRouteImport } from './routes/api/intelligence/graph/expand'
 import { Route as ApiIntelligenceConsolidateStatsRouteImport } from './routes/api/intelligence/consolidate/stats'
 import { Route as ApiIntelligenceCompressionTestRouteImport } from './routes/api/intelligence/compression/test'
 import { Route as ApiIntelligenceCompressionStatsRouteImport } from './routes/api/intelligence/compression/stats'
@@ -188,6 +190,18 @@ const ApiIntelligenceReflectionMetricsRoute =
     path: '/api/intelligence/reflection/metrics',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiIntelligenceGraphSearchRoute =
+  ApiIntelligenceGraphSearchRouteImport.update({
+    id: '/api/intelligence/graph/search',
+    path: '/api/intelligence/graph/search',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiIntelligenceGraphExpandRoute =
+  ApiIntelligenceGraphExpandRouteImport.update({
+    id: '/api/intelligence/graph/expand',
+    path: '/api/intelligence/graph/expand',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiIntelligenceConsolidateStatsRoute =
   ApiIntelligenceConsolidateStatsRouteImport.update({
     id: '/api/intelligence/consolidate/stats',
@@ -241,6 +255,8 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
   '/api/intelligence/consolidate/stats': typeof ApiIntelligenceConsolidateStatsRoute
+  '/api/intelligence/graph/expand': typeof ApiIntelligenceGraphExpandRoute
+  '/api/intelligence/graph/search': typeof ApiIntelligenceGraphSearchRoute
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
@@ -275,6 +291,8 @@ export interface FileRoutesByTo {
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
   '/api/intelligence/consolidate/stats': typeof ApiIntelligenceConsolidateStatsRoute
+  '/api/intelligence/graph/expand': typeof ApiIntelligenceGraphExpandRoute
+  '/api/intelligence/graph/search': typeof ApiIntelligenceGraphSearchRoute
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
@@ -310,6 +328,8 @@ export interface FileRoutesById {
   '/api/intelligence/compression/stats': typeof ApiIntelligenceCompressionStatsRoute
   '/api/intelligence/compression/test': typeof ApiIntelligenceCompressionTestRoute
   '/api/intelligence/consolidate/stats': typeof ApiIntelligenceConsolidateStatsRoute
+  '/api/intelligence/graph/expand': typeof ApiIntelligenceGraphExpandRoute
+  '/api/intelligence/graph/search': typeof ApiIntelligenceGraphSearchRoute
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
@@ -346,6 +366,8 @@ export interface FileRouteTypes {
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
     | '/api/intelligence/consolidate/stats'
+    | '/api/intelligence/graph/expand'
+    | '/api/intelligence/graph/search'
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
@@ -380,6 +402,8 @@ export interface FileRouteTypes {
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
     | '/api/intelligence/consolidate/stats'
+    | '/api/intelligence/graph/expand'
+    | '/api/intelligence/graph/search'
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
@@ -414,6 +438,8 @@ export interface FileRouteTypes {
     | '/api/intelligence/compression/stats'
     | '/api/intelligence/compression/test'
     | '/api/intelligence/consolidate/stats'
+    | '/api/intelligence/graph/expand'
+    | '/api/intelligence/graph/search'
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
@@ -449,6 +475,8 @@ export interface RootRouteChildren {
   ApiIntelligenceCompressionStatsRoute: typeof ApiIntelligenceCompressionStatsRoute
   ApiIntelligenceCompressionTestRoute: typeof ApiIntelligenceCompressionTestRoute
   ApiIntelligenceConsolidateStatsRoute: typeof ApiIntelligenceConsolidateStatsRoute
+  ApiIntelligenceGraphExpandRoute: typeof ApiIntelligenceGraphExpandRoute
+  ApiIntelligenceGraphSearchRoute: typeof ApiIntelligenceGraphSearchRoute
   ApiIntelligenceReflectionMetricsRoute: typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
@@ -653,6 +681,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiIntelligenceReflectionMetricsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/intelligence/graph/search': {
+      id: '/api/intelligence/graph/search'
+      path: '/api/intelligence/graph/search'
+      fullPath: '/api/intelligence/graph/search'
+      preLoaderRoute: typeof ApiIntelligenceGraphSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/intelligence/graph/expand': {
+      id: '/api/intelligence/graph/expand'
+      path: '/api/intelligence/graph/expand'
+      fullPath: '/api/intelligence/graph/expand'
+      preLoaderRoute: typeof ApiIntelligenceGraphExpandRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/intelligence/consolidate/stats': {
       id: '/api/intelligence/consolidate/stats'
       path: '/api/intelligence/consolidate/stats'
@@ -727,6 +769,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiIntelligenceCompressionStatsRoute: ApiIntelligenceCompressionStatsRoute,
   ApiIntelligenceCompressionTestRoute: ApiIntelligenceCompressionTestRoute,
   ApiIntelligenceConsolidateStatsRoute: ApiIntelligenceConsolidateStatsRoute,
+  ApiIntelligenceGraphExpandRoute: ApiIntelligenceGraphExpandRoute,
+  ApiIntelligenceGraphSearchRoute: ApiIntelligenceGraphSearchRoute,
   ApiIntelligenceReflectionMetricsRoute:
     ApiIntelligenceReflectionMetricsRouteWithChildren,
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,

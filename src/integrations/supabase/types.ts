@@ -379,6 +379,30 @@ export type Database = {
           },
         ]
       }
+      graph_expansion_logs: {
+        Row: {
+          completed_at: string
+          department: string
+          duplicates_merged: number
+          id: string
+          new_relationships: number
+        }
+        Insert: {
+          completed_at?: string
+          department: string
+          duplicates_merged?: number
+          id?: string
+          new_relationships?: number
+        }
+        Update: {
+          completed_at?: string
+          department?: string
+          duplicates_merged?: number
+          id?: string
+          new_relationships?: number
+        }
+        Relationships: []
+      }
       graph_nodes: {
         Row: {
           created_at: string
@@ -912,6 +936,14 @@ export type Database = {
           similarity: number
           summary: string
         }[]
+      }
+      transfer_edges: {
+        Args: {
+          is_reverse?: boolean
+          source_dup: string
+          target_primary: string
+        }
+        Returns: undefined
       }
       upsert_daily_usage: {
         Args: {
