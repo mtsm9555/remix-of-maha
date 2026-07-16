@@ -17,4 +17,7 @@ export * from "./memory/DepartmentMemoryConsolidator";
 export * from "./permissions/ToolPermissionTypes";
 export * from "./permissions/DepartmentToolPermissions";
 export * from "./approvals/ApprovalBridge";
+export * from "./budgeting/AgentBudgetTypes";
+export * from "./budgeting/CostCalculator";
+export * from "./budgeting/AgentBudgetEngine";
 export * from "./bootstrap";
