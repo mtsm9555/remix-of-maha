@@ -36,6 +36,7 @@ import { Route as ApiCollaborationInitiateRouteImport } from './routes/api/colla
 import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
 import { Route as ApiInfrastructureDiscoveryRouteRouteImport } from './routes/api/infrastructure/discovery/route'
+import { Route as ApiToolsPoliciesIndexRouteImport } from './routes/api/tools/policies/index'
 import { Route as ApiToolsMarketplaceIndexRouteImport } from './routes/api/tools/marketplace/index'
 import { Route as ApiIntelligenceLearnIndexRouteImport } from './routes/api/intelligence/learn/index'
 import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/api/intelligence/consolidate/index'
@@ -240,6 +241,11 @@ const ApiInfrastructureDiscoveryRouteRoute =
     path: '/api/infrastructure/discovery',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiToolsPoliciesIndexRoute = ApiToolsPoliciesIndexRouteImport.update({
+  id: '/api/tools/policies/',
+  path: '/api/tools/policies/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiToolsMarketplaceIndexRoute =
   ApiToolsMarketplaceIndexRouteImport.update({
     id: '/api/tools/marketplace/',
@@ -686,6 +692,7 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
+  '/api/tools/policies/': typeof ApiToolsPoliciesIndexRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -778,6 +785,7 @@ export interface FileRoutesByTo {
   '/api/intelligence/consolidate': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace': typeof ApiToolsMarketplaceIndexRoute
+  '/api/tools/policies': typeof ApiToolsPoliciesIndexRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -871,6 +879,7 @@ export interface FileRoutesById {
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
+  '/api/tools/policies/': typeof ApiToolsPoliciesIndexRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -965,6 +974,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
     | '/api/tools/marketplace/'
+    | '/api/tools/policies/'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
@@ -1057,6 +1067,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/consolidate'
     | '/api/intelligence/learn'
     | '/api/tools/marketplace'
+    | '/api/tools/policies'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
@@ -1149,6 +1160,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
     | '/api/tools/marketplace/'
+    | '/api/tools/policies/'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
@@ -1241,6 +1253,7 @@ export interface RootRouteChildren {
   ApiIntelligenceConsolidateIndexRoute: typeof ApiIntelligenceConsolidateIndexRoute
   ApiIntelligenceLearnIndexRoute: typeof ApiIntelligenceLearnIndexRoute
   ApiToolsMarketplaceIndexRoute: typeof ApiToolsMarketplaceIndexRoute
+  ApiToolsPoliciesIndexRoute: typeof ApiToolsPoliciesIndexRoute
   ApiAnalyticsToolsToolNameErrorsRoute: typeof ApiAnalyticsToolsToolNameErrorsRoute
   ApiAnalyticsToolsToolNameHistoryRoute: typeof ApiAnalyticsToolsToolNameHistoryRoute
   ApiAnalyticsToolsToolNameRpmRoute: typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -1449,6 +1462,13 @@ declare module '@tanstack/react-router' {
       path: '/api/infrastructure/discovery'
       fullPath: '/api/infrastructure/discovery'
       preLoaderRoute: typeof ApiInfrastructureDiscoveryRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tools/policies/': {
+      id: '/api/tools/policies/'
+      path: '/api/tools/policies'
+      fullPath: '/api/tools/policies/'
+      preLoaderRoute: typeof ApiToolsPoliciesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/tools/marketplace/': {
@@ -2027,6 +2047,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiIntelligenceConsolidateIndexRoute: ApiIntelligenceConsolidateIndexRoute,
   ApiIntelligenceLearnIndexRoute: ApiIntelligenceLearnIndexRoute,
   ApiToolsMarketplaceIndexRoute: ApiToolsMarketplaceIndexRoute,
+  ApiToolsPoliciesIndexRoute: ApiToolsPoliciesIndexRoute,
   ApiAnalyticsToolsToolNameErrorsRoute: ApiAnalyticsToolsToolNameErrorsRoute,
   ApiAnalyticsToolsToolNameHistoryRoute: ApiAnalyticsToolsToolNameHistoryRoute,
   ApiAnalyticsToolsToolNameRpmRoute: ApiAnalyticsToolsToolNameRpmRoute,
