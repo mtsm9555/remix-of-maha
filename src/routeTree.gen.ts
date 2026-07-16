@@ -25,6 +25,7 @@ import { Route as ApiWorkflowsDocsRouteImport } from './routes/api/workflows/doc
 import { Route as ApiWorkflowsSplatRouteImport } from './routes/api/workflows/$'
 import { Route as ApiVoiceSplatRouteImport } from './routes/api/voice/$'
 import { Route as ApiVisionSplatRouteImport } from './routes/api/vision/$'
+import { Route as ApiPoliciesSplatRouteImport } from './routes/api/policies/$'
 import { Route as ApiManagerSplatRouteImport } from './routes/api/manager/$'
 import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
 import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
@@ -112,6 +113,11 @@ const ApiVisionSplatRoute = ApiVisionSplatRouteImport.update({
   path: '/api/vision/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPoliciesSplatRoute = ApiPoliciesSplatRouteImport.update({
+  id: '/api/policies/$',
+  path: '/api/policies/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiManagerSplatRoute = ApiManagerSplatRouteImport.update({
   id: '/api/manager/$',
   path: '/api/manager/$',
@@ -155,6 +161,7 @@ export interface FileRoutesByFullPath {
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
+  '/api/policies/$': typeof ApiPoliciesSplatRoute
   '/api/vision/$': typeof ApiVisionSplatRoute
   '/api/voice/$': typeof ApiVoiceSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
@@ -178,6 +185,7 @@ export interface FileRoutesByTo {
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
+  '/api/policies/$': typeof ApiPoliciesSplatRoute
   '/api/vision/$': typeof ApiVisionSplatRoute
   '/api/voice/$': typeof ApiVoiceSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
@@ -202,6 +210,7 @@ export interface FileRoutesById {
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
+  '/api/policies/$': typeof ApiPoliciesSplatRoute
   '/api/vision/$': typeof ApiVisionSplatRoute
   '/api/voice/$': typeof ApiVoiceSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
@@ -227,6 +236,7 @@ export interface FileRouteTypes {
     | '/api/departments/$'
     | '/api/goals/$'
     | '/api/manager/$'
+    | '/api/policies/$'
     | '/api/vision/$'
     | '/api/voice/$'
     | '/api/workflows/$'
@@ -250,6 +260,7 @@ export interface FileRouteTypes {
     | '/api/departments/$'
     | '/api/goals/$'
     | '/api/manager/$'
+    | '/api/policies/$'
     | '/api/vision/$'
     | '/api/voice/$'
     | '/api/workflows/$'
@@ -273,6 +284,7 @@ export interface FileRouteTypes {
     | '/api/departments/$'
     | '/api/goals/$'
     | '/api/manager/$'
+    | '/api/policies/$'
     | '/api/vision/$'
     | '/api/voice/$'
     | '/api/workflows/$'
@@ -297,6 +309,7 @@ export interface RootRouteChildren {
   ApiDepartmentsSplatRoute: typeof ApiDepartmentsSplatRoute
   ApiGoalsSplatRoute: typeof ApiGoalsSplatRoute
   ApiManagerSplatRoute: typeof ApiManagerSplatRoute
+  ApiPoliciesSplatRoute: typeof ApiPoliciesSplatRoute
   ApiVisionSplatRoute: typeof ApiVisionSplatRoute
   ApiVoiceSplatRoute: typeof ApiVoiceSplatRoute
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
@@ -418,6 +431,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiVisionSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/policies/$': {
+      id: '/api/policies/$'
+      path: '/api/policies/$'
+      fullPath: '/api/policies/$'
+      preLoaderRoute: typeof ApiPoliciesSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/manager/$': {
       id: '/api/manager/$'
       path: '/api/manager/$'
@@ -473,6 +493,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiDepartmentsSplatRoute: ApiDepartmentsSplatRoute,
   ApiGoalsSplatRoute: ApiGoalsSplatRoute,
   ApiManagerSplatRoute: ApiManagerSplatRoute,
+  ApiPoliciesSplatRoute: ApiPoliciesSplatRoute,
   ApiVisionSplatRoute: ApiVisionSplatRoute,
   ApiVoiceSplatRoute: ApiVoiceSplatRoute,
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
