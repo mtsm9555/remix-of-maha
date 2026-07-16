@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_execution_logs: {
+        Row: {
+          created_at: string
+          execution_latency_ms: number | null
+          id: string
+          instance_id: string
+          routing_latency_ms: number | null
+          success: boolean | null
+          task_id: string
+        }
+        Insert: {
+          created_at?: string
+          execution_latency_ms?: number | null
+          id?: string
+          instance_id: string
+          routing_latency_ms?: number | null
+          success?: boolean | null
+          task_id: string
+        }
+        Update: {
+          created_at?: string
+          execution_latency_ms?: number | null
+          id?: string
+          instance_id?: string
+          routing_latency_ms?: number | null
+          success?: boolean | null
+          task_id?: string
+        }
+        Relationships: []
+      }
       agent_instances_registry: {
         Row: {
           agent_id: string
@@ -151,6 +181,57 @@ export type Database = {
           status?: string
           system_prompt?: string
           version_number?: number
+        }
+        Relationships: []
+      }
+      agent_registry_persistent: {
+        Row: {
+          agent_type: string
+          capabilities: Json
+          current_load: number
+          department: string
+          execution_endpoint: string
+          instance_id: string
+          last_heartbeat: string
+          max_concurrent_tasks: number
+          network_host: string
+          network_port: number
+          network_protocol: string
+          registered_at: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          agent_type: string
+          capabilities?: Json
+          current_load?: number
+          department: string
+          execution_endpoint?: string
+          instance_id: string
+          last_heartbeat?: string
+          max_concurrent_tasks?: number
+          network_host: string
+          network_port: number
+          network_protocol?: string
+          registered_at?: string
+          status: string
+          updated_at?: string
+        }
+        Update: {
+          agent_type?: string
+          capabilities?: Json
+          current_load?: number
+          department?: string
+          execution_endpoint?: string
+          instance_id?: string
+          last_heartbeat?: string
+          max_concurrent_tasks?: number
+          network_host?: string
+          network_port?: number
+          network_protocol?: string
+          registered_at?: string
+          status?: string
+          updated_at?: string
         }
         Relationships: []
       }
