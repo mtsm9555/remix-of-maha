@@ -19,6 +19,7 @@ import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AgencyRouteImport } from './routes/agency'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiWorkflowsOpenapiDotjsonRouteImport } from './routes/api/workflows/openapi[.]json'
+import { Route as ApiWorkflowsDocsRouteImport } from './routes/api/workflows/docs'
 import { Route as ApiWorkflowsSplatRouteImport } from './routes/api/workflows/$'
 
 const VoiceRoute = VoiceRouteImport.update({
@@ -72,6 +73,11 @@ const ApiWorkflowsOpenapiDotjsonRoute =
     path: '/api/workflows/openapi.json',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiWorkflowsDocsRoute = ApiWorkflowsDocsRouteImport.update({
+  id: '/api/workflows/docs',
+  path: '/api/workflows/docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiWorkflowsSplatRoute = ApiWorkflowsSplatRouteImport.update({
   id: '/api/workflows/$',
   path: '/api/workflows/$',
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
+  '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
 }
 export interface FileRoutesByTo {
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
+  '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
 }
 export interface FileRoutesById {
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
+  '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
 }
 export interface FileRouteTypes {
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/voice'
     | '/api/workflows/$'
+    | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/voice'
     | '/api/workflows/$'
+    | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
   id:
     | '__root__'
@@ -157,6 +168,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/voice'
     | '/api/workflows/$'
+    | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
   fileRoutesById: FileRoutesById
 }
@@ -171,6 +183,7 @@ export interface RootRouteChildren {
   ToolsRoute: typeof ToolsRoute
   VoiceRoute: typeof VoiceRoute
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
+  ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
 }
 
@@ -246,6 +259,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiWorkflowsOpenapiDotjsonRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/workflows/docs': {
+      id: '/api/workflows/docs'
+      path: '/api/workflows/docs'
+      fullPath: '/api/workflows/docs'
+      preLoaderRoute: typeof ApiWorkflowsDocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/workflows/$': {
       id: '/api/workflows/$'
       path: '/api/workflows/$'
@@ -267,6 +287,7 @@ const rootRouteChildren: RootRouteChildren = {
   ToolsRoute: ToolsRoute,
   VoiceRoute: VoiceRoute,
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
+  ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
 }
 export const routeTree = rootRouteImport
