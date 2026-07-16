@@ -80,6 +80,7 @@ import { Route as ApiToolsVersioningToolNameVersionsRouteImport } from './routes
 import { Route as ApiToolsVersioningToolNameRollbackRouteImport } from './routes/api/tools/versioning/$toolName/rollback'
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
 import { Route as ApiPublicToolsVersioningSweepRouteImport } from './routes/api/public/tools/versioning/sweep'
+import { Route as ApiPublicToolsVersioningHealthCheckRouteImport } from './routes/api/public/tools/versioning/health-check'
 import { Route as ApiPublicAnalyticsToolsRollupRouteImport } from './routes/api/public/analytics/tools/rollup'
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
 import { Route as ApiIntelligenceLearnHistoryAgentIdRouteImport } from './routes/api/intelligence/learn/history.$agentId'
@@ -496,6 +497,12 @@ const ApiPublicToolsVersioningSweepRoute =
     path: '/api/public/tools/versioning/sweep',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicToolsVersioningHealthCheckRoute =
+  ApiPublicToolsVersioningHealthCheckRouteImport.update({
+    id: '/api/public/tools/versioning/health-check',
+    path: '/api/public/tools/versioning/health-check',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicAnalyticsToolsRollupRoute =
   ApiPublicAnalyticsToolsRollupRouteImport.update({
     id: '/api/public/analytics/tools/rollup',
@@ -669,6 +676,7 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
   '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
+  '/api/public/tools/versioning/health-check': typeof ApiPublicToolsVersioningHealthCheckRoute
   '/api/public/tools/versioning/sweep': typeof ApiPublicToolsVersioningSweepRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
@@ -757,6 +765,7 @@ export interface FileRoutesByTo {
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
   '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
+  '/api/public/tools/versioning/health-check': typeof ApiPublicToolsVersioningHealthCheckRoute
   '/api/public/tools/versioning/sweep': typeof ApiPublicToolsVersioningSweepRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
@@ -846,6 +855,7 @@ export interface FileRoutesById {
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
   '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
+  '/api/public/tools/versioning/health-check': typeof ApiPublicToolsVersioningHealthCheckRoute
   '/api/public/tools/versioning/sweep': typeof ApiPublicToolsVersioningSweepRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
@@ -936,6 +946,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
     | '/api/public/analytics/tools/rollup'
+    | '/api/public/tools/versioning/health-check'
     | '/api/public/tools/versioning/sweep'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
@@ -1024,6 +1035,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
     | '/api/public/analytics/tools/rollup'
+    | '/api/public/tools/versioning/health-check'
     | '/api/public/tools/versioning/sweep'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
@@ -1112,6 +1124,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
     | '/api/public/analytics/tools/rollup'
+    | '/api/public/tools/versioning/health-check'
     | '/api/public/tools/versioning/sweep'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
@@ -1197,6 +1210,7 @@ export interface RootRouteChildren {
   ApiInfrastructureRegistryCapacityDepartmentRoute: typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   ApiIntelligenceLearnHistoryAgentIdRoute: typeof ApiIntelligenceLearnHistoryAgentIdRoute
   ApiPublicAnalyticsToolsRollupRoute: typeof ApiPublicAnalyticsToolsRollupRoute
+  ApiPublicToolsVersioningHealthCheckRoute: typeof ApiPublicToolsVersioningHealthCheckRoute
   ApiPublicToolsVersioningSweepRoute: typeof ApiPublicToolsVersioningSweepRoute
   ApiToolsMcpDisconnectServerIdRoute: typeof ApiToolsMcpDisconnectServerIdRoute
   ApiToolsVersioningToolNameRollbackRoute: typeof ApiToolsVersioningToolNameRollbackRoute
@@ -1703,6 +1717,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicToolsVersioningSweepRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/tools/versioning/health-check': {
+      id: '/api/public/tools/versioning/health-check'
+      path: '/api/public/tools/versioning/health-check'
+      fullPath: '/api/public/tools/versioning/health-check'
+      preLoaderRoute: typeof ApiPublicToolsVersioningHealthCheckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/analytics/tools/rollup': {
       id: '/api/public/analytics/tools/rollup'
       path: '/api/public/analytics/tools/rollup'
@@ -1957,6 +1978,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiIntelligenceLearnHistoryAgentIdRoute:
     ApiIntelligenceLearnHistoryAgentIdRoute,
   ApiPublicAnalyticsToolsRollupRoute: ApiPublicAnalyticsToolsRollupRoute,
+  ApiPublicToolsVersioningHealthCheckRoute:
+    ApiPublicToolsVersioningHealthCheckRoute,
   ApiPublicToolsVersioningSweepRoute: ApiPublicToolsVersioningSweepRoute,
   ApiToolsMcpDisconnectServerIdRoute: ApiToolsMcpDisconnectServerIdRoute,
   ApiToolsVersioningToolNameRollbackRoute:
