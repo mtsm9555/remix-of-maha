@@ -35,6 +35,8 @@ import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
+import { Route as ApiIntelligenceReflectionMetricsRouteImport } from './routes/api/intelligence/reflection/metrics'
+import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
@@ -170,6 +172,18 @@ const ApiPlanningGoalIntelligentRoute =
     path: '/api/planning/goal/intelligent',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiIntelligenceReflectionMetricsRoute =
+  ApiIntelligenceReflectionMetricsRouteImport.update({
+    id: '/api/intelligence/reflection/metrics',
+    path: '/api/intelligence/reflection/metrics',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiIntelligenceReflectionMetricsResetRoute =
+  ApiIntelligenceReflectionMetricsResetRouteImport.update({
+    id: '/reset',
+    path: '/reset',
+    getParentRoute: () => ApiIntelligenceReflectionMetricsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -196,8 +210,10 @@ export interface FileRoutesByFullPath {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -224,8 +240,10 @@ export interface FileRoutesByTo {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -253,8 +271,10 @@ export interface FileRoutesById {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -283,8 +303,10 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/intelligence/reflection/metrics/reset'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -311,8 +333,10 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/intelligence/reflection/metrics/reset'
   id:
     | '__root__'
     | '/'
@@ -339,8 +363,10 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/intelligence/reflection/metrics/reset'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -368,6 +394,7 @@ export interface RootRouteChildren {
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
+  ApiIntelligenceReflectionMetricsRoute: typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
 }
@@ -556,8 +583,37 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPlanningGoalIntelligentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/intelligence/reflection/metrics': {
+      id: '/api/intelligence/reflection/metrics'
+      path: '/api/intelligence/reflection/metrics'
+      fullPath: '/api/intelligence/reflection/metrics'
+      preLoaderRoute: typeof ApiIntelligenceReflectionMetricsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/intelligence/reflection/metrics/reset': {
+      id: '/api/intelligence/reflection/metrics/reset'
+      path: '/reset'
+      fullPath: '/api/intelligence/reflection/metrics/reset'
+      preLoaderRoute: typeof ApiIntelligenceReflectionMetricsResetRouteImport
+      parentRoute: typeof ApiIntelligenceReflectionMetricsRoute
+    }
   }
 }
+
+interface ApiIntelligenceReflectionMetricsRouteChildren {
+  ApiIntelligenceReflectionMetricsResetRoute: typeof ApiIntelligenceReflectionMetricsResetRoute
+}
+
+const ApiIntelligenceReflectionMetricsRouteChildren: ApiIntelligenceReflectionMetricsRouteChildren =
+  {
+    ApiIntelligenceReflectionMetricsResetRoute:
+      ApiIntelligenceReflectionMetricsResetRoute,
+  }
+
+const ApiIntelligenceReflectionMetricsRouteWithChildren =
+  ApiIntelligenceReflectionMetricsRoute._addFileChildren(
+    ApiIntelligenceReflectionMetricsRouteChildren,
+  )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -584,6 +640,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
+  ApiIntelligenceReflectionMetricsRoute:
+    ApiIntelligenceReflectionMetricsRouteWithChildren,
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
   ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
 }

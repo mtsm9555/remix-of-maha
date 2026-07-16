@@ -4,6 +4,7 @@ import { QualityAssurance, type QAResult } from "./QualityAssurance";
 import { DepartmentManager } from "./DepartmentManager";
 import { osGenerate } from "./llm";
 import { OSContextBuilder } from "./context/ContextBuilder";
+import { SelfReflectionEngine } from "../intelligence/reflection/SelfReflectionEngine";
 import type { OSMilestone } from "./types";
 import type { Department, DepartmentAgent } from "../agents/departments/types";
 
@@ -95,7 +96,15 @@ export class DepartmentManagerAgent {
         osContext: context.assembledPrompt,
         milestoneContext: true,
       });
-      this.taskBoard.updateStatus(task.id, "in_review", { output: result });
+      const reflection = await SelfReflectionEngine.reflectAndRefine(
+        task,
+        result,
+        instance.agent.id,
+      );
+      this.taskBoard.updateStatus(task.id, "in_review", {
+        output: reflection.refinedOutput,
+        reviewNotes: `Self-reflection iterations: ${reflection.iterationsUsed}. Critique: ${reflection.critique}`,
+      });
       this.pool.completeTask(instance.id, true);
     } catch (error: any) {
       this.taskBoard.updateStatus(task.id, "failed", { reviewNotes: error.message });
