@@ -1088,6 +1088,90 @@ export type Database = {
           },
         ]
       }
+      mcp_server_connections: {
+        Row: {
+          allowed_tools: string[]
+          api_key_secret_name: string | null
+          created_at: string
+          endpoint: string
+          error_message: string | null
+          exposed_resources: Json
+          exposed_tools: Json
+          last_heartbeat: string | null
+          name: string
+          server_id: string
+          status: string
+          transport_type: string
+          updated_at: string
+        }
+        Insert: {
+          allowed_tools?: string[]
+          api_key_secret_name?: string | null
+          created_at?: string
+          endpoint: string
+          error_message?: string | null
+          exposed_resources?: Json
+          exposed_tools?: Json
+          last_heartbeat?: string | null
+          name: string
+          server_id: string
+          status: string
+          transport_type: string
+          updated_at?: string
+        }
+        Update: {
+          allowed_tools?: string[]
+          api_key_secret_name?: string | null
+          created_at?: string
+          endpoint?: string
+          error_message?: string | null
+          exposed_resources?: Json
+          exposed_tools?: Json
+          last_heartbeat?: string | null
+          name?: string
+          server_id?: string
+          status?: string
+          transport_type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      mcp_tool_executions: {
+        Row: {
+          agent_name: string | null
+          arguments: Json
+          created_at: string
+          execution_time_ms: number | null
+          id: string
+          result_summary: string | null
+          server_id: string
+          success: boolean
+          tool_name: string
+        }
+        Insert: {
+          agent_name?: string | null
+          arguments?: Json
+          created_at?: string
+          execution_time_ms?: number | null
+          id?: string
+          result_summary?: string | null
+          server_id: string
+          success: boolean
+          tool_name: string
+        }
+        Update: {
+          agent_name?: string | null
+          arguments?: Json
+          created_at?: string
+          execution_time_ms?: number | null
+          id?: string
+          result_summary?: string | null
+          server_id?: string
+          success?: boolean
+          tool_name?: string
+        }
+        Relationships: []
+      }
       memories: {
         Row: {
           content: string
