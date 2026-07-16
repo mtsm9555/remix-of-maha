@@ -110,7 +110,7 @@ export class ReputationEventProcessor {
       event_type: repEvent.eventType,
       severity: repEvent.severity,
       score_impact: repEvent.scoreImpact,
-      metadata: repEvent.metadata,
+      metadata: repEvent.metadata as never,
       created_at: repEvent.timestamp.toISOString(),
     });
 
