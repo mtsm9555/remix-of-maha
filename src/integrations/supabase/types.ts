@@ -331,26 +331,65 @@ export type Database = {
         }
         Relationships: []
       }
-      agent_reputation_scores: {
+      agent_reputation_metrics: {
         Row: {
           agent_id: string
-          score: number
-          successful_tasks: number
-          total_tasks: number
+          average_qa_score: number
+          budget_adherence: number
+          human_override_rate: number
+          self_correction_rate: number
+          sla_compliance: number
+          success_rate: number
           updated_at: string
         }
         Insert: {
           agent_id: string
-          score?: number
-          successful_tasks?: number
-          total_tasks?: number
+          average_qa_score?: number
+          budget_adherence?: number
+          human_override_rate?: number
+          self_correction_rate?: number
+          sla_compliance?: number
+          success_rate?: number
           updated_at?: string
         }
         Update: {
           agent_id?: string
-          score?: number
-          successful_tasks?: number
-          total_tasks?: number
+          average_qa_score?: number
+          budget_adherence?: number
+          human_override_rate?: number
+          self_correction_rate?: number
+          sla_compliance?: number
+          success_rate?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      agent_reputation_scores: {
+        Row: {
+          agent_id: string
+          composite_score: number
+          department: string
+          total_tasks_evaluated: number
+          trend: string
+          trust_level: string
+          updated_at: string
+        }
+        Insert: {
+          agent_id: string
+          composite_score?: number
+          department: string
+          total_tasks_evaluated?: number
+          trend?: string
+          trust_level: string
+          updated_at?: string
+        }
+        Update: {
+          agent_id?: string
+          composite_score?: number
+          department?: string
+          total_tasks_evaluated?: number
+          trend?: string
+          trust_level?: string
           updated_at?: string
         }
         Relationships: []
@@ -913,6 +952,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      reputation_events: {
+        Row: {
+          agent_id: string
+          created_at: string
+          event_type: string
+          id: string
+          metadata: Json
+          score_impact: number
+          severity: string
+        }
+        Insert: {
+          agent_id: string
+          created_at?: string
+          event_type: string
+          id: string
+          metadata?: Json
+          score_impact: number
+          severity: string
+        }
+        Update: {
+          agent_id?: string
+          created_at?: string
+          event_type?: string
+          id?: string
+          metadata?: Json
+          score_impact?: number
+          severity?: string
+        }
+        Relationships: []
       }
       tasks: {
         Row: {
