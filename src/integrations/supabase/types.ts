@@ -1456,6 +1456,80 @@ export type Database = {
         }
         Relationships: []
       }
+      sandbox_executions: {
+        Row: {
+          agent_id: string
+          created_at: string
+          execution_time_ms: number
+          exit_code: number
+          id: string
+          memory_used_mb: number
+          stderr: string | null
+          success: boolean
+          tool_name: string
+          tool_version: string
+        }
+        Insert: {
+          agent_id: string
+          created_at?: string
+          execution_time_ms: number
+          exit_code: number
+          id?: string
+          memory_used_mb: number
+          stderr?: string | null
+          success: boolean
+          tool_name: string
+          tool_version: string
+        }
+        Update: {
+          agent_id?: string
+          created_at?: string
+          execution_time_ms?: number
+          exit_code?: number
+          id?: string
+          memory_used_mb?: number
+          stderr?: string | null
+          success?: boolean
+          tool_name?: string
+          tool_version?: string
+        }
+        Relationships: []
+      }
+      sandbox_security_violations: {
+        Row: {
+          created_at: string
+          details: string
+          execution_id: string | null
+          id: string
+          tool_name: string
+          violation_type: string
+        }
+        Insert: {
+          created_at?: string
+          details: string
+          execution_id?: string | null
+          id?: string
+          tool_name: string
+          violation_type: string
+        }
+        Update: {
+          created_at?: string
+          details?: string
+          execution_id?: string | null
+          id?: string
+          tool_name?: string
+          violation_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sandbox_security_violations_execution_id_fkey"
+            columns: ["execution_id"]
+            isOneToOne: false
+            referencedRelation: "sandbox_executions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tasks: {
         Row: {
           completed: boolean | null
