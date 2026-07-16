@@ -14,6 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_instances_registry: {
+        Row: {
+          agent_id: string
+          consecutive_errors: number
+          created_at: string
+          current_task_id: string | null
+          department: string
+          instance_id: string
+          state: string
+          tasks_completed: number
+          updated_at: string
+        }
+        Insert: {
+          agent_id: string
+          consecutive_errors?: number
+          created_at?: string
+          current_task_id?: string | null
+          department: string
+          instance_id: string
+          state: string
+          tasks_completed?: number
+          updated_at?: string
+        }
+        Update: {
+          agent_id?: string
+          consecutive_errors?: number
+          created_at?: string
+          current_task_id?: string | null
+          department?: string
+          instance_id?: string
+          state?: string
+          tasks_completed?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      agent_lifecycle_logs: {
+        Row: {
+          from_state: string
+          id: string
+          instance_id: string
+          reason: string | null
+          timestamp: string
+          to_state: string
+        }
+        Insert: {
+          from_state: string
+          id?: string
+          instance_id: string
+          reason?: string | null
+          timestamp?: string
+          to_state: string
+        }
+        Update: {
+          from_state?: string
+          id?: string
+          instance_id?: string
+          reason?: string | null
+          timestamp?: string
+          to_state?: string
+        }
+        Relationships: []
+      }
       agent_messages: {
         Row: {
           content: string
