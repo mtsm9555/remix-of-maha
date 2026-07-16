@@ -25,10 +25,7 @@ Output strictly in JSON:
 { "passed": boolean, "score": number, "feedback": "string", "requiresRevision": boolean }`;
 
     try {
-      const response = await osGenerate(prompt, {
-        responseFormat: "json",
-        temperature: 0.2,
-      });
+      const response = await osGenerate(prompt, { responseFormat: "json" });
       const parsed = JSON.parse(response.content);
       return {
         passed: !!parsed.passed,
