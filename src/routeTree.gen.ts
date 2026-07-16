@@ -43,6 +43,7 @@ import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/ap
 import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
 import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/infrastructure/fleet/index'
 import { Route as ApiToolsVersioningPinRouteImport } from './routes/api/tools/versioning/pin'
+import { Route as ApiToolsPoliciesTestRouteImport } from './routes/api/tools/policies/test'
 import { Route as ApiToolsMcpConnectionsRouteImport } from './routes/api/tools/mcp/connections'
 import { Route as ApiToolsMcpConnectRouteImport } from './routes/api/tools/mcp/connect'
 import { Route as ApiToolsMcpCallRouteImport } from './routes/api/tools/mcp/call'
@@ -279,6 +280,11 @@ const ApiInfrastructureFleetIndexRoute =
 const ApiToolsVersioningPinRoute = ApiToolsVersioningPinRouteImport.update({
   id: '/api/tools/versioning/pin',
   path: '/api/tools/versioning/pin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiToolsPoliciesTestRoute = ApiToolsPoliciesTestRouteImport.update({
+  id: '/api/tools/policies/test',
+  path: '/api/tools/policies/test',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiToolsMcpConnectionsRoute = ApiToolsMcpConnectionsRouteImport.update({
@@ -686,6 +692,7 @@ export interface FileRoutesByFullPath {
   '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
   '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
   '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
+  '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
@@ -779,6 +786,7 @@ export interface FileRoutesByTo {
   '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
   '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
   '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
+  '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/infrastructure/fleet': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
@@ -873,6 +881,7 @@ export interface FileRoutesById {
   '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
   '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
   '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
+  '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
@@ -968,6 +977,7 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/call'
     | '/api/tools/mcp/connect'
     | '/api/tools/mcp/connections'
+    | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
@@ -1061,6 +1071,7 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/call'
     | '/api/tools/mcp/connect'
     | '/api/tools/mcp/connections'
+    | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
     | '/api/infrastructure/fleet'
     | '/api/infrastructure/registry'
@@ -1154,6 +1165,7 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/call'
     | '/api/tools/mcp/connect'
     | '/api/tools/mcp/connections'
+    | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
@@ -1247,6 +1259,7 @@ export interface RootRouteChildren {
   ApiToolsMcpCallRoute: typeof ApiToolsMcpCallRoute
   ApiToolsMcpConnectRoute: typeof ApiToolsMcpConnectRoute
   ApiToolsMcpConnectionsRoute: typeof ApiToolsMcpConnectionsRoute
+  ApiToolsPoliciesTestRoute: typeof ApiToolsPoliciesTestRoute
   ApiToolsVersioningPinRoute: typeof ApiToolsVersioningPinRoute
   ApiInfrastructureFleetIndexRoute: typeof ApiInfrastructureFleetIndexRoute
   ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
@@ -1511,6 +1524,13 @@ declare module '@tanstack/react-router' {
       path: '/api/tools/versioning/pin'
       fullPath: '/api/tools/versioning/pin'
       preLoaderRoute: typeof ApiToolsVersioningPinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tools/policies/test': {
+      id: '/api/tools/policies/test'
+      path: '/api/tools/policies/test'
+      fullPath: '/api/tools/policies/test'
+      preLoaderRoute: typeof ApiToolsPoliciesTestRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/tools/mcp/connections': {
@@ -2041,6 +2061,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiToolsMcpCallRoute: ApiToolsMcpCallRoute,
   ApiToolsMcpConnectRoute: ApiToolsMcpConnectRoute,
   ApiToolsMcpConnectionsRoute: ApiToolsMcpConnectionsRoute,
+  ApiToolsPoliciesTestRoute: ApiToolsPoliciesTestRoute,
   ApiToolsVersioningPinRoute: ApiToolsVersioningPinRoute,
   ApiInfrastructureFleetIndexRoute: ApiInfrastructureFleetIndexRoute,
   ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,
