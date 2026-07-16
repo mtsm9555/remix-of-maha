@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_capability_embeddings: {
+        Row: {
+          agent_type: string
+          capability_embedding: string
+          cost_per_task_usd: number
+          department: string
+          supported_tools: string[]
+          updated_at: string
+        }
+        Insert: {
+          agent_type: string
+          capability_embedding: string
+          cost_per_task_usd?: number
+          department: string
+          supported_tools?: string[]
+          updated_at?: string
+        }
+        Update: {
+          agent_type?: string
+          capability_embedding?: string
+          cost_per_task_usd?: number
+          department?: string
+          supported_tools?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
       agent_execution_logs: {
         Row: {
           created_at: string
@@ -147,6 +174,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      agent_performance_metrics: {
+        Row: {
+          agent_id: string
+          average_qa_score: number
+          human_override_rate: number
+          success_rate: number
+          total_tasks: number
+          updated_at: string
+        }
+        Insert: {
+          agent_id: string
+          average_qa_score?: number
+          human_override_rate?: number
+          success_rate?: number
+          total_tasks?: number
+          updated_at?: string
+        }
+        Update: {
+          agent_id?: string
+          average_qa_score?: number
+          human_override_rate?: number
+          success_rate?: number
+          total_tasks?: number
+          updated_at?: string
+        }
+        Relationships: []
       }
       agent_prompt_versions: {
         Row: {
