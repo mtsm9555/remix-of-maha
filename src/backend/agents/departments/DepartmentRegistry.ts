@@ -21,6 +21,9 @@ import { MonitoringAgent } from "./Operations/MonitoringAgent";
 import { ResearchAgent as ResearchDeptAgent } from "./Research/ResearchAgent";
 import { CompetitiveAgent } from "./Research/CompetitiveAgent";
 import { TrendAgent } from "./Research/TrendAgent";
+import { SupportAgent } from "./Support/SupportAgent";
+import { TicketAgent } from "./Support/TicketAgent";
+import { KnowledgeAgent } from "./Support/KnowledgeAgent";
 
 export class DepartmentRegistry {
   private departments: Map<Department, DepartmentConfig> = new Map();
@@ -101,6 +104,15 @@ export class DepartmentRegistry {
       tools: ["web-search", "academic-databases", "market-reports", "news-feeds", "industry-reports"],
       workflows: ["deep-research", "competitive-analysis", "trend-monitoring", "market-intelligence"],
     });
+
+    this.departments.set("support", {
+      name: "support",
+      displayName: "Customer Support Department",
+      description: "Handles customer support, ticket management, and knowledge base",
+      agents: ["support-support-agent", "support-ticket-agent", "support-knowledge-agent"],
+      tools: ["zendesk", "freshdesk", "jira", "intercom", "wiki", "documentation"],
+      workflows: ["ticket-resolution", "knowledge-creation", "customer-onboarding", "issue-escalation"],
+    });
   }
 
   private initializeAgents() {
@@ -126,6 +138,9 @@ export class DepartmentRegistry {
     this.registerAgent(new ResearchDeptAgent());
     this.registerAgent(new CompetitiveAgent());
     this.registerAgent(new TrendAgent());
+    this.registerAgent(new SupportAgent());
+    this.registerAgent(new TicketAgent());
+    this.registerAgent(new KnowledgeAgent());
   }
 
   private registerAgent(agent: DepartmentAgent) {
@@ -190,6 +205,12 @@ export class DepartmentRegistry {
       return agents.find((a) => a.role.includes("Trend"));
     if (t.includes("research") || t.includes("investigate") || t.includes("study") || t.includes("deep dive"))
       return agents.find((a) => a.role.includes("Research"));
+    if (t.includes("ticket") || t.includes("categorize") || t.includes("prioritize"))
+      return agents.find((a) => a.role.includes("Ticket"));
+    if (t.includes("knowledge") || t.includes("faq") || t.includes("article") || t.includes("tutorial"))
+      return agents.find((a) => a.role.includes("Knowledge"));
+    if (t.includes("support") || t.includes("customer") || t.includes("help") || t.includes("issue") || t.includes("problem") || t.includes("troubleshoot"))
+      return agents.find((a) => a.role.includes("Support"));
     return agents.find((a) => a.status === "idle");
   }
 
