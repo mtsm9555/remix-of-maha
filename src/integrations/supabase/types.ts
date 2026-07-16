@@ -440,6 +440,39 @@ export type Database = {
         }
         Relationships: []
       }
+      tool_access_logs: {
+        Row: {
+          agent_id: string
+          arguments: Json
+          created_at: string
+          decision: string
+          department: string
+          id: string
+          reason: string | null
+          tool_name: string
+        }
+        Insert: {
+          agent_id: string
+          arguments?: Json
+          created_at?: string
+          decision: string
+          department: string
+          id?: string
+          reason?: string | null
+          tool_name: string
+        }
+        Update: {
+          agent_id?: string
+          arguments?: Json
+          created_at?: string
+          decision?: string
+          department?: string
+          id?: string
+          reason?: string | null
+          tool_name?: string
+        }
+        Relationships: []
+      }
       tool_executions: {
         Row: {
           agent_name: string | null
@@ -473,6 +506,42 @@ export type Database = {
           session_id?: string | null
           tool_name?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      tool_permissions: {
+        Row: {
+          allowed_departments: string[]
+          created_at: string
+          description: string | null
+          id: string
+          level: string
+          max_executions_per_hour: number | null
+          parameter_constraints: Json
+          tool_name: string
+          updated_at: string
+        }
+        Insert: {
+          allowed_departments?: string[]
+          created_at?: string
+          description?: string | null
+          id: string
+          level: string
+          max_executions_per_hour?: number | null
+          parameter_constraints?: Json
+          tool_name: string
+          updated_at?: string
+        }
+        Update: {
+          allowed_departments?: string[]
+          created_at?: string
+          description?: string | null
+          id?: string
+          level?: string
+          max_executions_per_hour?: number | null
+          parameter_constraints?: Json
+          tool_name?: string
+          updated_at?: string
         }
         Relationships: []
       }
