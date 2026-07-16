@@ -34,3 +34,7 @@ export * from "./departments/sales/SalesConfig";
 export * from "./departments/sales/SalesTools";
 export * from "./departments/sales/SalesWorkflows";
 export * from "./departments/sales/SalesQualityAssurance";
+export * from "./departments/design/DesignConfig";
+export * from "./departments/design/DesignTools";
+export * from "./departments/design/DesignWorkflows";
+export * from "./departments/design/DesignQualityAssurance";

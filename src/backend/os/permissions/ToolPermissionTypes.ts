@@ -4,7 +4,17 @@ export type PermissionLevel = "allow" | "deny" | "require_approval";
 
 export interface ParameterConstraint {
   field: string;
-  operator: "equals" | "not_equals" | "contains" | "max_value" | "min_value" | "gt" | "lt" | "regex";
+  operator:
+    | "equals"
+    | "eq"
+    | "not_equals"
+    | "contains"
+    | "in"
+    | "max_value"
+    | "min_value"
+    | "gt"
+    | "lt"
+    | "regex";
   value: any;
 }
 
