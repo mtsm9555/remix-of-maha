@@ -22,6 +22,7 @@ import { Route as ApiPlannerTestRouteImport } from './routes/api/planner-test'
 import { Route as ApiWorkflowsOpenapiDotjsonRouteImport } from './routes/api/workflows/openapi[.]json'
 import { Route as ApiWorkflowsDocsRouteImport } from './routes/api/workflows/docs'
 import { Route as ApiWorkflowsSplatRouteImport } from './routes/api/workflows/$'
+import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
 import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
 
 const VoiceRoute = VoiceRouteImport.update({
@@ -90,6 +91,11 @@ const ApiWorkflowsSplatRoute = ApiWorkflowsSplatRouteImport.update({
   path: '/api/workflows/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiGoalsSplatRoute = ApiGoalsSplatRouteImport.update({
+  id: '/api/goals/$',
+  path: '/api/goals/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiDepartmentsSplatRoute = ApiDepartmentsSplatRouteImport.update({
   id: '/api/departments/$',
   path: '/api/departments/$',
@@ -108,6 +114,7 @@ export interface FileRoutesByFullPath {
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
+  '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
+  '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
+  '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/planner-test'
     | '/api/departments/$'
+    | '/api/goals/$'
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/planner-test'
     | '/api/departments/$'
+    | '/api/goals/$'
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
@@ -191,6 +202,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/planner-test'
     | '/api/departments/$'
+    | '/api/goals/$'
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
@@ -208,6 +220,7 @@ export interface RootRouteChildren {
   VoiceRoute: typeof VoiceRoute
   ApiPlannerTestRoute: typeof ApiPlannerTestRoute
   ApiDepartmentsSplatRoute: typeof ApiDepartmentsSplatRoute
+  ApiGoalsSplatRoute: typeof ApiGoalsSplatRoute
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -306,6 +319,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiWorkflowsSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/goals/$': {
+      id: '/api/goals/$'
+      path: '/api/goals/$'
+      fullPath: '/api/goals/$'
+      preLoaderRoute: typeof ApiGoalsSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/departments/$': {
       id: '/api/departments/$'
       path: '/api/departments/$'
@@ -328,6 +348,7 @@ const rootRouteChildren: RootRouteChildren = {
   VoiceRoute: VoiceRoute,
   ApiPlannerTestRoute: ApiPlannerTestRoute,
   ApiDepartmentsSplatRoute: ApiDepartmentsSplatRoute,
+  ApiGoalsSplatRoute: ApiGoalsSplatRoute,
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
@@ -335,3 +356,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
