@@ -79,6 +79,9 @@ import { Route as ApiInfrastructureDiscoverySimulateRouteImport } from './routes
 import { Route as ApiInfrastructureCapabilitiesSearchRouteImport } from './routes/api/infrastructure/capabilities/search'
 import { Route as ApiInfrastructureCapabilitiesRevokeToolRouteImport } from './routes/api/infrastructure/capabilities/revoke-tool'
 import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './routes/api/infrastructure/capabilities/$agentId'
+import { Route as ApiFinanceCostsTopToolsRouteImport } from './routes/api/finance/costs/top-tools'
+import { Route as ApiFinanceCostsPricingRouteImport } from './routes/api/finance/costs/pricing'
+import { Route as ApiFinanceCostsDepartmentsRouteImport } from './routes/api/finance/costs/departments'
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
 import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
@@ -87,6 +90,7 @@ import { Route as ApiToolsVersioningToolNameRollbackRouteImport } from './routes
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
 import { Route as ApiPublicToolsVersioningSweepRouteImport } from './routes/api/public/tools/versioning/sweep'
 import { Route as ApiPublicToolsVersioningHealthCheckRouteImport } from './routes/api/public/tools/versioning/health-check'
+import { Route as ApiPublicFinanceCostsRollupRouteImport } from './routes/api/public/finance/costs/rollup'
 import { Route as ApiPublicAnalyticsToolsRollupRouteImport } from './routes/api/public/analytics/tools/rollup'
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
 import { Route as ApiIntelligenceLearnHistoryAgentIdRouteImport } from './routes/api/intelligence/learn/history.$agentId'
@@ -494,6 +498,22 @@ const ApiInfrastructureCapabilitiesAgentIdRoute =
     path: '/api/infrastructure/capabilities/$agentId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiFinanceCostsTopToolsRoute = ApiFinanceCostsTopToolsRouteImport.update({
+  id: '/api/finance/costs/top-tools',
+  path: '/api/finance/costs/top-tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiFinanceCostsPricingRoute = ApiFinanceCostsPricingRouteImport.update({
+  id: '/api/finance/costs/pricing',
+  path: '/api/finance/costs/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiFinanceCostsDepartmentsRoute =
+  ApiFinanceCostsDepartmentsRouteImport.update({
+    id: '/api/finance/costs/departments',
+    path: '/api/finance/costs/departments',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiCollaborationSessionIdProposalRoute =
   ApiCollaborationSessionIdProposalRouteImport.update({
     id: '/api/collaboration/$sessionId/proposal',
@@ -540,6 +560,12 @@ const ApiPublicToolsVersioningHealthCheckRoute =
   ApiPublicToolsVersioningHealthCheckRouteImport.update({
     id: '/api/public/tools/versioning/health-check',
     path: '/api/public/tools/versioning/health-check',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicFinanceCostsRollupRoute =
+  ApiPublicFinanceCostsRollupRouteImport.update({
+    id: '/api/public/finance/costs/rollup',
+    path: '/api/public/finance/costs/rollup',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiPublicAnalyticsToolsRollupRoute =
@@ -664,6 +690,9 @@ export interface FileRoutesByFullPath {
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
+  '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
+  '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
+  '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -721,6 +750,7 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
   '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
+  '/api/public/finance/costs/rollup': typeof ApiPublicFinanceCostsRollupRoute
   '/api/public/tools/versioning/health-check': typeof ApiPublicToolsVersioningHealthCheckRoute
   '/api/public/tools/versioning/sweep': typeof ApiPublicToolsVersioningSweepRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
@@ -759,6 +789,9 @@ export interface FileRoutesByTo {
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
+  '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
+  '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
+  '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -816,6 +849,7 @@ export interface FileRoutesByTo {
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
   '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
+  '/api/public/finance/costs/rollup': typeof ApiPublicFinanceCostsRollupRoute
   '/api/public/tools/versioning/health-check': typeof ApiPublicToolsVersioningHealthCheckRoute
   '/api/public/tools/versioning/sweep': typeof ApiPublicToolsVersioningSweepRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
@@ -855,6 +889,9 @@ export interface FileRoutesById {
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
+  '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
+  '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
+  '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -912,6 +949,7 @@ export interface FileRoutesById {
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
   '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
+  '/api/public/finance/costs/rollup': typeof ApiPublicFinanceCostsRollupRoute
   '/api/public/tools/versioning/health-check': typeof ApiPublicToolsVersioningHealthCheckRoute
   '/api/public/tools/versioning/sweep': typeof ApiPublicToolsVersioningSweepRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
@@ -952,6 +990,9 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
+    | '/api/finance/costs/departments'
+    | '/api/finance/costs/pricing'
+    | '/api/finance/costs/top-tools'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
     | '/api/infrastructure/capabilities/search'
@@ -1009,6 +1050,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
     | '/api/public/analytics/tools/rollup'
+    | '/api/public/finance/costs/rollup'
     | '/api/public/tools/versioning/health-check'
     | '/api/public/tools/versioning/sweep'
     | '/api/tools/mcp/disconnect/$serverId'
@@ -1047,6 +1089,9 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
+    | '/api/finance/costs/departments'
+    | '/api/finance/costs/pricing'
+    | '/api/finance/costs/top-tools'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
     | '/api/infrastructure/capabilities/search'
@@ -1104,6 +1149,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
     | '/api/public/analytics/tools/rollup'
+    | '/api/public/finance/costs/rollup'
     | '/api/public/tools/versioning/health-check'
     | '/api/public/tools/versioning/sweep'
     | '/api/tools/mcp/disconnect/$serverId'
@@ -1142,6 +1188,9 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
+    | '/api/finance/costs/departments'
+    | '/api/finance/costs/pricing'
+    | '/api/finance/costs/top-tools'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
     | '/api/infrastructure/capabilities/search'
@@ -1199,6 +1248,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
     | '/api/public/analytics/tools/rollup'
+    | '/api/public/finance/costs/rollup'
     | '/api/public/tools/versioning/health-check'
     | '/api/public/tools/versioning/sweep'
     | '/api/tools/mcp/disconnect/$serverId'
@@ -1238,6 +1288,9 @@ export interface RootRouteChildren {
   ApiAnalyticsToolsOverviewRoute: typeof ApiAnalyticsToolsOverviewRoute
   ApiCollaborationSessionIdBlackboardRoute: typeof ApiCollaborationSessionIdBlackboardRoute
   ApiCollaborationSessionIdProposalRoute: typeof ApiCollaborationSessionIdProposalRoute
+  ApiFinanceCostsDepartmentsRoute: typeof ApiFinanceCostsDepartmentsRoute
+  ApiFinanceCostsPricingRoute: typeof ApiFinanceCostsPricingRoute
+  ApiFinanceCostsTopToolsRoute: typeof ApiFinanceCostsTopToolsRoute
   ApiInfrastructureCapabilitiesAgentIdRoute: typeof ApiInfrastructureCapabilitiesAgentIdRoute
   ApiInfrastructureCapabilitiesRevokeToolRoute: typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   ApiInfrastructureCapabilitiesSearchRoute: typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -1291,6 +1344,7 @@ export interface RootRouteChildren {
   ApiInfrastructureRegistryCapacityDepartmentRoute: typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   ApiIntelligenceLearnHistoryAgentIdRoute: typeof ApiIntelligenceLearnHistoryAgentIdRoute
   ApiPublicAnalyticsToolsRollupRoute: typeof ApiPublicAnalyticsToolsRollupRoute
+  ApiPublicFinanceCostsRollupRoute: typeof ApiPublicFinanceCostsRollupRoute
   ApiPublicToolsVersioningHealthCheckRoute: typeof ApiPublicToolsVersioningHealthCheckRoute
   ApiPublicToolsVersioningSweepRoute: typeof ApiPublicToolsVersioningSweepRoute
   ApiToolsMcpDisconnectServerIdRoute: typeof ApiToolsMcpDisconnectServerIdRoute
@@ -1791,6 +1845,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureCapabilitiesAgentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/finance/costs/top-tools': {
+      id: '/api/finance/costs/top-tools'
+      path: '/api/finance/costs/top-tools'
+      fullPath: '/api/finance/costs/top-tools'
+      preLoaderRoute: typeof ApiFinanceCostsTopToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/finance/costs/pricing': {
+      id: '/api/finance/costs/pricing'
+      path: '/api/finance/costs/pricing'
+      fullPath: '/api/finance/costs/pricing'
+      preLoaderRoute: typeof ApiFinanceCostsPricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/finance/costs/departments': {
+      id: '/api/finance/costs/departments'
+      path: '/api/finance/costs/departments'
+      fullPath: '/api/finance/costs/departments'
+      preLoaderRoute: typeof ApiFinanceCostsDepartmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/collaboration/$sessionId/proposal': {
       id: '/api/collaboration/$sessionId/proposal'
       path: '/api/collaboration/$sessionId/proposal'
@@ -1845,6 +1920,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/tools/versioning/health-check'
       fullPath: '/api/public/tools/versioning/health-check'
       preLoaderRoute: typeof ApiPublicToolsVersioningHealthCheckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/finance/costs/rollup': {
+      id: '/api/public/finance/costs/rollup'
+      path: '/api/public/finance/costs/rollup'
+      fullPath: '/api/public/finance/costs/rollup'
+      preLoaderRoute: typeof ApiPublicFinanceCostsRollupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/analytics/tools/rollup': {
@@ -2037,6 +2119,9 @@ const rootRouteChildren: RootRouteChildren = {
     ApiCollaborationSessionIdBlackboardRoute,
   ApiCollaborationSessionIdProposalRoute:
     ApiCollaborationSessionIdProposalRoute,
+  ApiFinanceCostsDepartmentsRoute: ApiFinanceCostsDepartmentsRoute,
+  ApiFinanceCostsPricingRoute: ApiFinanceCostsPricingRoute,
+  ApiFinanceCostsTopToolsRoute: ApiFinanceCostsTopToolsRoute,
   ApiInfrastructureCapabilitiesAgentIdRoute:
     ApiInfrastructureCapabilitiesAgentIdRoute,
   ApiInfrastructureCapabilitiesRevokeToolRoute:
@@ -2108,6 +2193,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiIntelligenceLearnHistoryAgentIdRoute:
     ApiIntelligenceLearnHistoryAgentIdRoute,
   ApiPublicAnalyticsToolsRollupRoute: ApiPublicAnalyticsToolsRollupRoute,
+  ApiPublicFinanceCostsRollupRoute: ApiPublicFinanceCostsRollupRoute,
   ApiPublicToolsVersioningHealthCheckRoute:
     ApiPublicToolsVersioningHealthCheckRoute,
   ApiPublicToolsVersioningSweepRoute: ApiPublicToolsVersioningSweepRoute,
