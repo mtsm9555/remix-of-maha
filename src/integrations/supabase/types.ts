@@ -55,6 +55,42 @@ export type Database = {
           },
         ]
       }
+      agent_prompt_versions: {
+        Row: {
+          agent_id: string
+          created_at: string
+          few_shot_examples: string[]
+          id: string
+          performance_metrics: Json
+          replaced_at: string | null
+          status: string
+          system_prompt: string
+          version_number: number
+        }
+        Insert: {
+          agent_id: string
+          created_at?: string
+          few_shot_examples?: string[]
+          id?: string
+          performance_metrics?: Json
+          replaced_at?: string | null
+          status: string
+          system_prompt: string
+          version_number: number
+        }
+        Update: {
+          agent_id?: string
+          created_at?: string
+          few_shot_examples?: string[]
+          id?: string
+          performance_metrics?: Json
+          replaced_at?: string | null
+          status?: string
+          system_prompt?: string
+          version_number?: number
+        }
+        Relationships: []
+      }
       agent_reputation_scores: {
         Row: {
           agent_id: string
@@ -443,6 +479,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      learning_cycles: {
+        Row: {
+          agent_id: string
+          created_at: string
+          id: string
+          previous_version_id: string | null
+          proposed_version_id: string | null
+          reasoning: string | null
+          status: string
+          trigger: string
+        }
+        Insert: {
+          agent_id: string
+          created_at?: string
+          id?: string
+          previous_version_id?: string | null
+          proposed_version_id?: string | null
+          reasoning?: string | null
+          status: string
+          trigger: string
+        }
+        Update: {
+          agent_id?: string
+          created_at?: string
+          id?: string
+          previous_version_id?: string | null
+          proposed_version_id?: string | null
+          reasoning?: string | null
+          status?: string
+          trigger?: string
+        }
+        Relationships: []
       }
       logs: {
         Row: {
