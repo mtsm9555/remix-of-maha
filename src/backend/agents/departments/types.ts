@@ -6,7 +6,8 @@ export type Department =
   | "operations"
   | "research"
   | "support"
-  | "finance";
+  | "finance"
+  | "hr";
 
 export type AgentStatus = "idle" | "working" | "completed" | "failed";
 
