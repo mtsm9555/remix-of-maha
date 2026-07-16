@@ -113,6 +113,39 @@ export type Database = {
         }
         Relationships: []
       }
+      agent_health_metrics: {
+        Row: {
+          cpu_usage: number
+          id: string
+          instance_id: string
+          llm_error_rate: number
+          llm_latency_ms: number
+          memory_usage_mb: number
+          recorded_at: string
+          success_rate: number
+        }
+        Insert: {
+          cpu_usage?: number
+          id?: string
+          instance_id: string
+          llm_error_rate?: number
+          llm_latency_ms?: number
+          memory_usage_mb?: number
+          recorded_at?: string
+          success_rate?: number
+        }
+        Update: {
+          cpu_usage?: number
+          id?: string
+          instance_id?: string
+          llm_error_rate?: number
+          llm_latency_ms?: number
+          memory_usage_mb?: number
+          recorded_at?: string
+          success_rate?: number
+        }
+        Relationships: []
+      }
       agent_instance_wallets: {
         Row: {
           agent_type: string
@@ -946,6 +979,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      health_anomalies: {
+        Row: {
+          current_value: number
+          description: string
+          detected_at: string
+          expected_baseline: number
+          id: string
+          instance_id: string
+          metric_name: string
+          severity: string
+        }
+        Insert: {
+          current_value: number
+          description: string
+          detected_at?: string
+          expected_baseline: number
+          id: string
+          instance_id: string
+          metric_name: string
+          severity: string
+        }
+        Update: {
+          current_value?: number
+          description?: string
+          detected_at?: string
+          expected_baseline?: number
+          id?: string
+          instance_id?: string
+          metric_name?: string
+          severity?: string
+        }
+        Relationships: []
       }
       learning_cycles: {
         Row: {
