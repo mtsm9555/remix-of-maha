@@ -43,14 +43,16 @@ function json(body: unknown, status = 200) {
   });
 }
 
-async function requireUser(request: Request) {
+type AuthOk = { ok: true; supabase: any; userId: string };
+type AuthErr = { ok: false; response: Response };
+async function requireUser(request: Request): Promise<AuthOk | AuthErr> {
   const auth = request.headers.get("authorization") ?? "";
   const token = auth.toLowerCase().startsWith("bearer ") ? auth.slice(7).trim() : "";
-  if (!token) return { error: json({ error: "Missing bearer token" }, 401) } as const;
+  if (!token) return { ok: false, response: json({ error: "Missing bearer token" }, 401) };
   const supabase = makeUserClient(token);
   const { data, error } = await supabase.auth.getUser(token);
-  if (error || !data.user) return { error: json({ error: "Invalid or expired token" }, 401) } as const;
-  return { supabase: supabase as any, userId: data.user.id } as const;
+  if (error || !data.user) return { ok: false, response: json({ error: "Invalid or expired token" }, 401) };
+  return { ok: true, supabase, userId: data.user.id };
 }
 
 const nodeSchema = z.object({
@@ -73,7 +75,7 @@ function parseSplat(splat: string | undefined): string[] {
 
 async function handle(request: Request, splat: string | undefined): Promise<Response> {
   const auth = await requireUser(request);
-  if ("error" in auth) return auth.error;
+  if (!auth.ok) return auth.response;
   const { supabase, userId } = auth;
   const method = request.method.toUpperCase();
   const parts = parseSplat(splat);
