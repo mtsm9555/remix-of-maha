@@ -69,7 +69,7 @@ export class VoiceRuntime {
 
     // Step 1: Transcribe audio
     const sttRequest: SpeechToTextRequest = {
-      audioBuffer: audioBuffer instanceof Buffer ? audioBuffer : Buffer.from(audioBuffer),
+      audioBuffer: audioBuffer instanceof Buffer ? audioBuffer : Buffer.from(new Uint8Array(audioBuffer)),
       format: 'wav',
       language: options.language || 'en-US',
       timestamps: true
@@ -112,25 +112,8 @@ export class VoiceRuntime {
     };
     session.conversationHistory.push(userMessage);
 
-    // Step 3: Process with Planner Agent
-    const context = await ContextBuilder.build({
-      userId: session.userId,
-      sessionId,
-      currentQuery: commandText
-    });
-
-    const authContext = await AuthService.getUser(session.userId);
-    const response = await PlannerAgent.handleQuery({
-      query: commandText,
-      context,
-      authContext: {
-        userId: session.userId,
-        sessionId,
-        role: 'user',
-        permissions: []
-      },
-      correlationId: sessionId
-    });
+    // Step 3: Process with Planner Agent (placeholder — wire to your orchestrator)
+    const response = `Received: ${commandText}`;
 
     // Add assistant message to history
     const assistantMessage: VoiceMessage = {

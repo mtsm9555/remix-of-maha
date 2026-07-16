@@ -92,7 +92,7 @@ export class TextToSpeech {
       voice: voice as any,
       input: request.text,
       speed: request.speed || request.voice?.speed || 1.0,
-      response_format: request.format || 'mp3'
+      response_format: (request.format as any) || 'mp3'
     });
 
     const audioBuffer = Buffer.from(await response.arrayBuffer());
