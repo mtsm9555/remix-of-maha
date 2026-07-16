@@ -15,6 +15,9 @@ import { UIAgent } from "./Design/UIAgent";
 import { UXAgent } from "./Design/UXAgent";
 import { GraphicAgent } from "./Design/GraphicAgent";
 import { VideoAgent } from "./Design/VideoAgent";
+import { WorkflowAgent } from "./Operations/WorkflowAgent";
+import { AutomationAgent } from "./Operations/AutomationAgent";
+import { MonitoringAgent } from "./Operations/MonitoringAgent";
 
 export class DepartmentRegistry {
   private departments: Map<Department, DepartmentConfig> = new Map();
@@ -77,6 +80,15 @@ export class DepartmentRegistry {
       tools: ["figma", "canva", "image-models", "video-models", "tailwind"],
       workflows: ["ui-design", "ux-research", "brand-creation", "video-production"],
     });
+
+    this.departments.set("operations", {
+      name: "operations",
+      displayName: "Operations Department",
+      description: "Handles workflows, automation, and system monitoring",
+      agents: ["ops-workflow-agent", "ops-automation-agent", "ops-monitoring-agent"],
+      tools: ["playwright", "prometheus", "grafana", "zapier", "workflow-engine"],
+      workflows: ["workflow-design", "task-automation", "system-monitoring", "incident-response"],
+    });
   }
 
   private initializeAgents() {
@@ -96,6 +108,9 @@ export class DepartmentRegistry {
     this.registerAgent(new UXAgent());
     this.registerAgent(new GraphicAgent());
     this.registerAgent(new VideoAgent());
+    this.registerAgent(new WorkflowAgent());
+    this.registerAgent(new AutomationAgent());
+    this.registerAgent(new MonitoringAgent());
   }
 
   private registerAgent(agent: DepartmentAgent) {
@@ -148,6 +163,12 @@ export class DepartmentRegistry {
       return agents.find((a) => a.role.includes("Graphic"));
     if (t.includes("video") || t.includes("storyboard") || t.includes("script") || t.includes("animation"))
       return agents.find((a) => a.role.includes("Video"));
+    if (t.includes("workflow") || t.includes("process") || t.includes("bottleneck"))
+      return agents.find((a) => a.role.includes("Workflow"));
+    if (t.includes("automate") || t.includes("automation") || t.includes("playwright") || t.includes("scrape") || t.includes("browser"))
+      return agents.find((a) => a.role.includes("Automation"));
+    if (t.includes("monitor") || t.includes("alert") || t.includes("health") || t.includes("uptime") || t.includes("sla") || t.includes("metrics"))
+      return agents.find((a) => a.role.includes("Monitoring"));
     return agents.find((a) => a.status === "idle");
   }
 
