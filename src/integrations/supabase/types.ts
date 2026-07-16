@@ -123,6 +123,45 @@ export type Database = {
         }
         Relationships: []
       }
+      department_memories: {
+        Row: {
+          access_count: number
+          content: string
+          created_at: string
+          department_id: string
+          embedding: string | null
+          id: string
+          importance_score: number
+          last_accessed_at: string
+          metadata: Json
+          type: string
+        }
+        Insert: {
+          access_count?: number
+          content: string
+          created_at?: string
+          department_id: string
+          embedding?: string | null
+          id?: string
+          importance_score?: number
+          last_accessed_at?: string
+          metadata?: Json
+          type: string
+        }
+        Update: {
+          access_count?: number
+          content?: string
+          created_at?: string
+          department_id?: string
+          embedding?: string | null
+          id?: string
+          importance_score?: number
+          last_accessed_at?: string
+          metadata?: Json
+          type?: string
+        }
+        Relationships: []
+      }
       entities: {
         Row: {
           created_at: string
@@ -591,7 +630,33 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      boost_memory_importance: {
+        Args: { memory_ids: string[] }
+        Returns: undefined
+      }
+      decay_stale_memories: {
+        Args: { days_threshold: number; decay_factor: number }
+        Returns: undefined
+      }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
+      match_department_memories: {
+        Args: {
+          filter_types: string[]
+          match_count: number
+          match_threshold: number
+          query_department: string
+          query_embedding: string
+        }
+        Returns: {
+          content: string
+          department_id: string
+          id: string
+          importance_score: number
+          metadata: Json
+          similarity: number
+          type: string
+        }[]
+      }
       match_memories: {
         Args: {
           match_count?: number
