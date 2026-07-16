@@ -69,6 +69,10 @@ import { Route as ApiIntelligenceLearnHistoryAgentIdRouteImport } from './routes
 import { Route as ApiInfrastructureRegistryCapacityDepartmentRouteImport } from './routes/api/infrastructure/registry/capacity.$department'
 import { Route as ApiInfrastructureFleetKillInstanceIdRouteImport } from './routes/api/infrastructure/fleet/kill.$instanceId'
 import { Route as ApiInfrastructureDiscoveryReputationAgentIdRouteImport } from './routes/api/infrastructure/discovery/reputation.$agentId'
+import { Route as ApiInfrastructureBudgetWalletInstanceIdRouteImport } from './routes/api/infrastructure/budget/wallet.$instanceId'
+import { Route as ApiInfrastructureBudgetTopupsPendingRouteImport } from './routes/api/infrastructure/budget/topups/pending'
+import { Route as ApiInfrastructureBudgetLedgerInstanceIdRouteImport } from './routes/api/infrastructure/budget/ledger.$instanceId'
+import { Route as ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport } from './routes/api/infrastructure/budget/topups/$requestId.approve'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
@@ -408,6 +412,30 @@ const ApiInfrastructureDiscoveryReputationAgentIdRoute =
     path: '/reputation/$agentId',
     getParentRoute: () => ApiInfrastructureDiscoveryRouteRoute,
   } as any)
+const ApiInfrastructureBudgetWalletInstanceIdRoute =
+  ApiInfrastructureBudgetWalletInstanceIdRouteImport.update({
+    id: '/api/infrastructure/budget/wallet/$instanceId',
+    path: '/api/infrastructure/budget/wallet/$instanceId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureBudgetTopupsPendingRoute =
+  ApiInfrastructureBudgetTopupsPendingRouteImport.update({
+    id: '/api/infrastructure/budget/topups/pending',
+    path: '/api/infrastructure/budget/topups/pending',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureBudgetLedgerInstanceIdRoute =
+  ApiInfrastructureBudgetLedgerInstanceIdRouteImport.update({
+    id: '/api/infrastructure/budget/ledger/$instanceId',
+    path: '/api/infrastructure/budget/ledger/$instanceId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiInfrastructureBudgetTopupsRequestIdApproveRoute =
+  ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport.update({
+    id: '/api/infrastructure/budget/topups/$requestId/approve',
+    path: '/api/infrastructure/budget/topups/$requestId/approve',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -465,11 +493,15 @@ export interface FileRoutesByFullPath {
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
+  '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
+  '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
+  '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
   '/api/infrastructure/discovery/reputation/$agentId': typeof ApiInfrastructureDiscoveryReputationAgentIdRoute
   '/api/infrastructure/fleet/kill/$instanceId': typeof ApiInfrastructureFleetKillInstanceIdRoute
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
+  '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -527,11 +559,15 @@ export interface FileRoutesByTo {
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn': typeof ApiIntelligenceLearnIndexRoute
+  '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
+  '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
+  '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
   '/api/infrastructure/discovery/reputation/$agentId': typeof ApiInfrastructureDiscoveryReputationAgentIdRoute
   '/api/infrastructure/fleet/kill/$instanceId': typeof ApiInfrastructureFleetKillInstanceIdRoute
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
+  '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -590,11 +626,15 @@ export interface FileRoutesById {
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
+  '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
+  '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
+  '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
   '/api/infrastructure/discovery/reputation/$agentId': typeof ApiInfrastructureDiscoveryReputationAgentIdRoute
   '/api/infrastructure/fleet/kill/$instanceId': typeof ApiInfrastructureFleetKillInstanceIdRoute
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
+  '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -654,11 +694,15 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
+    | '/api/infrastructure/budget/ledger/$instanceId'
+    | '/api/infrastructure/budget/topups/pending'
+    | '/api/infrastructure/budget/wallet/$instanceId'
     | '/api/infrastructure/discovery/reputation/$agentId'
     | '/api/infrastructure/fleet/kill/$instanceId'
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
+    | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -716,11 +760,15 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry'
     | '/api/intelligence/consolidate'
     | '/api/intelligence/learn'
+    | '/api/infrastructure/budget/ledger/$instanceId'
+    | '/api/infrastructure/budget/topups/pending'
+    | '/api/infrastructure/budget/wallet/$instanceId'
     | '/api/infrastructure/discovery/reputation/$agentId'
     | '/api/infrastructure/fleet/kill/$instanceId'
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
+    | '/api/infrastructure/budget/topups/$requestId/approve'
   id:
     | '__root__'
     | '/'
@@ -778,11 +826,15 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
+    | '/api/infrastructure/budget/ledger/$instanceId'
+    | '/api/infrastructure/budget/topups/pending'
+    | '/api/infrastructure/budget/wallet/$instanceId'
     | '/api/infrastructure/discovery/reputation/$agentId'
     | '/api/infrastructure/fleet/kill/$instanceId'
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
+    | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -840,9 +892,13 @@ export interface RootRouteChildren {
   ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
   ApiIntelligenceConsolidateIndexRoute: typeof ApiIntelligenceConsolidateIndexRoute
   ApiIntelligenceLearnIndexRoute: typeof ApiIntelligenceLearnIndexRoute
+  ApiInfrastructureBudgetLedgerInstanceIdRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
+  ApiInfrastructureBudgetTopupsPendingRoute: typeof ApiInfrastructureBudgetTopupsPendingRoute
+  ApiInfrastructureBudgetWalletInstanceIdRoute: typeof ApiInfrastructureBudgetWalletInstanceIdRoute
   ApiInfrastructureFleetKillInstanceIdRoute: typeof ApiInfrastructureFleetKillInstanceIdRoute
   ApiInfrastructureRegistryCapacityDepartmentRoute: typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   ApiIntelligenceLearnHistoryAgentIdRoute: typeof ApiIntelligenceLearnHistoryAgentIdRoute
+  ApiInfrastructureBudgetTopupsRequestIdApproveRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1267,6 +1323,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureDiscoveryReputationAgentIdRouteImport
       parentRoute: typeof ApiInfrastructureDiscoveryRouteRoute
     }
+    '/api/infrastructure/budget/wallet/$instanceId': {
+      id: '/api/infrastructure/budget/wallet/$instanceId'
+      path: '/api/infrastructure/budget/wallet/$instanceId'
+      fullPath: '/api/infrastructure/budget/wallet/$instanceId'
+      preLoaderRoute: typeof ApiInfrastructureBudgetWalletInstanceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/budget/topups/pending': {
+      id: '/api/infrastructure/budget/topups/pending'
+      path: '/api/infrastructure/budget/topups/pending'
+      fullPath: '/api/infrastructure/budget/topups/pending'
+      preLoaderRoute: typeof ApiInfrastructureBudgetTopupsPendingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/budget/ledger/$instanceId': {
+      id: '/api/infrastructure/budget/ledger/$instanceId'
+      path: '/api/infrastructure/budget/ledger/$instanceId'
+      fullPath: '/api/infrastructure/budget/ledger/$instanceId'
+      preLoaderRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/infrastructure/budget/topups/$requestId/approve': {
+      id: '/api/infrastructure/budget/topups/$requestId/approve'
+      path: '/api/infrastructure/budget/topups/$requestId/approve'
+      fullPath: '/api/infrastructure/budget/topups/$requestId/approve'
+      preLoaderRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -1370,12 +1454,20 @@ const rootRouteChildren: RootRouteChildren = {
   ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,
   ApiIntelligenceConsolidateIndexRoute: ApiIntelligenceConsolidateIndexRoute,
   ApiIntelligenceLearnIndexRoute: ApiIntelligenceLearnIndexRoute,
+  ApiInfrastructureBudgetLedgerInstanceIdRoute:
+    ApiInfrastructureBudgetLedgerInstanceIdRoute,
+  ApiInfrastructureBudgetTopupsPendingRoute:
+    ApiInfrastructureBudgetTopupsPendingRoute,
+  ApiInfrastructureBudgetWalletInstanceIdRoute:
+    ApiInfrastructureBudgetWalletInstanceIdRoute,
   ApiInfrastructureFleetKillInstanceIdRoute:
     ApiInfrastructureFleetKillInstanceIdRoute,
   ApiInfrastructureRegistryCapacityDepartmentRoute:
     ApiInfrastructureRegistryCapacityDepartmentRoute,
   ApiIntelligenceLearnHistoryAgentIdRoute:
     ApiIntelligenceLearnHistoryAgentIdRoute,
+  ApiInfrastructureBudgetTopupsRequestIdApproveRoute:
+    ApiInfrastructureBudgetTopupsRequestIdApproveRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
