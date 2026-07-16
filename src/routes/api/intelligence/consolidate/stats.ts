@@ -15,7 +15,7 @@ export const Route = createFileRoute("/api/intelligence/consolidate/stats")({
           });
         }
         const stats: Record<string, { total: number; consolidated: number }> = {};
-        for (const row of (data ?? []) as { department: string; is_consolidated: boolean }[]) {
+        for (const row of ((data ?? []) as unknown) as { department: string; is_consolidated: boolean }[]) {
           const s = (stats[row.department] ||= { total: 0, consolidated: 0 });
           s.total++;
           if (row.is_consolidated) s.consolidated++;
