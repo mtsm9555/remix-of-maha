@@ -30,3 +30,7 @@ export * from "./departments/marketing/MarketingConfig";
 export * from "./departments/marketing/MarketingTools";
 export * from "./departments/marketing/MarketingWorkflows";
 export * from "./departments/marketing/MarketingQualityAssurance";
+export * from "./departments/sales/SalesConfig";
+export * from "./departments/sales/SalesTools";
+export * from "./departments/sales/SalesWorkflows";
+export * from "./departments/sales/SalesQualityAssurance";

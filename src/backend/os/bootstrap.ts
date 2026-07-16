@@ -3,6 +3,8 @@ import { globalDepartmentRegistry } from "../agents/departments/DepartmentRegist
 import type { Department } from "../agents/departments/types";
 import { initializeMarketingTools } from "./departments/marketing/MarketingTools";
 import { initializeMarketingWorkflows } from "./departments/marketing/MarketingWorkflows";
+import { initializeSalesTools } from "./departments/sales/SalesTools";
+import { initializeSalesWorkflows } from "./departments/sales/SalesWorkflows";
 
 const DEPARTMENTS: Array<{
   id: Department;
@@ -27,6 +29,8 @@ export async function initializeMahaOS() {
   console.log("🚀 Initializing Maha AI OS Architecture...");
   initializeMarketingTools();
   initializeMarketingWorkflows();
+  initializeSalesTools();
+  initializeSalesWorkflows();
   const config = DEPARTMENTS.map((d) => ({
     ...d,
     agents: globalDepartmentRegistry.getDepartmentAgents(d.id),
