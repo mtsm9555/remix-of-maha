@@ -33,6 +33,7 @@ import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
 import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
 import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
+import { Route as ApiIntelligenceLearnIndexRouteImport } from './routes/api/intelligence/learn/index'
 import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/api/intelligence/consolidate/index'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
@@ -166,6 +167,12 @@ const ApiApprovalsSplatRoute = ApiApprovalsSplatRouteImport.update({
   path: '/api/approvals/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiIntelligenceLearnIndexRoute =
+  ApiIntelligenceLearnIndexRouteImport.update({
+    id: '/api/intelligence/learn/',
+    path: '/api/intelligence/learn/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiIntelligenceConsolidateIndexRoute =
   ApiIntelligenceConsolidateIndexRouteImport.update({
     id: '/api/intelligence/consolidate/',
@@ -261,6 +268,7 @@ export interface FileRoutesByFullPath {
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
+  '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
 }
 export interface FileRoutesByTo {
@@ -297,6 +305,7 @@ export interface FileRoutesByTo {
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
   '/api/intelligence/consolidate': typeof ApiIntelligenceConsolidateIndexRoute
+  '/api/intelligence/learn': typeof ApiIntelligenceLearnIndexRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
 }
 export interface FileRoutesById {
@@ -334,6 +343,7 @@ export interface FileRoutesById {
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
+  '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
 }
 export interface FileRouteTypes {
@@ -372,6 +382,7 @@ export interface FileRouteTypes {
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
     | '/api/intelligence/consolidate/'
+    | '/api/intelligence/learn/'
     | '/api/intelligence/reflection/metrics/reset'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -408,6 +419,7 @@ export interface FileRouteTypes {
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
     | '/api/intelligence/consolidate'
+    | '/api/intelligence/learn'
     | '/api/intelligence/reflection/metrics/reset'
   id:
     | '__root__'
@@ -444,6 +456,7 @@ export interface FileRouteTypes {
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
     | '/api/intelligence/consolidate/'
+    | '/api/intelligence/learn/'
     | '/api/intelligence/reflection/metrics/reset'
   fileRoutesById: FileRoutesById
 }
@@ -481,6 +494,7 @@ export interface RootRouteChildren {
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
   ApiIntelligenceConsolidateIndexRoute: typeof ApiIntelligenceConsolidateIndexRoute
+  ApiIntelligenceLearnIndexRoute: typeof ApiIntelligenceLearnIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -653,6 +667,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiApprovalsSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/intelligence/learn/': {
+      id: '/api/intelligence/learn/'
+      path: '/api/intelligence/learn'
+      fullPath: '/api/intelligence/learn/'
+      preLoaderRoute: typeof ApiIntelligenceLearnIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/intelligence/consolidate/': {
       id: '/api/intelligence/consolidate/'
       path: '/api/intelligence/consolidate'
@@ -776,6 +797,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
   ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
   ApiIntelligenceConsolidateIndexRoute: ApiIntelligenceConsolidateIndexRoute,
+  ApiIntelligenceLearnIndexRoute: ApiIntelligenceLearnIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
