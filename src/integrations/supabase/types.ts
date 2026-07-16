@@ -55,6 +55,30 @@ export type Database = {
           },
         ]
       }
+      agent_reputation_scores: {
+        Row: {
+          agent_id: string
+          score: number
+          successful_tasks: number
+          total_tasks: number
+          updated_at: string
+        }
+        Insert: {
+          agent_id: string
+          score?: number
+          successful_tasks?: number
+          total_tasks?: number
+          updated_at?: string
+        }
+        Update: {
+          agent_id?: string
+          score?: number
+          successful_tasks?: number
+          total_tasks?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       budget_transactions: {
         Row: {
           agent_id: string
@@ -228,6 +252,48 @@ export type Database = {
           last_accessed_at?: string
           metadata?: Json
           type?: string
+        }
+        Relationships: []
+      }
+      enterprise_policies: {
+        Row: {
+          action: string
+          conditions: Json
+          created_at: string
+          department: string | null
+          description: string
+          id: string
+          is_active: boolean
+          logic: string
+          name: string
+          priority: number
+          updated_at: string
+        }
+        Insert: {
+          action: string
+          conditions?: Json
+          created_at?: string
+          department?: string | null
+          description: string
+          id?: string
+          is_active?: boolean
+          logic: string
+          name: string
+          priority?: number
+          updated_at?: string
+        }
+        Update: {
+          action?: string
+          conditions?: Json
+          created_at?: string
+          department?: string | null
+          description?: string
+          id?: string
+          is_active?: boolean
+          logic?: string
+          name?: string
+          priority?: number
+          updated_at?: string
         }
         Relationships: []
       }
