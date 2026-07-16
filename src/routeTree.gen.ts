@@ -86,6 +86,7 @@ import { Route as ApiInfrastructureDiscoveryReputationAgentIdRouteImport } from 
 import { Route as ApiInfrastructureBudgetWalletInstanceIdRouteImport } from './routes/api/infrastructure/budget/wallet.$instanceId'
 import { Route as ApiInfrastructureBudgetTopupsPendingRouteImport } from './routes/api/infrastructure/budget/topups/pending'
 import { Route as ApiInfrastructureBudgetLedgerInstanceIdRouteImport } from './routes/api/infrastructure/budget/ledger.$instanceId'
+import { Route as ApiAnalyticsToolsToolNameRpmRouteImport } from './routes/api/analytics/tools/$toolName/rpm'
 import { Route as ApiAnalyticsToolsToolNameHistoryRouteImport } from './routes/api/analytics/tools/$toolName/history'
 import { Route as ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport } from './routes/api/infrastructure/budget/topups/$requestId.approve'
 
@@ -526,6 +527,12 @@ const ApiInfrastructureBudgetLedgerInstanceIdRoute =
     path: '/api/infrastructure/budget/ledger/$instanceId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiAnalyticsToolsToolNameRpmRoute =
+  ApiAnalyticsToolsToolNameRpmRouteImport.update({
+    id: '/api/analytics/tools/$toolName/rpm',
+    path: '/api/analytics/tools/$toolName/rpm',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiAnalyticsToolsToolNameHistoryRoute =
   ApiAnalyticsToolsToolNameHistoryRouteImport.update({
     id: '/api/analytics/tools/$toolName/history',
@@ -607,6 +614,7 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
+  '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -688,6 +696,7 @@ export interface FileRoutesByTo {
   '/api/intelligence/learn': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace': typeof ApiToolsMarketplaceIndexRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
+  '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -770,6 +779,7 @@ export interface FileRoutesById {
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
+  '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -853,6 +863,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/'
     | '/api/tools/marketplace/'
     | '/api/analytics/tools/$toolName/history'
+    | '/api/analytics/tools/$toolName/rpm'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -934,6 +945,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn'
     | '/api/tools/marketplace'
     | '/api/analytics/tools/$toolName/history'
+    | '/api/analytics/tools/$toolName/rpm'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -1015,6 +1027,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/'
     | '/api/tools/marketplace/'
     | '/api/analytics/tools/$toolName/history'
+    | '/api/analytics/tools/$toolName/rpm'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -1096,6 +1109,7 @@ export interface RootRouteChildren {
   ApiIntelligenceLearnIndexRoute: typeof ApiIntelligenceLearnIndexRoute
   ApiToolsMarketplaceIndexRoute: typeof ApiToolsMarketplaceIndexRoute
   ApiAnalyticsToolsToolNameHistoryRoute: typeof ApiAnalyticsToolsToolNameHistoryRoute
+  ApiAnalyticsToolsToolNameRpmRoute: typeof ApiAnalyticsToolsToolNameRpmRoute
   ApiInfrastructureBudgetLedgerInstanceIdRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   ApiInfrastructureBudgetTopupsPendingRoute: typeof ApiInfrastructureBudgetTopupsPendingRoute
   ApiInfrastructureBudgetWalletInstanceIdRoute: typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -1648,6 +1662,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/analytics/tools/$toolName/rpm': {
+      id: '/api/analytics/tools/$toolName/rpm'
+      path: '/api/analytics/tools/$toolName/rpm'
+      fullPath: '/api/analytics/tools/$toolName/rpm'
+      preLoaderRoute: typeof ApiAnalyticsToolsToolNameRpmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/analytics/tools/$toolName/history': {
       id: '/api/analytics/tools/$toolName/history'
       path: '/api/analytics/tools/$toolName/history'
@@ -1793,6 +1814,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiIntelligenceLearnIndexRoute: ApiIntelligenceLearnIndexRoute,
   ApiToolsMarketplaceIndexRoute: ApiToolsMarketplaceIndexRoute,
   ApiAnalyticsToolsToolNameHistoryRoute: ApiAnalyticsToolsToolNameHistoryRoute,
+  ApiAnalyticsToolsToolNameRpmRoute: ApiAnalyticsToolsToolNameRpmRoute,
   ApiInfrastructureBudgetLedgerInstanceIdRoute:
     ApiInfrastructureBudgetLedgerInstanceIdRoute,
   ApiInfrastructureBudgetTopupsPendingRoute:
