@@ -1,6 +1,8 @@
 import { ContextSources } from "./ContextSources";
 import { ContextRanker } from "./ContextRanker";
 import type { BuiltContext, ContextChunk, ContextRequest } from "./ContextTypes";
+import { ContextCompressionEngine } from "../../intelligence/compression/ContextCompressionEngine";
+import type { CompressionConfig } from "../../intelligence/compression/CompressionTypes";
 
 export class OSContextBuilder {
   static async build(request: ContextRequest): Promise<BuiltContext> {
@@ -16,14 +18,34 @@ export class OSContextBuilder {
     ]);
 
     const allChunks = [...osStateChunks, ...deptChunks, ...memoryChunks, ...graphChunks];
-    const { kept, discardedTokens } = ContextRanker.rankAndTrim(allChunks, request.maxTokens);
-    const assembledPrompt = this.assemblePrompt(kept, request.currentTask);
+    const { kept, discardedTokens } = ContextRanker.rankAndTrim(allChunks, request.maxTokens * 2);
+
+    const compressionConfig: CompressionConfig = {
+      maxTargetTokens: request.maxTokens,
+      preferredStrategy: "summarize",
+      preserveExactQuotes: true,
+    };
+    const compressedResult = await ContextCompressionEngine.compress(kept, compressionConfig);
+
+    const assembledPrompt = this.assemblePrompt(
+      [
+        {
+          id: "compressed_main",
+          source: "compressed",
+          content: compressedResult.content,
+          relevanceScore: 1.0,
+          tokenEstimate: compressedResult.compressedTokenCount,
+        },
+      ],
+      request.currentTask,
+    );
 
     return {
       assembledPrompt,
       chunks: kept,
-      totalTokens: kept.reduce((sum, c) => sum + c.tokenEstimate, 0),
-      discardedTokens,
+      totalTokens: compressedResult.compressedTokenCount,
+      discardedTokens:
+        discardedTokens + (compressedResult.originalTokenCount - compressedResult.compressedTokenCount),
     };
   }
 
@@ -40,6 +62,7 @@ export class OSContextBuilder {
     for (const source of sourceOrder) {
       if (grouped[source]) prompt += grouped[source].join("\n\n") + "\n\n";
     }
+    if (grouped.compressed) prompt += grouped.compressed.join("\n\n") + "\n\n";
     prompt += `<INSTRUCTIONS>\nUse the above context to inform your execution of the CURRENT_TASK. Do not hallucinate information outside this context.\n</INSTRUCTIONS>`;
     return prompt;
   }
