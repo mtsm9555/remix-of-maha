@@ -12,4 +12,5 @@ export * from "./GoalDecomposer";
 export * from "./PlanValidator";
 export * from "./WaveExecutor";
 export * from "./ExecutionOrchestrator";
+export * from "./context/ContextBuilder";
 export * from "./bootstrap";
