@@ -36,6 +36,7 @@ import { Route as ApiCollaborationInitiateRouteImport } from './routes/api/colla
 import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
 import { Route as ApiInfrastructureDiscoveryRouteRouteImport } from './routes/api/infrastructure/discovery/route'
+import { Route as ApiToolsMarketplaceIndexRouteImport } from './routes/api/tools/marketplace/index'
 import { Route as ApiIntelligenceLearnIndexRouteImport } from './routes/api/intelligence/learn/index'
 import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/api/intelligence/consolidate/index'
 import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
@@ -43,6 +44,9 @@ import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/in
 import { Route as ApiToolsMcpConnectionsRouteImport } from './routes/api/tools/mcp/connections'
 import { Route as ApiToolsMcpConnectRouteImport } from './routes/api/tools/mcp/connect'
 import { Route as ApiToolsMcpCallRouteImport } from './routes/api/tools/mcp/call'
+import { Route as ApiToolsMarketplaceUninstallRouteImport } from './routes/api/tools/marketplace/uninstall'
+import { Route as ApiToolsMarketplaceInstalledRouteImport } from './routes/api/tools/marketplace/installed'
+import { Route as ApiToolsMarketplaceInstallRouteImport } from './routes/api/tools/marketplace/install'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
 import { Route as ApiIntelligenceReflectionMetricsRouteImport } from './routes/api/intelligence/reflection/metrics'
@@ -223,6 +227,12 @@ const ApiInfrastructureDiscoveryRouteRoute =
     path: '/api/infrastructure/discovery',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiToolsMarketplaceIndexRoute =
+  ApiToolsMarketplaceIndexRouteImport.update({
+    id: '/api/tools/marketplace/',
+    path: '/api/tools/marketplace/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiIntelligenceLearnIndexRoute =
   ApiIntelligenceLearnIndexRouteImport.update({
     id: '/api/intelligence/learn/',
@@ -262,6 +272,24 @@ const ApiToolsMcpCallRoute = ApiToolsMcpCallRouteImport.update({
   path: '/api/tools/mcp/call',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiToolsMarketplaceUninstallRoute =
+  ApiToolsMarketplaceUninstallRouteImport.update({
+    id: '/api/tools/marketplace/uninstall',
+    path: '/api/tools/marketplace/uninstall',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiToolsMarketplaceInstalledRoute =
+  ApiToolsMarketplaceInstalledRouteImport.update({
+    id: '/api/tools/marketplace/installed',
+    path: '/api/tools/marketplace/installed',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiToolsMarketplaceInstallRoute =
+  ApiToolsMarketplaceInstallRouteImport.update({
+    id: '/api/tools/marketplace/install',
+    path: '/api/tools/marketplace/install',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPrioritizationQueuePlanIdRoute =
   ApiPrioritizationQueuePlanIdRouteImport.update({
     id: '/api/prioritization/queue/$planId',
@@ -552,6 +580,9 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
+  '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
+  '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
   '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
   '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
   '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
@@ -559,6 +590,7 @@ export interface FileRoutesByFullPath {
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
+  '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -627,6 +659,9 @@ export interface FileRoutesByTo {
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
+  '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
+  '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
   '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
   '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
   '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
@@ -634,6 +669,7 @@ export interface FileRoutesByTo {
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn': typeof ApiIntelligenceLearnIndexRoute
+  '/api/tools/marketplace': typeof ApiToolsMarketplaceIndexRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -703,6 +739,9 @@ export interface FileRoutesById {
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
+  '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
+  '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
   '/api/tools/mcp/call': typeof ApiToolsMcpCallRoute
   '/api/tools/mcp/connect': typeof ApiToolsMcpConnectRoute
   '/api/tools/mcp/connections': typeof ApiToolsMcpConnectionsRoute
@@ -710,6 +749,7 @@ export interface FileRoutesById {
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
+  '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -780,6 +820,9 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/tools/marketplace/install'
+    | '/api/tools/marketplace/installed'
+    | '/api/tools/marketplace/uninstall'
     | '/api/tools/mcp/call'
     | '/api/tools/mcp/connect'
     | '/api/tools/mcp/connections'
@@ -787,6 +830,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
+    | '/api/tools/marketplace/'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -855,6 +899,9 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/tools/marketplace/install'
+    | '/api/tools/marketplace/installed'
+    | '/api/tools/marketplace/uninstall'
     | '/api/tools/mcp/call'
     | '/api/tools/mcp/connect'
     | '/api/tools/mcp/connections'
@@ -862,6 +909,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry'
     | '/api/intelligence/consolidate'
     | '/api/intelligence/learn'
+    | '/api/tools/marketplace'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -930,6 +978,9 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/tools/marketplace/install'
+    | '/api/tools/marketplace/installed'
+    | '/api/tools/marketplace/uninstall'
     | '/api/tools/mcp/call'
     | '/api/tools/mcp/connect'
     | '/api/tools/mcp/connections'
@@ -937,6 +988,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
+    | '/api/tools/marketplace/'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -1005,6 +1057,9 @@ export interface RootRouteChildren {
   ApiIntelligenceReflectionMetricsRoute: typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
+  ApiToolsMarketplaceInstallRoute: typeof ApiToolsMarketplaceInstallRoute
+  ApiToolsMarketplaceInstalledRoute: typeof ApiToolsMarketplaceInstalledRoute
+  ApiToolsMarketplaceUninstallRoute: typeof ApiToolsMarketplaceUninstallRoute
   ApiToolsMcpCallRoute: typeof ApiToolsMcpCallRoute
   ApiToolsMcpConnectRoute: typeof ApiToolsMcpConnectRoute
   ApiToolsMcpConnectionsRoute: typeof ApiToolsMcpConnectionsRoute
@@ -1012,6 +1067,7 @@ export interface RootRouteChildren {
   ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
   ApiIntelligenceConsolidateIndexRoute: typeof ApiIntelligenceConsolidateIndexRoute
   ApiIntelligenceLearnIndexRoute: typeof ApiIntelligenceLearnIndexRoute
+  ApiToolsMarketplaceIndexRoute: typeof ApiToolsMarketplaceIndexRoute
   ApiInfrastructureBudgetLedgerInstanceIdRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   ApiInfrastructureBudgetTopupsPendingRoute: typeof ApiInfrastructureBudgetTopupsPendingRoute
   ApiInfrastructureBudgetWalletInstanceIdRoute: typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -1214,6 +1270,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureDiscoveryRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/tools/marketplace/': {
+      id: '/api/tools/marketplace/'
+      path: '/api/tools/marketplace'
+      fullPath: '/api/tools/marketplace/'
+      preLoaderRoute: typeof ApiToolsMarketplaceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/intelligence/learn/': {
       id: '/api/intelligence/learn/'
       path: '/api/intelligence/learn'
@@ -1261,6 +1324,27 @@ declare module '@tanstack/react-router' {
       path: '/api/tools/mcp/call'
       fullPath: '/api/tools/mcp/call'
       preLoaderRoute: typeof ApiToolsMcpCallRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tools/marketplace/uninstall': {
+      id: '/api/tools/marketplace/uninstall'
+      path: '/api/tools/marketplace/uninstall'
+      fullPath: '/api/tools/marketplace/uninstall'
+      preLoaderRoute: typeof ApiToolsMarketplaceUninstallRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tools/marketplace/installed': {
+      id: '/api/tools/marketplace/installed'
+      path: '/api/tools/marketplace/installed'
+      fullPath: '/api/tools/marketplace/installed'
+      preLoaderRoute: typeof ApiToolsMarketplaceInstalledRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tools/marketplace/install': {
+      id: '/api/tools/marketplace/install'
+      path: '/api/tools/marketplace/install'
+      fullPath: '/api/tools/marketplace/install'
+      preLoaderRoute: typeof ApiToolsMarketplaceInstallRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/prioritization/queue/$planId': {
@@ -1654,6 +1738,9 @@ const rootRouteChildren: RootRouteChildren = {
     ApiIntelligenceReflectionMetricsRouteWithChildren,
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
   ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
+  ApiToolsMarketplaceInstallRoute: ApiToolsMarketplaceInstallRoute,
+  ApiToolsMarketplaceInstalledRoute: ApiToolsMarketplaceInstalledRoute,
+  ApiToolsMarketplaceUninstallRoute: ApiToolsMarketplaceUninstallRoute,
   ApiToolsMcpCallRoute: ApiToolsMcpCallRoute,
   ApiToolsMcpConnectRoute: ApiToolsMcpConnectRoute,
   ApiToolsMcpConnectionsRoute: ApiToolsMcpConnectionsRoute,
@@ -1661,6 +1748,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,
   ApiIntelligenceConsolidateIndexRoute: ApiIntelligenceConsolidateIndexRoute,
   ApiIntelligenceLearnIndexRoute: ApiIntelligenceLearnIndexRoute,
+  ApiToolsMarketplaceIndexRoute: ApiToolsMarketplaceIndexRoute,
   ApiInfrastructureBudgetLedgerInstanceIdRoute:
     ApiInfrastructureBudgetLedgerInstanceIdRoute,
   ApiInfrastructureBudgetTopupsPendingRoute:
