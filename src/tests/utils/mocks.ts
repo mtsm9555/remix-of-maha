@@ -1,5 +1,10 @@
 // src/tests/utils/mocks.ts
 import { vi } from 'vitest';
+import { z } from 'zod';
+import type { ToolDefinition } from '@/backend/tools/types';
+import type { AuthContext, UserRole } from '@/backend/auth/types';
+import type { AgentEvent } from '@/backend/events/types';
+import { AgentChannel, EventType } from '@/backend/events/types';
 
 // Mock Supabase client
 export const mockSupabase = {
@@ -61,19 +66,19 @@ export const TestDataFactory = {
     ...overrides
   }),
 
-  createAuthContext: (overrides = {}) => ({
+  createAuthContext: (overrides: Partial<AuthContext> = {}): AuthContext => ({
     userId: 'test-user-id',
     sessionId: 'test-session-id',
-    role: 'user',
+    role: 'user' as UserRole,
     permissions: ['tool:execute:*'],
     ...overrides
   }),
 
-  createToolDefinition: (name = 'test_tool', overrides = {}) => ({
+  createToolDefinition: (name = 'test_tool', overrides: Partial<ToolDefinition> = {}): ToolDefinition => ({
     name,
     description: 'Test tool description',
-    parameters: { type: 'object', properties: {} },
-    execute: vi.fn().mockResolvedValue({ success: true, data: {} }),
+    parameters: z.object({}).passthrough(),
+    execute: vi.fn().mockResolvedValue({ success: true, data: {}, executionTimeMs: 0 }),
     requiresAuth: false,
     ...overrides
   }),
@@ -89,10 +94,10 @@ export const TestDataFactory = {
     ...overrides
   }),
 
-  createAgentEvent: (overrides = {}) => ({
+  createAgentEvent: (overrides: Partial<AgentEvent> = {}): AgentEvent => ({
     id: 'test-event-id',
-    type: 'task.completed',
-    channel: 'system.broadcast',
+    type: EventType.TASK_COMPLETED,
+    channel: AgentChannel.SYSTEM,
     payload: { message: 'Test event' },
     timestamp: new Date(),
     correlationId: 'test-correlation-id',
