@@ -18,6 +18,9 @@ import { VideoAgent } from "./Design/VideoAgent";
 import { WorkflowAgent } from "./Operations/WorkflowAgent";
 import { AutomationAgent } from "./Operations/AutomationAgent";
 import { MonitoringAgent } from "./Operations/MonitoringAgent";
+import { ResearchAgent as ResearchDeptAgent } from "./Research/ResearchAgent";
+import { CompetitiveAgent } from "./Research/CompetitiveAgent";
+import { TrendAgent } from "./Research/TrendAgent";
 
 export class DepartmentRegistry {
   private departments: Map<Department, DepartmentConfig> = new Map();
@@ -89,6 +92,15 @@ export class DepartmentRegistry {
       tools: ["playwright", "prometheus", "grafana", "zapier", "workflow-engine"],
       workflows: ["workflow-design", "task-automation", "system-monitoring", "incident-response"],
     });
+
+    this.departments.set("research", {
+      name: "research",
+      displayName: "Research Department",
+      description: "Handles deep research, competitive analysis, and trend monitoring",
+      agents: ["research-research-agent", "research-competitive-agent", "research-trend-agent"],
+      tools: ["web-search", "academic-databases", "market-reports", "news-feeds", "industry-reports"],
+      workflows: ["deep-research", "competitive-analysis", "trend-monitoring", "market-intelligence"],
+    });
   }
 
   private initializeAgents() {
@@ -111,6 +123,9 @@ export class DepartmentRegistry {
     this.registerAgent(new WorkflowAgent());
     this.registerAgent(new AutomationAgent());
     this.registerAgent(new MonitoringAgent());
+    this.registerAgent(new ResearchDeptAgent());
+    this.registerAgent(new CompetitiveAgent());
+    this.registerAgent(new TrendAgent());
   }
 
   private registerAgent(agent: DepartmentAgent) {
@@ -169,6 +184,12 @@ export class DepartmentRegistry {
       return agents.find((a) => a.role.includes("Automation"));
     if (t.includes("monitor") || t.includes("alert") || t.includes("health") || t.includes("uptime") || t.includes("sla") || t.includes("metrics"))
       return agents.find((a) => a.role.includes("Monitoring"));
+    if (t.includes("competitor") || t.includes("competitive") || t.includes("market analysis") || t.includes("benchmark") || t.includes("swot"))
+      return agents.find((a) => a.role.includes("Competitive"));
+    if (t.includes("trend") || t.includes("forecast") || t.includes("future") || t.includes("emerging"))
+      return agents.find((a) => a.role.includes("Trend"));
+    if (t.includes("research") || t.includes("investigate") || t.includes("study") || t.includes("deep dive"))
+      return agents.find((a) => a.role.includes("Research"));
     return agents.find((a) => a.status === "idle");
   }
 
