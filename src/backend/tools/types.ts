@@ -14,6 +14,7 @@ export interface ToolExecutionContext {
   userId?: string;
   sessionId?: string;
   agentName?: string;
+  department?: string;
   supabaseClient?: any;
 }
 

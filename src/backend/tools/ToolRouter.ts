@@ -5,6 +5,9 @@ import { ToolExecutor } from "./ToolExecutor";
 import { ToolExecutionContext, ToolResult } from "./types";
 import { PermissionEngine } from "../auth/PermissionEngine";
 import type { AuthContext } from "../auth/types";
+import { DepartmentToolPermissions } from "../os/permissions/DepartmentToolPermissions";
+import { PolicyEngine } from "../os/PolicyEngine";
+import type { Department } from "../agents/departments/types";
 
 export class ToolRouter {
   async route(
@@ -14,6 +17,40 @@ export class ToolRouter {
     authContext?: AuthContext,
   ): Promise<ToolResult> {
     console.log(`[ToolRouter] Routing request to: ${toolName}`);
+
+    // Department-level tool permission (Zero Trust): only enforced when a department is provided.
+    if (context.department) {
+      const decision = DepartmentToolPermissions.evaluateAccess({
+        agentId: context.agentName ?? "unknown",
+        department: context.department as Department,
+        toolName,
+        arguments: rawArgs,
+      });
+      void this.logDecision(context, toolName, rawArgs, decision);
+      if (!decision.allowed) {
+        if (decision.requiresApproval) {
+          const approval = PolicyEngine.evaluate({
+            userId: context.userId ?? "system",
+            department: context.department as Department,
+            action: `tool:${toolName}`,
+            metadata: { args: rawArgs, reason: decision.reason, destructive: true },
+          });
+          if (!approval.allowed || approval.requiresApproval) {
+            return {
+              success: false,
+              error: `Tool execution paused. ${approval.reason ?? decision.reason}`,
+              executionTimeMs: 0,
+            };
+          }
+        } else {
+          return {
+            success: false,
+            error: `Access Denied: ${decision.reason}`,
+            executionTimeMs: 0,
+          };
+        }
+      }
+    }
 
     if (authContext) {
       try {
@@ -58,6 +95,31 @@ export class ToolRouter {
 
     // 3. Delegate to Executor
     return await ToolExecutor.execute(tool, validatedArgs, context);
+  }
+
+  private async logDecision(
+    context: ToolExecutionContext,
+    toolName: string,
+    args: any,
+    decision: { allowed: boolean; requiresApproval: boolean; reason: string },
+  ) {
+    try {
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      await supabaseAdmin.from("tool_access_logs").insert({
+        agent_id: context.agentName ?? "unknown",
+        department: context.department ?? "unknown",
+        tool_name: toolName,
+        arguments: args ?? {},
+        decision: decision.allowed
+          ? "allowed"
+          : decision.requiresApproval
+            ? "approval_required"
+            : "denied",
+        reason: decision.reason,
+      });
+    } catch (err) {
+      console.error("[ToolRouter] Failed to log tool access decision:", err);
+    }
   }
 
   async routeBatch(
