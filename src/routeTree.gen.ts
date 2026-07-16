@@ -76,6 +76,7 @@ import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
 import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
+import { Route as ApiPublicAnalyticsToolsRollupRouteImport } from './routes/api/public/analytics/tools/rollup'
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
 import { Route as ApiIntelligenceLearnHistoryAgentIdRouteImport } from './routes/api/intelligence/learn/history.$agentId'
 import { Route as ApiInfrastructureRegistryCapacityDepartmentRouteImport } from './routes/api/infrastructure/registry/capacity.$department'
@@ -468,6 +469,12 @@ const ApiToolsMcpDisconnectServerIdRoute =
     path: '/api/tools/mcp/disconnect/$serverId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicAnalyticsToolsRollupRoute =
+  ApiPublicAnalyticsToolsRollupRouteImport.update({
+    id: '/api/public/analytics/tools/rollup',
+    path: '/api/public/analytics/tools/rollup',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiIntelligenceReflectionMetricsResetRoute =
   ApiIntelligenceReflectionMetricsResetRouteImport.update({
     id: '/reset',
@@ -633,6 +640,7 @@ export interface FileRoutesByFullPath {
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
+  '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
@@ -716,6 +724,7 @@ export interface FileRoutesByTo {
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
+  '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
@@ -800,6 +809,7 @@ export interface FileRoutesById {
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
+  '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
@@ -885,6 +895,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
+    | '/api/public/analytics/tools/rollup'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesByTo: FileRoutesByTo
@@ -968,6 +979,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
+    | '/api/public/analytics/tools/rollup'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   id:
@@ -1051,6 +1063,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
+    | '/api/public/analytics/tools/rollup'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesById: FileRoutesById
@@ -1131,6 +1144,7 @@ export interface RootRouteChildren {
   ApiInfrastructureHealthAlertsCriticalRoute: typeof ApiInfrastructureHealthAlertsCriticalRoute
   ApiInfrastructureRegistryCapacityDepartmentRoute: typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   ApiIntelligenceLearnHistoryAgentIdRoute: typeof ApiIntelligenceLearnHistoryAgentIdRoute
+  ApiPublicAnalyticsToolsRollupRoute: typeof ApiPublicAnalyticsToolsRollupRoute
   ApiToolsMcpDisconnectServerIdRoute: typeof ApiToolsMcpDisconnectServerIdRoute
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
@@ -1606,6 +1620,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiToolsMcpDisconnectServerIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/analytics/tools/rollup': {
+      id: '/api/public/analytics/tools/rollup'
+      path: '/api/public/analytics/tools/rollup'
+      fullPath: '/api/public/analytics/tools/rollup'
+      preLoaderRoute: typeof ApiPublicAnalyticsToolsRollupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/intelligence/reflection/metrics/reset': {
       id: '/api/intelligence/reflection/metrics/reset'
       path: '/reset'
@@ -1851,6 +1872,7 @@ const rootRouteChildren: RootRouteChildren = {
     ApiInfrastructureRegistryCapacityDepartmentRoute,
   ApiIntelligenceLearnHistoryAgentIdRoute:
     ApiIntelligenceLearnHistoryAgentIdRoute,
+  ApiPublicAnalyticsToolsRollupRoute: ApiPublicAnalyticsToolsRollupRoute,
   ApiToolsMcpDisconnectServerIdRoute: ApiToolsMcpDisconnectServerIdRoute,
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute:
     ApiInfrastructureBudgetTopupsRequestIdApproveRoute,
