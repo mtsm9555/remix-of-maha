@@ -743,6 +743,30 @@ export type Database = {
         }
         Relationships: []
       }
+      cost_attribution_rollups: {
+        Row: {
+          department: string
+          period_start: string
+          tool_name: string
+          total_cost_usd: number
+          total_executions: number
+        }
+        Insert: {
+          department: string
+          period_start: string
+          tool_name: string
+          total_cost_usd: number
+          total_executions: number
+        }
+        Update: {
+          department?: string
+          period_start?: string
+          tool_name?: string
+          total_cost_usd?: number
+          total_executions?: number
+        }
+        Relationships: []
+      }
       daily_budget_usage: {
         Row: {
           agent_id: string
@@ -1596,6 +1620,45 @@ export type Database = {
         }
         Relationships: []
       }
+      tool_cost_events: {
+        Row: {
+          agent_id: string
+          cost_breakdown: Json
+          department: string
+          execution_time_ms: number
+          id: string
+          memory_used_mb: number
+          timestamp: string
+          tokens_used: Json | null
+          tool_name: string
+          total_cost_usd: number
+        }
+        Insert: {
+          agent_id: string
+          cost_breakdown: Json
+          department: string
+          execution_time_ms: number
+          id: string
+          memory_used_mb: number
+          timestamp?: string
+          tokens_used?: Json | null
+          tool_name: string
+          total_cost_usd: number
+        }
+        Update: {
+          agent_id?: string
+          cost_breakdown?: Json
+          department?: string
+          execution_time_ms?: number
+          id?: string
+          memory_used_mb?: number
+          timestamp?: string
+          tokens_used?: Json | null
+          tool_name?: string
+          total_cost_usd?: number
+        }
+        Relationships: []
+      }
       tool_execution_events: {
         Row: {
           agent_id: string
@@ -1842,6 +1905,42 @@ export type Database = {
           policy_id?: string | null
           reason?: string | null
           tool_name?: string
+        }
+        Relationships: []
+      }
+      tool_pricing_models: {
+        Row: {
+          base_cost_usd: number
+          cost_per_cpu_second_usd: number
+          cost_per_input_token_usd: number
+          cost_per_memory_mb_second_usd: number
+          cost_per_output_token_usd: number
+          external_api_cost_multiplier: number
+          model_type: string
+          tool_name: string
+          updated_at: string
+        }
+        Insert: {
+          base_cost_usd?: number
+          cost_per_cpu_second_usd?: number
+          cost_per_input_token_usd?: number
+          cost_per_memory_mb_second_usd?: number
+          cost_per_output_token_usd?: number
+          external_api_cost_multiplier?: number
+          model_type: string
+          tool_name: string
+          updated_at?: string
+        }
+        Update: {
+          base_cost_usd?: number
+          cost_per_cpu_second_usd?: number
+          cost_per_input_token_usd?: number
+          cost_per_memory_mb_second_usd?: number
+          cost_per_output_token_usd?: number
+          external_api_cost_multiplier?: number
+          model_type?: string
+          tool_name?: string
+          updated_at?: string
         }
         Relationships: []
       }
