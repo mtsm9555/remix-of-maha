@@ -74,7 +74,9 @@ import { Route as ApiInfrastructureCapabilitiesRevokeToolRouteImport } from './r
 import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './routes/api/infrastructure/capabilities/$agentId'
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
+import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
+import { Route as ApiPublicAnalyticsToolsRollupRouteImport } from './routes/api/public/analytics/tools/rollup'
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
 import { Route as ApiIntelligenceLearnHistoryAgentIdRouteImport } from './routes/api/intelligence/learn/history.$agentId'
 import { Route as ApiInfrastructureRegistryCapacityDepartmentRouteImport } from './routes/api/infrastructure/registry/capacity.$department'
@@ -85,6 +87,9 @@ import { Route as ApiInfrastructureDiscoveryReputationAgentIdRouteImport } from 
 import { Route as ApiInfrastructureBudgetWalletInstanceIdRouteImport } from './routes/api/infrastructure/budget/wallet.$instanceId'
 import { Route as ApiInfrastructureBudgetTopupsPendingRouteImport } from './routes/api/infrastructure/budget/topups/pending'
 import { Route as ApiInfrastructureBudgetLedgerInstanceIdRouteImport } from './routes/api/infrastructure/budget/ledger.$instanceId'
+import { Route as ApiAnalyticsToolsToolNameRpmRouteImport } from './routes/api/analytics/tools/$toolName/rpm'
+import { Route as ApiAnalyticsToolsToolNameHistoryRouteImport } from './routes/api/analytics/tools/$toolName/history'
+import { Route as ApiAnalyticsToolsToolNameErrorsRouteImport } from './routes/api/analytics/tools/$toolName/errors'
 import { Route as ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport } from './routes/api/infrastructure/budget/topups/$requestId.approve'
 
 const VoiceRoute = VoiceRouteImport.update({
@@ -452,10 +457,22 @@ const ApiCollaborationSessionIdBlackboardRoute =
     path: '/api/collaboration/$sessionId/blackboard',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiAnalyticsToolsOverviewRoute =
+  ApiAnalyticsToolsOverviewRouteImport.update({
+    id: '/api/analytics/tools/overview',
+    path: '/api/analytics/tools/overview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiToolsMcpDisconnectServerIdRoute =
   ApiToolsMcpDisconnectServerIdRouteImport.update({
     id: '/api/tools/mcp/disconnect/$serverId',
     path: '/api/tools/mcp/disconnect/$serverId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicAnalyticsToolsRollupRoute =
+  ApiPublicAnalyticsToolsRollupRouteImport.update({
+    id: '/api/public/analytics/tools/rollup',
+    path: '/api/public/analytics/tools/rollup',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiIntelligenceReflectionMetricsResetRoute =
@@ -518,6 +535,24 @@ const ApiInfrastructureBudgetLedgerInstanceIdRoute =
     path: '/api/infrastructure/budget/ledger/$instanceId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiAnalyticsToolsToolNameRpmRoute =
+  ApiAnalyticsToolsToolNameRpmRouteImport.update({
+    id: '/api/analytics/tools/$toolName/rpm',
+    path: '/api/analytics/tools/$toolName/rpm',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiAnalyticsToolsToolNameHistoryRoute =
+  ApiAnalyticsToolsToolNameHistoryRouteImport.update({
+    id: '/api/analytics/tools/$toolName/history',
+    path: '/api/analytics/tools/$toolName/history',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiAnalyticsToolsToolNameErrorsRoute =
+  ApiAnalyticsToolsToolNameErrorsRouteImport.update({
+    id: '/api/analytics/tools/$toolName/errors',
+    path: '/api/analytics/tools/$toolName/errors',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiInfrastructureBudgetTopupsRequestIdApproveRoute =
   ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport.update({
     id: '/api/infrastructure/budget/topups/$requestId/approve',
@@ -553,6 +588,7 @@ export interface FileRoutesByFullPath {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
@@ -591,6 +627,9 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
+  '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
+  '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
+  '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -601,6 +640,7 @@ export interface FileRoutesByFullPath {
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
+  '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
@@ -632,6 +672,7 @@ export interface FileRoutesByTo {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
@@ -670,6 +711,9 @@ export interface FileRoutesByTo {
   '/api/intelligence/consolidate': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace': typeof ApiToolsMarketplaceIndexRoute
+  '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
+  '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
+  '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -680,6 +724,7 @@ export interface FileRoutesByTo {
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
+  '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
@@ -712,6 +757,7 @@ export interface FileRoutesById {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
@@ -750,6 +796,9 @@ export interface FileRoutesById {
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
+  '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
+  '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
+  '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -760,6 +809,7 @@ export interface FileRoutesById {
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
   '/api/intelligence/reflection/metrics/reset': typeof ApiIntelligenceReflectionMetricsResetRoute
+  '/api/public/analytics/tools/rollup': typeof ApiPublicAnalyticsToolsRollupRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
@@ -793,6 +843,7 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/infrastructure/capabilities/$agentId'
@@ -831,6 +882,9 @@ export interface FileRouteTypes {
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
     | '/api/tools/marketplace/'
+    | '/api/analytics/tools/$toolName/errors'
+    | '/api/analytics/tools/$toolName/history'
+    | '/api/analytics/tools/$toolName/rpm'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -841,6 +895,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
+    | '/api/public/analytics/tools/rollup'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesByTo: FileRoutesByTo
@@ -872,6 +927,7 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/infrastructure/capabilities/$agentId'
@@ -910,6 +966,9 @@ export interface FileRouteTypes {
     | '/api/intelligence/consolidate'
     | '/api/intelligence/learn'
     | '/api/tools/marketplace'
+    | '/api/analytics/tools/$toolName/errors'
+    | '/api/analytics/tools/$toolName/history'
+    | '/api/analytics/tools/$toolName/rpm'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -920,6 +979,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
+    | '/api/public/analytics/tools/rollup'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   id:
@@ -951,6 +1011,7 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/infrastructure/capabilities/$agentId'
@@ -989,6 +1050,9 @@ export interface FileRouteTypes {
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
     | '/api/tools/marketplace/'
+    | '/api/analytics/tools/$toolName/errors'
+    | '/api/analytics/tools/$toolName/history'
+    | '/api/analytics/tools/$toolName/rpm'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -999,6 +1063,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
     | '/api/intelligence/reflection/metrics/reset'
+    | '/api/public/analytics/tools/rollup'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesById: FileRoutesById
@@ -1031,6 +1096,7 @@ export interface RootRouteChildren {
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
+  ApiAnalyticsToolsOverviewRoute: typeof ApiAnalyticsToolsOverviewRoute
   ApiCollaborationSessionIdBlackboardRoute: typeof ApiCollaborationSessionIdBlackboardRoute
   ApiCollaborationSessionIdProposalRoute: typeof ApiCollaborationSessionIdProposalRoute
   ApiInfrastructureCapabilitiesAgentIdRoute: typeof ApiInfrastructureCapabilitiesAgentIdRoute
@@ -1068,6 +1134,9 @@ export interface RootRouteChildren {
   ApiIntelligenceConsolidateIndexRoute: typeof ApiIntelligenceConsolidateIndexRoute
   ApiIntelligenceLearnIndexRoute: typeof ApiIntelligenceLearnIndexRoute
   ApiToolsMarketplaceIndexRoute: typeof ApiToolsMarketplaceIndexRoute
+  ApiAnalyticsToolsToolNameErrorsRoute: typeof ApiAnalyticsToolsToolNameErrorsRoute
+  ApiAnalyticsToolsToolNameHistoryRoute: typeof ApiAnalyticsToolsToolNameHistoryRoute
+  ApiAnalyticsToolsToolNameRpmRoute: typeof ApiAnalyticsToolsToolNameRpmRoute
   ApiInfrastructureBudgetLedgerInstanceIdRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   ApiInfrastructureBudgetTopupsPendingRoute: typeof ApiInfrastructureBudgetTopupsPendingRoute
   ApiInfrastructureBudgetWalletInstanceIdRoute: typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -1075,6 +1144,7 @@ export interface RootRouteChildren {
   ApiInfrastructureHealthAlertsCriticalRoute: typeof ApiInfrastructureHealthAlertsCriticalRoute
   ApiInfrastructureRegistryCapacityDepartmentRoute: typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   ApiIntelligenceLearnHistoryAgentIdRoute: typeof ApiIntelligenceLearnHistoryAgentIdRoute
+  ApiPublicAnalyticsToolsRollupRoute: typeof ApiPublicAnalyticsToolsRollupRoute
   ApiToolsMcpDisconnectServerIdRoute: typeof ApiToolsMcpDisconnectServerIdRoute
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
@@ -1536,11 +1606,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCollaborationSessionIdBlackboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/analytics/tools/overview': {
+      id: '/api/analytics/tools/overview'
+      path: '/api/analytics/tools/overview'
+      fullPath: '/api/analytics/tools/overview'
+      preLoaderRoute: typeof ApiAnalyticsToolsOverviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/tools/mcp/disconnect/$serverId': {
       id: '/api/tools/mcp/disconnect/$serverId'
       path: '/api/tools/mcp/disconnect/$serverId'
       fullPath: '/api/tools/mcp/disconnect/$serverId'
       preLoaderRoute: typeof ApiToolsMcpDisconnectServerIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/analytics/tools/rollup': {
+      id: '/api/public/analytics/tools/rollup'
+      path: '/api/public/analytics/tools/rollup'
+      fullPath: '/api/public/analytics/tools/rollup'
+      preLoaderRoute: typeof ApiPublicAnalyticsToolsRollupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/intelligence/reflection/metrics/reset': {
@@ -1611,6 +1695,27 @@ declare module '@tanstack/react-router' {
       path: '/api/infrastructure/budget/ledger/$instanceId'
       fullPath: '/api/infrastructure/budget/ledger/$instanceId'
       preLoaderRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/analytics/tools/$toolName/rpm': {
+      id: '/api/analytics/tools/$toolName/rpm'
+      path: '/api/analytics/tools/$toolName/rpm'
+      fullPath: '/api/analytics/tools/$toolName/rpm'
+      preLoaderRoute: typeof ApiAnalyticsToolsToolNameRpmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/analytics/tools/$toolName/history': {
+      id: '/api/analytics/tools/$toolName/history'
+      path: '/api/analytics/tools/$toolName/history'
+      fullPath: '/api/analytics/tools/$toolName/history'
+      preLoaderRoute: typeof ApiAnalyticsToolsToolNameHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/analytics/tools/$toolName/errors': {
+      id: '/api/analytics/tools/$toolName/errors'
+      path: '/api/analytics/tools/$toolName/errors'
+      fullPath: '/api/analytics/tools/$toolName/errors'
+      preLoaderRoute: typeof ApiAnalyticsToolsToolNameErrorsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/infrastructure/budget/topups/$requestId/approve': {
@@ -1700,6 +1805,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
+  ApiAnalyticsToolsOverviewRoute: ApiAnalyticsToolsOverviewRoute,
   ApiCollaborationSessionIdBlackboardRoute:
     ApiCollaborationSessionIdBlackboardRoute,
   ApiCollaborationSessionIdProposalRoute:
@@ -1749,6 +1855,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiIntelligenceConsolidateIndexRoute: ApiIntelligenceConsolidateIndexRoute,
   ApiIntelligenceLearnIndexRoute: ApiIntelligenceLearnIndexRoute,
   ApiToolsMarketplaceIndexRoute: ApiToolsMarketplaceIndexRoute,
+  ApiAnalyticsToolsToolNameErrorsRoute: ApiAnalyticsToolsToolNameErrorsRoute,
+  ApiAnalyticsToolsToolNameHistoryRoute: ApiAnalyticsToolsToolNameHistoryRoute,
+  ApiAnalyticsToolsToolNameRpmRoute: ApiAnalyticsToolsToolNameRpmRoute,
   ApiInfrastructureBudgetLedgerInstanceIdRoute:
     ApiInfrastructureBudgetLedgerInstanceIdRoute,
   ApiInfrastructureBudgetTopupsPendingRoute:
@@ -1763,6 +1872,7 @@ const rootRouteChildren: RootRouteChildren = {
     ApiInfrastructureRegistryCapacityDepartmentRoute,
   ApiIntelligenceLearnHistoryAgentIdRoute:
     ApiIntelligenceLearnHistoryAgentIdRoute,
+  ApiPublicAnalyticsToolsRollupRoute: ApiPublicAnalyticsToolsRollupRoute,
   ApiToolsMcpDisconnectServerIdRoute: ApiToolsMcpDisconnectServerIdRoute,
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute:
     ApiInfrastructureBudgetTopupsRequestIdApproveRoute,

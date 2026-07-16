@@ -1495,6 +1495,48 @@ export type Database = {
         }
         Relationships: []
       }
+      tool_execution_events: {
+        Row: {
+          agent_id: string
+          cost_usd: number
+          department: string
+          error_code: string | null
+          id: string
+          latency_ms: number
+          payload_size_bytes: number | null
+          success: boolean
+          timestamp: string
+          tokens_used: number | null
+          tool_name: string
+        }
+        Insert: {
+          agent_id: string
+          cost_usd?: number
+          department: string
+          error_code?: string | null
+          id: string
+          latency_ms: number
+          payload_size_bytes?: number | null
+          success: boolean
+          timestamp?: string
+          tokens_used?: number | null
+          tool_name: string
+        }
+        Update: {
+          agent_id?: string
+          cost_usd?: number
+          department?: string
+          error_code?: string | null
+          id?: string
+          latency_ms?: number
+          payload_size_bytes?: number | null
+          success?: boolean
+          timestamp?: string
+          tokens_used?: number | null
+          tool_name?: string
+        }
+        Relationships: []
+      }
       tool_executions: {
         Row: {
           agent_name: string | null
@@ -1528,6 +1570,48 @@ export type Database = {
           session_id?: string | null
           tool_name?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      tool_metric_rollups: {
+        Row: {
+          avg_latency_ms: number
+          error_counts: Json
+          p95_latency_ms: number
+          p99_latency_ms: number
+          period_end: string
+          period_start: string
+          success_rate: number
+          tool_name: string
+          total_cost_usd: number
+          total_executions: number
+          total_tokens_used: number
+        }
+        Insert: {
+          avg_latency_ms: number
+          error_counts?: Json
+          p95_latency_ms: number
+          p99_latency_ms: number
+          period_end: string
+          period_start: string
+          success_rate: number
+          tool_name: string
+          total_cost_usd: number
+          total_executions: number
+          total_tokens_used: number
+        }
+        Update: {
+          avg_latency_ms?: number
+          error_counts?: Json
+          p95_latency_ms?: number
+          p99_latency_ms?: number
+          period_end?: string
+          period_start?: string
+          success_rate?: number
+          tool_name?: string
+          total_cost_usd?: number
+          total_executions?: number
+          total_tokens_used?: number
         }
         Relationships: []
       }
