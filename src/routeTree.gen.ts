@@ -18,6 +18,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AgencyRouteImport } from './routes/agency'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiPlannerTestRouteImport } from './routes/api/planner-test'
 import { Route as ApiWorkflowsOpenapiDotjsonRouteImport } from './routes/api/workflows/openapi[.]json'
 import { Route as ApiWorkflowsDocsRouteImport } from './routes/api/workflows/docs'
 import { Route as ApiWorkflowsSplatRouteImport } from './routes/api/workflows/$'
@@ -67,6 +68,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPlannerTestRoute = ApiPlannerTestRouteImport.update({
+  id: '/api/planner-test',
+  path: '/api/planner-test',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiWorkflowsOpenapiDotjsonRoute =
   ApiWorkflowsOpenapiDotjsonRouteImport.update({
     id: '/api/workflows/openapi.json',
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof SettingsRoute
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
+  '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -108,6 +115,7 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsRoute
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
+  '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -123,6 +131,7 @@ export interface FileRoutesById {
   '/settings': typeof SettingsRoute
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
+  '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -139,6 +148,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tools'
     | '/voice'
+    | '/api/planner-test'
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
@@ -153,6 +163,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tools'
     | '/voice'
+    | '/api/planner-test'
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
@@ -167,6 +178,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tools'
     | '/voice'
+    | '/api/planner-test'
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
@@ -182,6 +194,7 @@ export interface RootRouteChildren {
   SettingsRoute: typeof SettingsRoute
   ToolsRoute: typeof ToolsRoute
   VoiceRoute: typeof VoiceRoute
+  ApiPlannerTestRoute: typeof ApiPlannerTestRoute
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -252,6 +265,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/planner-test': {
+      id: '/api/planner-test'
+      path: '/api/planner-test'
+      fullPath: '/api/planner-test'
+      preLoaderRoute: typeof ApiPlannerTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/workflows/openapi.json': {
       id: '/api/workflows/openapi.json'
       path: '/api/workflows/openapi.json'
@@ -286,6 +306,7 @@ const rootRouteChildren: RootRouteChildren = {
   SettingsRoute: SettingsRoute,
   ToolsRoute: ToolsRoute,
   VoiceRoute: VoiceRoute,
+  ApiPlannerTestRoute: ApiPlannerTestRoute,
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
