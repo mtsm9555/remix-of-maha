@@ -26,3 +26,7 @@ export * from "./policy/PolicyStore";
 export * from "./policy/PolicyContextEnricher";
 export * from "./policy/PolicyGateway";
 export * from "./bootstrap";
+export * from "./departments/marketing/MarketingConfig";
+export * from "./departments/marketing/MarketingTools";
+export * from "./departments/marketing/MarketingWorkflows";
+export * from "./departments/marketing/MarketingQualityAssurance";
