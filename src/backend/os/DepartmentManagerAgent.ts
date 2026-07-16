@@ -3,6 +3,7 @@ import { TaskBoard, type DepartmentTask } from "./TaskBoard";
 import { QualityAssurance, type QAResult } from "./QualityAssurance";
 import { DepartmentManager } from "./DepartmentManager";
 import { osGenerate } from "./llm";
+import { OSContextBuilder } from "./context/ContextBuilder";
 import type { OSMilestone } from "./types";
 import type { Department, DepartmentAgent } from "../agents/departments/types";
 
@@ -81,8 +82,17 @@ export class DepartmentManagerAgent {
 
   private async executeAgentTask(instance: AgentInstance, task: DepartmentTask) {
     try {
+      const context = await OSContextBuilder.build({
+        userId: "system",
+        sessionId: task.milestoneId,
+        currentTask: task.description,
+        actorDepartment: this.departmentId,
+        actorAgentId: instance.agent.id,
+        maxTokens: 4000,
+      });
       const result = await instance.agent.executeTask(task.description, {
         department: this.departmentId,
+        osContext: context.assembledPrompt,
         milestoneContext: true,
       });
       this.taskBoard.updateStatus(task.id, "in_review", { output: result });
