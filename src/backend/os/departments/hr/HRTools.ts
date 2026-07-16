@@ -15,7 +15,7 @@ export function initializeHRTools() {
       equityPercentage: z.number().min(0).max(5),
       startDate: z.string(),
     }),
-    execute: async () => ({ success: true, documentId: "offer_99887", pdfUrl: "https://docs.company.com/offers/offer_99887.pdf" }),
+    execute: async () => ({ success: true, documentId: "offer_99887", pdfUrl: "https://docs.company.com/offers/offer_99887.pdf" } as any),
   });
 
   globalToolRegistry.register({
@@ -27,7 +27,7 @@ export function initializeHRTools() {
       durationMinutes: z.number(),
       interviewType: z.enum(["screening", "technical", "culture", "final"]),
     }),
-    execute: async () => ({ success: true, calendarEventId: "evt_11223" }),
+    execute: async () => ({ success: true, calendarEventId: "evt_11223" } as any),
   });
 
   globalToolRegistry.register({
@@ -39,7 +39,7 @@ export function initializeHRTools() {
       subject: z.string(),
       body: z.string(),
     }),
-    execute: async () => ({ success: true, messageId: "hr_msg_44556" }),
+    execute: async () => ({ success: true, messageId: "hr_msg_44556" } as any),
   });
 
   globalToolRegistry.register({
@@ -50,7 +50,7 @@ export function initializeHRTools() {
       ssn: z.string().min(9).max(9),
       consentSigned: z.boolean(),
     }),
-    execute: async () => ({ success: true, checkId: "bg_77889", status: "processing" }),
+    execute: async () => ({ success: true, checkId: "bg_77889", status: "processing" } as any),
   });
 
   DepartmentToolPermissions.addRule({
