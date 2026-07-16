@@ -22,6 +22,7 @@ import { Route as ApiPlannerTestRouteImport } from './routes/api/planner-test'
 import { Route as ApiWorkflowsOpenapiDotjsonRouteImport } from './routes/api/workflows/openapi[.]json'
 import { Route as ApiWorkflowsDocsRouteImport } from './routes/api/workflows/docs'
 import { Route as ApiWorkflowsSplatRouteImport } from './routes/api/workflows/$'
+import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
@@ -89,6 +90,11 @@ const ApiWorkflowsSplatRoute = ApiWorkflowsSplatRouteImport.update({
   path: '/api/workflows/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiDepartmentsSplatRoute = ApiDepartmentsSplatRouteImport.update({
+  id: '/api/departments/$',
+  path: '/api/departments/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
+  '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
+  '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -132,6 +140,7 @@ export interface FileRoutesById {
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
+  '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/voice'
     | '/api/planner-test'
+    | '/api/departments/$'
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
@@ -164,6 +174,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/voice'
     | '/api/planner-test'
+    | '/api/departments/$'
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
@@ -179,6 +190,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/voice'
     | '/api/planner-test'
+    | '/api/departments/$'
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
@@ -195,6 +207,7 @@ export interface RootRouteChildren {
   ToolsRoute: typeof ToolsRoute
   VoiceRoute: typeof VoiceRoute
   ApiPlannerTestRoute: typeof ApiPlannerTestRoute
+  ApiDepartmentsSplatRoute: typeof ApiDepartmentsSplatRoute
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
@@ -293,6 +306,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiWorkflowsSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/departments/$': {
+      id: '/api/departments/$'
+      path: '/api/departments/$'
+      fullPath: '/api/departments/$'
+      preLoaderRoute: typeof ApiDepartmentsSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -307,6 +327,7 @@ const rootRouteChildren: RootRouteChildren = {
   ToolsRoute: ToolsRoute,
   VoiceRoute: VoiceRoute,
   ApiPlannerTestRoute: ApiPlannerTestRoute,
+  ApiDepartmentsSplatRoute: ApiDepartmentsSplatRoute,
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
@@ -314,13 +335,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
