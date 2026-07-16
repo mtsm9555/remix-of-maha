@@ -42,3 +42,7 @@ export * from "./departments/development/DevConfig";
 export * from "./departments/development/DevTools";
 export * from "./departments/development/DevWorkflows";
 export * from "./departments/development/DevQualityAssurance";
+export * from "./departments/operations/OpsConfig";
+export * from "./departments/operations/OpsTools";
+export * from "./departments/operations/OpsWorkflows";
+export * from "./departments/operations/OpsQualityAssurance";
