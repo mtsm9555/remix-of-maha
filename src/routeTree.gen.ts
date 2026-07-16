@@ -28,6 +28,7 @@ import { Route as ApiVisionSplatRouteImport } from './routes/api/vision/$'
 import { Route as ApiManagerSplatRouteImport } from './routes/api/manager/$'
 import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
 import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
+import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
 
 const VoiceRoute = VoiceRouteImport.update({
@@ -126,6 +127,11 @@ const ApiDepartmentsSplatRoute = ApiDepartmentsSplatRouteImport.update({
   path: '/api/departments/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiBudgetSplatRoute = ApiBudgetSplatRouteImport.update({
+  id: '/api/budget/$',
+  path: '/api/budget/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiApprovalsSplatRoute = ApiApprovalsSplatRouteImport.update({
   id: '/api/approvals/$',
   path: '/api/approvals/$',
@@ -145,6 +151,7 @@ export interface FileRoutesByFullPath {
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
+  '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
@@ -167,6 +174,7 @@ export interface FileRoutesByTo {
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
+  '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
@@ -190,6 +198,7 @@ export interface FileRoutesById {
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
+  '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
@@ -214,6 +223,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/planner-test'
     | '/api/approvals/$'
+    | '/api/budget/$'
     | '/api/departments/$'
     | '/api/goals/$'
     | '/api/manager/$'
@@ -236,6 +246,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/planner-test'
     | '/api/approvals/$'
+    | '/api/budget/$'
     | '/api/departments/$'
     | '/api/goals/$'
     | '/api/manager/$'
@@ -258,6 +269,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/planner-test'
     | '/api/approvals/$'
+    | '/api/budget/$'
     | '/api/departments/$'
     | '/api/goals/$'
     | '/api/manager/$'
@@ -281,6 +293,7 @@ export interface RootRouteChildren {
   VoiceRoute: typeof VoiceRoute
   ApiPlannerTestRoute: typeof ApiPlannerTestRoute
   ApiApprovalsSplatRoute: typeof ApiApprovalsSplatRoute
+  ApiBudgetSplatRoute: typeof ApiBudgetSplatRoute
   ApiDepartmentsSplatRoute: typeof ApiDepartmentsSplatRoute
   ApiGoalsSplatRoute: typeof ApiGoalsSplatRoute
   ApiManagerSplatRoute: typeof ApiManagerSplatRoute
@@ -426,6 +439,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDepartmentsSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/budget/$': {
+      id: '/api/budget/$'
+      path: '/api/budget/$'
+      fullPath: '/api/budget/$'
+      preLoaderRoute: typeof ApiBudgetSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/approvals/$': {
       id: '/api/approvals/$'
       path: '/api/approvals/$'
@@ -449,6 +469,7 @@ const rootRouteChildren: RootRouteChildren = {
   VoiceRoute: VoiceRoute,
   ApiPlannerTestRoute: ApiPlannerTestRoute,
   ApiApprovalsSplatRoute: ApiApprovalsSplatRoute,
+  ApiBudgetSplatRoute: ApiBudgetSplatRoute,
   ApiDepartmentsSplatRoute: ApiDepartmentsSplatRoute,
   ApiGoalsSplatRoute: ApiGoalsSplatRoute,
   ApiManagerSplatRoute: ApiManagerSplatRoute,

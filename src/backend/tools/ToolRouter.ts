@@ -7,6 +7,8 @@ import { PermissionEngine } from "../auth/PermissionEngine";
 import type { AuthContext } from "../auth/types";
 import { DepartmentToolPermissions } from "../os/permissions/DepartmentToolPermissions";
 import { ApprovalBridge } from "../os/approvals/ApprovalBridge";
+import { AgentBudgetEngine } from "../os/budgeting/AgentBudgetEngine";
+import { CostCalculator } from "../os/budgeting/CostCalculator";
 import type { Department } from "../agents/departments/types";
 
 export class ToolRouter {
@@ -97,7 +99,21 @@ export class ToolRouter {
     }
 
     // 3. Delegate to Executor
-    return await ToolExecutor.execute(tool, validatedArgs, context);
+    const result = await ToolExecutor.execute(tool, validatedArgs, context);
+
+    if (context.agentName) {
+      const toolCost = CostCalculator.calculateToolCost(toolName);
+      void AgentBudgetEngine.recordTransaction({
+        agentId: context.agentName,
+        department: (context.department as Department) ?? ("operations" as Department),
+        resourceType: "tool_execution",
+        amount: 1,
+        costUSD: toolCost,
+        metadata: { toolName, taskId: context.sessionId, timestamp: new Date() },
+      });
+    }
+
+    return result;
   }
 
   private async logDecision(
