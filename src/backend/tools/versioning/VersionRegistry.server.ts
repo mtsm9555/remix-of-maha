@@ -1,4 +1,5 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import type { Json } from "@/integrations/supabase/types";
 import type { SemVer, ToolVersionRecord, VersionStatus } from "./VersioningTypes";
 
 function rowToRecord(row: {
@@ -31,7 +32,7 @@ export class VersionRegistry {
   static async registerVersion(
     toolName: string,
     versionString: string,
-    manifest: unknown,
+    manifest: Json,
     changelog: string,
   ): Promise<ToolVersionRecord> {
     const semver = this.parseSemVer(versionString);
