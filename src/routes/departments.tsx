@@ -36,9 +36,9 @@ export const Route = createFileRoute("/departments")({
 
 function DepartmentsPage() {
   const fetchDepartments = useServerFn(getDepartmentsSnapshot);
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery<DeptSnapshot[]>({
     queryKey: ["departments-snapshot"],
-    queryFn: () => fetchDepartments(),
+    queryFn: () => fetchDepartments() as Promise<DeptSnapshot[]>,
   });
 
   const departments = data ?? [];
