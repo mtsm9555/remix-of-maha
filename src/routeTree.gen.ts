@@ -33,6 +33,7 @@ import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
 import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
 import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
+import { Route as ApiInfrastructureDiscoveryRouteRouteImport } from './routes/api/infrastructure/discovery/route'
 import { Route as ApiIntelligenceLearnIndexRouteImport } from './routes/api/intelligence/learn/index'
 import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/api/intelligence/consolidate/index'
 import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
@@ -52,10 +53,12 @@ import { Route as ApiInfrastructureRegistryDiscoverRouteImport } from './routes/
 import { Route as ApiInfrastructureRegistryCleanupRouteImport } from './routes/api/infrastructure/registry/cleanup'
 import { Route as ApiInfrastructureFleetLogsRouteImport } from './routes/api/infrastructure/fleet/logs'
 import { Route as ApiInfrastructureFleetHealthRouteImport } from './routes/api/infrastructure/fleet/health'
+import { Route as ApiInfrastructureDiscoverySimulateRouteImport } from './routes/api/infrastructure/discovery/simulate'
 import { Route as ApiIntelligenceReflectionMetricsResetRouteImport } from './routes/api/intelligence/reflection/metrics.reset'
 import { Route as ApiIntelligenceLearnHistoryAgentIdRouteImport } from './routes/api/intelligence/learn/history.$agentId'
 import { Route as ApiInfrastructureRegistryCapacityDepartmentRouteImport } from './routes/api/infrastructure/registry/capacity.$department'
 import { Route as ApiInfrastructureFleetKillInstanceIdRouteImport } from './routes/api/infrastructure/fleet/kill.$instanceId'
+import { Route as ApiInfrastructureDiscoveryReputationAgentIdRouteImport } from './routes/api/infrastructure/discovery/reputation.$agentId'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
@@ -179,6 +182,12 @@ const ApiApprovalsSplatRoute = ApiApprovalsSplatRouteImport.update({
   path: '/api/approvals/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiInfrastructureDiscoveryRouteRoute =
+  ApiInfrastructureDiscoveryRouteRouteImport.update({
+    id: '/api/infrastructure/discovery',
+    path: '/api/infrastructure/discovery',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiIntelligenceLearnIndexRoute =
   ApiIntelligenceLearnIndexRouteImport.update({
     id: '/api/intelligence/learn/',
@@ -293,6 +302,12 @@ const ApiInfrastructureFleetHealthRoute =
     path: '/api/infrastructure/fleet/health',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiInfrastructureDiscoverySimulateRoute =
+  ApiInfrastructureDiscoverySimulateRouteImport.update({
+    id: '/simulate',
+    path: '/simulate',
+    getParentRoute: () => ApiInfrastructureDiscoveryRouteRoute,
+  } as any)
 const ApiIntelligenceReflectionMetricsResetRoute =
   ApiIntelligenceReflectionMetricsResetRouteImport.update({
     id: '/reset',
@@ -317,6 +332,12 @@ const ApiInfrastructureFleetKillInstanceIdRoute =
     path: '/api/infrastructure/fleet/kill/$instanceId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiInfrastructureDiscoveryReputationAgentIdRoute =
+  ApiInfrastructureDiscoveryReputationAgentIdRouteImport.update({
+    id: '/reputation/$agentId',
+    path: '/reputation/$agentId',
+    getParentRoute: () => ApiInfrastructureDiscoveryRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -331,6 +352,7 @@ export interface FileRoutesByFullPath {
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
+  '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
@@ -343,6 +365,7 @@ export interface FileRoutesByFullPath {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/infrastructure/discovery/simulate': typeof ApiInfrastructureDiscoverySimulateRoute
   '/api/infrastructure/fleet/health': typeof ApiInfrastructureFleetHealthRoute
   '/api/infrastructure/fleet/logs': typeof ApiInfrastructureFleetLogsRoute
   '/api/infrastructure/registry/cleanup': typeof ApiInfrastructureRegistryCleanupRoute
@@ -362,6 +385,7 @@ export interface FileRoutesByFullPath {
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
+  '/api/infrastructure/discovery/reputation/$agentId': typeof ApiInfrastructureDiscoveryReputationAgentIdRoute
   '/api/infrastructure/fleet/kill/$instanceId': typeof ApiInfrastructureFleetKillInstanceIdRoute
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
@@ -380,6 +404,7 @@ export interface FileRoutesByTo {
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
+  '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
@@ -392,6 +417,7 @@ export interface FileRoutesByTo {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/infrastructure/discovery/simulate': typeof ApiInfrastructureDiscoverySimulateRoute
   '/api/infrastructure/fleet/health': typeof ApiInfrastructureFleetHealthRoute
   '/api/infrastructure/fleet/logs': typeof ApiInfrastructureFleetLogsRoute
   '/api/infrastructure/registry/cleanup': typeof ApiInfrastructureRegistryCleanupRoute
@@ -411,6 +437,7 @@ export interface FileRoutesByTo {
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn': typeof ApiIntelligenceLearnIndexRoute
+  '/api/infrastructure/discovery/reputation/$agentId': typeof ApiInfrastructureDiscoveryReputationAgentIdRoute
   '/api/infrastructure/fleet/kill/$instanceId': typeof ApiInfrastructureFleetKillInstanceIdRoute
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
@@ -430,6 +457,7 @@ export interface FileRoutesById {
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
+  '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
@@ -442,6 +470,7 @@ export interface FileRoutesById {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/infrastructure/discovery/simulate': typeof ApiInfrastructureDiscoverySimulateRoute
   '/api/infrastructure/fleet/health': typeof ApiInfrastructureFleetHealthRoute
   '/api/infrastructure/fleet/logs': typeof ApiInfrastructureFleetLogsRoute
   '/api/infrastructure/registry/cleanup': typeof ApiInfrastructureRegistryCleanupRoute
@@ -461,6 +490,7 @@ export interface FileRoutesById {
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
+  '/api/infrastructure/discovery/reputation/$agentId': typeof ApiInfrastructureDiscoveryReputationAgentIdRoute
   '/api/infrastructure/fleet/kill/$instanceId': typeof ApiInfrastructureFleetKillInstanceIdRoute
   '/api/infrastructure/registry/capacity/$department': typeof ApiInfrastructureRegistryCapacityDepartmentRoute
   '/api/intelligence/learn/history/$agentId': typeof ApiIntelligenceLearnHistoryAgentIdRoute
@@ -481,6 +511,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/voice'
     | '/api/planner-test'
+    | '/api/infrastructure/discovery'
     | '/api/approvals/$'
     | '/api/budget/$'
     | '/api/departments/$'
@@ -493,6 +524,7 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/infrastructure/discovery/simulate'
     | '/api/infrastructure/fleet/health'
     | '/api/infrastructure/fleet/logs'
     | '/api/infrastructure/registry/cleanup'
@@ -512,6 +544,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
+    | '/api/infrastructure/discovery/reputation/$agentId'
     | '/api/infrastructure/fleet/kill/$instanceId'
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
@@ -530,6 +563,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/voice'
     | '/api/planner-test'
+    | '/api/infrastructure/discovery'
     | '/api/approvals/$'
     | '/api/budget/$'
     | '/api/departments/$'
@@ -542,6 +576,7 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/infrastructure/discovery/simulate'
     | '/api/infrastructure/fleet/health'
     | '/api/infrastructure/fleet/logs'
     | '/api/infrastructure/registry/cleanup'
@@ -561,6 +596,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry'
     | '/api/intelligence/consolidate'
     | '/api/intelligence/learn'
+    | '/api/infrastructure/discovery/reputation/$agentId'
     | '/api/infrastructure/fleet/kill/$instanceId'
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
@@ -579,6 +615,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/voice'
     | '/api/planner-test'
+    | '/api/infrastructure/discovery'
     | '/api/approvals/$'
     | '/api/budget/$'
     | '/api/departments/$'
@@ -591,6 +628,7 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/infrastructure/discovery/simulate'
     | '/api/infrastructure/fleet/health'
     | '/api/infrastructure/fleet/logs'
     | '/api/infrastructure/registry/cleanup'
@@ -610,6 +648,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
+    | '/api/infrastructure/discovery/reputation/$agentId'
     | '/api/infrastructure/fleet/kill/$instanceId'
     | '/api/infrastructure/registry/capacity/$department'
     | '/api/intelligence/learn/history/$agentId'
@@ -629,6 +668,7 @@ export interface RootRouteChildren {
   ToolsRoute: typeof ToolsRoute
   VoiceRoute: typeof VoiceRoute
   ApiPlannerTestRoute: typeof ApiPlannerTestRoute
+  ApiInfrastructureDiscoveryRouteRoute: typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   ApiApprovalsSplatRoute: typeof ApiApprovalsSplatRoute
   ApiBudgetSplatRoute: typeof ApiBudgetSplatRoute
   ApiDepartmentsSplatRoute: typeof ApiDepartmentsSplatRoute
@@ -835,6 +875,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiApprovalsSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/infrastructure/discovery': {
+      id: '/api/infrastructure/discovery'
+      path: '/api/infrastructure/discovery'
+      fullPath: '/api/infrastructure/discovery'
+      preLoaderRoute: typeof ApiInfrastructureDiscoveryRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/intelligence/learn/': {
       id: '/api/intelligence/learn/'
       path: '/api/intelligence/learn'
@@ -968,6 +1015,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureFleetHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/infrastructure/discovery/simulate': {
+      id: '/api/infrastructure/discovery/simulate'
+      path: '/simulate'
+      fullPath: '/api/infrastructure/discovery/simulate'
+      preLoaderRoute: typeof ApiInfrastructureDiscoverySimulateRouteImport
+      parentRoute: typeof ApiInfrastructureDiscoveryRouteRoute
+    }
     '/api/intelligence/reflection/metrics/reset': {
       id: '/api/intelligence/reflection/metrics/reset'
       path: '/reset'
@@ -996,8 +1050,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureFleetKillInstanceIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/infrastructure/discovery/reputation/$agentId': {
+      id: '/api/infrastructure/discovery/reputation/$agentId'
+      path: '/reputation/$agentId'
+      fullPath: '/api/infrastructure/discovery/reputation/$agentId'
+      preLoaderRoute: typeof ApiInfrastructureDiscoveryReputationAgentIdRouteImport
+      parentRoute: typeof ApiInfrastructureDiscoveryRouteRoute
+    }
   }
 }
+
+interface ApiInfrastructureDiscoveryRouteRouteChildren {
+  ApiInfrastructureDiscoverySimulateRoute: typeof ApiInfrastructureDiscoverySimulateRoute
+  ApiInfrastructureDiscoveryReputationAgentIdRoute: typeof ApiInfrastructureDiscoveryReputationAgentIdRoute
+}
+
+const ApiInfrastructureDiscoveryRouteRouteChildren: ApiInfrastructureDiscoveryRouteRouteChildren =
+  {
+    ApiInfrastructureDiscoverySimulateRoute:
+      ApiInfrastructureDiscoverySimulateRoute,
+    ApiInfrastructureDiscoveryReputationAgentIdRoute:
+      ApiInfrastructureDiscoveryReputationAgentIdRoute,
+  }
+
+const ApiInfrastructureDiscoveryRouteRouteWithChildren =
+  ApiInfrastructureDiscoveryRouteRoute._addFileChildren(
+    ApiInfrastructureDiscoveryRouteRouteChildren,
+  )
 
 interface ApiIntelligenceReflectionMetricsRouteChildren {
   ApiIntelligenceReflectionMetricsResetRoute: typeof ApiIntelligenceReflectionMetricsResetRoute
@@ -1027,6 +1106,8 @@ const rootRouteChildren: RootRouteChildren = {
   ToolsRoute: ToolsRoute,
   VoiceRoute: VoiceRoute,
   ApiPlannerTestRoute: ApiPlannerTestRoute,
+  ApiInfrastructureDiscoveryRouteRoute:
+    ApiInfrastructureDiscoveryRouteRouteWithChildren,
   ApiApprovalsSplatRoute: ApiApprovalsSplatRoute,
   ApiBudgetSplatRoute: ApiBudgetSplatRoute,
   ApiDepartmentsSplatRoute: ApiDepartmentsSplatRoute,
