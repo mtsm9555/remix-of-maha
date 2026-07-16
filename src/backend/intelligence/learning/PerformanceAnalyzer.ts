@@ -11,10 +11,10 @@ export class PerformanceAnalyzer {
     const cutoff = new Date();
     cutoff.setDate(cutoff.getDate() - daysLookback);
 
-    const { data } = await supabaseAdmin
-      .from("tasks" as any)
+    const { data } = await (supabaseAdmin as any)
+      .from("tasks")
       .select("status, metadata")
-      .eq("assigned_agent_id" as any, agentId)
+      .eq("assigned_agent_id", agentId)
       .gte("updated_at", cutoff.toISOString());
 
     const tasks = (data as any[]) || [];
