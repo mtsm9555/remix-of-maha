@@ -1,5 +1,3 @@
-import type { Department } from "../agents/departments/types";
-
 export interface DepartmentBudget {
   allocated: number;
   spent: number;
@@ -13,15 +11,9 @@ export interface DepartmentKPI {
   unit: string;
 }
 
-export interface OSMilestone {
-  id: string;
-  department: Department;
-  objective: string;
-  successCriteria: string[];
-  estimatedBudget: number;
-  dependencies: string[];
-}
+export type { OSMilestone, OSPlan, PlanStatus, ExecutionWave, ResourceEstimate, RiskAssessment } from "./PlanTypes";
 
+import type { Department } from "../agents/departments/types";
 export interface DepartmentState {
   id: Department;
   name: string;
