@@ -29,6 +29,9 @@ import { Route as ApiVoiceSplatRouteImport } from './routes/api/voice/$'
 import { Route as ApiVisionSplatRouteImport } from './routes/api/vision/$'
 import { Route as ApiScalingPoliciesRouteImport } from './routes/api/scaling/policies'
 import { Route as ApiScalingEvaluateAllRouteImport } from './routes/api/scaling/evaluate-all'
+import { Route as ApiQueueTasksRouteImport } from './routes/api/queue/tasks'
+import { Route as ApiQueueSeedDefaultsRouteImport } from './routes/api/queue/seed-defaults'
+import { Route as ApiQueueQueuesRouteImport } from './routes/api/queue/queues'
 import { Route as ApiPrioritizationIncidentRouteImport } from './routes/api/prioritization/incident'
 import { Route as ApiPoliciesSplatRouteImport } from './routes/api/policies/$'
 import { Route as ApiManagerSplatRouteImport } from './routes/api/manager/$'
@@ -76,6 +79,7 @@ import { Route as ApiTeamsTeamIdChannelsRouteImport } from './routes/api/teams/$
 import { Route as ApiTeamsTeamIdBudgetRouteImport } from './routes/api/teams/$teamId/budget'
 import { Route as ApiTeamsTeamIdAnalyticsRouteImport } from './routes/api/teams/$teamId/analytics'
 import { Route as ApiScalingPoliciesPolicyIdRouteImport } from './routes/api/scaling/policies/$policyId'
+import { Route as ApiQueueDlqTenantIdRouteImport } from './routes/api/queue/dlq/$tenantId'
 import { Route as ApiPublicWebhooksStripeRouteImport } from './routes/api/public/webhooks/stripe'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
@@ -157,6 +161,13 @@ import { Route as ApiTeamsChannelsChannelIdMessagesRouteImport } from './routes/
 import { Route as ApiScalingPoliciesPolicyIdPredictRouteImport } from './routes/api/scaling/policies/$policyId/predict'
 import { Route as ApiScalingPoliciesPolicyIdMetricsRouteImport } from './routes/api/scaling/policies/$policyId/metrics'
 import { Route as ApiScalingPoliciesPolicyIdEvaluateRouteImport } from './routes/api/scaling/policies/$policyId/evaluate'
+import { Route as ApiQueueTasksTaskIdFailRouteImport } from './routes/api/queue/tasks/$taskId/fail'
+import { Route as ApiQueueTasksTaskIdCompleteRouteImport } from './routes/api/queue/tasks/$taskId/complete'
+import { Route as ApiQueueQueuesQueueIdResumeRouteImport } from './routes/api/queue/queues/$queueId/resume'
+import { Route as ApiQueueQueuesQueueIdPauseRouteImport } from './routes/api/queue/queues/$queueId/pause'
+import { Route as ApiQueueQueuesQueueIdNextRouteImport } from './routes/api/queue/queues/$queueId/next'
+import { Route as ApiQueueQueuesQueueIdHealthRouteImport } from './routes/api/queue/queues/$queueId/health'
+import { Route as ApiQueueDlqDlqIdRetryRouteImport } from './routes/api/queue/dlq/$dlqId/retry'
 import { Route as ApiPublicToolsVersioningSweepRouteImport } from './routes/api/public/tools/versioning/sweep'
 import { Route as ApiPublicToolsVersioningHealthCheckRouteImport } from './routes/api/public/tools/versioning/health-check'
 import { Route as ApiPublicFinanceCostsRollupRouteImport } from './routes/api/public/finance/costs/rollup'
@@ -302,6 +313,21 @@ const ApiScalingPoliciesRoute = ApiScalingPoliciesRouteImport.update({
 const ApiScalingEvaluateAllRoute = ApiScalingEvaluateAllRouteImport.update({
   id: '/api/scaling/evaluate-all',
   path: '/api/scaling/evaluate-all',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiQueueTasksRoute = ApiQueueTasksRouteImport.update({
+  id: '/api/queue/tasks',
+  path: '/api/queue/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiQueueSeedDefaultsRoute = ApiQueueSeedDefaultsRouteImport.update({
+  id: '/api/queue/seed-defaults',
+  path: '/api/queue/seed-defaults',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiQueueQueuesRoute = ApiQueueQueuesRouteImport.update({
+  id: '/api/queue/queues',
+  path: '/api/queue/queues',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPrioritizationIncidentRoute =
@@ -559,6 +585,11 @@ const ApiScalingPoliciesPolicyIdRoute =
     path: '/$policyId',
     getParentRoute: () => ApiScalingPoliciesRoute,
   } as any)
+const ApiQueueDlqTenantIdRoute = ApiQueueDlqTenantIdRouteImport.update({
+  id: '/api/queue/dlq/$tenantId',
+  path: '/api/queue/dlq/$tenantId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicWebhooksStripeRoute = ApiPublicWebhooksStripeRouteImport.update({
   id: '/api/public/webhooks/stripe',
   path: '/api/public/webhooks/stripe',
@@ -1027,6 +1058,46 @@ const ApiScalingPoliciesPolicyIdEvaluateRoute =
     path: '/evaluate',
     getParentRoute: () => ApiScalingPoliciesPolicyIdRoute,
   } as any)
+const ApiQueueTasksTaskIdFailRoute = ApiQueueTasksTaskIdFailRouteImport.update({
+  id: '/$taskId/fail',
+  path: '/$taskId/fail',
+  getParentRoute: () => ApiQueueTasksRoute,
+} as any)
+const ApiQueueTasksTaskIdCompleteRoute =
+  ApiQueueTasksTaskIdCompleteRouteImport.update({
+    id: '/$taskId/complete',
+    path: '/$taskId/complete',
+    getParentRoute: () => ApiQueueTasksRoute,
+  } as any)
+const ApiQueueQueuesQueueIdResumeRoute =
+  ApiQueueQueuesQueueIdResumeRouteImport.update({
+    id: '/$queueId/resume',
+    path: '/$queueId/resume',
+    getParentRoute: () => ApiQueueQueuesRoute,
+  } as any)
+const ApiQueueQueuesQueueIdPauseRoute =
+  ApiQueueQueuesQueueIdPauseRouteImport.update({
+    id: '/$queueId/pause',
+    path: '/$queueId/pause',
+    getParentRoute: () => ApiQueueQueuesRoute,
+  } as any)
+const ApiQueueQueuesQueueIdNextRoute =
+  ApiQueueQueuesQueueIdNextRouteImport.update({
+    id: '/$queueId/next',
+    path: '/$queueId/next',
+    getParentRoute: () => ApiQueueQueuesRoute,
+  } as any)
+const ApiQueueQueuesQueueIdHealthRoute =
+  ApiQueueQueuesQueueIdHealthRouteImport.update({
+    id: '/$queueId/health',
+    path: '/$queueId/health',
+    getParentRoute: () => ApiQueueQueuesRoute,
+  } as any)
+const ApiQueueDlqDlqIdRetryRoute = ApiQueueDlqDlqIdRetryRouteImport.update({
+  id: '/api/queue/dlq/$dlqId/retry',
+  path: '/api/queue/dlq/$dlqId/retry',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicToolsVersioningSweepRoute =
   ApiPublicToolsVersioningSweepRouteImport.update({
     id: '/api/public/tools/versioning/sweep',
@@ -1326,6 +1397,9 @@ export interface FileRoutesByFullPath {
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/policies/$': typeof ApiPoliciesSplatRoute
   '/api/prioritization/incident': typeof ApiPrioritizationIncidentRoute
+  '/api/queue/queues': typeof ApiQueueQueuesRouteWithChildren
+  '/api/queue/seed-defaults': typeof ApiQueueSeedDefaultsRoute
+  '/api/queue/tasks': typeof ApiQueueTasksRouteWithChildren
   '/api/scaling/evaluate-all': typeof ApiScalingEvaluateAllRoute
   '/api/scaling/policies': typeof ApiScalingPoliciesRouteWithChildren
   '/api/vision/$': typeof ApiVisionSplatRoute
@@ -1404,6 +1478,7 @@ export interface FileRoutesByFullPath {
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
   '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
+  '/api/queue/dlq/$tenantId': typeof ApiQueueDlqTenantIdRoute
   '/api/scaling/policies/$policyId': typeof ApiScalingPoliciesPolicyIdRouteWithChildren
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
@@ -1474,6 +1549,13 @@ export interface FileRoutesByFullPath {
   '/api/public/finance/costs/rollup': typeof ApiPublicFinanceCostsRollupRoute
   '/api/public/tools/versioning/health-check': typeof ApiPublicToolsVersioningHealthCheckRoute
   '/api/public/tools/versioning/sweep': typeof ApiPublicToolsVersioningSweepRoute
+  '/api/queue/dlq/$dlqId/retry': typeof ApiQueueDlqDlqIdRetryRoute
+  '/api/queue/queues/$queueId/health': typeof ApiQueueQueuesQueueIdHealthRoute
+  '/api/queue/queues/$queueId/next': typeof ApiQueueQueuesQueueIdNextRoute
+  '/api/queue/queues/$queueId/pause': typeof ApiQueueQueuesQueueIdPauseRoute
+  '/api/queue/queues/$queueId/resume': typeof ApiQueueQueuesQueueIdResumeRoute
+  '/api/queue/tasks/$taskId/complete': typeof ApiQueueTasksTaskIdCompleteRoute
+  '/api/queue/tasks/$taskId/fail': typeof ApiQueueTasksTaskIdFailRoute
   '/api/scaling/policies/$policyId/evaluate': typeof ApiScalingPoliciesPolicyIdEvaluateRoute
   '/api/scaling/policies/$policyId/metrics': typeof ApiScalingPoliciesPolicyIdMetricsRoute
   '/api/scaling/policies/$policyId/predict': typeof ApiScalingPoliciesPolicyIdPredictRoute
@@ -1521,6 +1603,9 @@ export interface FileRoutesByTo {
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/policies/$': typeof ApiPoliciesSplatRoute
   '/api/prioritization/incident': typeof ApiPrioritizationIncidentRoute
+  '/api/queue/queues': typeof ApiQueueQueuesRouteWithChildren
+  '/api/queue/seed-defaults': typeof ApiQueueSeedDefaultsRoute
+  '/api/queue/tasks': typeof ApiQueueTasksRouteWithChildren
   '/api/scaling/evaluate-all': typeof ApiScalingEvaluateAllRoute
   '/api/scaling/policies': typeof ApiScalingPoliciesRouteWithChildren
   '/api/vision/$': typeof ApiVisionSplatRoute
@@ -1599,6 +1684,7 @@ export interface FileRoutesByTo {
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
   '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
+  '/api/queue/dlq/$tenantId': typeof ApiQueueDlqTenantIdRoute
   '/api/scaling/policies/$policyId': typeof ApiScalingPoliciesPolicyIdRouteWithChildren
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
@@ -1669,6 +1755,13 @@ export interface FileRoutesByTo {
   '/api/public/finance/costs/rollup': typeof ApiPublicFinanceCostsRollupRoute
   '/api/public/tools/versioning/health-check': typeof ApiPublicToolsVersioningHealthCheckRoute
   '/api/public/tools/versioning/sweep': typeof ApiPublicToolsVersioningSweepRoute
+  '/api/queue/dlq/$dlqId/retry': typeof ApiQueueDlqDlqIdRetryRoute
+  '/api/queue/queues/$queueId/health': typeof ApiQueueQueuesQueueIdHealthRoute
+  '/api/queue/queues/$queueId/next': typeof ApiQueueQueuesQueueIdNextRoute
+  '/api/queue/queues/$queueId/pause': typeof ApiQueueQueuesQueueIdPauseRoute
+  '/api/queue/queues/$queueId/resume': typeof ApiQueueQueuesQueueIdResumeRoute
+  '/api/queue/tasks/$taskId/complete': typeof ApiQueueTasksTaskIdCompleteRoute
+  '/api/queue/tasks/$taskId/fail': typeof ApiQueueTasksTaskIdFailRoute
   '/api/scaling/policies/$policyId/evaluate': typeof ApiScalingPoliciesPolicyIdEvaluateRoute
   '/api/scaling/policies/$policyId/metrics': typeof ApiScalingPoliciesPolicyIdMetricsRoute
   '/api/scaling/policies/$policyId/predict': typeof ApiScalingPoliciesPolicyIdPredictRoute
@@ -1717,6 +1810,9 @@ export interface FileRoutesById {
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/policies/$': typeof ApiPoliciesSplatRoute
   '/api/prioritization/incident': typeof ApiPrioritizationIncidentRoute
+  '/api/queue/queues': typeof ApiQueueQueuesRouteWithChildren
+  '/api/queue/seed-defaults': typeof ApiQueueSeedDefaultsRoute
+  '/api/queue/tasks': typeof ApiQueueTasksRouteWithChildren
   '/api/scaling/evaluate-all': typeof ApiScalingEvaluateAllRoute
   '/api/scaling/policies': typeof ApiScalingPoliciesRouteWithChildren
   '/api/vision/$': typeof ApiVisionSplatRoute
@@ -1795,6 +1891,7 @@ export interface FileRoutesById {
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
   '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
+  '/api/queue/dlq/$tenantId': typeof ApiQueueDlqTenantIdRoute
   '/api/scaling/policies/$policyId': typeof ApiScalingPoliciesPolicyIdRouteWithChildren
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
@@ -1865,6 +1962,13 @@ export interface FileRoutesById {
   '/api/public/finance/costs/rollup': typeof ApiPublicFinanceCostsRollupRoute
   '/api/public/tools/versioning/health-check': typeof ApiPublicToolsVersioningHealthCheckRoute
   '/api/public/tools/versioning/sweep': typeof ApiPublicToolsVersioningSweepRoute
+  '/api/queue/dlq/$dlqId/retry': typeof ApiQueueDlqDlqIdRetryRoute
+  '/api/queue/queues/$queueId/health': typeof ApiQueueQueuesQueueIdHealthRoute
+  '/api/queue/queues/$queueId/next': typeof ApiQueueQueuesQueueIdNextRoute
+  '/api/queue/queues/$queueId/pause': typeof ApiQueueQueuesQueueIdPauseRoute
+  '/api/queue/queues/$queueId/resume': typeof ApiQueueQueuesQueueIdResumeRoute
+  '/api/queue/tasks/$taskId/complete': typeof ApiQueueTasksTaskIdCompleteRoute
+  '/api/queue/tasks/$taskId/fail': typeof ApiQueueTasksTaskIdFailRoute
   '/api/scaling/policies/$policyId/evaluate': typeof ApiScalingPoliciesPolicyIdEvaluateRoute
   '/api/scaling/policies/$policyId/metrics': typeof ApiScalingPoliciesPolicyIdMetricsRoute
   '/api/scaling/policies/$policyId/predict': typeof ApiScalingPoliciesPolicyIdPredictRoute
@@ -1914,6 +2018,9 @@ export interface FileRouteTypes {
     | '/api/manager/$'
     | '/api/policies/$'
     | '/api/prioritization/incident'
+    | '/api/queue/queues'
+    | '/api/queue/seed-defaults'
+    | '/api/queue/tasks'
     | '/api/scaling/evaluate-all'
     | '/api/scaling/policies'
     | '/api/vision/$'
@@ -1992,6 +2099,7 @@ export interface FileRouteTypes {
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
     | '/api/public/webhooks/stripe'
+    | '/api/queue/dlq/$tenantId'
     | '/api/scaling/policies/$policyId'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
@@ -2062,6 +2170,13 @@ export interface FileRouteTypes {
     | '/api/public/finance/costs/rollup'
     | '/api/public/tools/versioning/health-check'
     | '/api/public/tools/versioning/sweep'
+    | '/api/queue/dlq/$dlqId/retry'
+    | '/api/queue/queues/$queueId/health'
+    | '/api/queue/queues/$queueId/next'
+    | '/api/queue/queues/$queueId/pause'
+    | '/api/queue/queues/$queueId/resume'
+    | '/api/queue/tasks/$taskId/complete'
+    | '/api/queue/tasks/$taskId/fail'
     | '/api/scaling/policies/$policyId/evaluate'
     | '/api/scaling/policies/$policyId/metrics'
     | '/api/scaling/policies/$policyId/predict'
@@ -2109,6 +2224,9 @@ export interface FileRouteTypes {
     | '/api/manager/$'
     | '/api/policies/$'
     | '/api/prioritization/incident'
+    | '/api/queue/queues'
+    | '/api/queue/seed-defaults'
+    | '/api/queue/tasks'
     | '/api/scaling/evaluate-all'
     | '/api/scaling/policies'
     | '/api/vision/$'
@@ -2187,6 +2305,7 @@ export interface FileRouteTypes {
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
     | '/api/public/webhooks/stripe'
+    | '/api/queue/dlq/$tenantId'
     | '/api/scaling/policies/$policyId'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
@@ -2257,6 +2376,13 @@ export interface FileRouteTypes {
     | '/api/public/finance/costs/rollup'
     | '/api/public/tools/versioning/health-check'
     | '/api/public/tools/versioning/sweep'
+    | '/api/queue/dlq/$dlqId/retry'
+    | '/api/queue/queues/$queueId/health'
+    | '/api/queue/queues/$queueId/next'
+    | '/api/queue/queues/$queueId/pause'
+    | '/api/queue/queues/$queueId/resume'
+    | '/api/queue/tasks/$taskId/complete'
+    | '/api/queue/tasks/$taskId/fail'
     | '/api/scaling/policies/$policyId/evaluate'
     | '/api/scaling/policies/$policyId/metrics'
     | '/api/scaling/policies/$policyId/predict'
@@ -2304,6 +2430,9 @@ export interface FileRouteTypes {
     | '/api/manager/$'
     | '/api/policies/$'
     | '/api/prioritization/incident'
+    | '/api/queue/queues'
+    | '/api/queue/seed-defaults'
+    | '/api/queue/tasks'
     | '/api/scaling/evaluate-all'
     | '/api/scaling/policies'
     | '/api/vision/$'
@@ -2382,6 +2511,7 @@ export interface FileRouteTypes {
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
     | '/api/public/webhooks/stripe'
+    | '/api/queue/dlq/$tenantId'
     | '/api/scaling/policies/$policyId'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
@@ -2452,6 +2582,13 @@ export interface FileRouteTypes {
     | '/api/public/finance/costs/rollup'
     | '/api/public/tools/versioning/health-check'
     | '/api/public/tools/versioning/sweep'
+    | '/api/queue/dlq/$dlqId/retry'
+    | '/api/queue/queues/$queueId/health'
+    | '/api/queue/queues/$queueId/next'
+    | '/api/queue/queues/$queueId/pause'
+    | '/api/queue/queues/$queueId/resume'
+    | '/api/queue/tasks/$taskId/complete'
+    | '/api/queue/tasks/$taskId/fail'
     | '/api/scaling/policies/$policyId/evaluate'
     | '/api/scaling/policies/$policyId/metrics'
     | '/api/scaling/policies/$policyId/predict'
@@ -2500,6 +2637,9 @@ export interface RootRouteChildren {
   ApiManagerSplatRoute: typeof ApiManagerSplatRoute
   ApiPoliciesSplatRoute: typeof ApiPoliciesSplatRoute
   ApiPrioritizationIncidentRoute: typeof ApiPrioritizationIncidentRoute
+  ApiQueueQueuesRoute: typeof ApiQueueQueuesRouteWithChildren
+  ApiQueueSeedDefaultsRoute: typeof ApiQueueSeedDefaultsRoute
+  ApiQueueTasksRoute: typeof ApiQueueTasksRouteWithChildren
   ApiScalingEvaluateAllRoute: typeof ApiScalingEvaluateAllRoute
   ApiScalingPoliciesRoute: typeof ApiScalingPoliciesRouteWithChildren
   ApiVisionSplatRoute: typeof ApiVisionSplatRoute
@@ -2577,6 +2717,7 @@ export interface RootRouteChildren {
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
   ApiPublicWebhooksStripeRoute: typeof ApiPublicWebhooksStripeRoute
+  ApiQueueDlqTenantIdRoute: typeof ApiQueueDlqTenantIdRoute
   ApiTeamsTeamIdAnalyticsRoute: typeof ApiTeamsTeamIdAnalyticsRoute
   ApiTeamsTeamIdBudgetRoute: typeof ApiTeamsTeamIdBudgetRoute
   ApiTeamsTeamIdChannelsRoute: typeof ApiTeamsTeamIdChannelsRoute
@@ -2642,6 +2783,7 @@ export interface RootRouteChildren {
   ApiPublicFinanceCostsRollupRoute: typeof ApiPublicFinanceCostsRollupRoute
   ApiPublicToolsVersioningHealthCheckRoute: typeof ApiPublicToolsVersioningHealthCheckRoute
   ApiPublicToolsVersioningSweepRoute: typeof ApiPublicToolsVersioningSweepRoute
+  ApiQueueDlqDlqIdRetryRoute: typeof ApiQueueDlqDlqIdRetryRoute
   ApiTeamsChannelsChannelIdMessagesRoute: typeof ApiTeamsChannelsChannelIdMessagesRoute
   ApiToolsMcpDisconnectServerIdRoute: typeof ApiToolsMcpDisconnectServerIdRoute
   ApiToolsVersioningToolNameRollbackRoute: typeof ApiToolsVersioningToolNameRollbackRoute
@@ -2798,6 +2940,27 @@ declare module '@tanstack/react-router' {
       path: '/api/scaling/evaluate-all'
       fullPath: '/api/scaling/evaluate-all'
       preLoaderRoute: typeof ApiScalingEvaluateAllRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/queue/tasks': {
+      id: '/api/queue/tasks'
+      path: '/api/queue/tasks'
+      fullPath: '/api/queue/tasks'
+      preLoaderRoute: typeof ApiQueueTasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/queue/seed-defaults': {
+      id: '/api/queue/seed-defaults'
+      path: '/api/queue/seed-defaults'
+      fullPath: '/api/queue/seed-defaults'
+      preLoaderRoute: typeof ApiQueueSeedDefaultsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/queue/queues': {
+      id: '/api/queue/queues'
+      path: '/api/queue/queues'
+      fullPath: '/api/queue/queues'
+      preLoaderRoute: typeof ApiQueueQueuesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/prioritization/incident': {
@@ -3128,6 +3291,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/scaling/policies/$policyId'
       preLoaderRoute: typeof ApiScalingPoliciesPolicyIdRouteImport
       parentRoute: typeof ApiScalingPoliciesRoute
+    }
+    '/api/queue/dlq/$tenantId': {
+      id: '/api/queue/dlq/$tenantId'
+      path: '/api/queue/dlq/$tenantId'
+      fullPath: '/api/queue/dlq/$tenantId'
+      preLoaderRoute: typeof ApiQueueDlqTenantIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/public/webhooks/stripe': {
       id: '/api/public/webhooks/stripe'
@@ -3696,6 +3866,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiScalingPoliciesPolicyIdEvaluateRouteImport
       parentRoute: typeof ApiScalingPoliciesPolicyIdRoute
     }
+    '/api/queue/tasks/$taskId/fail': {
+      id: '/api/queue/tasks/$taskId/fail'
+      path: '/$taskId/fail'
+      fullPath: '/api/queue/tasks/$taskId/fail'
+      preLoaderRoute: typeof ApiQueueTasksTaskIdFailRouteImport
+      parentRoute: typeof ApiQueueTasksRoute
+    }
+    '/api/queue/tasks/$taskId/complete': {
+      id: '/api/queue/tasks/$taskId/complete'
+      path: '/$taskId/complete'
+      fullPath: '/api/queue/tasks/$taskId/complete'
+      preLoaderRoute: typeof ApiQueueTasksTaskIdCompleteRouteImport
+      parentRoute: typeof ApiQueueTasksRoute
+    }
+    '/api/queue/queues/$queueId/resume': {
+      id: '/api/queue/queues/$queueId/resume'
+      path: '/$queueId/resume'
+      fullPath: '/api/queue/queues/$queueId/resume'
+      preLoaderRoute: typeof ApiQueueQueuesQueueIdResumeRouteImport
+      parentRoute: typeof ApiQueueQueuesRoute
+    }
+    '/api/queue/queues/$queueId/pause': {
+      id: '/api/queue/queues/$queueId/pause'
+      path: '/$queueId/pause'
+      fullPath: '/api/queue/queues/$queueId/pause'
+      preLoaderRoute: typeof ApiQueueQueuesQueueIdPauseRouteImport
+      parentRoute: typeof ApiQueueQueuesRoute
+    }
+    '/api/queue/queues/$queueId/next': {
+      id: '/api/queue/queues/$queueId/next'
+      path: '/$queueId/next'
+      fullPath: '/api/queue/queues/$queueId/next'
+      preLoaderRoute: typeof ApiQueueQueuesQueueIdNextRouteImport
+      parentRoute: typeof ApiQueueQueuesRoute
+    }
+    '/api/queue/queues/$queueId/health': {
+      id: '/api/queue/queues/$queueId/health'
+      path: '/$queueId/health'
+      fullPath: '/api/queue/queues/$queueId/health'
+      preLoaderRoute: typeof ApiQueueQueuesQueueIdHealthRouteImport
+      parentRoute: typeof ApiQueueQueuesRoute
+    }
+    '/api/queue/dlq/$dlqId/retry': {
+      id: '/api/queue/dlq/$dlqId/retry'
+      path: '/api/queue/dlq/$dlqId/retry'
+      fullPath: '/api/queue/dlq/$dlqId/retry'
+      preLoaderRoute: typeof ApiQueueDlqDlqIdRetryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/tools/versioning/sweep': {
       id: '/api/public/tools/versioning/sweep'
       path: '/api/public/tools/versioning/sweep'
@@ -4032,6 +4251,38 @@ const ApiInfrastructureDiscoveryRouteRouteWithChildren =
     ApiInfrastructureDiscoveryRouteRouteChildren,
   )
 
+interface ApiQueueQueuesRouteChildren {
+  ApiQueueQueuesQueueIdHealthRoute: typeof ApiQueueQueuesQueueIdHealthRoute
+  ApiQueueQueuesQueueIdNextRoute: typeof ApiQueueQueuesQueueIdNextRoute
+  ApiQueueQueuesQueueIdPauseRoute: typeof ApiQueueQueuesQueueIdPauseRoute
+  ApiQueueQueuesQueueIdResumeRoute: typeof ApiQueueQueuesQueueIdResumeRoute
+}
+
+const ApiQueueQueuesRouteChildren: ApiQueueQueuesRouteChildren = {
+  ApiQueueQueuesQueueIdHealthRoute: ApiQueueQueuesQueueIdHealthRoute,
+  ApiQueueQueuesQueueIdNextRoute: ApiQueueQueuesQueueIdNextRoute,
+  ApiQueueQueuesQueueIdPauseRoute: ApiQueueQueuesQueueIdPauseRoute,
+  ApiQueueQueuesQueueIdResumeRoute: ApiQueueQueuesQueueIdResumeRoute,
+}
+
+const ApiQueueQueuesRouteWithChildren = ApiQueueQueuesRoute._addFileChildren(
+  ApiQueueQueuesRouteChildren,
+)
+
+interface ApiQueueTasksRouteChildren {
+  ApiQueueTasksTaskIdCompleteRoute: typeof ApiQueueTasksTaskIdCompleteRoute
+  ApiQueueTasksTaskIdFailRoute: typeof ApiQueueTasksTaskIdFailRoute
+}
+
+const ApiQueueTasksRouteChildren: ApiQueueTasksRouteChildren = {
+  ApiQueueTasksTaskIdCompleteRoute: ApiQueueTasksTaskIdCompleteRoute,
+  ApiQueueTasksTaskIdFailRoute: ApiQueueTasksTaskIdFailRoute,
+}
+
+const ApiQueueTasksRouteWithChildren = ApiQueueTasksRoute._addFileChildren(
+  ApiQueueTasksRouteChildren,
+)
+
 interface ApiScalingPoliciesPolicyIdRouteChildren {
   ApiScalingPoliciesPolicyIdEvaluateRoute: typeof ApiScalingPoliciesPolicyIdEvaluateRoute
   ApiScalingPoliciesPolicyIdMetricsRoute: typeof ApiScalingPoliciesPolicyIdMetricsRoute
@@ -4153,6 +4404,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiManagerSplatRoute: ApiManagerSplatRoute,
   ApiPoliciesSplatRoute: ApiPoliciesSplatRoute,
   ApiPrioritizationIncidentRoute: ApiPrioritizationIncidentRoute,
+  ApiQueueQueuesRoute: ApiQueueQueuesRouteWithChildren,
+  ApiQueueSeedDefaultsRoute: ApiQueueSeedDefaultsRoute,
+  ApiQueueTasksRoute: ApiQueueTasksRouteWithChildren,
   ApiScalingEvaluateAllRoute: ApiScalingEvaluateAllRoute,
   ApiScalingPoliciesRoute: ApiScalingPoliciesRouteWithChildren,
   ApiVisionSplatRoute: ApiVisionSplatRoute,
@@ -4247,6 +4501,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
   ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
   ApiPublicWebhooksStripeRoute: ApiPublicWebhooksStripeRoute,
+  ApiQueueDlqTenantIdRoute: ApiQueueDlqTenantIdRoute,
   ApiTeamsTeamIdAnalyticsRoute: ApiTeamsTeamIdAnalyticsRoute,
   ApiTeamsTeamIdBudgetRoute: ApiTeamsTeamIdBudgetRoute,
   ApiTeamsTeamIdChannelsRoute: ApiTeamsTeamIdChannelsRoute,
@@ -4324,6 +4579,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicToolsVersioningHealthCheckRoute:
     ApiPublicToolsVersioningHealthCheckRoute,
   ApiPublicToolsVersioningSweepRoute: ApiPublicToolsVersioningSweepRoute,
+  ApiQueueDlqDlqIdRetryRoute: ApiQueueDlqDlqIdRetryRoute,
   ApiTeamsChannelsChannelIdMessagesRoute:
     ApiTeamsChannelsChannelIdMessagesRoute,
   ApiToolsMcpDisconnectServerIdRoute: ApiToolsMcpDisconnectServerIdRoute,
