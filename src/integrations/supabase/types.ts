@@ -3007,6 +3007,410 @@ export type Database = {
         }
         Relationships: []
       }
+      compliance_certifications: {
+        Row: {
+          audit_report_url: string | null
+          certificate_url: string | null
+          certification_name: string
+          certification_number: string | null
+          certifying_body: string
+          created_at: string
+          expires_at: string | null
+          framework: string
+          id: string
+          issued_at: string | null
+          last_audit_at: string | null
+          locations: string[] | null
+          metadata: Json | null
+          next_audit_at: string | null
+          scope: string
+          status: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          audit_report_url?: string | null
+          certificate_url?: string | null
+          certification_name: string
+          certification_number?: string | null
+          certifying_body: string
+          created_at?: string
+          expires_at?: string | null
+          framework: string
+          id: string
+          issued_at?: string | null
+          last_audit_at?: string | null
+          locations?: string[] | null
+          metadata?: Json | null
+          next_audit_at?: string | null
+          scope: string
+          status: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          audit_report_url?: string | null
+          certificate_url?: string | null
+          certification_name?: string
+          certification_number?: string | null
+          certifying_body?: string
+          created_at?: string
+          expires_at?: string | null
+          framework?: string
+          id?: string
+          issued_at?: string | null
+          last_audit_at?: string | null
+          locations?: string[] | null
+          metadata?: Json | null
+          next_audit_at?: string | null
+          scope?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "compliance_certifications_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      compliance_controls: {
+        Row: {
+          assessed_by: string | null
+          auto_monitorable: boolean | null
+          category: string
+          control_id: string
+          control_name: string
+          created_at: string
+          description: string
+          evidence_collected: number
+          framework: string
+          gap_severity: string | null
+          id: string
+          implementation_guidance: string | null
+          last_assessed_at: string | null
+          last_evidence_at: string | null
+          metadata: Json | null
+          monitoring_query: string | null
+          remediation_plan: string | null
+          requirement: string
+          risk_level: string
+          status: string
+          tags: string[] | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          assessed_by?: string | null
+          auto_monitorable?: boolean | null
+          category: string
+          control_id: string
+          control_name: string
+          created_at?: string
+          description: string
+          evidence_collected?: number
+          framework: string
+          gap_severity?: string | null
+          id: string
+          implementation_guidance?: string | null
+          last_assessed_at?: string | null
+          last_evidence_at?: string | null
+          metadata?: Json | null
+          monitoring_query?: string | null
+          remediation_plan?: string | null
+          requirement: string
+          risk_level: string
+          status: string
+          tags?: string[] | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          assessed_by?: string | null
+          auto_monitorable?: boolean | null
+          category?: string
+          control_id?: string
+          control_name?: string
+          created_at?: string
+          description?: string
+          evidence_collected?: number
+          framework?: string
+          gap_severity?: string | null
+          id?: string
+          implementation_guidance?: string | null
+          last_assessed_at?: string | null
+          last_evidence_at?: string | null
+          metadata?: Json | null
+          monitoring_query?: string | null
+          remediation_plan?: string | null
+          requirement?: string
+          risk_level?: string
+          status?: string
+          tags?: string[] | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "compliance_controls_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      compliance_evidence: {
+        Row: {
+          collected_at: string
+          collected_by: string
+          collection_method: string
+          content: string
+          control_id: string
+          created_at: string
+          description: string
+          expires_at: string | null
+          file_size_bytes: number | null
+          file_url: string | null
+          id: string
+          is_valid: boolean | null
+          metadata: Json | null
+          tenant_id: string
+          title: string
+          type: string
+          validated_at: string | null
+          validated_by: string | null
+          validation_notes: string | null
+        }
+        Insert: {
+          collected_at: string
+          collected_by: string
+          collection_method: string
+          content: string
+          control_id: string
+          created_at?: string
+          description: string
+          expires_at?: string | null
+          file_size_bytes?: number | null
+          file_url?: string | null
+          id: string
+          is_valid?: boolean | null
+          metadata?: Json | null
+          tenant_id: string
+          title: string
+          type: string
+          validated_at?: string | null
+          validated_by?: string | null
+          validation_notes?: string | null
+        }
+        Update: {
+          collected_at?: string
+          collected_by?: string
+          collection_method?: string
+          content?: string
+          control_id?: string
+          created_at?: string
+          description?: string
+          expires_at?: string | null
+          file_size_bytes?: number | null
+          file_url?: string | null
+          id?: string
+          is_valid?: boolean | null
+          metadata?: Json | null
+          tenant_id?: string
+          title?: string
+          type?: string
+          validated_at?: string | null
+          validated_by?: string | null
+          validation_notes?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "compliance_evidence_control_id_fkey"
+            columns: ["control_id"]
+            isOneToOne: false
+            referencedRelation: "compliance_controls"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "compliance_evidence_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      compliance_reports: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          automated_evidence: number
+          compliant_controls: number
+          created_at: string
+          critical_gaps: number
+          description: string | null
+          findings: Json | null
+          framework: string
+          generated_at: string
+          id: string
+          major_gaps: number
+          manual_evidence: number
+          metadata: Json | null
+          minor_gaps: number
+          non_compliant_controls: number
+          not_applicable_controls: number
+          overall_score: number
+          partial_controls: number
+          period_end: string
+          period_start: string
+          recommendations: string[] | null
+          report_type: string
+          status: string
+          tenant_id: string
+          title: string
+          total_controls: number
+          total_evidence: number
+          updated_at: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          automated_evidence: number
+          compliant_controls: number
+          created_at?: string
+          critical_gaps?: number
+          description?: string | null
+          findings?: Json | null
+          framework: string
+          generated_at: string
+          id: string
+          major_gaps?: number
+          manual_evidence: number
+          metadata?: Json | null
+          minor_gaps?: number
+          non_compliant_controls: number
+          not_applicable_controls: number
+          overall_score: number
+          partial_controls: number
+          period_end: string
+          period_start: string
+          recommendations?: string[] | null
+          report_type: string
+          status: string
+          tenant_id: string
+          title: string
+          total_controls: number
+          total_evidence: number
+          updated_at?: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          automated_evidence?: number
+          compliant_controls?: number
+          created_at?: string
+          critical_gaps?: number
+          description?: string | null
+          findings?: Json | null
+          framework?: string
+          generated_at?: string
+          id?: string
+          major_gaps?: number
+          manual_evidence?: number
+          metadata?: Json | null
+          minor_gaps?: number
+          non_compliant_controls?: number
+          not_applicable_controls?: number
+          overall_score?: number
+          partial_controls?: number
+          period_end?: string
+          period_start?: string
+          recommendations?: string[] | null
+          report_type?: string
+          status?: string
+          tenant_id?: string
+          title?: string
+          total_controls?: number
+          total_evidence?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "compliance_reports_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      consent_records: {
+        Row: {
+          consent_text: string | null
+          created_at: string
+          expires_at: string | null
+          granted: boolean
+          granted_at: string
+          id: string
+          ip_address: string | null
+          proof_url: string | null
+          purpose: string
+          tenant_id: string
+          updated_at: string
+          user_agent: string | null
+          user_id: string
+          withdrawn_at: string | null
+          withdrawn_by: string | null
+        }
+        Insert: {
+          consent_text?: string | null
+          created_at?: string
+          expires_at?: string | null
+          granted: boolean
+          granted_at: string
+          id: string
+          ip_address?: string | null
+          proof_url?: string | null
+          purpose: string
+          tenant_id: string
+          updated_at?: string
+          user_agent?: string | null
+          user_id: string
+          withdrawn_at?: string | null
+          withdrawn_by?: string | null
+        }
+        Update: {
+          consent_text?: string | null
+          created_at?: string
+          expires_at?: string | null
+          granted?: boolean
+          granted_at?: string
+          id?: string
+          ip_address?: string | null
+          proof_url?: string | null
+          purpose?: string
+          tenant_id?: string
+          updated_at?: string
+          user_agent?: string | null
+          user_id?: string
+          withdrawn_at?: string | null
+          withdrawn_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "consent_records_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       consolidated_memories: {
         Row: {
           created_at: string
@@ -3238,6 +3642,74 @@ export type Database = {
           usage_date?: string
         }
         Relationships: []
+      }
+      data_residency_policies: {
+        Row: {
+          alert_on_violation: boolean | null
+          allowed_countries: string[] | null
+          allowed_regions: string[] | null
+          block_non_compliant: boolean | null
+          created_at: string
+          description: string | null
+          enforce_on_create: boolean | null
+          enforce_on_update: boolean | null
+          id: string
+          is_active: boolean | null
+          last_violation_at: string | null
+          monitor_continuously: boolean | null
+          name: string
+          requirement: string
+          tenant_id: string
+          updated_at: string
+          violations: number
+        }
+        Insert: {
+          alert_on_violation?: boolean | null
+          allowed_countries?: string[] | null
+          allowed_regions?: string[] | null
+          block_non_compliant?: boolean | null
+          created_at?: string
+          description?: string | null
+          enforce_on_create?: boolean | null
+          enforce_on_update?: boolean | null
+          id: string
+          is_active?: boolean | null
+          last_violation_at?: string | null
+          monitor_continuously?: boolean | null
+          name: string
+          requirement: string
+          tenant_id: string
+          updated_at?: string
+          violations?: number
+        }
+        Update: {
+          alert_on_violation?: boolean | null
+          allowed_countries?: string[] | null
+          allowed_regions?: string[] | null
+          block_non_compliant?: boolean | null
+          created_at?: string
+          description?: string | null
+          enforce_on_create?: boolean | null
+          enforce_on_update?: boolean | null
+          id?: string
+          is_active?: boolean | null
+          last_violation_at?: string | null
+          monitor_continuously?: boolean | null
+          name?: string
+          requirement?: string
+          tenant_id?: string
+          updated_at?: string
+          violations?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "data_residency_policies_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       dead_letter_queue: {
         Row: {
