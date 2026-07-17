@@ -85,6 +85,7 @@ import { Route as ApiFinanceCostsDepartmentsRouteImport } from './routes/api/fin
 import { Route as ApiDataUserProfileRouteImport } from './routes/api/data/user/profile'
 import { Route as ApiDataUserAnalyzeRouteImport } from './routes/api/data/user/analyze'
 import { Route as ApiDataSharedSearchRouteImport } from './routes/api/data/shared/search'
+import { Route as ApiDataSharedPromoteRouteImport } from './routes/api/data/shared/promote'
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
 import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
@@ -540,6 +541,11 @@ const ApiDataSharedSearchRoute = ApiDataSharedSearchRouteImport.update({
   path: '/api/data/shared/search',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiDataSharedPromoteRoute = ApiDataSharedPromoteRouteImport.update({
+  id: '/api/data/shared/promote',
+  path: '/api/data/shared/promote',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiCollaborationSessionIdProposalRoute =
   ApiCollaborationSessionIdProposalRouteImport.update({
     id: '/api/collaboration/$sessionId/proposal',
@@ -764,6 +770,7 @@ export interface FileRoutesByFullPath {
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
+  '/api/data/shared/promote': typeof ApiDataSharedPromoteRoute
   '/api/data/shared/search': typeof ApiDataSharedSearchRoute
   '/api/data/user/analyze': typeof ApiDataUserAnalyzeRoute
   '/api/data/user/profile': typeof ApiDataUserProfileRoute
@@ -874,6 +881,7 @@ export interface FileRoutesByTo {
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
+  '/api/data/shared/promote': typeof ApiDataSharedPromoteRoute
   '/api/data/shared/search': typeof ApiDataSharedSearchRoute
   '/api/data/user/analyze': typeof ApiDataUserAnalyzeRoute
   '/api/data/user/profile': typeof ApiDataUserProfileRoute
@@ -985,6 +993,7 @@ export interface FileRoutesById {
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
+  '/api/data/shared/promote': typeof ApiDataSharedPromoteRoute
   '/api/data/shared/search': typeof ApiDataSharedSearchRoute
   '/api/data/user/analyze': typeof ApiDataUserAnalyzeRoute
   '/api/data/user/profile': typeof ApiDataUserProfileRoute
@@ -1097,6 +1106,7 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
+    | '/api/data/shared/promote'
     | '/api/data/shared/search'
     | '/api/data/user/analyze'
     | '/api/data/user/profile'
@@ -1207,6 +1217,7 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
+    | '/api/data/shared/promote'
     | '/api/data/shared/search'
     | '/api/data/user/analyze'
     | '/api/data/user/profile'
@@ -1317,6 +1328,7 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
+    | '/api/data/shared/promote'
     | '/api/data/shared/search'
     | '/api/data/user/analyze'
     | '/api/data/user/profile'
@@ -1428,6 +1440,7 @@ export interface RootRouteChildren {
   ApiAnalyticsToolsOverviewRoute: typeof ApiAnalyticsToolsOverviewRoute
   ApiCollaborationSessionIdBlackboardRoute: typeof ApiCollaborationSessionIdBlackboardRoute
   ApiCollaborationSessionIdProposalRoute: typeof ApiCollaborationSessionIdProposalRoute
+  ApiDataSharedPromoteRoute: typeof ApiDataSharedPromoteRoute
   ApiDataSharedSearchRoute: typeof ApiDataSharedSearchRoute
   ApiDataUserAnalyzeRoute: typeof ApiDataUserAnalyzeRoute
   ApiDataUserProfileRoute: typeof ApiDataUserProfileRoute
@@ -2038,6 +2051,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDataSharedSearchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/data/shared/promote': {
+      id: '/api/data/shared/promote'
+      path: '/api/data/shared/promote'
+      fullPath: '/api/data/shared/promote'
+      preLoaderRoute: typeof ApiDataSharedPromoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/collaboration/$sessionId/proposal': {
       id: '/api/collaboration/$sessionId/proposal'
       path: '/api/collaboration/$sessionId/proposal'
@@ -2347,6 +2367,7 @@ const rootRouteChildren: RootRouteChildren = {
     ApiCollaborationSessionIdBlackboardRoute,
   ApiCollaborationSessionIdProposalRoute:
     ApiCollaborationSessionIdProposalRoute,
+  ApiDataSharedPromoteRoute: ApiDataSharedPromoteRoute,
   ApiDataSharedSearchRoute: ApiDataSharedSearchRoute,
   ApiDataUserAnalyzeRoute: ApiDataUserAnalyzeRoute,
   ApiDataUserProfileRoute: ApiDataUserProfileRoute,
