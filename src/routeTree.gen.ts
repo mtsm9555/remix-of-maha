@@ -117,6 +117,7 @@ import { Route as ApiAnalyticsRetrievalOverviewRouteImport } from './routes/api/
 import { Route as ApiAnalyticsRetrievalHealthCheckRouteImport } from './routes/api/analytics/retrieval/health-check'
 import { Route as ApiAnalyticsRetrievalExpensiveQueriesRouteImport } from './routes/api/analytics/retrieval/expensive-queries'
 import { Route as ApiAnalyticsRetrievalEvaluateRouteImport } from './routes/api/analytics/retrieval/evaluate'
+import { Route as ApiAdvancedRolesTenantIdHierarchyRouteImport } from './routes/api/advanced-roles/$tenantId/hierarchy'
 import { Route as ApiToolsVersioningToolNameVersionsRouteImport } from './routes/api/tools/versioning/$toolName/versions'
 import { Route as ApiToolsVersioningToolNameRollbackRouteImport } from './routes/api/tools/versioning/$toolName/rollback'
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
@@ -749,6 +750,12 @@ const ApiAnalyticsRetrievalEvaluateRoute =
     path: '/api/analytics/retrieval/evaluate',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiAdvancedRolesTenantIdHierarchyRoute =
+  ApiAdvancedRolesTenantIdHierarchyRouteImport.update({
+    id: '/api/advanced-roles/$tenantId/hierarchy',
+    path: '/api/advanced-roles/$tenantId/hierarchy',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiToolsVersioningToolNameVersionsRoute =
   ApiToolsVersioningToolNameVersionsRouteImport.update({
     id: '/api/tools/versioning/$toolName/versions',
@@ -1009,6 +1016,7 @@ export interface FileRoutesByFullPath {
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/tenants/': typeof ApiTenantsIndexRoute
+  '/api/advanced-roles/$tenantId/hierarchy': typeof ApiAdvancedRolesTenantIdHierarchyRoute
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -1157,6 +1165,7 @@ export interface FileRoutesByTo {
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/tenants': typeof ApiTenantsIndexRoute
+  '/api/advanced-roles/$tenantId/hierarchy': typeof ApiAdvancedRolesTenantIdHierarchyRoute
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -1306,6 +1315,7 @@ export interface FileRoutesById {
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/tenants/': typeof ApiTenantsIndexRoute
+  '/api/advanced-roles/$tenantId/hierarchy': typeof ApiAdvancedRolesTenantIdHierarchyRoute
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -1456,6 +1466,7 @@ export interface FileRouteTypes {
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
     | '/api/tenants/'
+    | '/api/advanced-roles/$tenantId/hierarchy'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
     | '/api/analytics/retrieval/health-check'
@@ -1604,6 +1615,7 @@ export interface FileRouteTypes {
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
     | '/api/tenants'
+    | '/api/advanced-roles/$tenantId/hierarchy'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
     | '/api/analytics/retrieval/health-check'
@@ -1752,6 +1764,7 @@ export interface FileRouteTypes {
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
     | '/api/tenants/'
+    | '/api/advanced-roles/$tenantId/hierarchy'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
     | '/api/analytics/retrieval/health-check'
@@ -1901,6 +1914,7 @@ export interface RootRouteChildren {
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
   ApiTenantsIndexRoute: typeof ApiTenantsIndexRoute
+  ApiAdvancedRolesTenantIdHierarchyRoute: typeof ApiAdvancedRolesTenantIdHierarchyRoute
   ApiAnalyticsRetrievalEvaluateRoute: typeof ApiAnalyticsRetrievalEvaluateRoute
   ApiAnalyticsRetrievalExpensiveQueriesRoute: typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   ApiAnalyticsRetrievalHealthCheckRoute: typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -2773,6 +2787,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAnalyticsRetrievalEvaluateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/advanced-roles/$tenantId/hierarchy': {
+      id: '/api/advanced-roles/$tenantId/hierarchy'
+      path: '/api/advanced-roles/$tenantId/hierarchy'
+      fullPath: '/api/advanced-roles/$tenantId/hierarchy'
+      preLoaderRoute: typeof ApiAdvancedRolesTenantIdHierarchyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/tools/versioning/$toolName/versions': {
       id: '/api/tools/versioning/$toolName/versions'
       path: '/api/tools/versioning/$toolName/versions'
@@ -3122,6 +3143,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
   ApiTenantsIndexRoute: ApiTenantsIndexRoute,
+  ApiAdvancedRolesTenantIdHierarchyRoute:
+    ApiAdvancedRolesTenantIdHierarchyRoute,
   ApiAnalyticsRetrievalEvaluateRoute: ApiAnalyticsRetrievalEvaluateRoute,
   ApiAnalyticsRetrievalExpensiveQueriesRoute:
     ApiAnalyticsRetrievalExpensiveQueriesRoute,
