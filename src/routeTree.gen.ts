@@ -46,6 +46,7 @@ import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/ap
 import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
 import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/infrastructure/fleet/index'
 import { Route as ApiGovernanceDsarIndexRouteImport } from './routes/api/governance/dsar/index'
+import { Route as ApiAdvancedRolesTenantIdIndexRouteImport } from './routes/api/advanced-roles/$tenantId/index'
 import { Route as ApiToolsVersioningPinRouteImport } from './routes/api/tools/versioning/pin'
 import { Route as ApiToolsPoliciesTestRouteImport } from './routes/api/tools/policies/test'
 import { Route as ApiToolsPoliciesLogsRouteImport } from './routes/api/tools/policies/logs'
@@ -350,6 +351,12 @@ const ApiGovernanceDsarIndexRoute = ApiGovernanceDsarIndexRouteImport.update({
   path: '/api/governance/dsar/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAdvancedRolesTenantIdIndexRoute =
+  ApiAdvancedRolesTenantIdIndexRouteImport.update({
+    id: '/api/advanced-roles/$tenantId/',
+    path: '/api/advanced-roles/$tenantId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiToolsVersioningPinRoute = ApiToolsVersioningPinRouteImport.update({
   id: '/api/tools/versioning/pin',
   path: '/api/tools/versioning/pin',
@@ -1072,6 +1079,7 @@ export interface FileRoutesByFullPath {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/advanced-roles/$tenantId/': typeof ApiAdvancedRolesTenantIdIndexRoute
   '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
@@ -1219,6 +1227,7 @@ export interface FileRoutesByTo {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/advanced-roles/$tenantId': typeof ApiAdvancedRolesTenantIdIndexRoute
   '/api/governance/dsar': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
@@ -1367,6 +1376,7 @@ export interface FileRoutesById {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/advanced-roles/$tenantId/': typeof ApiAdvancedRolesTenantIdIndexRoute
   '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
@@ -1516,6 +1526,7 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/advanced-roles/$tenantId/'
     | '/api/governance/dsar/'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
@@ -1663,6 +1674,7 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/advanced-roles/$tenantId'
     | '/api/governance/dsar'
     | '/api/infrastructure/fleet'
     | '/api/infrastructure/registry'
@@ -1810,6 +1822,7 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/advanced-roles/$tenantId/'
     | '/api/governance/dsar/'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
@@ -1957,6 +1970,7 @@ export interface RootRouteChildren {
   ApiToolsPoliciesLogsRoute: typeof ApiToolsPoliciesLogsRoute
   ApiToolsPoliciesTestRoute: typeof ApiToolsPoliciesTestRoute
   ApiToolsVersioningPinRoute: typeof ApiToolsVersioningPinRoute
+  ApiAdvancedRolesTenantIdIndexRoute: typeof ApiAdvancedRolesTenantIdIndexRoute
   ApiGovernanceDsarIndexRoute: typeof ApiGovernanceDsarIndexRoute
   ApiInfrastructureFleetIndexRoute: typeof ApiInfrastructureFleetIndexRoute
   ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
@@ -2260,6 +2274,13 @@ declare module '@tanstack/react-router' {
       path: '/api/governance/dsar'
       fullPath: '/api/governance/dsar/'
       preLoaderRoute: typeof ApiGovernanceDsarIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/advanced-roles/$tenantId/': {
+      id: '/api/advanced-roles/$tenantId/'
+      path: '/api/advanced-roles/$tenantId'
+      fullPath: '/api/advanced-roles/$tenantId/'
+      preLoaderRoute: typeof ApiAdvancedRolesTenantIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/tools/versioning/pin': {
@@ -3184,6 +3205,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiToolsPoliciesLogsRoute: ApiToolsPoliciesLogsRoute,
   ApiToolsPoliciesTestRoute: ApiToolsPoliciesTestRoute,
   ApiToolsVersioningPinRoute: ApiToolsVersioningPinRoute,
+  ApiAdvancedRolesTenantIdIndexRoute: ApiAdvancedRolesTenantIdIndexRoute,
   ApiGovernanceDsarIndexRoute: ApiGovernanceDsarIndexRoute,
   ApiInfrastructureFleetIndexRoute: ApiInfrastructureFleetIndexRoute,
   ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,
