@@ -260,8 +260,11 @@ import { Route as ApiGpuAllocationsIdReleaseRouteImport } from './routes/api/gpu
 import { Route as ApiGovernanceDsarIdProcessRouteImport } from './routes/api/governance/dsar/$id/process'
 import { Route as ApiDrTestsIdExecuteRouteImport } from './routes/api/dr/tests.$id.execute'
 import { Route as ApiDrRegionsIdHealthRouteImport } from './routes/api/dr/regions.$id.health'
+import { Route as ApiDocsTenantIdDocIdVersionsRouteImport } from './routes/api/docs/$tenantId/$docId.versions'
 import { Route as ApiDocsTenantIdDocIdOpenapiYamlRouteImport } from './routes/api/docs/$tenantId/$docId.openapi-yaml'
 import { Route as ApiDocsTenantIdDocIdOpenapiJsonRouteImport } from './routes/api/docs/$tenantId/$docId.openapi-json'
+import { Route as ApiDocsTenantIdDocIdMarkdownRouteImport } from './routes/api/docs/$tenantId/$docId.markdown'
+import { Route as ApiDocsTenantIdDocIdExamplesRouteImport } from './routes/api/docs/$tenantId/$docId.examples'
 import { Route as ApiDataUserMemoriesSearchRouteImport } from './routes/api/data/user/memories/search'
 import { Route as ApiDataUserMemoriesMemoryIdRouteImport } from './routes/api/data/user/memories/$memoryId'
 import { Route as ApiDataSnapshotsTaskTaskIdRouteImport } from './routes/api/data/snapshots/task/$taskId'
@@ -1710,6 +1713,12 @@ const ApiDrRegionsIdHealthRoute = ApiDrRegionsIdHealthRouteImport.update({
   path: '/$id/health',
   getParentRoute: () => ApiDrRegionsRoute,
 } as any)
+const ApiDocsTenantIdDocIdVersionsRoute =
+  ApiDocsTenantIdDocIdVersionsRouteImport.update({
+    id: '/versions',
+    path: '/versions',
+    getParentRoute: () => ApiDocsTenantIdDocIdRoute,
+  } as any)
 const ApiDocsTenantIdDocIdOpenapiYamlRoute =
   ApiDocsTenantIdDocIdOpenapiYamlRouteImport.update({
     id: '/openapi-yaml',
@@ -1720,6 +1729,18 @@ const ApiDocsTenantIdDocIdOpenapiJsonRoute =
   ApiDocsTenantIdDocIdOpenapiJsonRouteImport.update({
     id: '/openapi-json',
     path: '/openapi-json',
+    getParentRoute: () => ApiDocsTenantIdDocIdRoute,
+  } as any)
+const ApiDocsTenantIdDocIdMarkdownRoute =
+  ApiDocsTenantIdDocIdMarkdownRouteImport.update({
+    id: '/markdown',
+    path: '/markdown',
+    getParentRoute: () => ApiDocsTenantIdDocIdRoute,
+  } as any)
+const ApiDocsTenantIdDocIdExamplesRoute =
+  ApiDocsTenantIdDocIdExamplesRouteImport.update({
+    id: '/examples',
+    path: '/examples',
     getParentRoute: () => ApiDocsTenantIdDocIdRoute,
   } as any)
 const ApiDataUserMemoriesSearchRoute =
@@ -2294,8 +2315,11 @@ export interface FileRoutesByFullPath {
   '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
+  '/api/docs/$tenantId/$docId/examples': typeof ApiDocsTenantIdDocIdExamplesRoute
+  '/api/docs/$tenantId/$docId/markdown': typeof ApiDocsTenantIdDocIdMarkdownRoute
   '/api/docs/$tenantId/$docId/openapi-json': typeof ApiDocsTenantIdDocIdOpenapiJsonRoute
   '/api/docs/$tenantId/$docId/openapi-yaml': typeof ApiDocsTenantIdDocIdOpenapiYamlRoute
+  '/api/docs/$tenantId/$docId/versions': typeof ApiDocsTenantIdDocIdVersionsRoute
   '/api/dr/regions/$id/health': typeof ApiDrRegionsIdHealthRoute
   '/api/dr/tests/$id/execute': typeof ApiDrTestsIdExecuteRoute
   '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
@@ -2604,8 +2628,11 @@ export interface FileRoutesByTo {
   '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
+  '/api/docs/$tenantId/$docId/examples': typeof ApiDocsTenantIdDocIdExamplesRoute
+  '/api/docs/$tenantId/$docId/markdown': typeof ApiDocsTenantIdDocIdMarkdownRoute
   '/api/docs/$tenantId/$docId/openapi-json': typeof ApiDocsTenantIdDocIdOpenapiJsonRoute
   '/api/docs/$tenantId/$docId/openapi-yaml': typeof ApiDocsTenantIdDocIdOpenapiYamlRoute
+  '/api/docs/$tenantId/$docId/versions': typeof ApiDocsTenantIdDocIdVersionsRoute
   '/api/dr/regions/$id/health': typeof ApiDrRegionsIdHealthRoute
   '/api/dr/tests/$id/execute': typeof ApiDrTestsIdExecuteRoute
   '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
@@ -2915,8 +2942,11 @@ export interface FileRoutesById {
   '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
+  '/api/docs/$tenantId/$docId/examples': typeof ApiDocsTenantIdDocIdExamplesRoute
+  '/api/docs/$tenantId/$docId/markdown': typeof ApiDocsTenantIdDocIdMarkdownRoute
   '/api/docs/$tenantId/$docId/openapi-json': typeof ApiDocsTenantIdDocIdOpenapiJsonRoute
   '/api/docs/$tenantId/$docId/openapi-yaml': typeof ApiDocsTenantIdDocIdOpenapiYamlRoute
+  '/api/docs/$tenantId/$docId/versions': typeof ApiDocsTenantIdDocIdVersionsRoute
   '/api/dr/regions/$id/health': typeof ApiDrRegionsIdHealthRoute
   '/api/dr/tests/$id/execute': typeof ApiDrTestsIdExecuteRoute
   '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
@@ -3227,8 +3257,11 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
+    | '/api/docs/$tenantId/$docId/examples'
+    | '/api/docs/$tenantId/$docId/markdown'
     | '/api/docs/$tenantId/$docId/openapi-json'
     | '/api/docs/$tenantId/$docId/openapi-yaml'
+    | '/api/docs/$tenantId/$docId/versions'
     | '/api/dr/regions/$id/health'
     | '/api/dr/tests/$id/execute'
     | '/api/governance/dsar/$id/process'
@@ -3537,8 +3570,11 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
+    | '/api/docs/$tenantId/$docId/examples'
+    | '/api/docs/$tenantId/$docId/markdown'
     | '/api/docs/$tenantId/$docId/openapi-json'
     | '/api/docs/$tenantId/$docId/openapi-yaml'
+    | '/api/docs/$tenantId/$docId/versions'
     | '/api/dr/regions/$id/health'
     | '/api/dr/tests/$id/execute'
     | '/api/governance/dsar/$id/process'
@@ -3847,8 +3883,11 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
+    | '/api/docs/$tenantId/$docId/examples'
+    | '/api/docs/$tenantId/$docId/markdown'
     | '/api/docs/$tenantId/$docId/openapi-json'
     | '/api/docs/$tenantId/$docId/openapi-yaml'
+    | '/api/docs/$tenantId/$docId/versions'
     | '/api/dr/regions/$id/health'
     | '/api/dr/tests/$id/execute'
     | '/api/governance/dsar/$id/process'
@@ -5942,6 +5981,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDrRegionsIdHealthRouteImport
       parentRoute: typeof ApiDrRegionsRoute
     }
+    '/api/docs/$tenantId/$docId/versions': {
+      id: '/api/docs/$tenantId/$docId/versions'
+      path: '/versions'
+      fullPath: '/api/docs/$tenantId/$docId/versions'
+      preLoaderRoute: typeof ApiDocsTenantIdDocIdVersionsRouteImport
+      parentRoute: typeof ApiDocsTenantIdDocIdRoute
+    }
     '/api/docs/$tenantId/$docId/openapi-yaml': {
       id: '/api/docs/$tenantId/$docId/openapi-yaml'
       path: '/openapi-yaml'
@@ -5954,6 +6000,20 @@ declare module '@tanstack/react-router' {
       path: '/openapi-json'
       fullPath: '/api/docs/$tenantId/$docId/openapi-json'
       preLoaderRoute: typeof ApiDocsTenantIdDocIdOpenapiJsonRouteImport
+      parentRoute: typeof ApiDocsTenantIdDocIdRoute
+    }
+    '/api/docs/$tenantId/$docId/markdown': {
+      id: '/api/docs/$tenantId/$docId/markdown'
+      path: '/markdown'
+      fullPath: '/api/docs/$tenantId/$docId/markdown'
+      preLoaderRoute: typeof ApiDocsTenantIdDocIdMarkdownRouteImport
+      parentRoute: typeof ApiDocsTenantIdDocIdRoute
+    }
+    '/api/docs/$tenantId/$docId/examples': {
+      id: '/api/docs/$tenantId/$docId/examples'
+      path: '/examples'
+      fullPath: '/api/docs/$tenantId/$docId/examples'
+      preLoaderRoute: typeof ApiDocsTenantIdDocIdExamplesRouteImport
       parentRoute: typeof ApiDocsTenantIdDocIdRoute
     }
     '/api/data/user/memories/search': {
@@ -6616,13 +6676,19 @@ const ApiAuditTenantIdLogsRouteWithChildren =
   ApiAuditTenantIdLogsRoute._addFileChildren(ApiAuditTenantIdLogsRouteChildren)
 
 interface ApiDocsTenantIdDocIdRouteChildren {
+  ApiDocsTenantIdDocIdExamplesRoute: typeof ApiDocsTenantIdDocIdExamplesRoute
+  ApiDocsTenantIdDocIdMarkdownRoute: typeof ApiDocsTenantIdDocIdMarkdownRoute
   ApiDocsTenantIdDocIdOpenapiJsonRoute: typeof ApiDocsTenantIdDocIdOpenapiJsonRoute
   ApiDocsTenantIdDocIdOpenapiYamlRoute: typeof ApiDocsTenantIdDocIdOpenapiYamlRoute
+  ApiDocsTenantIdDocIdVersionsRoute: typeof ApiDocsTenantIdDocIdVersionsRoute
 }
 
 const ApiDocsTenantIdDocIdRouteChildren: ApiDocsTenantIdDocIdRouteChildren = {
+  ApiDocsTenantIdDocIdExamplesRoute: ApiDocsTenantIdDocIdExamplesRoute,
+  ApiDocsTenantIdDocIdMarkdownRoute: ApiDocsTenantIdDocIdMarkdownRoute,
   ApiDocsTenantIdDocIdOpenapiJsonRoute: ApiDocsTenantIdDocIdOpenapiJsonRoute,
   ApiDocsTenantIdDocIdOpenapiYamlRoute: ApiDocsTenantIdDocIdOpenapiYamlRoute,
+  ApiDocsTenantIdDocIdVersionsRoute: ApiDocsTenantIdDocIdVersionsRoute,
 }
 
 const ApiDocsTenantIdDocIdRouteWithChildren =
