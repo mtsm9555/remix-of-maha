@@ -37,6 +37,7 @@ import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/department
 import { Route as ApiCollaborationSessionsRouteImport } from './routes/api/collaboration/sessions'
 import { Route as ApiCollaborationInitiateRouteImport } from './routes/api/collaboration/initiate'
 import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
+import { Route as ApiBillingPlansRouteImport } from './routes/api/billing/plans'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
 import { Route as ApiAdvancedRolesTemplatesRouteImport } from './routes/api/advanced-roles/templates'
 import { Route as ApiInfrastructureDiscoveryRouteRouteImport } from './routes/api/infrastructure/discovery/route'
@@ -304,6 +305,11 @@ const ApiCollaborationInitiateRoute =
 const ApiBudgetSplatRoute = ApiBudgetSplatRouteImport.update({
   id: '/api/budget/$',
   path: '/api/budget/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBillingPlansRoute = ApiBillingPlansRouteImport.update({
+  id: '/api/billing/plans',
+  path: '/api/billing/plans',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiApprovalsSplatRoute = ApiApprovalsSplatRouteImport.update({
@@ -1036,6 +1042,7 @@ export interface FileRoutesByFullPath {
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
+  '/api/billing/plans': typeof ApiBillingPlansRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
@@ -1190,6 +1197,7 @@ export interface FileRoutesByTo {
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
+  '/api/billing/plans': typeof ApiBillingPlansRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
@@ -1345,6 +1353,7 @@ export interface FileRoutesById {
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
+  '/api/billing/plans': typeof ApiBillingPlansRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
@@ -1501,6 +1510,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/discovery'
     | '/api/advanced-roles/templates'
     | '/api/approvals/$'
+    | '/api/billing/plans'
     | '/api/budget/$'
     | '/api/collaboration/initiate'
     | '/api/collaboration/sessions'
@@ -1655,6 +1665,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/discovery'
     | '/api/advanced-roles/templates'
     | '/api/approvals/$'
+    | '/api/billing/plans'
     | '/api/budget/$'
     | '/api/collaboration/initiate'
     | '/api/collaboration/sessions'
@@ -1809,6 +1820,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/discovery'
     | '/api/advanced-roles/templates'
     | '/api/approvals/$'
+    | '/api/billing/plans'
     | '/api/budget/$'
     | '/api/collaboration/initiate'
     | '/api/collaboration/sessions'
@@ -1964,6 +1976,7 @@ export interface RootRouteChildren {
   ApiInfrastructureDiscoveryRouteRoute: typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   ApiAdvancedRolesTemplatesRoute: typeof ApiAdvancedRolesTemplatesRoute
   ApiApprovalsSplatRoute: typeof ApiApprovalsSplatRoute
+  ApiBillingPlansRoute: typeof ApiBillingPlansRoute
   ApiBudgetSplatRoute: typeof ApiBudgetSplatRoute
   ApiCollaborationInitiateRoute: typeof ApiCollaborationInitiateRoute
   ApiCollaborationSessionsRoute: typeof ApiCollaborationSessionsRoute
@@ -2294,6 +2307,13 @@ declare module '@tanstack/react-router' {
       path: '/api/budget/$'
       fullPath: '/api/budget/$'
       preLoaderRoute: typeof ApiBudgetSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/billing/plans': {
+      id: '/api/billing/plans'
+      path: '/api/billing/plans'
+      fullPath: '/api/billing/plans'
+      preLoaderRoute: typeof ApiBillingPlansRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/approvals/$': {
@@ -3247,6 +3267,7 @@ const rootRouteChildren: RootRouteChildren = {
     ApiInfrastructureDiscoveryRouteRouteWithChildren,
   ApiAdvancedRolesTemplatesRoute: ApiAdvancedRolesTemplatesRoute,
   ApiApprovalsSplatRoute: ApiApprovalsSplatRoute,
+  ApiBillingPlansRoute: ApiBillingPlansRoute,
   ApiBudgetSplatRoute: ApiBudgetSplatRoute,
   ApiCollaborationInitiateRoute: ApiCollaborationInitiateRoute,
   ApiCollaborationSessionsRoute: ApiCollaborationSessionsRoute,
