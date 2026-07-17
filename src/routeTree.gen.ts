@@ -84,6 +84,8 @@ import { Route as ApiFinanceCostsPricingRouteImport } from './routes/api/finance
 import { Route as ApiFinanceCostsDepartmentsRouteImport } from './routes/api/finance/costs/departments'
 import { Route as ApiDataUserProfileRouteImport } from './routes/api/data/user/profile'
 import { Route as ApiDataUserAnalyzeRouteImport } from './routes/api/data/user/analyze'
+import { Route as ApiDataSnapshotsDiffRouteImport } from './routes/api/data/snapshots/diff'
+import { Route as ApiDataSnapshotsIdRouteImport } from './routes/api/data/snapshots/$id'
 import { Route as ApiDataSharedSearchRouteImport } from './routes/api/data/shared/search'
 import { Route as ApiDataSharedPromoteRouteImport } from './routes/api/data/shared/promote'
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
@@ -108,6 +110,8 @@ import { Route as ApiInfrastructureBudgetTopupsPendingRouteImport } from './rout
 import { Route as ApiInfrastructureBudgetLedgerInstanceIdRouteImport } from './routes/api/infrastructure/budget/ledger.$instanceId'
 import { Route as ApiDataUserMemoriesSearchRouteImport } from './routes/api/data/user/memories/search'
 import { Route as ApiDataUserMemoriesMemoryIdRouteImport } from './routes/api/data/user/memories/$memoryId'
+import { Route as ApiDataSnapshotsTaskTaskIdRouteImport } from './routes/api/data/snapshots/task/$taskId'
+import { Route as ApiDataSnapshotsDuplicatesHashRouteImport } from './routes/api/data/snapshots/duplicates/$hash'
 import { Route as ApiDataSharedPromotionsPendingRouteImport } from './routes/api/data/shared/promotions/pending'
 import { Route as ApiDataProjectProjectIdSearchRouteImport } from './routes/api/data/project/$projectId/search'
 import { Route as ApiDataProjectProjectIdMemoryRouteImport } from './routes/api/data/project/$projectId/memory'
@@ -539,6 +543,16 @@ const ApiDataUserAnalyzeRoute = ApiDataUserAnalyzeRouteImport.update({
   path: '/api/data/user/analyze',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiDataSnapshotsDiffRoute = ApiDataSnapshotsDiffRouteImport.update({
+  id: '/api/data/snapshots/diff',
+  path: '/api/data/snapshots/diff',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDataSnapshotsIdRoute = ApiDataSnapshotsIdRouteImport.update({
+  id: '/api/data/snapshots/$id',
+  path: '/api/data/snapshots/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiDataSharedSearchRoute = ApiDataSharedSearchRouteImport.update({
   id: '/api/data/shared/search',
   path: '/api/data/shared/search',
@@ -681,6 +695,18 @@ const ApiDataUserMemoriesMemoryIdRoute =
     path: '/api/data/user/memories/$memoryId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiDataSnapshotsTaskTaskIdRoute =
+  ApiDataSnapshotsTaskTaskIdRouteImport.update({
+    id: '/api/data/snapshots/task/$taskId',
+    path: '/api/data/snapshots/task/$taskId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiDataSnapshotsDuplicatesHashRoute =
+  ApiDataSnapshotsDuplicatesHashRouteImport.update({
+    id: '/api/data/snapshots/duplicates/$hash',
+    path: '/api/data/snapshots/duplicates/$hash',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiDataSharedPromotionsPendingRoute =
   ApiDataSharedPromotionsPendingRouteImport.update({
     id: '/api/data/shared/promotions/pending',
@@ -793,6 +819,8 @@ export interface FileRoutesByFullPath {
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/data/shared/promote': typeof ApiDataSharedPromoteRoute
   '/api/data/shared/search': typeof ApiDataSharedSearchRoute
+  '/api/data/snapshots/$id': typeof ApiDataSnapshotsIdRoute
+  '/api/data/snapshots/diff': typeof ApiDataSnapshotsDiffRoute
   '/api/data/user/analyze': typeof ApiDataUserAnalyzeRoute
   '/api/data/user/profile': typeof ApiDataUserProfileRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
@@ -851,6 +879,8 @@ export interface FileRoutesByFullPath {
   '/api/data/project/$projectId/memory': typeof ApiDataProjectProjectIdMemoryRoute
   '/api/data/project/$projectId/search': typeof ApiDataProjectProjectIdSearchRoute
   '/api/data/shared/promotions/pending': typeof ApiDataSharedPromotionsPendingRoute
+  '/api/data/snapshots/duplicates/$hash': typeof ApiDataSnapshotsDuplicatesHashRoute
+  '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
@@ -907,6 +937,8 @@ export interface FileRoutesByTo {
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/data/shared/promote': typeof ApiDataSharedPromoteRoute
   '/api/data/shared/search': typeof ApiDataSharedSearchRoute
+  '/api/data/snapshots/$id': typeof ApiDataSnapshotsIdRoute
+  '/api/data/snapshots/diff': typeof ApiDataSnapshotsDiffRoute
   '/api/data/user/analyze': typeof ApiDataUserAnalyzeRoute
   '/api/data/user/profile': typeof ApiDataUserProfileRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
@@ -965,6 +997,8 @@ export interface FileRoutesByTo {
   '/api/data/project/$projectId/memory': typeof ApiDataProjectProjectIdMemoryRoute
   '/api/data/project/$projectId/search': typeof ApiDataProjectProjectIdSearchRoute
   '/api/data/shared/promotions/pending': typeof ApiDataSharedPromotionsPendingRoute
+  '/api/data/snapshots/duplicates/$hash': typeof ApiDataSnapshotsDuplicatesHashRoute
+  '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
@@ -1022,6 +1056,8 @@ export interface FileRoutesById {
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/data/shared/promote': typeof ApiDataSharedPromoteRoute
   '/api/data/shared/search': typeof ApiDataSharedSearchRoute
+  '/api/data/snapshots/$id': typeof ApiDataSnapshotsIdRoute
+  '/api/data/snapshots/diff': typeof ApiDataSnapshotsDiffRoute
   '/api/data/user/analyze': typeof ApiDataUserAnalyzeRoute
   '/api/data/user/profile': typeof ApiDataUserProfileRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
@@ -1080,6 +1116,8 @@ export interface FileRoutesById {
   '/api/data/project/$projectId/memory': typeof ApiDataProjectProjectIdMemoryRoute
   '/api/data/project/$projectId/search': typeof ApiDataProjectProjectIdSearchRoute
   '/api/data/shared/promotions/pending': typeof ApiDataSharedPromotionsPendingRoute
+  '/api/data/snapshots/duplicates/$hash': typeof ApiDataSnapshotsDuplicatesHashRoute
+  '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
@@ -1138,6 +1176,8 @@ export interface FileRouteTypes {
     | '/api/collaboration/$sessionId/proposal'
     | '/api/data/shared/promote'
     | '/api/data/shared/search'
+    | '/api/data/snapshots/$id'
+    | '/api/data/snapshots/diff'
     | '/api/data/user/analyze'
     | '/api/data/user/profile'
     | '/api/finance/costs/departments'
@@ -1196,6 +1236,8 @@ export interface FileRouteTypes {
     | '/api/data/project/$projectId/memory'
     | '/api/data/project/$projectId/search'
     | '/api/data/shared/promotions/pending'
+    | '/api/data/snapshots/duplicates/$hash'
+    | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
     | '/api/infrastructure/budget/ledger/$instanceId'
@@ -1252,6 +1294,8 @@ export interface FileRouteTypes {
     | '/api/collaboration/$sessionId/proposal'
     | '/api/data/shared/promote'
     | '/api/data/shared/search'
+    | '/api/data/snapshots/$id'
+    | '/api/data/snapshots/diff'
     | '/api/data/user/analyze'
     | '/api/data/user/profile'
     | '/api/finance/costs/departments'
@@ -1310,6 +1354,8 @@ export interface FileRouteTypes {
     | '/api/data/project/$projectId/memory'
     | '/api/data/project/$projectId/search'
     | '/api/data/shared/promotions/pending'
+    | '/api/data/snapshots/duplicates/$hash'
+    | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
     | '/api/infrastructure/budget/ledger/$instanceId'
@@ -1366,6 +1412,8 @@ export interface FileRouteTypes {
     | '/api/collaboration/$sessionId/proposal'
     | '/api/data/shared/promote'
     | '/api/data/shared/search'
+    | '/api/data/snapshots/$id'
+    | '/api/data/snapshots/diff'
     | '/api/data/user/analyze'
     | '/api/data/user/profile'
     | '/api/finance/costs/departments'
@@ -1424,6 +1472,8 @@ export interface FileRouteTypes {
     | '/api/data/project/$projectId/memory'
     | '/api/data/project/$projectId/search'
     | '/api/data/shared/promotions/pending'
+    | '/api/data/snapshots/duplicates/$hash'
+    | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
     | '/api/infrastructure/budget/ledger/$instanceId'
@@ -1481,6 +1531,8 @@ export interface RootRouteChildren {
   ApiCollaborationSessionIdProposalRoute: typeof ApiCollaborationSessionIdProposalRoute
   ApiDataSharedPromoteRoute: typeof ApiDataSharedPromoteRoute
   ApiDataSharedSearchRoute: typeof ApiDataSharedSearchRoute
+  ApiDataSnapshotsIdRoute: typeof ApiDataSnapshotsIdRoute
+  ApiDataSnapshotsDiffRoute: typeof ApiDataSnapshotsDiffRoute
   ApiDataUserAnalyzeRoute: typeof ApiDataUserAnalyzeRoute
   ApiDataUserProfileRoute: typeof ApiDataUserProfileRoute
   ApiFinanceCostsDepartmentsRoute: typeof ApiFinanceCostsDepartmentsRoute
@@ -1538,6 +1590,8 @@ export interface RootRouteChildren {
   ApiDataProjectProjectIdMemoryRoute: typeof ApiDataProjectProjectIdMemoryRoute
   ApiDataProjectProjectIdSearchRoute: typeof ApiDataProjectProjectIdSearchRoute
   ApiDataSharedPromotionsPendingRoute: typeof ApiDataSharedPromotionsPendingRoute
+  ApiDataSnapshotsDuplicatesHashRoute: typeof ApiDataSnapshotsDuplicatesHashRoute
+  ApiDataSnapshotsTaskTaskIdRoute: typeof ApiDataSnapshotsTaskTaskIdRoute
   ApiDataUserMemoriesMemoryIdRoute: typeof ApiDataUserMemoriesMemoryIdRoute
   ApiDataUserMemoriesSearchRoute: typeof ApiDataUserMemoriesSearchRoute
   ApiInfrastructureBudgetLedgerInstanceIdRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
@@ -2086,6 +2140,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDataUserAnalyzeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/data/snapshots/diff': {
+      id: '/api/data/snapshots/diff'
+      path: '/api/data/snapshots/diff'
+      fullPath: '/api/data/snapshots/diff'
+      preLoaderRoute: typeof ApiDataSnapshotsDiffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/data/snapshots/$id': {
+      id: '/api/data/snapshots/$id'
+      path: '/api/data/snapshots/$id'
+      fullPath: '/api/data/snapshots/$id'
+      preLoaderRoute: typeof ApiDataSnapshotsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/data/shared/search': {
       id: '/api/data/shared/search'
       path: '/api/data/shared/search'
@@ -2252,6 +2320,20 @@ declare module '@tanstack/react-router' {
       path: '/api/data/user/memories/$memoryId'
       fullPath: '/api/data/user/memories/$memoryId'
       preLoaderRoute: typeof ApiDataUserMemoriesMemoryIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/data/snapshots/task/$taskId': {
+      id: '/api/data/snapshots/task/$taskId'
+      path: '/api/data/snapshots/task/$taskId'
+      fullPath: '/api/data/snapshots/task/$taskId'
+      preLoaderRoute: typeof ApiDataSnapshotsTaskTaskIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/data/snapshots/duplicates/$hash': {
+      id: '/api/data/snapshots/duplicates/$hash'
+      path: '/api/data/snapshots/duplicates/$hash'
+      fullPath: '/api/data/snapshots/duplicates/$hash'
+      preLoaderRoute: typeof ApiDataSnapshotsDuplicatesHashRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/data/shared/promotions/pending': {
@@ -2432,6 +2514,8 @@ const rootRouteChildren: RootRouteChildren = {
     ApiCollaborationSessionIdProposalRoute,
   ApiDataSharedPromoteRoute: ApiDataSharedPromoteRoute,
   ApiDataSharedSearchRoute: ApiDataSharedSearchRoute,
+  ApiDataSnapshotsIdRoute: ApiDataSnapshotsIdRoute,
+  ApiDataSnapshotsDiffRoute: ApiDataSnapshotsDiffRoute,
   ApiDataUserAnalyzeRoute: ApiDataUserAnalyzeRoute,
   ApiDataUserProfileRoute: ApiDataUserProfileRoute,
   ApiFinanceCostsDepartmentsRoute: ApiFinanceCostsDepartmentsRoute,
@@ -2501,6 +2585,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiDataProjectProjectIdMemoryRoute: ApiDataProjectProjectIdMemoryRoute,
   ApiDataProjectProjectIdSearchRoute: ApiDataProjectProjectIdSearchRoute,
   ApiDataSharedPromotionsPendingRoute: ApiDataSharedPromotionsPendingRoute,
+  ApiDataSnapshotsDuplicatesHashRoute: ApiDataSnapshotsDuplicatesHashRoute,
+  ApiDataSnapshotsTaskTaskIdRoute: ApiDataSnapshotsTaskTaskIdRoute,
   ApiDataUserMemoriesMemoryIdRoute: ApiDataUserMemoriesMemoryIdRoute,
   ApiDataUserMemoriesSearchRoute: ApiDataUserMemoriesSearchRoute,
   ApiInfrastructureBudgetLedgerInstanceIdRoute:
