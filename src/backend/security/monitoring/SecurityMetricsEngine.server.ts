@@ -41,7 +41,7 @@ export class SecurityMetricsEngine {
     };
     
     for (const event of events || []) {
-      eventsBySeverity[event.severity]++;
+      eventsBySeverity[event.severity as ThreatSeverity]++;
     }
     
     // Events by type
@@ -95,7 +95,7 @@ export class SecurityMetricsEngine {
       'critical': 5
     };
     
-    const totalWeight = events?.reduce((sum, e) => sum + severityWeights[e.severity], 0) || 0;
+    const totalWeight = events?.reduce((sum, e) => sum + severityWeights[e.severity as ThreatSeverity], 0) || 0;
     const overallRiskScore = totalEvents > 0
       ? Math.min(100, Math.round((totalWeight / (totalEvents * 5)) * 100))
       : 0;
@@ -165,7 +165,7 @@ export class SecurityMetricsEngine {
       openIncidents,
       newIncidentsToday,
       resolvedIncidents,
-      averageResolutionTimeHours,
+      averageResolutionTimeHours: avgResolutionTimeHours,
       detectionAccuracy,
       meanTimeToDetect: 0, // Would calculate from event timestamps
       meanTimeToRespond: 0,

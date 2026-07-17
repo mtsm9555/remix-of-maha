@@ -1,7 +1,7 @@
 // src/backend/security/monitoring/ThreatDetectionEngine.ts
 import { createClient } from "@supabase/supabase-js";
-import { SecurityEvent, SecurityRule, ThreatSeverity } from "./SecurityMonitoringTypes";
-import { SecurityAlertManager } from "./SecurityAlertManager";
+import { SecurityEvent, SecurityEventType, SecurityRule, ThreatSeverity } from "./SecurityMonitoringTypes";
+import { SecurityAlertManager } from "./SecurityAlertManager.server";
 import * as crypto from "crypto";
 
 const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
@@ -331,7 +331,7 @@ export class ThreatDetectionEngine {
       severity,
       title: originalEvent.title,
       description,
-      detectionMethod: threatIntelId ? 'threat_intel' : 'anomaly',
+      detectionMethod: 'anomaly',
       confidenceScore: 0.9,
       riskScore: 85,
       status: 'detected',

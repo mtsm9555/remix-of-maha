@@ -1,7 +1,7 @@
 // src/backend/security/monitoring/SecurityEventCollector.ts
 import { createClient } from "@supabase/supabase-js";
 import { SecurityEvent, SecurityEventType, ThreatSeverity } from "./SecurityMonitoringTypes";
-import { ThreatDetectionEngine } from "./ThreatDetectionEngine";
+import { ThreatDetectionEngine } from "./ThreatDetectionEngine.server";
 import * as crypto from "crypto";
 
 const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
@@ -103,7 +103,7 @@ export class SecurityEventCollector {
     }
     
     // Run threat detection asynchronously
-    ThreatDetectionEngine.analyzeEvent(event).catch(err => {
+    ThreatDetectionEngine.analyzeEvent(event).catch((err: any) => {
       console.error('[SecurityEventCollector] Threat detection failed:', err);
     });
     
