@@ -173,6 +173,7 @@ import { Route as ApiEncryptionTenantIdFieldsRouteImport } from './routes/api/en
 import { Route as ApiEncryptionTenantIdEncryptRouteImport } from './routes/api/encryption/$tenantId/encrypt'
 import { Route as ApiEncryptionTenantIdDecryptRouteImport } from './routes/api/encryption/$tenantId/decrypt'
 import { Route as ApiEncryptionTenantIdAuditRouteImport } from './routes/api/encryption/$tenantId/audit'
+import { Route as ApiDocsTenantIdDocIdRouteImport } from './routes/api/docs/$tenantId/$docId'
 import { Route as ApiDataVersionsRollbackRouteImport } from './routes/api/data/versions/rollback'
 import { Route as ApiDataVersionsDiffRouteImport } from './routes/api/data/versions/diff'
 import { Route as ApiDataVersionsVersionIdRouteImport } from './routes/api/data/versions/$versionId'
@@ -1204,6 +1205,11 @@ const ApiEncryptionTenantIdAuditRoute =
     path: '/api/encryption/$tenantId/audit',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiDocsTenantIdDocIdRoute = ApiDocsTenantIdDocIdRouteImport.update({
+  id: '/api/docs/$tenantId/$docId',
+  path: '/api/docs/$tenantId/$docId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiDataVersionsRollbackRoute = ApiDataVersionsRollbackRouteImport.update({
   id: '/api/data/versions/rollback',
   path: '/api/data/versions/rollback',
@@ -2141,6 +2147,7 @@ export interface FileRoutesByFullPath {
   '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
   '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
+  '/api/docs/$tenantId/$docId': typeof ApiDocsTenantIdDocIdRoute
   '/api/encryption/$tenantId/audit': typeof ApiEncryptionTenantIdAuditRoute
   '/api/encryption/$tenantId/decrypt': typeof ApiEncryptionTenantIdDecryptRoute
   '/api/encryption/$tenantId/encrypt': typeof ApiEncryptionTenantIdEncryptRoute
@@ -2448,6 +2455,7 @@ export interface FileRoutesByTo {
   '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
   '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
+  '/api/docs/$tenantId/$docId': typeof ApiDocsTenantIdDocIdRoute
   '/api/encryption/$tenantId/audit': typeof ApiEncryptionTenantIdAuditRoute
   '/api/encryption/$tenantId/decrypt': typeof ApiEncryptionTenantIdDecryptRoute
   '/api/encryption/$tenantId/encrypt': typeof ApiEncryptionTenantIdEncryptRoute
@@ -2756,6 +2764,7 @@ export interface FileRoutesById {
   '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
   '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
+  '/api/docs/$tenantId/$docId': typeof ApiDocsTenantIdDocIdRoute
   '/api/encryption/$tenantId/audit': typeof ApiEncryptionTenantIdAuditRoute
   '/api/encryption/$tenantId/decrypt': typeof ApiEncryptionTenantIdDecryptRoute
   '/api/encryption/$tenantId/encrypt': typeof ApiEncryptionTenantIdEncryptRoute
@@ -3065,6 +3074,7 @@ export interface FileRouteTypes {
     | '/api/data/versions/$versionId'
     | '/api/data/versions/diff'
     | '/api/data/versions/rollback'
+    | '/api/docs/$tenantId/$docId'
     | '/api/encryption/$tenantId/audit'
     | '/api/encryption/$tenantId/decrypt'
     | '/api/encryption/$tenantId/encrypt'
@@ -3372,6 +3382,7 @@ export interface FileRouteTypes {
     | '/api/data/versions/$versionId'
     | '/api/data/versions/diff'
     | '/api/data/versions/rollback'
+    | '/api/docs/$tenantId/$docId'
     | '/api/encryption/$tenantId/audit'
     | '/api/encryption/$tenantId/decrypt'
     | '/api/encryption/$tenantId/encrypt'
@@ -3679,6 +3690,7 @@ export interface FileRouteTypes {
     | '/api/data/versions/$versionId'
     | '/api/data/versions/diff'
     | '/api/data/versions/rollback'
+    | '/api/docs/$tenantId/$docId'
     | '/api/encryption/$tenantId/audit'
     | '/api/encryption/$tenantId/decrypt'
     | '/api/encryption/$tenantId/encrypt'
@@ -3987,6 +3999,7 @@ export interface RootRouteChildren {
   ApiDataVersionsVersionIdRoute: typeof ApiDataVersionsVersionIdRoute
   ApiDataVersionsDiffRoute: typeof ApiDataVersionsDiffRoute
   ApiDataVersionsRollbackRoute: typeof ApiDataVersionsRollbackRoute
+  ApiDocsTenantIdDocIdRoute: typeof ApiDocsTenantIdDocIdRoute
   ApiEncryptionTenantIdAuditRoute: typeof ApiEncryptionTenantIdAuditRoute
   ApiEncryptionTenantIdDecryptRoute: typeof ApiEncryptionTenantIdDecryptRoute
   ApiEncryptionTenantIdEncryptRoute: typeof ApiEncryptionTenantIdEncryptRoute
@@ -5292,6 +5305,13 @@ declare module '@tanstack/react-router' {
       path: '/api/encryption/$tenantId/audit'
       fullPath: '/api/encryption/$tenantId/audit'
       preLoaderRoute: typeof ApiEncryptionTenantIdAuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/docs/$tenantId/$docId': {
+      id: '/api/docs/$tenantId/$docId'
+      path: '/api/docs/$tenantId/$docId'
+      fullPath: '/api/docs/$tenantId/$docId'
+      preLoaderRoute: typeof ApiDocsTenantIdDocIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/data/versions/rollback': {
@@ -6800,6 +6820,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiDataVersionsVersionIdRoute: ApiDataVersionsVersionIdRoute,
   ApiDataVersionsDiffRoute: ApiDataVersionsDiffRoute,
   ApiDataVersionsRollbackRoute: ApiDataVersionsRollbackRoute,
+  ApiDocsTenantIdDocIdRoute: ApiDocsTenantIdDocIdRoute,
   ApiEncryptionTenantIdAuditRoute: ApiEncryptionTenantIdAuditRoute,
   ApiEncryptionTenantIdDecryptRoute: ApiEncryptionTenantIdDecryptRoute,
   ApiEncryptionTenantIdEncryptRoute: ApiEncryptionTenantIdEncryptRoute,
