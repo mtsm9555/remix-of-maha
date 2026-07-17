@@ -142,6 +142,7 @@ export class BackupManager {
         .eq("id", jobId)
         .select("*")
         .single();
+      if (!failed) throw new Error(message);
       return rowToJob(failed);
     }
   }
