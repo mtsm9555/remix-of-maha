@@ -1,7 +1,8 @@
 // AES-256-GCM using Web Crypto (Cloudflare Worker compatible)
 
-function hexToBytes(hex: string): Uint8Array {
-  const out = new Uint8Array(hex.length / 2);
+function hexToBytes(hex: string): Uint8Array<ArrayBuffer> {
+  const buf = new ArrayBuffer(hex.length / 2);
+  const out = new Uint8Array(buf);
   for (let i = 0; i < out.length; i++) out[i] = parseInt(hex.substr(i * 2, 2), 16);
   return out;
 }
@@ -18,7 +19,7 @@ async function getKey(): Promise<CryptoKey> {
 export const EncryptionEngine = {
   async encrypt(plaintext: string): Promise<{ encrypted: string; iv: string; authTag: string }> {
     const key = await getKey();
-    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const iv = crypto.getRandomValues(new Uint8Array(new ArrayBuffer(12)));
     const ct = new Uint8Array(
       await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, new TextEncoder().encode(plaintext)),
     );
@@ -31,7 +32,7 @@ export const EncryptionEngine = {
     const key = await getKey();
     const body = hexToBytes(encryptedHex);
     const tag = hexToBytes(authTagHex);
-    const combined = new Uint8Array(body.length + tag.length);
+    const combined = new Uint8Array(new ArrayBuffer(body.length + tag.length));
     combined.set(body, 0);
     combined.set(tag, body.length);
     const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: hexToBytes(ivHex) }, key, combined);
