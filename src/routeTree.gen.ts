@@ -324,6 +324,7 @@ import { Route as ApiDataVersionsHistoryEntityTypeEntityIdRouteImport } from './
 import { Route as ApiDataVersionsCurrentEntityTypeEntityIdRouteImport } from './routes/api/data/versions/current/$entityType/$entityId'
 import { Route as ApiDataSharedPromotionsPromotionIdRejectRouteImport } from './routes/api/data/shared/promotions/$promotionId/reject'
 import { Route as ApiDataSharedPromotionsPromotionIdApproveRouteImport } from './routes/api/data/shared/promotions/$promotionId/approve'
+import { Route as ApiCicdTenantIdPipelinesPipelineIdRunRouteImport } from './routes/api/cicd/$tenantId/pipelines.$pipelineId.run'
 import { Route as ApiBillingOpsTenantIdInvoicesInvoiceIdPayRouteImport } from './routes/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
 import { Route as ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRouteImport } from './routes/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
 import { Route as ApiAuditTenantIdUsersUserIdActivityRouteImport } from './routes/api/audit/$tenantId.users.$userId.activity'
@@ -2111,6 +2112,12 @@ const ApiDataSharedPromotionsPromotionIdApproveRoute =
     path: '/api/data/shared/promotions/$promotionId/approve',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiCicdTenantIdPipelinesPipelineIdRunRoute =
+  ApiCicdTenantIdPipelinesPipelineIdRunRouteImport.update({
+    id: '/$pipelineId/run',
+    path: '/$pipelineId/run',
+    getParentRoute: () => ApiCicdTenantIdPipelinesRoute,
+  } as any)
 const ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute =
   ApiBillingOpsTenantIdInvoicesInvoiceIdPayRouteImport.update({
     id: '/api/billing-ops/$tenantId/invoices/$invoiceId/pay',
@@ -2276,7 +2283,7 @@ export interface FileRoutesByFullPath {
   '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
-  '/api/cicd/$tenantId/pipelines': typeof ApiCicdTenantIdPipelinesRoute
+  '/api/cicd/$tenantId/pipelines': typeof ApiCicdTenantIdPipelinesRouteWithChildren
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/compliance/$tenantId/consent': typeof ApiComplianceTenantIdConsentRoute
@@ -2496,6 +2503,7 @@ export interface FileRoutesByFullPath {
   '/api/audit/$tenantId/users/$userId/activity': typeof ApiAuditTenantIdUsersUserIdActivityRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
+  '/api/cicd/$tenantId/pipelines/$pipelineId/run': typeof ApiCicdTenantIdPipelinesPipelineIdRunRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
@@ -2605,7 +2613,7 @@ export interface FileRoutesByTo {
   '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
-  '/api/cicd/$tenantId/pipelines': typeof ApiCicdTenantIdPipelinesRoute
+  '/api/cicd/$tenantId/pipelines': typeof ApiCicdTenantIdPipelinesRouteWithChildren
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/compliance/$tenantId/consent': typeof ApiComplianceTenantIdConsentRoute
@@ -2825,6 +2833,7 @@ export interface FileRoutesByTo {
   '/api/audit/$tenantId/users/$userId/activity': typeof ApiAuditTenantIdUsersUserIdActivityRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
+  '/api/cicd/$tenantId/pipelines/$pipelineId/run': typeof ApiCicdTenantIdPipelinesPipelineIdRunRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
@@ -2935,7 +2944,7 @@ export interface FileRoutesById {
   '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
-  '/api/cicd/$tenantId/pipelines': typeof ApiCicdTenantIdPipelinesRoute
+  '/api/cicd/$tenantId/pipelines': typeof ApiCicdTenantIdPipelinesRouteWithChildren
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/compliance/$tenantId/consent': typeof ApiComplianceTenantIdConsentRoute
@@ -3155,6 +3164,7 @@ export interface FileRoutesById {
   '/api/audit/$tenantId/users/$userId/activity': typeof ApiAuditTenantIdUsersUserIdActivityRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
+  '/api/cicd/$tenantId/pipelines/$pipelineId/run': typeof ApiCicdTenantIdPipelinesPipelineIdRunRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
@@ -3486,6 +3496,7 @@ export interface FileRouteTypes {
     | '/api/audit/$tenantId/users/$userId/activity'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
+    | '/api/cicd/$tenantId/pipelines/$pipelineId/run'
     | '/api/data/shared/promotions/$promotionId/approve'
     | '/api/data/shared/promotions/$promotionId/reject'
     | '/api/data/versions/current/$entityType/$entityId'
@@ -3815,6 +3826,7 @@ export interface FileRouteTypes {
     | '/api/audit/$tenantId/users/$userId/activity'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
+    | '/api/cicd/$tenantId/pipelines/$pipelineId/run'
     | '/api/data/shared/promotions/$promotionId/approve'
     | '/api/data/shared/promotions/$promotionId/reject'
     | '/api/data/versions/current/$entityType/$entityId'
@@ -4144,6 +4156,7 @@ export interface FileRouteTypes {
     | '/api/audit/$tenantId/users/$userId/activity'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
+    | '/api/cicd/$tenantId/pipelines/$pipelineId/run'
     | '/api/data/shared/promotions/$promotionId/approve'
     | '/api/data/shared/promotions/$promotionId/reject'
     | '/api/data/versions/current/$entityType/$entityId'
@@ -4254,7 +4267,7 @@ export interface RootRouteChildren {
   ApiBillingTenantIdSubscribeRoute: typeof ApiBillingTenantIdSubscribeRoute
   ApiBillingTenantIdSubscriptionRoute: typeof ApiBillingTenantIdSubscriptionRoute
   ApiBillingTenantIdUsageRoute: typeof ApiBillingTenantIdUsageRoute
-  ApiCicdTenantIdPipelinesRoute: typeof ApiCicdTenantIdPipelinesRoute
+  ApiCicdTenantIdPipelinesRoute: typeof ApiCicdTenantIdPipelinesRouteWithChildren
   ApiCollaborationSessionIdBlackboardRoute: typeof ApiCollaborationSessionIdBlackboardRoute
   ApiCollaborationSessionIdProposalRoute: typeof ApiCollaborationSessionIdProposalRoute
   ApiComplianceTenantIdConsentRoute: typeof ApiComplianceTenantIdConsentRoute
@@ -6645,6 +6658,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDataSharedPromotionsPromotionIdApproveRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/cicd/$tenantId/pipelines/$pipelineId/run': {
+      id: '/api/cicd/$tenantId/pipelines/$pipelineId/run'
+      path: '/$pipelineId/run'
+      fullPath: '/api/cicd/$tenantId/pipelines/$pipelineId/run'
+      preLoaderRoute: typeof ApiCicdTenantIdPipelinesPipelineIdRunRouteImport
+      parentRoute: typeof ApiCicdTenantIdPipelinesRoute
+    }
     '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': {
       id: '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
       path: '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
@@ -7003,6 +7023,21 @@ const ApiAuditTenantIdLogsRouteChildren: ApiAuditTenantIdLogsRouteChildren = {
 const ApiAuditTenantIdLogsRouteWithChildren =
   ApiAuditTenantIdLogsRoute._addFileChildren(ApiAuditTenantIdLogsRouteChildren)
 
+interface ApiCicdTenantIdPipelinesRouteChildren {
+  ApiCicdTenantIdPipelinesPipelineIdRunRoute: typeof ApiCicdTenantIdPipelinesPipelineIdRunRoute
+}
+
+const ApiCicdTenantIdPipelinesRouteChildren: ApiCicdTenantIdPipelinesRouteChildren =
+  {
+    ApiCicdTenantIdPipelinesPipelineIdRunRoute:
+      ApiCicdTenantIdPipelinesPipelineIdRunRoute,
+  }
+
+const ApiCicdTenantIdPipelinesRouteWithChildren =
+  ApiCicdTenantIdPipelinesRoute._addFileChildren(
+    ApiCicdTenantIdPipelinesRouteChildren,
+  )
+
 interface ApiDocsTenantIdDocIdRouteChildren {
   ApiDocsTenantIdDocIdExamplesRoute: typeof ApiDocsTenantIdDocIdExamplesRoute
   ApiDocsTenantIdDocIdMarkdownRoute: typeof ApiDocsTenantIdDocIdMarkdownRoute
@@ -7329,7 +7364,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiBillingTenantIdSubscribeRoute: ApiBillingTenantIdSubscribeRoute,
   ApiBillingTenantIdSubscriptionRoute: ApiBillingTenantIdSubscriptionRoute,
   ApiBillingTenantIdUsageRoute: ApiBillingTenantIdUsageRoute,
-  ApiCicdTenantIdPipelinesRoute: ApiCicdTenantIdPipelinesRoute,
+  ApiCicdTenantIdPipelinesRoute: ApiCicdTenantIdPipelinesRouteWithChildren,
   ApiCollaborationSessionIdBlackboardRoute:
     ApiCollaborationSessionIdBlackboardRoute,
   ApiCollaborationSessionIdProposalRoute:
