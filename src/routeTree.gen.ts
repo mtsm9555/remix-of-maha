@@ -58,6 +58,12 @@ import { Route as ApiToolsMarketplaceInstallRouteImport } from './routes/api/too
 import { Route as ApiTenantsIdSuspendRouteImport } from './routes/api/tenants/$id/suspend'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
+import { Route as ApiOrgInvitesAcceptRouteImport } from './routes/api/org/invites/accept'
+import { Route as ApiOrgTenantIdTeamsRouteImport } from './routes/api/org/$tenantId/teams'
+import { Route as ApiOrgTenantIdRolesRouteImport } from './routes/api/org/$tenantId/roles'
+import { Route as ApiOrgTenantIdMembersRouteImport } from './routes/api/org/$tenantId/members'
+import { Route as ApiOrgTenantIdInvitesRouteImport } from './routes/api/org/$tenantId/invites'
+import { Route as ApiOrgTenantIdApiKeysRouteImport } from './routes/api/org/$tenantId/api-keys'
 import { Route as ApiIntelligenceReflectionMetricsRouteImport } from './routes/api/intelligence/reflection/metrics'
 import { Route as ApiIntelligenceLearnApproveRouteImport } from './routes/api/intelligence/learn/approve'
 import { Route as ApiIntelligenceGraphSearchRouteImport } from './routes/api/intelligence/graph/search'
@@ -403,6 +409,36 @@ const ApiPlanningGoalIntelligentRoute =
     path: '/api/planning/goal/intelligent',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiOrgInvitesAcceptRoute = ApiOrgInvitesAcceptRouteImport.update({
+  id: '/api/org/invites/accept',
+  path: '/api/org/invites/accept',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOrgTenantIdTeamsRoute = ApiOrgTenantIdTeamsRouteImport.update({
+  id: '/api/org/$tenantId/teams',
+  path: '/api/org/$tenantId/teams',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOrgTenantIdRolesRoute = ApiOrgTenantIdRolesRouteImport.update({
+  id: '/api/org/$tenantId/roles',
+  path: '/api/org/$tenantId/roles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOrgTenantIdMembersRoute = ApiOrgTenantIdMembersRouteImport.update({
+  id: '/api/org/$tenantId/members',
+  path: '/api/org/$tenantId/members',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOrgTenantIdInvitesRoute = ApiOrgTenantIdInvitesRouteImport.update({
+  id: '/api/org/$tenantId/invites',
+  path: '/api/org/$tenantId/invites',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOrgTenantIdApiKeysRoute = ApiOrgTenantIdApiKeysRouteImport.update({
+  id: '/api/org/$tenantId/api-keys',
+  path: '/api/org/$tenantId/api-keys',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiIntelligenceReflectionMetricsRoute =
   ApiIntelligenceReflectionMetricsRouteImport.update({
     id: '/api/intelligence/reflection/metrics',
@@ -976,6 +1012,12 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/graph/search': typeof ApiIntelligenceGraphSearchRoute
   '/api/intelligence/learn/approve': typeof ApiIntelligenceLearnApproveRoute
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
+  '/api/org/$tenantId/api-keys': typeof ApiOrgTenantIdApiKeysRoute
+  '/api/org/$tenantId/invites': typeof ApiOrgTenantIdInvitesRoute
+  '/api/org/$tenantId/members': typeof ApiOrgTenantIdMembersRoute
+  '/api/org/$tenantId/roles': typeof ApiOrgTenantIdRolesRoute
+  '/api/org/$tenantId/teams': typeof ApiOrgTenantIdTeamsRoute
+  '/api/org/invites/accept': typeof ApiOrgInvitesAcceptRoute
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
@@ -1111,6 +1153,12 @@ export interface FileRoutesByTo {
   '/api/intelligence/graph/search': typeof ApiIntelligenceGraphSearchRoute
   '/api/intelligence/learn/approve': typeof ApiIntelligenceLearnApproveRoute
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
+  '/api/org/$tenantId/api-keys': typeof ApiOrgTenantIdApiKeysRoute
+  '/api/org/$tenantId/invites': typeof ApiOrgTenantIdInvitesRoute
+  '/api/org/$tenantId/members': typeof ApiOrgTenantIdMembersRoute
+  '/api/org/$tenantId/roles': typeof ApiOrgTenantIdRolesRoute
+  '/api/org/$tenantId/teams': typeof ApiOrgTenantIdTeamsRoute
+  '/api/org/invites/accept': typeof ApiOrgInvitesAcceptRoute
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
@@ -1247,6 +1295,12 @@ export interface FileRoutesById {
   '/api/intelligence/graph/search': typeof ApiIntelligenceGraphSearchRoute
   '/api/intelligence/learn/approve': typeof ApiIntelligenceLearnApproveRoute
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
+  '/api/org/$tenantId/api-keys': typeof ApiOrgTenantIdApiKeysRoute
+  '/api/org/$tenantId/invites': typeof ApiOrgTenantIdInvitesRoute
+  '/api/org/$tenantId/members': typeof ApiOrgTenantIdMembersRoute
+  '/api/org/$tenantId/roles': typeof ApiOrgTenantIdRolesRoute
+  '/api/org/$tenantId/teams': typeof ApiOrgTenantIdTeamsRoute
+  '/api/org/invites/accept': typeof ApiOrgInvitesAcceptRoute
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
@@ -1384,6 +1438,12 @@ export interface FileRouteTypes {
     | '/api/intelligence/graph/search'
     | '/api/intelligence/learn/approve'
     | '/api/intelligence/reflection/metrics'
+    | '/api/org/$tenantId/api-keys'
+    | '/api/org/$tenantId/invites'
+    | '/api/org/$tenantId/members'
+    | '/api/org/$tenantId/roles'
+    | '/api/org/$tenantId/teams'
+    | '/api/org/invites/accept'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
     | '/api/tenants/$id/suspend'
@@ -1519,6 +1579,12 @@ export interface FileRouteTypes {
     | '/api/intelligence/graph/search'
     | '/api/intelligence/learn/approve'
     | '/api/intelligence/reflection/metrics'
+    | '/api/org/$tenantId/api-keys'
+    | '/api/org/$tenantId/invites'
+    | '/api/org/$tenantId/members'
+    | '/api/org/$tenantId/roles'
+    | '/api/org/$tenantId/teams'
+    | '/api/org/invites/accept'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
     | '/api/tenants/$id/suspend'
@@ -1654,6 +1720,12 @@ export interface FileRouteTypes {
     | '/api/intelligence/graph/search'
     | '/api/intelligence/learn/approve'
     | '/api/intelligence/reflection/metrics'
+    | '/api/org/$tenantId/api-keys'
+    | '/api/org/$tenantId/invites'
+    | '/api/org/$tenantId/members'
+    | '/api/org/$tenantId/roles'
+    | '/api/org/$tenantId/teams'
+    | '/api/org/invites/accept'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
     | '/api/tenants/$id/suspend'
@@ -1789,6 +1861,12 @@ export interface RootRouteChildren {
   ApiIntelligenceGraphSearchRoute: typeof ApiIntelligenceGraphSearchRoute
   ApiIntelligenceLearnApproveRoute: typeof ApiIntelligenceLearnApproveRoute
   ApiIntelligenceReflectionMetricsRoute: typeof ApiIntelligenceReflectionMetricsRouteWithChildren
+  ApiOrgTenantIdApiKeysRoute: typeof ApiOrgTenantIdApiKeysRoute
+  ApiOrgTenantIdInvitesRoute: typeof ApiOrgTenantIdInvitesRoute
+  ApiOrgTenantIdMembersRoute: typeof ApiOrgTenantIdMembersRoute
+  ApiOrgTenantIdRolesRoute: typeof ApiOrgTenantIdRolesRoute
+  ApiOrgTenantIdTeamsRoute: typeof ApiOrgTenantIdTeamsRoute
+  ApiOrgInvitesAcceptRoute: typeof ApiOrgInvitesAcceptRoute
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
   ApiTenantsIdSuspendRoute: typeof ApiTenantsIdSuspendRoute
@@ -2187,6 +2265,48 @@ declare module '@tanstack/react-router' {
       path: '/api/planning/goal/intelligent'
       fullPath: '/api/planning/goal/intelligent'
       preLoaderRoute: typeof ApiPlanningGoalIntelligentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/org/invites/accept': {
+      id: '/api/org/invites/accept'
+      path: '/api/org/invites/accept'
+      fullPath: '/api/org/invites/accept'
+      preLoaderRoute: typeof ApiOrgInvitesAcceptRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/org/$tenantId/teams': {
+      id: '/api/org/$tenantId/teams'
+      path: '/api/org/$tenantId/teams'
+      fullPath: '/api/org/$tenantId/teams'
+      preLoaderRoute: typeof ApiOrgTenantIdTeamsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/org/$tenantId/roles': {
+      id: '/api/org/$tenantId/roles'
+      path: '/api/org/$tenantId/roles'
+      fullPath: '/api/org/$tenantId/roles'
+      preLoaderRoute: typeof ApiOrgTenantIdRolesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/org/$tenantId/members': {
+      id: '/api/org/$tenantId/members'
+      path: '/api/org/$tenantId/members'
+      fullPath: '/api/org/$tenantId/members'
+      preLoaderRoute: typeof ApiOrgTenantIdMembersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/org/$tenantId/invites': {
+      id: '/api/org/$tenantId/invites'
+      path: '/api/org/$tenantId/invites'
+      fullPath: '/api/org/$tenantId/invites'
+      preLoaderRoute: typeof ApiOrgTenantIdInvitesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/org/$tenantId/api-keys': {
+      id: '/api/org/$tenantId/api-keys'
+      path: '/api/org/$tenantId/api-keys'
+      fullPath: '/api/org/$tenantId/api-keys'
+      preLoaderRoute: typeof ApiOrgTenantIdApiKeysRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/intelligence/reflection/metrics': {
@@ -2920,6 +3040,12 @@ const rootRouteChildren: RootRouteChildren = {
   ApiIntelligenceLearnApproveRoute: ApiIntelligenceLearnApproveRoute,
   ApiIntelligenceReflectionMetricsRoute:
     ApiIntelligenceReflectionMetricsRouteWithChildren,
+  ApiOrgTenantIdApiKeysRoute: ApiOrgTenantIdApiKeysRoute,
+  ApiOrgTenantIdInvitesRoute: ApiOrgTenantIdInvitesRoute,
+  ApiOrgTenantIdMembersRoute: ApiOrgTenantIdMembersRoute,
+  ApiOrgTenantIdRolesRoute: ApiOrgTenantIdRolesRoute,
+  ApiOrgTenantIdTeamsRoute: ApiOrgTenantIdTeamsRoute,
+  ApiOrgInvitesAcceptRoute: ApiOrgInvitesAcceptRoute,
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
   ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
   ApiTenantsIdSuspendRoute: ApiTenantsIdSuspendRoute,

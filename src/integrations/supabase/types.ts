@@ -526,6 +526,56 @@ export type Database = {
         }
         Relationships: []
       }
+      api_keys: {
+        Row: {
+          created_at: string
+          created_by: string
+          expires_at: string | null
+          id: string
+          key_hash: string
+          key_prefix: string
+          last_used_at: string | null
+          name: string
+          permissions: string[]
+          rate_limit_per_minute: number
+          tenant_id: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          expires_at?: string | null
+          id: string
+          key_hash: string
+          key_prefix: string
+          last_used_at?: string | null
+          name: string
+          permissions?: string[]
+          rate_limit_per_minute?: number
+          tenant_id: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          expires_at?: string | null
+          id?: string
+          key_hash?: string
+          key_prefix?: string
+          last_used_at?: string | null
+          name?: string
+          permissions?: string[]
+          rate_limit_per_minute?: number
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "api_keys_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blackboard_artifacts: {
         Row: {
           collaboration_id: string
@@ -1525,6 +1575,56 @@ export type Database = {
         }
         Relationships: []
       }
+      member_invites: {
+        Row: {
+          accepted_at: string | null
+          created_at: string
+          email: string
+          expires_at: string
+          id: string
+          invited_by: string
+          role: string
+          status: string
+          team_ids: string[]
+          tenant_id: string
+          token: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          created_at?: string
+          email: string
+          expires_at: string
+          id: string
+          invited_by: string
+          role: string
+          status?: string
+          team_ids?: string[]
+          tenant_id: string
+          token: string
+        }
+        Update: {
+          accepted_at?: string | null
+          created_at?: string
+          email?: string
+          expires_at?: string
+          id?: string
+          invited_by?: string
+          role?: string
+          status?: string
+          team_ids?: string[]
+          tenant_id?: string
+          token?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_invites_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       memories: {
         Row: {
           content: string
@@ -1655,6 +1755,185 @@ export type Database = {
           timestamp?: string
         }
         Relationships: []
+      }
+      organization_members: {
+        Row: {
+          avatar_url: string | null
+          display_name: string | null
+          email: string
+          id: string
+          joined_at: string
+          last_active_at: string | null
+          metadata: Json
+          role: string
+          status: string
+          team_ids: string[]
+          tenant_id: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          display_name?: string | null
+          email: string
+          id: string
+          joined_at?: string
+          last_active_at?: string | null
+          metadata?: Json
+          role: string
+          status?: string
+          team_ids?: string[]
+          tenant_id: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          display_name?: string | null
+          email?: string
+          id?: string
+          joined_at?: string
+          last_active_at?: string | null
+          metadata?: Json
+          role?: string
+          status?: string
+          team_ids?: string[]
+          tenant_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "organization_members_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organization_roles: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_system_role: boolean
+          name: string
+          permissions: string[]
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id: string
+          is_system_role?: boolean
+          name: string
+          permissions?: string[]
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_system_role?: boolean
+          name?: string
+          permissions?: string[]
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "organization_roles_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organization_settings: {
+        Row: {
+          allow_member_invites: boolean
+          custom_domains: string[]
+          default_role: string
+          display_name: string
+          ip_allowlist: string[]
+          logo_url: string | null
+          require_email_verification: boolean
+          session_timeout_minutes: number
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          allow_member_invites?: boolean
+          custom_domains?: string[]
+          default_role?: string
+          display_name: string
+          ip_allowlist?: string[]
+          logo_url?: string | null
+          require_email_verification?: boolean
+          session_timeout_minutes?: number
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          allow_member_invites?: boolean
+          custom_domains?: string[]
+          default_role?: string
+          display_name?: string
+          ip_allowlist?: string[]
+          logo_url?: string | null
+          require_email_verification?: boolean
+          session_timeout_minutes?: number
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "organization_settings_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: true
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organization_teams: {
+        Row: {
+          created_at: string
+          department_id: string | null
+          description: string | null
+          id: string
+          member_count: number
+          name: string
+          tenant_id: string
+        }
+        Insert: {
+          created_at?: string
+          department_id?: string | null
+          description?: string | null
+          id: string
+          member_count?: number
+          name: string
+          tenant_id: string
+        }
+        Update: {
+          created_at?: string
+          department_id?: string | null
+          description?: string | null
+          id?: string
+          member_count?: number
+          name?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "organization_teams_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       project_members: {
         Row: {
