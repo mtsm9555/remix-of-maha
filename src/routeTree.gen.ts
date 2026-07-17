@@ -100,7 +100,13 @@ import { Route as ApiToolsMcpCallRouteImport } from './routes/api/tools/mcp/call
 import { Route as ApiToolsMarketplaceUninstallRouteImport } from './routes/api/tools/marketplace/uninstall'
 import { Route as ApiToolsMarketplaceInstalledRouteImport } from './routes/api/tools/marketplace/installed'
 import { Route as ApiToolsMarketplaceInstallRouteImport } from './routes/api/tools/marketplace/install'
+import { Route as ApiThreatTenantIdScoresRouteImport } from './routes/api/threat/$tenantId/scores'
 import { Route as ApiThreatTenantIdIocsRouteImport } from './routes/api/threat/$tenantId/iocs'
+import { Route as ApiThreatTenantIdFeedsRouteImport } from './routes/api/threat/$tenantId/feeds'
+import { Route as ApiThreatTenantIdChainsRouteImport } from './routes/api/threat/$tenantId/chains'
+import { Route as ApiThreatTenantIdBaselinesRouteImport } from './routes/api/threat/$tenantId/baselines'
+import { Route as ApiThreatTenantIdAnomaliesRouteImport } from './routes/api/threat/$tenantId/anomalies'
+import { Route as ApiThreatTenantIdAnalyzeRouteImport } from './routes/api/threat/$tenantId/analyze'
 import { Route as ApiTenantsIdSuspendRouteImport } from './routes/api/tenants/$id/suspend'
 import { Route as ApiTeamsTenantIdTreeRouteImport } from './routes/api/teams/$tenantId/tree'
 import { Route as ApiTeamsTenantIdCreateRouteImport } from './routes/api/teams/$tenantId/create'
@@ -281,6 +287,7 @@ import { Route as ApiVaultTenantIdSecretsSecretIdRotateRouteImport } from './rou
 import { Route as ApiVaultTenantIdSecretsSecretIdRevokeRouteImport } from './routes/api/vault/$tenantId/secrets.$secretId.revoke'
 import { Route as ApiVaultTenantIdSecretsSecretIdRevealRouteImport } from './routes/api/vault/$tenantId/secrets.$secretId.reveal'
 import { Route as ApiVaultTenantIdAccessRequestsRequestIdDecideRouteImport } from './routes/api/vault/$tenantId/access-requests.$requestId.decide'
+import { Route as ApiThreatTenantIdFeedsFeedIdSyncRouteImport } from './routes/api/threat/$tenantId/feeds.$feedId.sync'
 import { Route as ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport } from './routes/api/infrastructure/budget/topups/$requestId.approve'
 import { Route as ApiEncryptionTenantIdKeysKeyIdRotateRouteImport } from './routes/api/encryption/$tenantId/keys.$keyId.rotate'
 import { Route as ApiEncryptionTenantIdKeysKeyIdRevokeRouteImport } from './routes/api/encryption/$tenantId/keys.$keyId.revoke'
@@ -778,11 +785,44 @@ const ApiToolsMarketplaceInstallRoute =
     path: '/api/tools/marketplace/install',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiThreatTenantIdScoresRoute = ApiThreatTenantIdScoresRouteImport.update({
+  id: '/api/threat/$tenantId/scores',
+  path: '/api/threat/$tenantId/scores',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiThreatTenantIdIocsRoute = ApiThreatTenantIdIocsRouteImport.update({
   id: '/api/threat/$tenantId/iocs',
   path: '/api/threat/$tenantId/iocs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiThreatTenantIdFeedsRoute = ApiThreatTenantIdFeedsRouteImport.update({
+  id: '/api/threat/$tenantId/feeds',
+  path: '/api/threat/$tenantId/feeds',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiThreatTenantIdChainsRoute = ApiThreatTenantIdChainsRouteImport.update({
+  id: '/api/threat/$tenantId/chains',
+  path: '/api/threat/$tenantId/chains',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiThreatTenantIdBaselinesRoute =
+  ApiThreatTenantIdBaselinesRouteImport.update({
+    id: '/api/threat/$tenantId/baselines',
+    path: '/api/threat/$tenantId/baselines',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiThreatTenantIdAnomaliesRoute =
+  ApiThreatTenantIdAnomaliesRouteImport.update({
+    id: '/api/threat/$tenantId/anomalies',
+    path: '/api/threat/$tenantId/anomalies',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiThreatTenantIdAnalyzeRoute =
+  ApiThreatTenantIdAnalyzeRouteImport.update({
+    id: '/api/threat/$tenantId/analyze',
+    path: '/api/threat/$tenantId/analyze',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiTenantsIdSuspendRoute = ApiTenantsIdSuspendRouteImport.update({
   id: '/api/tenants/$id/suspend',
   path: '/api/tenants/$id/suspend',
@@ -1823,6 +1863,12 @@ const ApiVaultTenantIdAccessRequestsRequestIdDecideRoute =
     path: '/$requestId/decide',
     getParentRoute: () => ApiVaultTenantIdAccessRequestsRoute,
   } as any)
+const ApiThreatTenantIdFeedsFeedIdSyncRoute =
+  ApiThreatTenantIdFeedsFeedIdSyncRouteImport.update({
+    id: '/$feedId/sync',
+    path: '/$feedId/sync',
+    getParentRoute: () => ApiThreatTenantIdFeedsRoute,
+  } as any)
 const ApiInfrastructureBudgetTopupsRequestIdApproveRoute =
   ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport.update({
     id: '/api/infrastructure/budget/topups/$requestId/approve',
@@ -2106,7 +2152,13 @@ export interface FileRoutesByFullPath {
   '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
   '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
+  '/api/threat/$tenantId/analyze': typeof ApiThreatTenantIdAnalyzeRoute
+  '/api/threat/$tenantId/anomalies': typeof ApiThreatTenantIdAnomaliesRoute
+  '/api/threat/$tenantId/baselines': typeof ApiThreatTenantIdBaselinesRoute
+  '/api/threat/$tenantId/chains': typeof ApiThreatTenantIdChainsRoute
+  '/api/threat/$tenantId/feeds': typeof ApiThreatTenantIdFeedsRouteWithChildren
   '/api/threat/$tenantId/iocs': typeof ApiThreatTenantIdIocsRouteWithChildren
+  '/api/threat/$tenantId/scores': typeof ApiThreatTenantIdScoresRoute
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
   '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
@@ -2226,6 +2278,7 @@ export interface FileRoutesByFullPath {
   '/api/encryption/$tenantId/keys/$keyId/revoke': typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
   '/api/encryption/$tenantId/keys/$keyId/rotate': typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  '/api/threat/$tenantId/feeds/$feedId/sync': typeof ApiThreatTenantIdFeedsFeedIdSyncRoute
   '/api/vault/$tenantId/access-requests/$requestId/decide': typeof ApiVaultTenantIdAccessRequestsRequestIdDecideRoute
   '/api/vault/$tenantId/secrets/$secretId/reveal': typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
   '/api/vault/$tenantId/secrets/$secretId/revoke': typeof ApiVaultTenantIdSecretsSecretIdRevokeRoute
@@ -2399,7 +2452,13 @@ export interface FileRoutesByTo {
   '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
   '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
+  '/api/threat/$tenantId/analyze': typeof ApiThreatTenantIdAnalyzeRoute
+  '/api/threat/$tenantId/anomalies': typeof ApiThreatTenantIdAnomaliesRoute
+  '/api/threat/$tenantId/baselines': typeof ApiThreatTenantIdBaselinesRoute
+  '/api/threat/$tenantId/chains': typeof ApiThreatTenantIdChainsRoute
+  '/api/threat/$tenantId/feeds': typeof ApiThreatTenantIdFeedsRouteWithChildren
   '/api/threat/$tenantId/iocs': typeof ApiThreatTenantIdIocsRouteWithChildren
+  '/api/threat/$tenantId/scores': typeof ApiThreatTenantIdScoresRoute
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
   '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
@@ -2519,6 +2578,7 @@ export interface FileRoutesByTo {
   '/api/encryption/$tenantId/keys/$keyId/revoke': typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
   '/api/encryption/$tenantId/keys/$keyId/rotate': typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  '/api/threat/$tenantId/feeds/$feedId/sync': typeof ApiThreatTenantIdFeedsFeedIdSyncRoute
   '/api/vault/$tenantId/access-requests/$requestId/decide': typeof ApiVaultTenantIdAccessRequestsRequestIdDecideRoute
   '/api/vault/$tenantId/secrets/$secretId/reveal': typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
   '/api/vault/$tenantId/secrets/$secretId/revoke': typeof ApiVaultTenantIdSecretsSecretIdRevokeRoute
@@ -2693,7 +2753,13 @@ export interface FileRoutesById {
   '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
   '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
+  '/api/threat/$tenantId/analyze': typeof ApiThreatTenantIdAnalyzeRoute
+  '/api/threat/$tenantId/anomalies': typeof ApiThreatTenantIdAnomaliesRoute
+  '/api/threat/$tenantId/baselines': typeof ApiThreatTenantIdBaselinesRoute
+  '/api/threat/$tenantId/chains': typeof ApiThreatTenantIdChainsRoute
+  '/api/threat/$tenantId/feeds': typeof ApiThreatTenantIdFeedsRouteWithChildren
   '/api/threat/$tenantId/iocs': typeof ApiThreatTenantIdIocsRouteWithChildren
+  '/api/threat/$tenantId/scores': typeof ApiThreatTenantIdScoresRoute
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
   '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
@@ -2813,6 +2879,7 @@ export interface FileRoutesById {
   '/api/encryption/$tenantId/keys/$keyId/revoke': typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
   '/api/encryption/$tenantId/keys/$keyId/rotate': typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  '/api/threat/$tenantId/feeds/$feedId/sync': typeof ApiThreatTenantIdFeedsFeedIdSyncRoute
   '/api/vault/$tenantId/access-requests/$requestId/decide': typeof ApiVaultTenantIdAccessRequestsRequestIdDecideRoute
   '/api/vault/$tenantId/secrets/$secretId/reveal': typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
   '/api/vault/$tenantId/secrets/$secretId/revoke': typeof ApiVaultTenantIdSecretsSecretIdRevokeRoute
@@ -2988,7 +3055,13 @@ export interface FileRouteTypes {
     | '/api/teams/$tenantId/create'
     | '/api/teams/$tenantId/tree'
     | '/api/tenants/$id/suspend'
+    | '/api/threat/$tenantId/analyze'
+    | '/api/threat/$tenantId/anomalies'
+    | '/api/threat/$tenantId/baselines'
+    | '/api/threat/$tenantId/chains'
+    | '/api/threat/$tenantId/feeds'
     | '/api/threat/$tenantId/iocs'
+    | '/api/threat/$tenantId/scores'
     | '/api/tools/marketplace/install'
     | '/api/tools/marketplace/installed'
     | '/api/tools/marketplace/uninstall'
@@ -3108,6 +3181,7 @@ export interface FileRouteTypes {
     | '/api/encryption/$tenantId/keys/$keyId/revoke'
     | '/api/encryption/$tenantId/keys/$keyId/rotate'
     | '/api/infrastructure/budget/topups/$requestId/approve'
+    | '/api/threat/$tenantId/feeds/$feedId/sync'
     | '/api/vault/$tenantId/access-requests/$requestId/decide'
     | '/api/vault/$tenantId/secrets/$secretId/reveal'
     | '/api/vault/$tenantId/secrets/$secretId/revoke'
@@ -3281,7 +3355,13 @@ export interface FileRouteTypes {
     | '/api/teams/$tenantId/create'
     | '/api/teams/$tenantId/tree'
     | '/api/tenants/$id/suspend'
+    | '/api/threat/$tenantId/analyze'
+    | '/api/threat/$tenantId/anomalies'
+    | '/api/threat/$tenantId/baselines'
+    | '/api/threat/$tenantId/chains'
+    | '/api/threat/$tenantId/feeds'
     | '/api/threat/$tenantId/iocs'
+    | '/api/threat/$tenantId/scores'
     | '/api/tools/marketplace/install'
     | '/api/tools/marketplace/installed'
     | '/api/tools/marketplace/uninstall'
@@ -3401,6 +3481,7 @@ export interface FileRouteTypes {
     | '/api/encryption/$tenantId/keys/$keyId/revoke'
     | '/api/encryption/$tenantId/keys/$keyId/rotate'
     | '/api/infrastructure/budget/topups/$requestId/approve'
+    | '/api/threat/$tenantId/feeds/$feedId/sync'
     | '/api/vault/$tenantId/access-requests/$requestId/decide'
     | '/api/vault/$tenantId/secrets/$secretId/reveal'
     | '/api/vault/$tenantId/secrets/$secretId/revoke'
@@ -3574,7 +3655,13 @@ export interface FileRouteTypes {
     | '/api/teams/$tenantId/create'
     | '/api/teams/$tenantId/tree'
     | '/api/tenants/$id/suspend'
+    | '/api/threat/$tenantId/analyze'
+    | '/api/threat/$tenantId/anomalies'
+    | '/api/threat/$tenantId/baselines'
+    | '/api/threat/$tenantId/chains'
+    | '/api/threat/$tenantId/feeds'
     | '/api/threat/$tenantId/iocs'
+    | '/api/threat/$tenantId/scores'
     | '/api/tools/marketplace/install'
     | '/api/tools/marketplace/installed'
     | '/api/tools/marketplace/uninstall'
@@ -3694,6 +3781,7 @@ export interface FileRouteTypes {
     | '/api/encryption/$tenantId/keys/$keyId/revoke'
     | '/api/encryption/$tenantId/keys/$keyId/rotate'
     | '/api/infrastructure/budget/topups/$requestId/approve'
+    | '/api/threat/$tenantId/feeds/$feedId/sync'
     | '/api/vault/$tenantId/access-requests/$requestId/decide'
     | '/api/vault/$tenantId/secrets/$secretId/reveal'
     | '/api/vault/$tenantId/secrets/$secretId/revoke'
@@ -3864,7 +3952,13 @@ export interface RootRouteChildren {
   ApiTeamsTenantIdCreateRoute: typeof ApiTeamsTenantIdCreateRoute
   ApiTeamsTenantIdTreeRoute: typeof ApiTeamsTenantIdTreeRoute
   ApiTenantsIdSuspendRoute: typeof ApiTenantsIdSuspendRoute
+  ApiThreatTenantIdAnalyzeRoute: typeof ApiThreatTenantIdAnalyzeRoute
+  ApiThreatTenantIdAnomaliesRoute: typeof ApiThreatTenantIdAnomaliesRoute
+  ApiThreatTenantIdBaselinesRoute: typeof ApiThreatTenantIdBaselinesRoute
+  ApiThreatTenantIdChainsRoute: typeof ApiThreatTenantIdChainsRoute
+  ApiThreatTenantIdFeedsRoute: typeof ApiThreatTenantIdFeedsRouteWithChildren
   ApiThreatTenantIdIocsRoute: typeof ApiThreatTenantIdIocsRouteWithChildren
+  ApiThreatTenantIdScoresRoute: typeof ApiThreatTenantIdScoresRoute
   ApiToolsMarketplaceInstallRoute: typeof ApiToolsMarketplaceInstallRoute
   ApiToolsMarketplaceInstalledRoute: typeof ApiToolsMarketplaceInstalledRoute
   ApiToolsMarketplaceUninstallRoute: typeof ApiToolsMarketplaceUninstallRoute
@@ -4592,11 +4686,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiToolsMarketplaceInstallRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/threat/$tenantId/scores': {
+      id: '/api/threat/$tenantId/scores'
+      path: '/api/threat/$tenantId/scores'
+      fullPath: '/api/threat/$tenantId/scores'
+      preLoaderRoute: typeof ApiThreatTenantIdScoresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/threat/$tenantId/iocs': {
       id: '/api/threat/$tenantId/iocs'
       path: '/api/threat/$tenantId/iocs'
       fullPath: '/api/threat/$tenantId/iocs'
       preLoaderRoute: typeof ApiThreatTenantIdIocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/threat/$tenantId/feeds': {
+      id: '/api/threat/$tenantId/feeds'
+      path: '/api/threat/$tenantId/feeds'
+      fullPath: '/api/threat/$tenantId/feeds'
+      preLoaderRoute: typeof ApiThreatTenantIdFeedsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/threat/$tenantId/chains': {
+      id: '/api/threat/$tenantId/chains'
+      path: '/api/threat/$tenantId/chains'
+      fullPath: '/api/threat/$tenantId/chains'
+      preLoaderRoute: typeof ApiThreatTenantIdChainsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/threat/$tenantId/baselines': {
+      id: '/api/threat/$tenantId/baselines'
+      path: '/api/threat/$tenantId/baselines'
+      fullPath: '/api/threat/$tenantId/baselines'
+      preLoaderRoute: typeof ApiThreatTenantIdBaselinesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/threat/$tenantId/anomalies': {
+      id: '/api/threat/$tenantId/anomalies'
+      path: '/api/threat/$tenantId/anomalies'
+      fullPath: '/api/threat/$tenantId/anomalies'
+      preLoaderRoute: typeof ApiThreatTenantIdAnomaliesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/threat/$tenantId/analyze': {
+      id: '/api/threat/$tenantId/analyze'
+      path: '/api/threat/$tenantId/analyze'
+      fullPath: '/api/threat/$tenantId/analyze'
+      preLoaderRoute: typeof ApiThreatTenantIdAnalyzeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/tenants/$id/suspend': {
@@ -5859,6 +5995,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiVaultTenantIdAccessRequestsRequestIdDecideRouteImport
       parentRoute: typeof ApiVaultTenantIdAccessRequestsRoute
     }
+    '/api/threat/$tenantId/feeds/$feedId/sync': {
+      id: '/api/threat/$tenantId/feeds/$feedId/sync'
+      path: '/$feedId/sync'
+      fullPath: '/api/threat/$tenantId/feeds/$feedId/sync'
+      preLoaderRoute: typeof ApiThreatTenantIdFeedsFeedIdSyncRouteImport
+      parentRoute: typeof ApiThreatTenantIdFeedsRoute
+    }
     '/api/infrastructure/budget/topups/$requestId/approve': {
       id: '/api/infrastructure/budget/topups/$requestId/approve'
       path: '/api/infrastructure/budget/topups/$requestId/approve'
@@ -6314,6 +6457,21 @@ const ApiIntelligenceReflectionMetricsRouteWithChildren =
     ApiIntelligenceReflectionMetricsRouteChildren,
   )
 
+interface ApiThreatTenantIdFeedsRouteChildren {
+  ApiThreatTenantIdFeedsFeedIdSyncRoute: typeof ApiThreatTenantIdFeedsFeedIdSyncRoute
+}
+
+const ApiThreatTenantIdFeedsRouteChildren: ApiThreatTenantIdFeedsRouteChildren =
+  {
+    ApiThreatTenantIdFeedsFeedIdSyncRoute:
+      ApiThreatTenantIdFeedsFeedIdSyncRoute,
+  }
+
+const ApiThreatTenantIdFeedsRouteWithChildren =
+  ApiThreatTenantIdFeedsRoute._addFileChildren(
+    ApiThreatTenantIdFeedsRouteChildren,
+  )
+
 interface ApiThreatTenantIdIocsRouteChildren {
   ApiThreatTenantIdIocsCheckRoute: typeof ApiThreatTenantIdIocsCheckRoute
 }
@@ -6567,7 +6725,13 @@ const rootRouteChildren: RootRouteChildren = {
   ApiTeamsTenantIdCreateRoute: ApiTeamsTenantIdCreateRoute,
   ApiTeamsTenantIdTreeRoute: ApiTeamsTenantIdTreeRoute,
   ApiTenantsIdSuspendRoute: ApiTenantsIdSuspendRoute,
+  ApiThreatTenantIdAnalyzeRoute: ApiThreatTenantIdAnalyzeRoute,
+  ApiThreatTenantIdAnomaliesRoute: ApiThreatTenantIdAnomaliesRoute,
+  ApiThreatTenantIdBaselinesRoute: ApiThreatTenantIdBaselinesRoute,
+  ApiThreatTenantIdChainsRoute: ApiThreatTenantIdChainsRoute,
+  ApiThreatTenantIdFeedsRoute: ApiThreatTenantIdFeedsRouteWithChildren,
   ApiThreatTenantIdIocsRoute: ApiThreatTenantIdIocsRouteWithChildren,
+  ApiThreatTenantIdScoresRoute: ApiThreatTenantIdScoresRoute,
   ApiToolsMarketplaceInstallRoute: ApiToolsMarketplaceInstallRoute,
   ApiToolsMarketplaceInstalledRoute: ApiToolsMarketplaceInstalledRoute,
   ApiToolsMarketplaceUninstallRoute: ApiToolsMarketplaceUninstallRoute,
