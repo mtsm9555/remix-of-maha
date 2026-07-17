@@ -243,6 +243,7 @@ import { Route as ApiAnalyticsToolsToolNameRpmRouteImport } from './routes/api/a
 import { Route as ApiAnalyticsToolsToolNameHistoryRouteImport } from './routes/api/analytics/tools/$toolName/history'
 import { Route as ApiAnalyticsToolsToolNameErrorsRouteImport } from './routes/api/analytics/tools/$toolName/errors'
 import { Route as ApiAdvancedRolesTenantIdJitElevationIdRouteImport } from './routes/api/advanced-roles/$tenantId/jit/$elevationId'
+import { Route as ApiVaultTenantIdSecretsSecretIdRotateRouteImport } from './routes/api/vault/$tenantId/secrets.$secretId.rotate'
 import { Route as ApiVaultTenantIdSecretsSecretIdRevealRouteImport } from './routes/api/vault/$tenantId/secrets.$secretId.reveal'
 import { Route as ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport } from './routes/api/infrastructure/budget/topups/$requestId.approve'
 import { Route as ApiDataVersionsHistoryEntityTypeEntityIdRouteImport } from './routes/api/data/versions/history/$entityType/$entityId'
@@ -1552,6 +1553,12 @@ const ApiAdvancedRolesTenantIdJitElevationIdRoute =
     path: '/$elevationId',
     getParentRoute: () => ApiAdvancedRolesTenantIdJitRoute,
   } as any)
+const ApiVaultTenantIdSecretsSecretIdRotateRoute =
+  ApiVaultTenantIdSecretsSecretIdRotateRouteImport.update({
+    id: '/$secretId/rotate',
+    path: '/$secretId/rotate',
+    getParentRoute: () => ApiVaultTenantIdSecretsRoute,
+  } as any)
 const ApiVaultTenantIdSecretsSecretIdRevealRoute =
   ApiVaultTenantIdSecretsSecretIdRevealRouteImport.update({
     id: '/$secretId/reveal',
@@ -1844,6 +1851,7 @@ export interface FileRoutesByFullPath {
   '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
   '/api/vault/$tenantId/secrets/$secretId/reveal': typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
+  '/api/vault/$tenantId/secrets/$secretId/rotate': typeof ApiVaultTenantIdSecretsSecretIdRotateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -2088,6 +2096,7 @@ export interface FileRoutesByTo {
   '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
   '/api/vault/$tenantId/secrets/$secretId/reveal': typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
+  '/api/vault/$tenantId/secrets/$secretId/rotate': typeof ApiVaultTenantIdSecretsSecretIdRotateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -2333,6 +2342,7 @@ export interface FileRoutesById {
   '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
   '/api/vault/$tenantId/secrets/$secretId/reveal': typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
+  '/api/vault/$tenantId/secrets/$secretId/rotate': typeof ApiVaultTenantIdSecretsSecretIdRotateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -2579,6 +2589,7 @@ export interface FileRouteTypes {
     | '/api/data/versions/history/$entityType/$entityId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
     | '/api/vault/$tenantId/secrets/$secretId/reveal'
+    | '/api/vault/$tenantId/secrets/$secretId/rotate'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -2823,6 +2834,7 @@ export interface FileRouteTypes {
     | '/api/data/versions/history/$entityType/$entityId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
     | '/api/vault/$tenantId/secrets/$secretId/reveal'
+    | '/api/vault/$tenantId/secrets/$secretId/rotate'
   id:
     | '__root__'
     | '/'
@@ -3067,6 +3079,7 @@ export interface FileRouteTypes {
     | '/api/data/versions/history/$entityType/$entityId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
     | '/api/vault/$tenantId/secrets/$secretId/reveal'
+    | '/api/vault/$tenantId/secrets/$secretId/rotate'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -4931,6 +4944,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAdvancedRolesTenantIdJitElevationIdRouteImport
       parentRoute: typeof ApiAdvancedRolesTenantIdJitRoute
     }
+    '/api/vault/$tenantId/secrets/$secretId/rotate': {
+      id: '/api/vault/$tenantId/secrets/$secretId/rotate'
+      path: '/$secretId/rotate'
+      fullPath: '/api/vault/$tenantId/secrets/$secretId/rotate'
+      preLoaderRoute: typeof ApiVaultTenantIdSecretsSecretIdRotateRouteImport
+      parentRoute: typeof ApiVaultTenantIdSecretsRoute
+    }
     '/api/vault/$tenantId/secrets/$secretId/reveal': {
       id: '/api/vault/$tenantId/secrets/$secretId/reveal'
       path: '/$secretId/reveal'
@@ -5189,12 +5209,15 @@ const ApiIntelligenceReflectionMetricsRouteWithChildren =
 
 interface ApiVaultTenantIdSecretsRouteChildren {
   ApiVaultTenantIdSecretsSecretIdRevealRoute: typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
+  ApiVaultTenantIdSecretsSecretIdRotateRoute: typeof ApiVaultTenantIdSecretsSecretIdRotateRoute
 }
 
 const ApiVaultTenantIdSecretsRouteChildren: ApiVaultTenantIdSecretsRouteChildren =
   {
     ApiVaultTenantIdSecretsSecretIdRevealRoute:
       ApiVaultTenantIdSecretsSecretIdRevealRoute,
+    ApiVaultTenantIdSecretsSecretIdRotateRoute:
+      ApiVaultTenantIdSecretsSecretIdRotateRoute,
   }
 
 const ApiVaultTenantIdSecretsRouteWithChildren =
