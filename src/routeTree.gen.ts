@@ -82,6 +82,8 @@ import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './rout
 import { Route as ApiFinanceCostsTopToolsRouteImport } from './routes/api/finance/costs/top-tools'
 import { Route as ApiFinanceCostsPricingRouteImport } from './routes/api/finance/costs/pricing'
 import { Route as ApiFinanceCostsDepartmentsRouteImport } from './routes/api/finance/costs/departments'
+import { Route as ApiDataUserProfileRouteImport } from './routes/api/data/user/profile'
+import { Route as ApiDataUserAnalyzeRouteImport } from './routes/api/data/user/analyze'
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
 import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
@@ -102,6 +104,8 @@ import { Route as ApiInfrastructureDiscoveryReputationAgentIdRouteImport } from 
 import { Route as ApiInfrastructureBudgetWalletInstanceIdRouteImport } from './routes/api/infrastructure/budget/wallet.$instanceId'
 import { Route as ApiInfrastructureBudgetTopupsPendingRouteImport } from './routes/api/infrastructure/budget/topups/pending'
 import { Route as ApiInfrastructureBudgetLedgerInstanceIdRouteImport } from './routes/api/infrastructure/budget/ledger.$instanceId'
+import { Route as ApiDataUserMemoriesSearchRouteImport } from './routes/api/data/user/memories/search'
+import { Route as ApiDataUserMemoriesMemoryIdRouteImport } from './routes/api/data/user/memories/$memoryId'
 import { Route as ApiDataProjectProjectIdSearchRouteImport } from './routes/api/data/project/$projectId/search'
 import { Route as ApiDataProjectProjectIdMemoryRouteImport } from './routes/api/data/project/$projectId/memory'
 import { Route as ApiDataProjectProjectIdContextRouteImport } from './routes/api/data/project/$projectId/context'
@@ -520,6 +524,16 @@ const ApiFinanceCostsDepartmentsRoute =
     path: '/api/finance/costs/departments',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiDataUserProfileRoute = ApiDataUserProfileRouteImport.update({
+  id: '/api/data/user/profile',
+  path: '/api/data/user/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDataUserAnalyzeRoute = ApiDataUserAnalyzeRouteImport.update({
+  id: '/api/data/user/analyze',
+  path: '/api/data/user/analyze',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiCollaborationSessionIdProposalRoute =
   ApiCollaborationSessionIdProposalRouteImport.update({
     id: '/api/collaboration/$sessionId/proposal',
@@ -640,6 +654,18 @@ const ApiInfrastructureBudgetLedgerInstanceIdRoute =
     path: '/api/infrastructure/budget/ledger/$instanceId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiDataUserMemoriesSearchRoute =
+  ApiDataUserMemoriesSearchRouteImport.update({
+    id: '/api/data/user/memories/search',
+    path: '/api/data/user/memories/search',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiDataUserMemoriesMemoryIdRoute =
+  ApiDataUserMemoriesMemoryIdRouteImport.update({
+    id: '/api/data/user/memories/$memoryId',
+    path: '/api/data/user/memories/$memoryId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiDataProjectProjectIdSearchRoute =
   ApiDataProjectProjectIdSearchRouteImport.update({
     id: '/api/data/project/$projectId/search',
@@ -732,6 +758,8 @@ export interface FileRoutesByFullPath {
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
+  '/api/data/user/analyze': typeof ApiDataUserAnalyzeRoute
+  '/api/data/user/profile': typeof ApiDataUserProfileRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -787,6 +815,8 @@ export interface FileRoutesByFullPath {
   '/api/data/project/$projectId/context': typeof ApiDataProjectProjectIdContextRoute
   '/api/data/project/$projectId/memory': typeof ApiDataProjectProjectIdMemoryRoute
   '/api/data/project/$projectId/search': typeof ApiDataProjectProjectIdSearchRoute
+  '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
+  '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -837,6 +867,8 @@ export interface FileRoutesByTo {
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
+  '/api/data/user/analyze': typeof ApiDataUserAnalyzeRoute
+  '/api/data/user/profile': typeof ApiDataUserProfileRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -892,6 +924,8 @@ export interface FileRoutesByTo {
   '/api/data/project/$projectId/context': typeof ApiDataProjectProjectIdContextRoute
   '/api/data/project/$projectId/memory': typeof ApiDataProjectProjectIdMemoryRoute
   '/api/data/project/$projectId/search': typeof ApiDataProjectProjectIdSearchRoute
+  '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
+  '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -943,6 +977,8 @@ export interface FileRoutesById {
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
+  '/api/data/user/analyze': typeof ApiDataUserAnalyzeRoute
+  '/api/data/user/profile': typeof ApiDataUserProfileRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -998,6 +1034,8 @@ export interface FileRoutesById {
   '/api/data/project/$projectId/context': typeof ApiDataProjectProjectIdContextRoute
   '/api/data/project/$projectId/memory': typeof ApiDataProjectProjectIdMemoryRoute
   '/api/data/project/$projectId/search': typeof ApiDataProjectProjectIdSearchRoute
+  '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
+  '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -1050,6 +1088,8 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
+    | '/api/data/user/analyze'
+    | '/api/data/user/profile'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -1105,6 +1145,8 @@ export interface FileRouteTypes {
     | '/api/data/project/$projectId/context'
     | '/api/data/project/$projectId/memory'
     | '/api/data/project/$projectId/search'
+    | '/api/data/user/memories/$memoryId'
+    | '/api/data/user/memories/search'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -1155,6 +1197,8 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
+    | '/api/data/user/analyze'
+    | '/api/data/user/profile'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -1210,6 +1254,8 @@ export interface FileRouteTypes {
     | '/api/data/project/$projectId/context'
     | '/api/data/project/$projectId/memory'
     | '/api/data/project/$projectId/search'
+    | '/api/data/user/memories/$memoryId'
+    | '/api/data/user/memories/search'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -1260,6 +1306,8 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
+    | '/api/data/user/analyze'
+    | '/api/data/user/profile'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -1315,6 +1363,8 @@ export interface FileRouteTypes {
     | '/api/data/project/$projectId/context'
     | '/api/data/project/$projectId/memory'
     | '/api/data/project/$projectId/search'
+    | '/api/data/user/memories/$memoryId'
+    | '/api/data/user/memories/search'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -1366,6 +1416,8 @@ export interface RootRouteChildren {
   ApiAnalyticsToolsOverviewRoute: typeof ApiAnalyticsToolsOverviewRoute
   ApiCollaborationSessionIdBlackboardRoute: typeof ApiCollaborationSessionIdBlackboardRoute
   ApiCollaborationSessionIdProposalRoute: typeof ApiCollaborationSessionIdProposalRoute
+  ApiDataUserAnalyzeRoute: typeof ApiDataUserAnalyzeRoute
+  ApiDataUserProfileRoute: typeof ApiDataUserProfileRoute
   ApiFinanceCostsDepartmentsRoute: typeof ApiFinanceCostsDepartmentsRoute
   ApiFinanceCostsPricingRoute: typeof ApiFinanceCostsPricingRoute
   ApiFinanceCostsTopToolsRoute: typeof ApiFinanceCostsTopToolsRoute
@@ -1420,6 +1472,8 @@ export interface RootRouteChildren {
   ApiDataProjectProjectIdContextRoute: typeof ApiDataProjectProjectIdContextRoute
   ApiDataProjectProjectIdMemoryRoute: typeof ApiDataProjectProjectIdMemoryRoute
   ApiDataProjectProjectIdSearchRoute: typeof ApiDataProjectProjectIdSearchRoute
+  ApiDataUserMemoriesMemoryIdRoute: typeof ApiDataUserMemoriesMemoryIdRoute
+  ApiDataUserMemoriesSearchRoute: typeof ApiDataUserMemoriesSearchRoute
   ApiInfrastructureBudgetLedgerInstanceIdRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   ApiInfrastructureBudgetTopupsPendingRoute: typeof ApiInfrastructureBudgetTopupsPendingRoute
   ApiInfrastructureBudgetWalletInstanceIdRoute: typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -1950,6 +2004,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiFinanceCostsDepartmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/data/user/profile': {
+      id: '/api/data/user/profile'
+      path: '/api/data/user/profile'
+      fullPath: '/api/data/user/profile'
+      preLoaderRoute: typeof ApiDataUserProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/data/user/analyze': {
+      id: '/api/data/user/analyze'
+      path: '/api/data/user/analyze'
+      fullPath: '/api/data/user/analyze'
+      preLoaderRoute: typeof ApiDataUserAnalyzeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/collaboration/$sessionId/proposal': {
       id: '/api/collaboration/$sessionId/proposal'
       path: '/api/collaboration/$sessionId/proposal'
@@ -2088,6 +2156,20 @@ declare module '@tanstack/react-router' {
       path: '/api/infrastructure/budget/ledger/$instanceId'
       fullPath: '/api/infrastructure/budget/ledger/$instanceId'
       preLoaderRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/data/user/memories/search': {
+      id: '/api/data/user/memories/search'
+      path: '/api/data/user/memories/search'
+      fullPath: '/api/data/user/memories/search'
+      preLoaderRoute: typeof ApiDataUserMemoriesSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/data/user/memories/$memoryId': {
+      id: '/api/data/user/memories/$memoryId'
+      path: '/api/data/user/memories/$memoryId'
+      fullPath: '/api/data/user/memories/$memoryId'
+      preLoaderRoute: typeof ApiDataUserMemoriesMemoryIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/data/project/$projectId/search': {
@@ -2245,6 +2327,8 @@ const rootRouteChildren: RootRouteChildren = {
     ApiCollaborationSessionIdBlackboardRoute,
   ApiCollaborationSessionIdProposalRoute:
     ApiCollaborationSessionIdProposalRoute,
+  ApiDataUserAnalyzeRoute: ApiDataUserAnalyzeRoute,
+  ApiDataUserProfileRoute: ApiDataUserProfileRoute,
   ApiFinanceCostsDepartmentsRoute: ApiFinanceCostsDepartmentsRoute,
   ApiFinanceCostsPricingRoute: ApiFinanceCostsPricingRoute,
   ApiFinanceCostsTopToolsRoute: ApiFinanceCostsTopToolsRoute,
@@ -2311,6 +2395,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiDataProjectProjectIdContextRoute: ApiDataProjectProjectIdContextRoute,
   ApiDataProjectProjectIdMemoryRoute: ApiDataProjectProjectIdMemoryRoute,
   ApiDataProjectProjectIdSearchRoute: ApiDataProjectProjectIdSearchRoute,
+  ApiDataUserMemoriesMemoryIdRoute: ApiDataUserMemoriesMemoryIdRoute,
+  ApiDataUserMemoriesSearchRoute: ApiDataUserMemoriesSearchRoute,
   ApiInfrastructureBudgetLedgerInstanceIdRoute:
     ApiInfrastructureBudgetLedgerInstanceIdRoute,
   ApiInfrastructureBudgetTopupsPendingRoute:
