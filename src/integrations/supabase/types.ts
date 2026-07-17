@@ -1681,6 +1681,54 @@ export type Database = {
         }
         Relationships: []
       }
+      cross_workspace_access: {
+        Row: {
+          access_type: string
+          expires_at: string | null
+          granted_at: string
+          granted_by: string
+          id: string
+          is_active: boolean
+          source_workspace_id: string
+          target_workspace_id: string
+        }
+        Insert: {
+          access_type: string
+          expires_at?: string | null
+          granted_at?: string
+          granted_by: string
+          id: string
+          is_active?: boolean
+          source_workspace_id: string
+          target_workspace_id: string
+        }
+        Update: {
+          access_type?: string
+          expires_at?: string | null
+          granted_at?: string
+          granted_by?: string
+          id?: string
+          is_active?: boolean
+          source_workspace_id?: string
+          target_workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cross_workspace_access_source_workspace_id_fkey"
+            columns: ["source_workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cross_workspace_access_target_workspace_id_fkey"
+            columns: ["target_workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       daily_budget_usage: {
         Row: {
           agent_id: string
@@ -4219,6 +4267,147 @@ export type Database = {
             columns: ["workflow_id"]
             isOneToOne: false
             referencedRelation: "workflow_definitions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workspace_budget_usage: {
+        Row: {
+          amount_usd: number
+          description: string | null
+          id: string
+          recorded_at: string
+          workspace_id: string
+        }
+        Insert: {
+          amount_usd: number
+          description?: string | null
+          id: string
+          recorded_at?: string
+          workspace_id: string
+        }
+        Update: {
+          amount_usd?: number
+          description?: string | null
+          id?: string
+          recorded_at?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workspace_budget_usage_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workspace_memberships: {
+        Row: {
+          id: string
+          joined_at: string
+          last_active_at: string | null
+          permissions: string[] | null
+          role: string
+          user_id: string
+          workspace_id: string
+        }
+        Insert: {
+          id: string
+          joined_at?: string
+          last_active_at?: string | null
+          permissions?: string[] | null
+          role: string
+          user_id: string
+          workspace_id: string
+        }
+        Update: {
+          id?: string
+          joined_at?: string
+          last_active_at?: string | null
+          permissions?: string[] | null
+          role?: string
+          user_id?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workspace_memberships_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workspaces: {
+        Row: {
+          archived_at: string | null
+          created_at: string
+          description: string | null
+          id: string
+          isolation_level: string
+          isolation_policy: Json
+          max_members: number
+          member_ids: Json
+          metadata: Json | null
+          name: string
+          owner_id: string
+          resource_quota: Json
+          slug: string
+          status: string
+          tags: string[] | null
+          tenant_id: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          archived_at?: string | null
+          created_at?: string
+          description?: string | null
+          id: string
+          isolation_level: string
+          isolation_policy?: Json
+          max_members?: number
+          member_ids?: Json
+          metadata?: Json | null
+          name: string
+          owner_id: string
+          resource_quota?: Json
+          slug: string
+          status?: string
+          tags?: string[] | null
+          tenant_id: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          archived_at?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          isolation_level?: string
+          isolation_policy?: Json
+          max_members?: number
+          member_ids?: Json
+          metadata?: Json | null
+          name?: string
+          owner_id?: string
+          resource_quota?: Json
+          slug?: string
+          status?: string
+          tags?: string[] | null
+          tenant_id?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workspaces_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
         ]

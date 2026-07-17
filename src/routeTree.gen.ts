@@ -41,6 +41,8 @@ import { Route as ApiBillingPlansRouteImport } from './routes/api/billing/plans'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
 import { Route as ApiAdvancedRolesTemplatesRouteImport } from './routes/api/advanced-roles/templates'
 import { Route as ApiInfrastructureDiscoveryRouteRouteImport } from './routes/api/infrastructure/discovery/route'
+import { Route as ApiWorkspacesWorkspaceIdIndexRouteImport } from './routes/api/workspaces/$workspaceId/index'
+import { Route as ApiWorkspacesTenantIdIndexRouteImport } from './routes/api/workspaces/$tenantId/index'
 import { Route as ApiToolsPoliciesIndexRouteImport } from './routes/api/tools/policies/index'
 import { Route as ApiToolsMarketplaceIndexRouteImport } from './routes/api/tools/marketplace/index'
 import { Route as ApiIntelligenceLearnIndexRouteImport } from './routes/api/intelligence/learn/index'
@@ -50,6 +52,9 @@ import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/in
 import { Route as ApiGovernanceDsarIndexRouteImport } from './routes/api/governance/dsar/index'
 import { Route as ApiApikeysTenantIdIndexRouteImport } from './routes/api/apikeys/$tenantId/index'
 import { Route as ApiAdvancedRolesTenantIdIndexRouteImport } from './routes/api/advanced-roles/$tenantId/index'
+import { Route as ApiWorkspacesWorkspaceIdMembersRouteImport } from './routes/api/workspaces/$workspaceId/members'
+import { Route as ApiWorkspacesWorkspaceIdCrossAccessRouteImport } from './routes/api/workspaces/$workspaceId/cross-access'
+import { Route as ApiWorkspacesWorkspaceIdBudgetRouteImport } from './routes/api/workspaces/$workspaceId/budget'
 import { Route as ApiToolsVersioningPinRouteImport } from './routes/api/tools/versioning/pin'
 import { Route as ApiToolsPoliciesTestRouteImport } from './routes/api/tools/policies/test'
 import { Route as ApiToolsPoliciesLogsRouteImport } from './routes/api/tools/policies/logs'
@@ -136,6 +141,7 @@ import { Route as ApiAdvancedRolesTenantIdHierarchyRouteImport } from './routes/
 import { Route as ApiAdvancedRolesTenantIdFromTemplateRouteImport } from './routes/api/advanced-roles/$tenantId/from-template'
 import { Route as ApiAdvancedRolesTenantIdRoleIdRouteImport } from './routes/api/advanced-roles/$tenantId/$roleId'
 import { Route as ApiApikeysTenantIdKeyIdIndexRouteImport } from './routes/api/apikeys/$tenantId/$keyId/index'
+import { Route as ApiWorkspacesWorkspaceIdMembersUserIdRouteImport } from './routes/api/workspaces/$workspaceId/members/$userId'
 import { Route as ApiToolsVersioningToolNameVersionsRouteImport } from './routes/api/tools/versioning/$toolName/versions'
 import { Route as ApiToolsVersioningToolNameRollbackRouteImport } from './routes/api/tools/versioning/$toolName/rollback'
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
@@ -349,6 +355,18 @@ const ApiInfrastructureDiscoveryRouteRoute =
     path: '/api/infrastructure/discovery',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiWorkspacesWorkspaceIdIndexRoute =
+  ApiWorkspacesWorkspaceIdIndexRouteImport.update({
+    id: '/api/workspaces/$workspaceId/',
+    path: '/api/workspaces/$workspaceId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiWorkspacesTenantIdIndexRoute =
+  ApiWorkspacesTenantIdIndexRouteImport.update({
+    id: '/api/workspaces/$tenantId/',
+    path: '/api/workspaces/$tenantId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiToolsPoliciesIndexRoute = ApiToolsPoliciesIndexRouteImport.update({
   id: '/api/tools/policies/',
   path: '/api/tools/policies/',
@@ -398,6 +416,24 @@ const ApiAdvancedRolesTenantIdIndexRoute =
   ApiAdvancedRolesTenantIdIndexRouteImport.update({
     id: '/api/advanced-roles/$tenantId/',
     path: '/api/advanced-roles/$tenantId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiWorkspacesWorkspaceIdMembersRoute =
+  ApiWorkspacesWorkspaceIdMembersRouteImport.update({
+    id: '/api/workspaces/$workspaceId/members',
+    path: '/api/workspaces/$workspaceId/members',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiWorkspacesWorkspaceIdCrossAccessRoute =
+  ApiWorkspacesWorkspaceIdCrossAccessRouteImport.update({
+    id: '/api/workspaces/$workspaceId/cross-access',
+    path: '/api/workspaces/$workspaceId/cross-access',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiWorkspacesWorkspaceIdBudgetRoute =
+  ApiWorkspacesWorkspaceIdBudgetRouteImport.update({
+    id: '/api/workspaces/$workspaceId/budget',
+    path: '/api/workspaces/$workspaceId/budget',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiToolsVersioningPinRoute = ApiToolsVersioningPinRouteImport.update({
@@ -886,6 +922,12 @@ const ApiApikeysTenantIdKeyIdIndexRoute =
     path: '/api/apikeys/$tenantId/$keyId/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiWorkspacesWorkspaceIdMembersUserIdRoute =
+  ApiWorkspacesWorkspaceIdMembersUserIdRouteImport.update({
+    id: '/$userId',
+    path: '/$userId',
+    getParentRoute: () => ApiWorkspacesWorkspaceIdMembersRoute,
+  } as any)
 const ApiToolsVersioningToolNameVersionsRoute =
   ApiToolsVersioningToolNameVersionsRouteImport.update({
     id: '/api/tools/versioning/$toolName/versions',
@@ -1281,6 +1323,9 @@ export interface FileRoutesByFullPath {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/workspaces/$workspaceId/budget': typeof ApiWorkspacesWorkspaceIdBudgetRoute
+  '/api/workspaces/$workspaceId/cross-access': typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
+  '/api/workspaces/$workspaceId/members': typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
   '/api/advanced-roles/$tenantId/': typeof ApiAdvancedRolesTenantIdIndexRoute
   '/api/apikeys/$tenantId/': typeof ApiApikeysTenantIdIndexRoute
   '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
@@ -1290,6 +1335,8 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
   '/api/tools/policies/': typeof ApiToolsPoliciesIndexRoute
+  '/api/workspaces/$tenantId/': typeof ApiWorkspacesTenantIdIndexRoute
+  '/api/workspaces/$workspaceId/': typeof ApiWorkspacesWorkspaceIdIndexRoute
   '/api/advanced-roles/$tenantId/jit/$elevationId': typeof ApiAdvancedRolesTenantIdJitElevationIdRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
@@ -1329,6 +1376,7 @@ export interface FileRoutesByFullPath {
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
+  '/api/workspaces/$workspaceId/members/$userId': typeof ApiWorkspacesWorkspaceIdMembersUserIdRoute
   '/api/apikeys/$tenantId/$keyId/': typeof ApiApikeysTenantIdKeyIdIndexRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
@@ -1456,6 +1504,9 @@ export interface FileRoutesByTo {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/workspaces/$workspaceId/budget': typeof ApiWorkspacesWorkspaceIdBudgetRoute
+  '/api/workspaces/$workspaceId/cross-access': typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
+  '/api/workspaces/$workspaceId/members': typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
   '/api/advanced-roles/$tenantId': typeof ApiAdvancedRolesTenantIdIndexRoute
   '/api/apikeys/$tenantId': typeof ApiApikeysTenantIdIndexRoute
   '/api/governance/dsar': typeof ApiGovernanceDsarIndexRoute
@@ -1465,6 +1516,8 @@ export interface FileRoutesByTo {
   '/api/intelligence/learn': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace': typeof ApiToolsMarketplaceIndexRoute
   '/api/tools/policies': typeof ApiToolsPoliciesIndexRoute
+  '/api/workspaces/$tenantId': typeof ApiWorkspacesTenantIdIndexRoute
+  '/api/workspaces/$workspaceId': typeof ApiWorkspacesWorkspaceIdIndexRoute
   '/api/advanced-roles/$tenantId/jit/$elevationId': typeof ApiAdvancedRolesTenantIdJitElevationIdRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
@@ -1504,6 +1557,7 @@ export interface FileRoutesByTo {
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
+  '/api/workspaces/$workspaceId/members/$userId': typeof ApiWorkspacesWorkspaceIdMembersUserIdRoute
   '/api/apikeys/$tenantId/$keyId': typeof ApiApikeysTenantIdKeyIdIndexRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
@@ -1632,6 +1686,9 @@ export interface FileRoutesById {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/workspaces/$workspaceId/budget': typeof ApiWorkspacesWorkspaceIdBudgetRoute
+  '/api/workspaces/$workspaceId/cross-access': typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
+  '/api/workspaces/$workspaceId/members': typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
   '/api/advanced-roles/$tenantId/': typeof ApiAdvancedRolesTenantIdIndexRoute
   '/api/apikeys/$tenantId/': typeof ApiApikeysTenantIdIndexRoute
   '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
@@ -1641,6 +1698,8 @@ export interface FileRoutesById {
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
   '/api/tools/policies/': typeof ApiToolsPoliciesIndexRoute
+  '/api/workspaces/$tenantId/': typeof ApiWorkspacesTenantIdIndexRoute
+  '/api/workspaces/$workspaceId/': typeof ApiWorkspacesWorkspaceIdIndexRoute
   '/api/advanced-roles/$tenantId/jit/$elevationId': typeof ApiAdvancedRolesTenantIdJitElevationIdRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
@@ -1680,6 +1739,7 @@ export interface FileRoutesById {
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
+  '/api/workspaces/$workspaceId/members/$userId': typeof ApiWorkspacesWorkspaceIdMembersUserIdRoute
   '/api/apikeys/$tenantId/$keyId/': typeof ApiApikeysTenantIdKeyIdIndexRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
@@ -1809,6 +1869,9 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/workspaces/$workspaceId/budget'
+    | '/api/workspaces/$workspaceId/cross-access'
+    | '/api/workspaces/$workspaceId/members'
     | '/api/advanced-roles/$tenantId/'
     | '/api/apikeys/$tenantId/'
     | '/api/governance/dsar/'
@@ -1818,6 +1881,8 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/'
     | '/api/tools/marketplace/'
     | '/api/tools/policies/'
+    | '/api/workspaces/$tenantId/'
+    | '/api/workspaces/$workspaceId/'
     | '/api/advanced-roles/$tenantId/jit/$elevationId'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
@@ -1857,6 +1922,7 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
+    | '/api/workspaces/$workspaceId/members/$userId'
     | '/api/apikeys/$tenantId/$keyId/'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
@@ -1984,6 +2050,9 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/workspaces/$workspaceId/budget'
+    | '/api/workspaces/$workspaceId/cross-access'
+    | '/api/workspaces/$workspaceId/members'
     | '/api/advanced-roles/$tenantId'
     | '/api/apikeys/$tenantId'
     | '/api/governance/dsar'
@@ -1993,6 +2062,8 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn'
     | '/api/tools/marketplace'
     | '/api/tools/policies'
+    | '/api/workspaces/$tenantId'
+    | '/api/workspaces/$workspaceId'
     | '/api/advanced-roles/$tenantId/jit/$elevationId'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
@@ -2032,6 +2103,7 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
+    | '/api/workspaces/$workspaceId/members/$userId'
     | '/api/apikeys/$tenantId/$keyId'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
@@ -2159,6 +2231,9 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/workspaces/$workspaceId/budget'
+    | '/api/workspaces/$workspaceId/cross-access'
+    | '/api/workspaces/$workspaceId/members'
     | '/api/advanced-roles/$tenantId/'
     | '/api/apikeys/$tenantId/'
     | '/api/governance/dsar/'
@@ -2168,6 +2243,8 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/'
     | '/api/tools/marketplace/'
     | '/api/tools/policies/'
+    | '/api/workspaces/$tenantId/'
+    | '/api/workspaces/$workspaceId/'
     | '/api/advanced-roles/$tenantId/jit/$elevationId'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
@@ -2207,6 +2284,7 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
+    | '/api/workspaces/$workspaceId/members/$userId'
     | '/api/apikeys/$tenantId/$keyId/'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
@@ -2334,6 +2412,9 @@ export interface RootRouteChildren {
   ApiToolsPoliciesLogsRoute: typeof ApiToolsPoliciesLogsRoute
   ApiToolsPoliciesTestRoute: typeof ApiToolsPoliciesTestRoute
   ApiToolsVersioningPinRoute: typeof ApiToolsVersioningPinRoute
+  ApiWorkspacesWorkspaceIdBudgetRoute: typeof ApiWorkspacesWorkspaceIdBudgetRoute
+  ApiWorkspacesWorkspaceIdCrossAccessRoute: typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
+  ApiWorkspacesWorkspaceIdMembersRoute: typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
   ApiAdvancedRolesTenantIdIndexRoute: typeof ApiAdvancedRolesTenantIdIndexRoute
   ApiApikeysTenantIdIndexRoute: typeof ApiApikeysTenantIdIndexRoute
   ApiGovernanceDsarIndexRoute: typeof ApiGovernanceDsarIndexRoute
@@ -2343,6 +2424,8 @@ export interface RootRouteChildren {
   ApiIntelligenceLearnIndexRoute: typeof ApiIntelligenceLearnIndexRoute
   ApiToolsMarketplaceIndexRoute: typeof ApiToolsMarketplaceIndexRoute
   ApiToolsPoliciesIndexRoute: typeof ApiToolsPoliciesIndexRoute
+  ApiWorkspacesTenantIdIndexRoute: typeof ApiWorkspacesTenantIdIndexRoute
+  ApiWorkspacesWorkspaceIdIndexRoute: typeof ApiWorkspacesWorkspaceIdIndexRoute
   ApiAnalyticsToolsToolNameErrorsRoute: typeof ApiAnalyticsToolsToolNameErrorsRoute
   ApiAnalyticsToolsToolNameHistoryRoute: typeof ApiAnalyticsToolsToolNameHistoryRoute
   ApiAnalyticsToolsToolNameRpmRoute: typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -2614,6 +2697,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureDiscoveryRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/workspaces/$workspaceId/': {
+      id: '/api/workspaces/$workspaceId/'
+      path: '/api/workspaces/$workspaceId'
+      fullPath: '/api/workspaces/$workspaceId/'
+      preLoaderRoute: typeof ApiWorkspacesWorkspaceIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/workspaces/$tenantId/': {
+      id: '/api/workspaces/$tenantId/'
+      path: '/api/workspaces/$tenantId'
+      fullPath: '/api/workspaces/$tenantId/'
+      preLoaderRoute: typeof ApiWorkspacesTenantIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/tools/policies/': {
       id: '/api/tools/policies/'
       path: '/api/tools/policies'
@@ -2675,6 +2772,27 @@ declare module '@tanstack/react-router' {
       path: '/api/advanced-roles/$tenantId'
       fullPath: '/api/advanced-roles/$tenantId/'
       preLoaderRoute: typeof ApiAdvancedRolesTenantIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/workspaces/$workspaceId/members': {
+      id: '/api/workspaces/$workspaceId/members'
+      path: '/api/workspaces/$workspaceId/members'
+      fullPath: '/api/workspaces/$workspaceId/members'
+      preLoaderRoute: typeof ApiWorkspacesWorkspaceIdMembersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/workspaces/$workspaceId/cross-access': {
+      id: '/api/workspaces/$workspaceId/cross-access'
+      path: '/api/workspaces/$workspaceId/cross-access'
+      fullPath: '/api/workspaces/$workspaceId/cross-access'
+      preLoaderRoute: typeof ApiWorkspacesWorkspaceIdCrossAccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/workspaces/$workspaceId/budget': {
+      id: '/api/workspaces/$workspaceId/budget'
+      path: '/api/workspaces/$workspaceId/budget'
+      fullPath: '/api/workspaces/$workspaceId/budget'
+      preLoaderRoute: typeof ApiWorkspacesWorkspaceIdBudgetRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/tools/versioning/pin': {
@@ -3279,6 +3397,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiApikeysTenantIdKeyIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/workspaces/$workspaceId/members/$userId': {
+      id: '/api/workspaces/$workspaceId/members/$userId'
+      path: '/$userId'
+      fullPath: '/api/workspaces/$workspaceId/members/$userId'
+      preLoaderRoute: typeof ApiWorkspacesWorkspaceIdMembersUserIdRouteImport
+      parentRoute: typeof ApiWorkspacesWorkspaceIdMembersRoute
+    }
     '/api/tools/versioning/$toolName/versions': {
       id: '/api/tools/versioning/$toolName/versions'
       path: '/api/tools/versioning/$toolName/versions'
@@ -3667,6 +3792,21 @@ const ApiIntelligenceReflectionMetricsRouteWithChildren =
     ApiIntelligenceReflectionMetricsRouteChildren,
   )
 
+interface ApiWorkspacesWorkspaceIdMembersRouteChildren {
+  ApiWorkspacesWorkspaceIdMembersUserIdRoute: typeof ApiWorkspacesWorkspaceIdMembersUserIdRoute
+}
+
+const ApiWorkspacesWorkspaceIdMembersRouteChildren: ApiWorkspacesWorkspaceIdMembersRouteChildren =
+  {
+    ApiWorkspacesWorkspaceIdMembersUserIdRoute:
+      ApiWorkspacesWorkspaceIdMembersUserIdRoute,
+  }
+
+const ApiWorkspacesWorkspaceIdMembersRouteWithChildren =
+  ApiWorkspacesWorkspaceIdMembersRoute._addFileChildren(
+    ApiWorkspacesWorkspaceIdMembersRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgencyRoute: AgencyRoute,
@@ -3802,6 +3942,11 @@ const rootRouteChildren: RootRouteChildren = {
   ApiToolsPoliciesLogsRoute: ApiToolsPoliciesLogsRoute,
   ApiToolsPoliciesTestRoute: ApiToolsPoliciesTestRoute,
   ApiToolsVersioningPinRoute: ApiToolsVersioningPinRoute,
+  ApiWorkspacesWorkspaceIdBudgetRoute: ApiWorkspacesWorkspaceIdBudgetRoute,
+  ApiWorkspacesWorkspaceIdCrossAccessRoute:
+    ApiWorkspacesWorkspaceIdCrossAccessRoute,
+  ApiWorkspacesWorkspaceIdMembersRoute:
+    ApiWorkspacesWorkspaceIdMembersRouteWithChildren,
   ApiAdvancedRolesTenantIdIndexRoute: ApiAdvancedRolesTenantIdIndexRoute,
   ApiApikeysTenantIdIndexRoute: ApiApikeysTenantIdIndexRoute,
   ApiGovernanceDsarIndexRoute: ApiGovernanceDsarIndexRoute,
@@ -3811,6 +3956,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiIntelligenceLearnIndexRoute: ApiIntelligenceLearnIndexRoute,
   ApiToolsMarketplaceIndexRoute: ApiToolsMarketplaceIndexRoute,
   ApiToolsPoliciesIndexRoute: ApiToolsPoliciesIndexRoute,
+  ApiWorkspacesTenantIdIndexRoute: ApiWorkspacesTenantIdIndexRoute,
+  ApiWorkspacesWorkspaceIdIndexRoute: ApiWorkspacesWorkspaceIdIndexRoute,
   ApiAnalyticsToolsToolNameErrorsRoute: ApiAnalyticsToolsToolNameErrorsRoute,
   ApiAnalyticsToolsToolNameHistoryRoute: ApiAnalyticsToolsToolNameHistoryRoute,
   ApiAnalyticsToolsToolNameRpmRoute: ApiAnalyticsToolsToolNameRpmRoute,
