@@ -82,6 +82,9 @@ import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './rout
 import { Route as ApiFinanceCostsTopToolsRouteImport } from './routes/api/finance/costs/top-tools'
 import { Route as ApiFinanceCostsPricingRouteImport } from './routes/api/finance/costs/pricing'
 import { Route as ApiFinanceCostsDepartmentsRouteImport } from './routes/api/finance/costs/departments'
+import { Route as ApiDataVersionsRollbackRouteImport } from './routes/api/data/versions/rollback'
+import { Route as ApiDataVersionsDiffRouteImport } from './routes/api/data/versions/diff'
+import { Route as ApiDataVersionsVersionIdRouteImport } from './routes/api/data/versions/$versionId'
 import { Route as ApiDataUserProfileRouteImport } from './routes/api/data/user/profile'
 import { Route as ApiDataUserAnalyzeRouteImport } from './routes/api/data/user/analyze'
 import { Route as ApiDataSnapshotsDiffRouteImport } from './routes/api/data/snapshots/diff'
@@ -127,6 +130,8 @@ import { Route as ApiAnalyticsToolsToolNameRpmRouteImport } from './routes/api/a
 import { Route as ApiAnalyticsToolsToolNameHistoryRouteImport } from './routes/api/analytics/tools/$toolName/history'
 import { Route as ApiAnalyticsToolsToolNameErrorsRouteImport } from './routes/api/analytics/tools/$toolName/errors'
 import { Route as ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport } from './routes/api/infrastructure/budget/topups/$requestId.approve'
+import { Route as ApiDataVersionsHistoryEntityTypeEntityIdRouteImport } from './routes/api/data/versions/history/$entityType/$entityId'
+import { Route as ApiDataVersionsCurrentEntityTypeEntityIdRouteImport } from './routes/api/data/versions/current/$entityType/$entityId'
 import { Route as ApiDataSharedPromotionsPromotionIdRejectRouteImport } from './routes/api/data/shared/promotions/$promotionId/reject'
 import { Route as ApiDataSharedPromotionsPromotionIdApproveRouteImport } from './routes/api/data/shared/promotions/$promotionId/approve'
 
@@ -537,6 +542,22 @@ const ApiFinanceCostsDepartmentsRoute =
     path: '/api/finance/costs/departments',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiDataVersionsRollbackRoute = ApiDataVersionsRollbackRouteImport.update({
+  id: '/api/data/versions/rollback',
+  path: '/api/data/versions/rollback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDataVersionsDiffRoute = ApiDataVersionsDiffRouteImport.update({
+  id: '/api/data/versions/diff',
+  path: '/api/data/versions/diff',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDataVersionsVersionIdRoute =
+  ApiDataVersionsVersionIdRouteImport.update({
+    id: '/api/data/versions/$versionId',
+    path: '/api/data/versions/$versionId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiDataUserProfileRoute = ApiDataUserProfileRouteImport.update({
   id: '/api/data/user/profile',
   path: '/api/data/user/profile',
@@ -801,6 +822,18 @@ const ApiInfrastructureBudgetTopupsRequestIdApproveRoute =
     path: '/api/infrastructure/budget/topups/$requestId/approve',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiDataVersionsHistoryEntityTypeEntityIdRoute =
+  ApiDataVersionsHistoryEntityTypeEntityIdRouteImport.update({
+    id: '/api/data/versions/history/$entityType/$entityId',
+    path: '/api/data/versions/history/$entityType/$entityId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiDataVersionsCurrentEntityTypeEntityIdRoute =
+  ApiDataVersionsCurrentEntityTypeEntityIdRouteImport.update({
+    id: '/api/data/versions/current/$entityType/$entityId',
+    path: '/api/data/versions/current/$entityType/$entityId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiDataSharedPromotionsPromotionIdRejectRoute =
   ApiDataSharedPromotionsPromotionIdRejectRouteImport.update({
     id: '/api/data/shared/promotions/$promotionId/reject',
@@ -855,6 +888,9 @@ export interface FileRoutesByFullPath {
   '/api/data/snapshots/diff': typeof ApiDataSnapshotsDiffRoute
   '/api/data/user/analyze': typeof ApiDataUserAnalyzeRoute
   '/api/data/user/profile': typeof ApiDataUserProfileRoute
+  '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
+  '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
+  '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -934,6 +970,8 @@ export interface FileRoutesByFullPath {
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
+  '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
+  '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRoutesByTo {
@@ -977,6 +1015,9 @@ export interface FileRoutesByTo {
   '/api/data/snapshots/diff': typeof ApiDataSnapshotsDiffRoute
   '/api/data/user/analyze': typeof ApiDataUserAnalyzeRoute
   '/api/data/user/profile': typeof ApiDataUserProfileRoute
+  '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
+  '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
+  '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -1056,6 +1097,8 @@ export interface FileRoutesByTo {
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
+  '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
+  '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRoutesById {
@@ -1100,6 +1143,9 @@ export interface FileRoutesById {
   '/api/data/snapshots/diff': typeof ApiDataSnapshotsDiffRoute
   '/api/data/user/analyze': typeof ApiDataUserAnalyzeRoute
   '/api/data/user/profile': typeof ApiDataUserProfileRoute
+  '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
+  '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
+  '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -1179,6 +1225,8 @@ export interface FileRoutesById {
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
+  '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
+  '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRouteTypes {
@@ -1224,6 +1272,9 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/diff'
     | '/api/data/user/analyze'
     | '/api/data/user/profile'
+    | '/api/data/versions/$versionId'
+    | '/api/data/versions/diff'
+    | '/api/data/versions/rollback'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -1303,6 +1354,8 @@ export interface FileRouteTypes {
     | '/api/tools/versioning/$toolName/versions'
     | '/api/data/shared/promotions/$promotionId/approve'
     | '/api/data/shared/promotions/$promotionId/reject'
+    | '/api/data/versions/current/$entityType/$entityId'
+    | '/api/data/versions/history/$entityType/$entityId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -1346,6 +1399,9 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/diff'
     | '/api/data/user/analyze'
     | '/api/data/user/profile'
+    | '/api/data/versions/$versionId'
+    | '/api/data/versions/diff'
+    | '/api/data/versions/rollback'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -1425,6 +1481,8 @@ export interface FileRouteTypes {
     | '/api/tools/versioning/$toolName/versions'
     | '/api/data/shared/promotions/$promotionId/approve'
     | '/api/data/shared/promotions/$promotionId/reject'
+    | '/api/data/versions/current/$entityType/$entityId'
+    | '/api/data/versions/history/$entityType/$entityId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   id:
     | '__root__'
@@ -1468,6 +1526,9 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/diff'
     | '/api/data/user/analyze'
     | '/api/data/user/profile'
+    | '/api/data/versions/$versionId'
+    | '/api/data/versions/diff'
+    | '/api/data/versions/rollback'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -1547,6 +1608,8 @@ export interface FileRouteTypes {
     | '/api/tools/versioning/$toolName/versions'
     | '/api/data/shared/promotions/$promotionId/approve'
     | '/api/data/shared/promotions/$promotionId/reject'
+    | '/api/data/versions/current/$entityType/$entityId'
+    | '/api/data/versions/history/$entityType/$entityId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesById: FileRoutesById
 }
@@ -1591,6 +1654,9 @@ export interface RootRouteChildren {
   ApiDataSnapshotsDiffRoute: typeof ApiDataSnapshotsDiffRoute
   ApiDataUserAnalyzeRoute: typeof ApiDataUserAnalyzeRoute
   ApiDataUserProfileRoute: typeof ApiDataUserProfileRoute
+  ApiDataVersionsVersionIdRoute: typeof ApiDataVersionsVersionIdRoute
+  ApiDataVersionsDiffRoute: typeof ApiDataVersionsDiffRoute
+  ApiDataVersionsRollbackRoute: typeof ApiDataVersionsRollbackRoute
   ApiFinanceCostsDepartmentsRoute: typeof ApiFinanceCostsDepartmentsRoute
   ApiFinanceCostsPricingRoute: typeof ApiFinanceCostsPricingRoute
   ApiFinanceCostsTopToolsRoute: typeof ApiFinanceCostsTopToolsRoute
@@ -1666,6 +1732,8 @@ export interface RootRouteChildren {
   ApiToolsVersioningToolNameVersionsRoute: typeof ApiToolsVersioningToolNameVersionsRoute
   ApiDataSharedPromotionsPromotionIdApproveRoute: typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   ApiDataSharedPromotionsPromotionIdRejectRoute: typeof ApiDataSharedPromotionsPromotionIdRejectRoute
+  ApiDataVersionsCurrentEntityTypeEntityIdRoute: typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
+  ApiDataVersionsHistoryEntityTypeEntityIdRoute: typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 
@@ -2182,6 +2250,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiFinanceCostsDepartmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/data/versions/rollback': {
+      id: '/api/data/versions/rollback'
+      path: '/api/data/versions/rollback'
+      fullPath: '/api/data/versions/rollback'
+      preLoaderRoute: typeof ApiDataVersionsRollbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/data/versions/diff': {
+      id: '/api/data/versions/diff'
+      path: '/api/data/versions/diff'
+      fullPath: '/api/data/versions/diff'
+      preLoaderRoute: typeof ApiDataVersionsDiffRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/data/versions/$versionId': {
+      id: '/api/data/versions/$versionId'
+      path: '/api/data/versions/$versionId'
+      fullPath: '/api/data/versions/$versionId'
+      preLoaderRoute: typeof ApiDataVersionsVersionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/data/user/profile': {
       id: '/api/data/user/profile'
       path: '/api/data/user/profile'
@@ -2497,6 +2586,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/data/versions/history/$entityType/$entityId': {
+      id: '/api/data/versions/history/$entityType/$entityId'
+      path: '/api/data/versions/history/$entityType/$entityId'
+      fullPath: '/api/data/versions/history/$entityType/$entityId'
+      preLoaderRoute: typeof ApiDataVersionsHistoryEntityTypeEntityIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/data/versions/current/$entityType/$entityId': {
+      id: '/api/data/versions/current/$entityType/$entityId'
+      path: '/api/data/versions/current/$entityType/$entityId'
+      fullPath: '/api/data/versions/current/$entityType/$entityId'
+      preLoaderRoute: typeof ApiDataVersionsCurrentEntityTypeEntityIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/data/shared/promotions/$promotionId/reject': {
       id: '/api/data/shared/promotions/$promotionId/reject'
       path: '/api/data/shared/promotions/$promotionId/reject'
@@ -2607,6 +2710,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiDataSnapshotsDiffRoute: ApiDataSnapshotsDiffRoute,
   ApiDataUserAnalyzeRoute: ApiDataUserAnalyzeRoute,
   ApiDataUserProfileRoute: ApiDataUserProfileRoute,
+  ApiDataVersionsVersionIdRoute: ApiDataVersionsVersionIdRoute,
+  ApiDataVersionsDiffRoute: ApiDataVersionsDiffRoute,
+  ApiDataVersionsRollbackRoute: ApiDataVersionsRollbackRoute,
   ApiFinanceCostsDepartmentsRoute: ApiFinanceCostsDepartmentsRoute,
   ApiFinanceCostsPricingRoute: ApiFinanceCostsPricingRoute,
   ApiFinanceCostsTopToolsRoute: ApiFinanceCostsTopToolsRoute,
@@ -2706,6 +2812,10 @@ const rootRouteChildren: RootRouteChildren = {
     ApiDataSharedPromotionsPromotionIdApproveRoute,
   ApiDataSharedPromotionsPromotionIdRejectRoute:
     ApiDataSharedPromotionsPromotionIdRejectRoute,
+  ApiDataVersionsCurrentEntityTypeEntityIdRoute:
+    ApiDataVersionsCurrentEntityTypeEntityIdRoute,
+  ApiDataVersionsHistoryEntityTypeEntityIdRoute:
+    ApiDataVersionsHistoryEntityTypeEntityIdRoute,
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute:
     ApiInfrastructureBudgetTopupsRequestIdApproveRoute,
 }
