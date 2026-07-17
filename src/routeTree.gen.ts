@@ -233,6 +233,7 @@ import { Route as ApiToolsVersioningToolNameVersionsRouteImport } from './routes
 import { Route as ApiToolsVersioningToolNameRollbackRouteImport } from './routes/api/tools/versioning/$toolName/rollback'
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
 import { Route as ApiThreatTenantIdIocsCheckRouteImport } from './routes/api/threat/$tenantId/iocs.check'
+import { Route as ApiTestingTenantIdRunsRunIdRouteImport } from './routes/api/testing/$tenantId/runs.$runId'
 import { Route as ApiTeamsChannelsChannelIdMessagesRouteImport } from './routes/api/teams/channels/$channelId/messages'
 import { Route as ApiSystemDocsTenantIdDocIdPublishRouteImport } from './routes/api/system-docs/$tenantId/$docId.publish'
 import { Route as ApiSystemDocsTenantIdDocIdFeedbackRouteImport } from './routes/api/system-docs/$tenantId/$docId.feedback'
@@ -1564,6 +1565,12 @@ const ApiThreatTenantIdIocsCheckRoute =
     path: '/check',
     getParentRoute: () => ApiThreatTenantIdIocsRoute,
   } as any)
+const ApiTestingTenantIdRunsRunIdRoute =
+  ApiTestingTenantIdRunsRunIdRouteImport.update({
+    id: '/$runId',
+    path: '/$runId',
+    getParentRoute: () => ApiTestingTenantIdRunsRoute,
+  } as any)
 const ApiTeamsChannelsChannelIdMessagesRoute =
   ApiTeamsChannelsChannelIdMessagesRouteImport.update({
     id: '/api/teams/channels/$channelId/messages',
@@ -2320,7 +2327,7 @@ export interface FileRoutesByFullPath {
   '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
   '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
-  '/api/testing/$tenantId/runs': typeof ApiTestingTenantIdRunsRoute
+  '/api/testing/$tenantId/runs': typeof ApiTestingTenantIdRunsRouteWithChildren
   '/api/testing/$tenantId/suites': typeof ApiTestingTenantIdSuitesRouteWithChildren
   '/api/threat/$tenantId/analyze': typeof ApiThreatTenantIdAnalyzeRoute
   '/api/threat/$tenantId/anomalies': typeof ApiThreatTenantIdAnomaliesRoute
@@ -2431,6 +2438,7 @@ export interface FileRoutesByFullPath {
   '/api/system-docs/$tenantId/$docId/feedback': typeof ApiSystemDocsTenantIdDocIdFeedbackRoute
   '/api/system-docs/$tenantId/$docId/publish': typeof ApiSystemDocsTenantIdDocIdPublishRoute
   '/api/teams/channels/$channelId/messages': typeof ApiTeamsChannelsChannelIdMessagesRoute
+  '/api/testing/$tenantId/runs/$runId': typeof ApiTestingTenantIdRunsRunIdRoute
   '/api/threat/$tenantId/iocs/check': typeof ApiThreatTenantIdIocsCheckRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
@@ -2643,7 +2651,7 @@ export interface FileRoutesByTo {
   '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
   '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
-  '/api/testing/$tenantId/runs': typeof ApiTestingTenantIdRunsRoute
+  '/api/testing/$tenantId/runs': typeof ApiTestingTenantIdRunsRouteWithChildren
   '/api/testing/$tenantId/suites': typeof ApiTestingTenantIdSuitesRouteWithChildren
   '/api/threat/$tenantId/analyze': typeof ApiThreatTenantIdAnalyzeRoute
   '/api/threat/$tenantId/anomalies': typeof ApiThreatTenantIdAnomaliesRoute
@@ -2754,6 +2762,7 @@ export interface FileRoutesByTo {
   '/api/system-docs/$tenantId/$docId/feedback': typeof ApiSystemDocsTenantIdDocIdFeedbackRoute
   '/api/system-docs/$tenantId/$docId/publish': typeof ApiSystemDocsTenantIdDocIdPublishRoute
   '/api/teams/channels/$channelId/messages': typeof ApiTeamsChannelsChannelIdMessagesRoute
+  '/api/testing/$tenantId/runs/$runId': typeof ApiTestingTenantIdRunsRunIdRoute
   '/api/threat/$tenantId/iocs/check': typeof ApiThreatTenantIdIocsCheckRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
@@ -2967,7 +2976,7 @@ export interface FileRoutesById {
   '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
   '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
-  '/api/testing/$tenantId/runs': typeof ApiTestingTenantIdRunsRoute
+  '/api/testing/$tenantId/runs': typeof ApiTestingTenantIdRunsRouteWithChildren
   '/api/testing/$tenantId/suites': typeof ApiTestingTenantIdSuitesRouteWithChildren
   '/api/threat/$tenantId/analyze': typeof ApiThreatTenantIdAnalyzeRoute
   '/api/threat/$tenantId/anomalies': typeof ApiThreatTenantIdAnomaliesRoute
@@ -3078,6 +3087,7 @@ export interface FileRoutesById {
   '/api/system-docs/$tenantId/$docId/feedback': typeof ApiSystemDocsTenantIdDocIdFeedbackRoute
   '/api/system-docs/$tenantId/$docId/publish': typeof ApiSystemDocsTenantIdDocIdPublishRoute
   '/api/teams/channels/$channelId/messages': typeof ApiTeamsChannelsChannelIdMessagesRoute
+  '/api/testing/$tenantId/runs/$runId': typeof ApiTestingTenantIdRunsRunIdRoute
   '/api/threat/$tenantId/iocs/check': typeof ApiThreatTenantIdIocsCheckRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
@@ -3403,6 +3413,7 @@ export interface FileRouteTypes {
     | '/api/system-docs/$tenantId/$docId/feedback'
     | '/api/system-docs/$tenantId/$docId/publish'
     | '/api/teams/channels/$channelId/messages'
+    | '/api/testing/$tenantId/runs/$runId'
     | '/api/threat/$tenantId/iocs/check'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
@@ -3726,6 +3737,7 @@ export interface FileRouteTypes {
     | '/api/system-docs/$tenantId/$docId/feedback'
     | '/api/system-docs/$tenantId/$docId/publish'
     | '/api/teams/channels/$channelId/messages'
+    | '/api/testing/$tenantId/runs/$runId'
     | '/api/threat/$tenantId/iocs/check'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
@@ -4049,6 +4061,7 @@ export interface FileRouteTypes {
     | '/api/system-docs/$tenantId/$docId/feedback'
     | '/api/system-docs/$tenantId/$docId/publish'
     | '/api/teams/channels/$channelId/messages'
+    | '/api/testing/$tenantId/runs/$runId'
     | '/api/threat/$tenantId/iocs/check'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
@@ -4258,7 +4271,7 @@ export interface RootRouteChildren {
   ApiTeamsTenantIdCreateRoute: typeof ApiTeamsTenantIdCreateRoute
   ApiTeamsTenantIdTreeRoute: typeof ApiTeamsTenantIdTreeRoute
   ApiTenantsIdSuspendRoute: typeof ApiTenantsIdSuspendRoute
-  ApiTestingTenantIdRunsRoute: typeof ApiTestingTenantIdRunsRoute
+  ApiTestingTenantIdRunsRoute: typeof ApiTestingTenantIdRunsRouteWithChildren
   ApiTestingTenantIdSuitesRoute: typeof ApiTestingTenantIdSuitesRouteWithChildren
   ApiThreatTenantIdAnalyzeRoute: typeof ApiThreatTenantIdAnalyzeRoute
   ApiThreatTenantIdAnomaliesRoute: typeof ApiThreatTenantIdAnomaliesRoute
@@ -5927,6 +5940,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiThreatTenantIdIocsCheckRouteImport
       parentRoute: typeof ApiThreatTenantIdIocsRoute
     }
+    '/api/testing/$tenantId/runs/$runId': {
+      id: '/api/testing/$tenantId/runs/$runId'
+      path: '/$runId'
+      fullPath: '/api/testing/$tenantId/runs/$runId'
+      preLoaderRoute: typeof ApiTestingTenantIdRunsRunIdRouteImport
+      parentRoute: typeof ApiTestingTenantIdRunsRoute
+    }
     '/api/teams/channels/$channelId/messages': {
       id: '/api/teams/channels/$channelId/messages'
       path: '/api/teams/channels/$channelId/messages'
@@ -6968,6 +6988,20 @@ const ApiSystemDocsTenantIdDocIdRouteWithChildren =
     ApiSystemDocsTenantIdDocIdRouteChildren,
   )
 
+interface ApiTestingTenantIdRunsRouteChildren {
+  ApiTestingTenantIdRunsRunIdRoute: typeof ApiTestingTenantIdRunsRunIdRoute
+}
+
+const ApiTestingTenantIdRunsRouteChildren: ApiTestingTenantIdRunsRouteChildren =
+  {
+    ApiTestingTenantIdRunsRunIdRoute: ApiTestingTenantIdRunsRunIdRoute,
+  }
+
+const ApiTestingTenantIdRunsRouteWithChildren =
+  ApiTestingTenantIdRunsRoute._addFileChildren(
+    ApiTestingTenantIdRunsRouteChildren,
+  )
+
 interface ApiTestingTenantIdSuitesRouteChildren {
   ApiTestingTenantIdSuitesSuiteIdRunRoute: typeof ApiTestingTenantIdSuitesSuiteIdRunRoute
 }
@@ -7261,7 +7295,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiTeamsTenantIdCreateRoute: ApiTeamsTenantIdCreateRoute,
   ApiTeamsTenantIdTreeRoute: ApiTeamsTenantIdTreeRoute,
   ApiTenantsIdSuspendRoute: ApiTenantsIdSuspendRoute,
-  ApiTestingTenantIdRunsRoute: ApiTestingTenantIdRunsRoute,
+  ApiTestingTenantIdRunsRoute: ApiTestingTenantIdRunsRouteWithChildren,
   ApiTestingTenantIdSuitesRoute: ApiTestingTenantIdSuitesRouteWithChildren,
   ApiThreatTenantIdAnalyzeRoute: ApiThreatTenantIdAnalyzeRoute,
   ApiThreatTenantIdAnomaliesRoute: ApiThreatTenantIdAnomaliesRoute,
