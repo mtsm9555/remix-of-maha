@@ -82,6 +82,7 @@ import { Route as ApiInfrastructureDiscoverySimulateRouteImport } from './routes
 import { Route as ApiInfrastructureCapabilitiesSearchRouteImport } from './routes/api/infrastructure/capabilities/search'
 import { Route as ApiInfrastructureCapabilitiesRevokeToolRouteImport } from './routes/api/infrastructure/capabilities/revoke-tool'
 import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './routes/api/infrastructure/capabilities/$agentId'
+import { Route as ApiGovernanceRetentionPoliciesRouteImport } from './routes/api/governance/retention/policies'
 import { Route as ApiGovernanceRetentionEnforceRouteImport } from './routes/api/governance/retention/enforce'
 import { Route as ApiFinanceCostsTopToolsRouteImport } from './routes/api/finance/costs/top-tools'
 import { Route as ApiFinanceCostsPricingRouteImport } from './routes/api/finance/costs/pricing'
@@ -546,6 +547,12 @@ const ApiInfrastructureCapabilitiesAgentIdRoute =
     path: '/api/infrastructure/capabilities/$agentId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiGovernanceRetentionPoliciesRoute =
+  ApiGovernanceRetentionPoliciesRouteImport.update({
+    id: '/api/governance/retention/policies',
+    path: '/api/governance/retention/policies',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiGovernanceRetentionEnforceRoute =
   ApiGovernanceRetentionEnforceRouteImport.update({
     id: '/api/governance/retention/enforce',
@@ -929,6 +936,7 @@ export interface FileRoutesByFullPath {
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
   '/api/governance/retention/enforce': typeof ApiGovernanceRetentionEnforceRoute
+  '/api/governance/retention/policies': typeof ApiGovernanceRetentionPoliciesRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -1061,6 +1069,7 @@ export interface FileRoutesByTo {
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
   '/api/governance/retention/enforce': typeof ApiGovernanceRetentionEnforceRoute
+  '/api/governance/retention/policies': typeof ApiGovernanceRetentionPoliciesRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -1194,6 +1203,7 @@ export interface FileRoutesById {
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
   '/api/governance/retention/enforce': typeof ApiGovernanceRetentionEnforceRoute
+  '/api/governance/retention/policies': typeof ApiGovernanceRetentionPoliciesRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -1328,6 +1338,7 @@ export interface FileRouteTypes {
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
     | '/api/governance/retention/enforce'
+    | '/api/governance/retention/policies'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
     | '/api/infrastructure/capabilities/search'
@@ -1460,6 +1471,7 @@ export interface FileRouteTypes {
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
     | '/api/governance/retention/enforce'
+    | '/api/governance/retention/policies'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
     | '/api/infrastructure/capabilities/search'
@@ -1592,6 +1604,7 @@ export interface FileRouteTypes {
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
     | '/api/governance/retention/enforce'
+    | '/api/governance/retention/policies'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
     | '/api/infrastructure/capabilities/search'
@@ -1725,6 +1738,7 @@ export interface RootRouteChildren {
   ApiFinanceCostsPricingRoute: typeof ApiFinanceCostsPricingRoute
   ApiFinanceCostsTopToolsRoute: typeof ApiFinanceCostsTopToolsRoute
   ApiGovernanceRetentionEnforceRoute: typeof ApiGovernanceRetentionEnforceRoute
+  ApiGovernanceRetentionPoliciesRoute: typeof ApiGovernanceRetentionPoliciesRoute
   ApiInfrastructureCapabilitiesAgentIdRoute: typeof ApiInfrastructureCapabilitiesAgentIdRoute
   ApiInfrastructureCapabilitiesRevokeToolRoute: typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   ApiInfrastructureCapabilitiesSearchRoute: typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -2317,6 +2331,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureCapabilitiesAgentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/governance/retention/policies': {
+      id: '/api/governance/retention/policies'
+      path: '/api/governance/retention/policies'
+      fullPath: '/api/governance/retention/policies'
+      preLoaderRoute: typeof ApiGovernanceRetentionPoliciesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/governance/retention/enforce': {
       id: '/api/governance/retention/enforce'
       path: '/api/governance/retention/enforce'
@@ -2821,6 +2842,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiFinanceCostsPricingRoute: ApiFinanceCostsPricingRoute,
   ApiFinanceCostsTopToolsRoute: ApiFinanceCostsTopToolsRoute,
   ApiGovernanceRetentionEnforceRoute: ApiGovernanceRetentionEnforceRoute,
+  ApiGovernanceRetentionPoliciesRoute: ApiGovernanceRetentionPoliciesRoute,
   ApiInfrastructureCapabilitiesAgentIdRoute:
     ApiInfrastructureCapabilitiesAgentIdRoute,
   ApiInfrastructureCapabilitiesRevokeToolRoute:
