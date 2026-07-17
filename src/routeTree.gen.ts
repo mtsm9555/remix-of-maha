@@ -82,6 +82,7 @@ import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './rout
 import { Route as ApiFinanceCostsTopToolsRouteImport } from './routes/api/finance/costs/top-tools'
 import { Route as ApiFinanceCostsPricingRouteImport } from './routes/api/finance/costs/pricing'
 import { Route as ApiFinanceCostsDepartmentsRouteImport } from './routes/api/finance/costs/departments'
+import { Route as ApiDataVersionsVersionIdRouteImport } from './routes/api/data/versions/$versionId'
 import { Route as ApiDataUserProfileRouteImport } from './routes/api/data/user/profile'
 import { Route as ApiDataUserAnalyzeRouteImport } from './routes/api/data/user/analyze'
 import { Route as ApiDataSnapshotsDiffRouteImport } from './routes/api/data/snapshots/diff'
@@ -539,6 +540,12 @@ const ApiFinanceCostsDepartmentsRoute =
     path: '/api/finance/costs/departments',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiDataVersionsVersionIdRoute =
+  ApiDataVersionsVersionIdRouteImport.update({
+    id: '/api/data/versions/$versionId',
+    path: '/api/data/versions/$versionId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiDataUserProfileRoute = ApiDataUserProfileRouteImport.update({
   id: '/api/data/user/profile',
   path: '/api/data/user/profile',
@@ -869,6 +876,7 @@ export interface FileRoutesByFullPath {
   '/api/data/snapshots/diff': typeof ApiDataSnapshotsDiffRoute
   '/api/data/user/analyze': typeof ApiDataUserAnalyzeRoute
   '/api/data/user/profile': typeof ApiDataUserProfileRoute
+  '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -993,6 +1001,7 @@ export interface FileRoutesByTo {
   '/api/data/snapshots/diff': typeof ApiDataSnapshotsDiffRoute
   '/api/data/user/analyze': typeof ApiDataUserAnalyzeRoute
   '/api/data/user/profile': typeof ApiDataUserProfileRoute
+  '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -1118,6 +1127,7 @@ export interface FileRoutesById {
   '/api/data/snapshots/diff': typeof ApiDataSnapshotsDiffRoute
   '/api/data/user/analyze': typeof ApiDataUserAnalyzeRoute
   '/api/data/user/profile': typeof ApiDataUserProfileRoute
+  '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -1244,6 +1254,7 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/diff'
     | '/api/data/user/analyze'
     | '/api/data/user/profile'
+    | '/api/data/versions/$versionId'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -1368,6 +1379,7 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/diff'
     | '/api/data/user/analyze'
     | '/api/data/user/profile'
+    | '/api/data/versions/$versionId'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -1492,6 +1504,7 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/diff'
     | '/api/data/user/analyze'
     | '/api/data/user/profile'
+    | '/api/data/versions/$versionId'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -1617,6 +1630,7 @@ export interface RootRouteChildren {
   ApiDataSnapshotsDiffRoute: typeof ApiDataSnapshotsDiffRoute
   ApiDataUserAnalyzeRoute: typeof ApiDataUserAnalyzeRoute
   ApiDataUserProfileRoute: typeof ApiDataUserProfileRoute
+  ApiDataVersionsVersionIdRoute: typeof ApiDataVersionsVersionIdRoute
   ApiFinanceCostsDepartmentsRoute: typeof ApiFinanceCostsDepartmentsRoute
   ApiFinanceCostsPricingRoute: typeof ApiFinanceCostsPricingRoute
   ApiFinanceCostsTopToolsRoute: typeof ApiFinanceCostsTopToolsRoute
@@ -2210,6 +2224,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiFinanceCostsDepartmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/data/versions/$versionId': {
+      id: '/api/data/versions/$versionId'
+      path: '/api/data/versions/$versionId'
+      fullPath: '/api/data/versions/$versionId'
+      preLoaderRoute: typeof ApiDataVersionsVersionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/data/user/profile': {
       id: '/api/data/user/profile'
       path: '/api/data/user/profile'
@@ -2649,6 +2670,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiDataSnapshotsDiffRoute: ApiDataSnapshotsDiffRoute,
   ApiDataUserAnalyzeRoute: ApiDataUserAnalyzeRoute,
   ApiDataUserProfileRoute: ApiDataUserProfileRoute,
+  ApiDataVersionsVersionIdRoute: ApiDataVersionsVersionIdRoute,
   ApiFinanceCostsDepartmentsRoute: ApiFinanceCostsDepartmentsRoute,
   ApiFinanceCostsPricingRoute: ApiFinanceCostsPricingRoute,
   ApiFinanceCostsTopToolsRoute: ApiFinanceCostsTopToolsRoute,
