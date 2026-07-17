@@ -790,45 +790,204 @@ export type Database = {
         }
         Relationships: []
       }
-      api_keys: {
+      api_key_audit_logs: {
         Row: {
-          created_at: string
-          created_by: string
-          expires_at: string | null
+          action: string
+          api_key_id: string
+          details: Json
           id: string
-          key_hash: string
-          key_prefix: string
-          last_used_at: string | null
-          name: string
-          permissions: string[]
-          rate_limit_per_minute: number
+          ip_address: string | null
+          performed_at: string
+          performed_by: string
           tenant_id: string
         }
         Insert: {
-          created_at?: string
-          created_by: string
-          expires_at?: string | null
-          id: string
-          key_hash: string
-          key_prefix: string
-          last_used_at?: string | null
-          name: string
-          permissions?: string[]
-          rate_limit_per_minute?: number
+          action: string
+          api_key_id: string
+          details?: Json
+          id?: string
+          ip_address?: string | null
+          performed_at?: string
+          performed_by: string
           tenant_id: string
         }
         Update: {
+          action?: string
+          api_key_id?: string
+          details?: Json
+          id?: string
+          ip_address?: string | null
+          performed_at?: string
+          performed_by?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "api_key_audit_logs_api_key_id_fkey"
+            columns: ["api_key_id"]
+            isOneToOne: false
+            referencedRelation: "api_keys"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "api_key_audit_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      api_key_usage_records: {
+        Row: {
+          api_key_id: string
+          endpoint: string
+          error_message: string | null
+          id: string
+          ip_address: string
+          method: string
+          response_status: number
+          response_time_ms: number
+          success: boolean
+          tenant_id: string
+          timestamp: string
+          user_agent: string | null
+        }
+        Insert: {
+          api_key_id: string
+          endpoint: string
+          error_message?: string | null
+          id?: string
+          ip_address: string
+          method: string
+          response_status: number
+          response_time_ms: number
+          success: boolean
+          tenant_id: string
+          timestamp?: string
+          user_agent?: string | null
+        }
+        Update: {
+          api_key_id?: string
+          endpoint?: string
+          error_message?: string | null
+          id?: string
+          ip_address?: string
+          method?: string
+          response_status?: number
+          response_time_ms?: number
+          success?: boolean
+          tenant_id?: string
+          timestamp?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "api_key_usage_records_api_key_id_fkey"
+            columns: ["api_key_id"]
+            isOneToOne: false
+            referencedRelation: "api_keys"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "api_key_usage_records_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      api_keys: {
+        Row: {
+          allowed_departments: string[]
+          allowed_endpoints: string[]
+          created_at: string
+          created_by: string
+          description: string | null
+          expires_at: string | null
+          id: string
+          ip_allowlist: string[]
+          ip_blocklist: string[]
+          key_hash: string
+          key_prefix: string
+          last_used_at: string | null
+          last_used_ip: string | null
+          name: string
+          permissions: string[]
+          rate_limit_per_day: number
+          rate_limit_per_minute: number
+          requests_this_month: number
+          requests_today: number
+          revocation_reason: string | null
+          revoked_at: string | null
+          revoked_by: string | null
+          rotation_policy: Json | null
+          scopes: string[]
+          status: string
+          tenant_id: string
+          total_requests: number
+          updated_at: string
+        }
+        Insert: {
+          allowed_departments?: string[]
+          allowed_endpoints?: string[]
+          created_at?: string
+          created_by: string
+          description?: string | null
+          expires_at?: string | null
+          id: string
+          ip_allowlist?: string[]
+          ip_blocklist?: string[]
+          key_hash: string
+          key_prefix: string
+          last_used_at?: string | null
+          last_used_ip?: string | null
+          name: string
+          permissions?: string[]
+          rate_limit_per_day?: number
+          rate_limit_per_minute?: number
+          requests_this_month?: number
+          requests_today?: number
+          revocation_reason?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+          rotation_policy?: Json | null
+          scopes?: string[]
+          status?: string
+          tenant_id: string
+          total_requests?: number
+          updated_at?: string
+        }
+        Update: {
+          allowed_departments?: string[]
+          allowed_endpoints?: string[]
           created_at?: string
           created_by?: string
+          description?: string | null
           expires_at?: string | null
           id?: string
+          ip_allowlist?: string[]
+          ip_blocklist?: string[]
           key_hash?: string
           key_prefix?: string
           last_used_at?: string | null
+          last_used_ip?: string | null
           name?: string
           permissions?: string[]
+          rate_limit_per_day?: number
           rate_limit_per_minute?: number
+          requests_this_month?: number
+          requests_today?: number
+          revocation_reason?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+          rotation_policy?: Json | null
+          scopes?: string[]
+          status?: string
           tenant_id?: string
+          total_requests?: number
+          updated_at?: string
         }
         Relationships: [
           {
