@@ -51,6 +51,11 @@ import { Route as ApiGpuAllocationsRouteImport } from './routes/api/gpu/allocati
 import { Route as ApiGovernanceLegalHoldRouteImport } from './routes/api/governance/legal-hold'
 import { Route as ApiGovernanceAuditLogsRouteImport } from './routes/api/governance/audit-logs'
 import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
+import { Route as ApiDrTestsRouteImport } from './routes/api/dr/tests'
+import { Route as ApiDrRegionsRouteImport } from './routes/api/dr/regions'
+import { Route as ApiDrPlansRouteImport } from './routes/api/dr/plans'
+import { Route as ApiDrFailoverRouteImport } from './routes/api/dr/failover'
+import { Route as ApiDrDashboardRouteImport } from './routes/api/dr/dashboard'
 import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
 import { Route as ApiCollaborationSessionsRouteImport } from './routes/api/collaboration/sessions'
 import { Route as ApiCollaborationInitiateRouteImport } from './routes/api/collaboration/initiate'
@@ -204,6 +209,8 @@ import { Route as ApiInfrastructureBudgetTopupsPendingRouteImport } from './rout
 import { Route as ApiInfrastructureBudgetLedgerInstanceIdRouteImport } from './routes/api/infrastructure/budget/ledger.$instanceId'
 import { Route as ApiGpuAllocationsIdReleaseRouteImport } from './routes/api/gpu/allocations.$id.release'
 import { Route as ApiGovernanceDsarIdProcessRouteImport } from './routes/api/governance/dsar/$id/process'
+import { Route as ApiDrTestsIdExecuteRouteImport } from './routes/api/dr/tests.$id.execute'
+import { Route as ApiDrRegionsIdHealthRouteImport } from './routes/api/dr/regions.$id.health'
 import { Route as ApiDataUserMemoriesSearchRouteImport } from './routes/api/data/user/memories/search'
 import { Route as ApiDataUserMemoriesMemoryIdRouteImport } from './routes/api/data/user/memories/$memoryId'
 import { Route as ApiDataSnapshotsTaskTaskIdRouteImport } from './routes/api/data/snapshots/task/$taskId'
@@ -447,6 +454,31 @@ const ApiGovernanceAuditLogsRoute = ApiGovernanceAuditLogsRouteImport.update({
 const ApiGoalsSplatRoute = ApiGoalsSplatRouteImport.update({
   id: '/api/goals/$',
   path: '/api/goals/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDrTestsRoute = ApiDrTestsRouteImport.update({
+  id: '/api/dr/tests',
+  path: '/api/dr/tests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDrRegionsRoute = ApiDrRegionsRouteImport.update({
+  id: '/api/dr/regions',
+  path: '/api/dr/regions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDrPlansRoute = ApiDrPlansRouteImport.update({
+  id: '/api/dr/plans',
+  path: '/api/dr/plans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDrFailoverRoute = ApiDrFailoverRouteImport.update({
+  id: '/api/dr/failover',
+  path: '/api/dr/failover',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDrDashboardRoute = ApiDrDashboardRouteImport.update({
+  id: '/api/dr/dashboard',
+  path: '/api/dr/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiDepartmentsSplatRoute = ApiDepartmentsSplatRouteImport.update({
@@ -1317,6 +1349,16 @@ const ApiGovernanceDsarIdProcessRoute =
     path: '/api/governance/dsar/$id/process',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiDrTestsIdExecuteRoute = ApiDrTestsIdExecuteRouteImport.update({
+  id: '/$id/execute',
+  path: '/$id/execute',
+  getParentRoute: () => ApiDrTestsRoute,
+} as any)
+const ApiDrRegionsIdHealthRoute = ApiDrRegionsIdHealthRouteImport.update({
+  id: '/$id/health',
+  path: '/$id/health',
+  getParentRoute: () => ApiDrRegionsRoute,
+} as any)
 const ApiDataUserMemoriesSearchRoute =
   ApiDataUserMemoriesSearchRouteImport.update({
     id: '/api/data/user/memories/search',
@@ -1530,6 +1572,11 @@ export interface FileRoutesByFullPath {
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
+  '/api/dr/dashboard': typeof ApiDrDashboardRoute
+  '/api/dr/failover': typeof ApiDrFailoverRoute
+  '/api/dr/plans': typeof ApiDrPlansRoute
+  '/api/dr/regions': typeof ApiDrRegionsRouteWithChildren
+  '/api/dr/tests': typeof ApiDrTestsRouteWithChildren
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/governance/audit-logs': typeof ApiGovernanceAuditLogsRoute
   '/api/governance/legal-hold': typeof ApiGovernanceLegalHoldRoute
@@ -1689,6 +1736,8 @@ export interface FileRoutesByFullPath {
   '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
+  '/api/dr/regions/$id/health': typeof ApiDrRegionsIdHealthRoute
+  '/api/dr/tests/$id/execute': typeof ApiDrTestsIdExecuteRoute
   '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
   '/api/gpu/allocations/$id/release': typeof ApiGpuAllocationsIdReleaseRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
@@ -1758,6 +1807,11 @@ export interface FileRoutesByTo {
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
+  '/api/dr/dashboard': typeof ApiDrDashboardRoute
+  '/api/dr/failover': typeof ApiDrFailoverRoute
+  '/api/dr/plans': typeof ApiDrPlansRoute
+  '/api/dr/regions': typeof ApiDrRegionsRouteWithChildren
+  '/api/dr/tests': typeof ApiDrTestsRouteWithChildren
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/governance/audit-logs': typeof ApiGovernanceAuditLogsRoute
   '/api/governance/legal-hold': typeof ApiGovernanceLegalHoldRoute
@@ -1917,6 +1971,8 @@ export interface FileRoutesByTo {
   '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
+  '/api/dr/regions/$id/health': typeof ApiDrRegionsIdHealthRoute
+  '/api/dr/tests/$id/execute': typeof ApiDrTestsIdExecuteRoute
   '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
   '/api/gpu/allocations/$id/release': typeof ApiGpuAllocationsIdReleaseRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
@@ -1987,6 +2043,11 @@ export interface FileRoutesById {
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
+  '/api/dr/dashboard': typeof ApiDrDashboardRoute
+  '/api/dr/failover': typeof ApiDrFailoverRoute
+  '/api/dr/plans': typeof ApiDrPlansRoute
+  '/api/dr/regions': typeof ApiDrRegionsRouteWithChildren
+  '/api/dr/tests': typeof ApiDrTestsRouteWithChildren
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/governance/audit-logs': typeof ApiGovernanceAuditLogsRoute
   '/api/governance/legal-hold': typeof ApiGovernanceLegalHoldRoute
@@ -2146,6 +2207,8 @@ export interface FileRoutesById {
   '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
+  '/api/dr/regions/$id/health': typeof ApiDrRegionsIdHealthRoute
+  '/api/dr/tests/$id/execute': typeof ApiDrTestsIdExecuteRoute
   '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
   '/api/gpu/allocations/$id/release': typeof ApiGpuAllocationsIdReleaseRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
@@ -2217,6 +2280,11 @@ export interface FileRouteTypes {
     | '/api/collaboration/initiate'
     | '/api/collaboration/sessions'
     | '/api/departments/$'
+    | '/api/dr/dashboard'
+    | '/api/dr/failover'
+    | '/api/dr/plans'
+    | '/api/dr/regions'
+    | '/api/dr/tests'
     | '/api/goals/$'
     | '/api/governance/audit-logs'
     | '/api/governance/legal-hold'
@@ -2376,6 +2444,8 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
+    | '/api/dr/regions/$id/health'
+    | '/api/dr/tests/$id/execute'
     | '/api/governance/dsar/$id/process'
     | '/api/gpu/allocations/$id/release'
     | '/api/infrastructure/budget/ledger/$instanceId'
@@ -2445,6 +2515,11 @@ export interface FileRouteTypes {
     | '/api/collaboration/initiate'
     | '/api/collaboration/sessions'
     | '/api/departments/$'
+    | '/api/dr/dashboard'
+    | '/api/dr/failover'
+    | '/api/dr/plans'
+    | '/api/dr/regions'
+    | '/api/dr/tests'
     | '/api/goals/$'
     | '/api/governance/audit-logs'
     | '/api/governance/legal-hold'
@@ -2604,6 +2679,8 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
+    | '/api/dr/regions/$id/health'
+    | '/api/dr/tests/$id/execute'
     | '/api/governance/dsar/$id/process'
     | '/api/gpu/allocations/$id/release'
     | '/api/infrastructure/budget/ledger/$instanceId'
@@ -2673,6 +2750,11 @@ export interface FileRouteTypes {
     | '/api/collaboration/initiate'
     | '/api/collaboration/sessions'
     | '/api/departments/$'
+    | '/api/dr/dashboard'
+    | '/api/dr/failover'
+    | '/api/dr/plans'
+    | '/api/dr/regions'
+    | '/api/dr/tests'
     | '/api/goals/$'
     | '/api/governance/audit-logs'
     | '/api/governance/legal-hold'
@@ -2832,6 +2914,8 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
+    | '/api/dr/regions/$id/health'
+    | '/api/dr/tests/$id/execute'
     | '/api/governance/dsar/$id/process'
     | '/api/gpu/allocations/$id/release'
     | '/api/infrastructure/budget/ledger/$instanceId'
@@ -2902,6 +2986,11 @@ export interface RootRouteChildren {
   ApiCollaborationInitiateRoute: typeof ApiCollaborationInitiateRoute
   ApiCollaborationSessionsRoute: typeof ApiCollaborationSessionsRoute
   ApiDepartmentsSplatRoute: typeof ApiDepartmentsSplatRoute
+  ApiDrDashboardRoute: typeof ApiDrDashboardRoute
+  ApiDrFailoverRoute: typeof ApiDrFailoverRoute
+  ApiDrPlansRoute: typeof ApiDrPlansRoute
+  ApiDrRegionsRoute: typeof ApiDrRegionsRouteWithChildren
+  ApiDrTestsRoute: typeof ApiDrTestsRouteWithChildren
   ApiGoalsSplatRoute: typeof ApiGoalsSplatRoute
   ApiGovernanceAuditLogsRoute: typeof ApiGovernanceAuditLogsRoute
   ApiGovernanceLegalHoldRoute: typeof ApiGovernanceLegalHoldRoute
@@ -3379,6 +3468,41 @@ declare module '@tanstack/react-router' {
       path: '/api/goals/$'
       fullPath: '/api/goals/$'
       preLoaderRoute: typeof ApiGoalsSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/dr/tests': {
+      id: '/api/dr/tests'
+      path: '/api/dr/tests'
+      fullPath: '/api/dr/tests'
+      preLoaderRoute: typeof ApiDrTestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/dr/regions': {
+      id: '/api/dr/regions'
+      path: '/api/dr/regions'
+      fullPath: '/api/dr/regions'
+      preLoaderRoute: typeof ApiDrRegionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/dr/plans': {
+      id: '/api/dr/plans'
+      path: '/api/dr/plans'
+      fullPath: '/api/dr/plans'
+      preLoaderRoute: typeof ApiDrPlansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/dr/failover': {
+      id: '/api/dr/failover'
+      path: '/api/dr/failover'
+      fullPath: '/api/dr/failover'
+      preLoaderRoute: typeof ApiDrFailoverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/dr/dashboard': {
+      id: '/api/dr/dashboard'
+      path: '/api/dr/dashboard'
+      fullPath: '/api/dr/dashboard'
+      preLoaderRoute: typeof ApiDrDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/departments/$': {
@@ -4452,6 +4576,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiGovernanceDsarIdProcessRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/dr/tests/$id/execute': {
+      id: '/api/dr/tests/$id/execute'
+      path: '/$id/execute'
+      fullPath: '/api/dr/tests/$id/execute'
+      preLoaderRoute: typeof ApiDrTestsIdExecuteRouteImport
+      parentRoute: typeof ApiDrTestsRoute
+    }
+    '/api/dr/regions/$id/health': {
+      id: '/api/dr/regions/$id/health'
+      path: '/$id/health'
+      fullPath: '/api/dr/regions/$id/health'
+      preLoaderRoute: typeof ApiDrRegionsIdHealthRouteImport
+      parentRoute: typeof ApiDrRegionsRoute
+    }
     '/api/data/user/memories/search': {
       id: '/api/data/user/memories/search'
       path: '/api/data/user/memories/search'
@@ -4702,6 +4840,30 @@ const ApiBackupJobsRouteWithChildren = ApiBackupJobsRoute._addFileChildren(
   ApiBackupJobsRouteChildren,
 )
 
+interface ApiDrRegionsRouteChildren {
+  ApiDrRegionsIdHealthRoute: typeof ApiDrRegionsIdHealthRoute
+}
+
+const ApiDrRegionsRouteChildren: ApiDrRegionsRouteChildren = {
+  ApiDrRegionsIdHealthRoute: ApiDrRegionsIdHealthRoute,
+}
+
+const ApiDrRegionsRouteWithChildren = ApiDrRegionsRoute._addFileChildren(
+  ApiDrRegionsRouteChildren,
+)
+
+interface ApiDrTestsRouteChildren {
+  ApiDrTestsIdExecuteRoute: typeof ApiDrTestsIdExecuteRoute
+}
+
+const ApiDrTestsRouteChildren: ApiDrTestsRouteChildren = {
+  ApiDrTestsIdExecuteRoute: ApiDrTestsIdExecuteRoute,
+}
+
+const ApiDrTestsRouteWithChildren = ApiDrTestsRoute._addFileChildren(
+  ApiDrTestsRouteChildren,
+)
+
 interface ApiGpuAllocationsRouteChildren {
   ApiGpuAllocationsIdReleaseRoute: typeof ApiGpuAllocationsIdReleaseRoute
 }
@@ -4877,6 +5039,11 @@ const rootRouteChildren: RootRouteChildren = {
   ApiCollaborationInitiateRoute: ApiCollaborationInitiateRoute,
   ApiCollaborationSessionsRoute: ApiCollaborationSessionsRoute,
   ApiDepartmentsSplatRoute: ApiDepartmentsSplatRoute,
+  ApiDrDashboardRoute: ApiDrDashboardRoute,
+  ApiDrFailoverRoute: ApiDrFailoverRoute,
+  ApiDrPlansRoute: ApiDrPlansRoute,
+  ApiDrRegionsRoute: ApiDrRegionsRouteWithChildren,
+  ApiDrTestsRoute: ApiDrTestsRouteWithChildren,
   ApiGoalsSplatRoute: ApiGoalsSplatRoute,
   ApiGovernanceAuditLogsRoute: ApiGovernanceAuditLogsRoute,
   ApiGovernanceLegalHoldRoute: ApiGovernanceLegalHoldRoute,
