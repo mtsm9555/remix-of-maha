@@ -1452,6 +1452,93 @@ export type Database = {
         }
         Relationships: []
       }
+      cluster_tasks: {
+        Row: {
+          assigned_worker_id: string | null
+          attempts: number
+          completed_at: string | null
+          created_at: string
+          error: string | null
+          id: string
+          max_attempts: number
+          metadata: Json | null
+          payload: Json
+          preferred_region: string | null
+          preferred_worker_id: string | null
+          priority: string
+          queued_at: string
+          required_capabilities: string[]
+          result: Json | null
+          started_at: string | null
+          status: string
+          tenant_id: string
+          timeout_ms: number
+          type: string
+          workspace_id: string | null
+        }
+        Insert: {
+          assigned_worker_id?: string | null
+          attempts?: number
+          completed_at?: string | null
+          created_at?: string
+          error?: string | null
+          id: string
+          max_attempts?: number
+          metadata?: Json | null
+          payload?: Json
+          preferred_region?: string | null
+          preferred_worker_id?: string | null
+          priority: string
+          queued_at?: string
+          required_capabilities?: string[]
+          result?: Json | null
+          started_at?: string | null
+          status: string
+          tenant_id: string
+          timeout_ms?: number
+          type: string
+          workspace_id?: string | null
+        }
+        Update: {
+          assigned_worker_id?: string | null
+          attempts?: number
+          completed_at?: string | null
+          created_at?: string
+          error?: string | null
+          id?: string
+          max_attempts?: number
+          metadata?: Json | null
+          payload?: Json
+          preferred_region?: string | null
+          preferred_worker_id?: string | null
+          priority?: string
+          queued_at?: string
+          required_capabilities?: string[]
+          result?: Json | null
+          started_at?: string | null
+          status?: string
+          tenant_id?: string
+          timeout_ms?: number
+          type?: string
+          workspace_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cluster_tasks_assigned_worker_id_fkey"
+            columns: ["assigned_worker_id"]
+            isOneToOne: false
+            referencedRelation: "worker_nodes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cluster_tasks_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       collaboration_blackboards: {
         Row: {
           created_at: string
@@ -4185,6 +4272,122 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      worker_health_checks: {
+        Row: {
+          active_tasks: number
+          cpu_usage: number
+          disk_usage: number
+          errors: string[] | null
+          id: string
+          memory_usage: number
+          network_latency_ms: number
+          timestamp: string
+          worker_id: string
+        }
+        Insert: {
+          active_tasks?: number
+          cpu_usage: number
+          disk_usage: number
+          errors?: string[] | null
+          id: string
+          memory_usage: number
+          network_latency_ms?: number
+          timestamp?: string
+          worker_id: string
+        }
+        Update: {
+          active_tasks?: number
+          cpu_usage?: number
+          disk_usage?: number
+          errors?: string[] | null
+          id?: string
+          memory_usage?: number
+          network_latency_ms?: number
+          timestamp?: string
+          worker_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "worker_health_checks_worker_id_fkey"
+            columns: ["worker_id"]
+            isOneToOne: false
+            referencedRelation: "worker_nodes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      worker_nodes: {
+        Row: {
+          capabilities: string[]
+          cpu_cores: number
+          cpu_usage: number
+          created_at: string
+          current_task_count: number
+          disk_gb: number
+          hostname: string
+          id: string
+          ip_address: string
+          last_heartbeat_at: string
+          load_average: number
+          max_concurrent_tasks: number
+          memory_gb: number
+          memory_usage: number
+          metadata: Json | null
+          region: string
+          started_at: string
+          status: string
+          updated_at: string
+          version: string
+          zone: string
+        }
+        Insert: {
+          capabilities?: string[]
+          cpu_cores?: number
+          cpu_usage?: number
+          created_at?: string
+          current_task_count?: number
+          disk_gb?: number
+          hostname: string
+          id: string
+          ip_address: string
+          last_heartbeat_at?: string
+          load_average?: number
+          max_concurrent_tasks?: number
+          memory_gb?: number
+          memory_usage?: number
+          metadata?: Json | null
+          region: string
+          started_at?: string
+          status: string
+          updated_at?: string
+          version?: string
+          zone: string
+        }
+        Update: {
+          capabilities?: string[]
+          cpu_cores?: number
+          cpu_usage?: number
+          created_at?: string
+          current_task_count?: number
+          disk_gb?: number
+          hostname?: string
+          id?: string
+          ip_address?: string
+          last_heartbeat_at?: string
+          load_average?: number
+          max_concurrent_tasks?: number
+          memory_gb?: number
+          memory_usage?: number
+          metadata?: Json | null
+          region?: string
+          started_at?: string
+          status?: string
+          updated_at?: string
+          version?: string
+          zone?: string
         }
         Relationships: []
       }
