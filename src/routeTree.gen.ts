@@ -110,6 +110,7 @@ import { Route as ApiThreatTenantIdBaselinesRouteImport } from './routes/api/thr
 import { Route as ApiThreatTenantIdAnomaliesRouteImport } from './routes/api/threat/$tenantId/anomalies'
 import { Route as ApiThreatTenantIdAnalyzeRouteImport } from './routes/api/threat/$tenantId/analyze'
 import { Route as ApiTestingTenantIdSuitesRouteImport } from './routes/api/testing/$tenantId/suites'
+import { Route as ApiTestingTenantIdRunsRouteImport } from './routes/api/testing/$tenantId/runs'
 import { Route as ApiTenantsIdSuspendRouteImport } from './routes/api/tenants/$id/suspend'
 import { Route as ApiTeamsTenantIdTreeRouteImport } from './routes/api/teams/$tenantId/tree'
 import { Route as ApiTeamsTenantIdCreateRouteImport } from './routes/api/teams/$tenantId/create'
@@ -862,6 +863,11 @@ const ApiTestingTenantIdSuitesRoute =
     path: '/api/testing/$tenantId/suites',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiTestingTenantIdRunsRoute = ApiTestingTenantIdRunsRouteImport.update({
+  id: '/api/testing/$tenantId/runs',
+  path: '/api/testing/$tenantId/runs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiTenantsIdSuspendRoute = ApiTenantsIdSuspendRouteImport.update({
   id: '/api/tenants/$id/suspend',
   path: '/api/tenants/$id/suspend',
@@ -2314,6 +2320,7 @@ export interface FileRoutesByFullPath {
   '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
   '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
+  '/api/testing/$tenantId/runs': typeof ApiTestingTenantIdRunsRoute
   '/api/testing/$tenantId/suites': typeof ApiTestingTenantIdSuitesRouteWithChildren
   '/api/threat/$tenantId/analyze': typeof ApiThreatTenantIdAnalyzeRoute
   '/api/threat/$tenantId/anomalies': typeof ApiThreatTenantIdAnomaliesRoute
@@ -2636,6 +2643,7 @@ export interface FileRoutesByTo {
   '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
   '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
+  '/api/testing/$tenantId/runs': typeof ApiTestingTenantIdRunsRoute
   '/api/testing/$tenantId/suites': typeof ApiTestingTenantIdSuitesRouteWithChildren
   '/api/threat/$tenantId/analyze': typeof ApiThreatTenantIdAnalyzeRoute
   '/api/threat/$tenantId/anomalies': typeof ApiThreatTenantIdAnomaliesRoute
@@ -2959,6 +2967,7 @@ export interface FileRoutesById {
   '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
   '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
+  '/api/testing/$tenantId/runs': typeof ApiTestingTenantIdRunsRoute
   '/api/testing/$tenantId/suites': typeof ApiTestingTenantIdSuitesRouteWithChildren
   '/api/threat/$tenantId/analyze': typeof ApiThreatTenantIdAnalyzeRoute
   '/api/threat/$tenantId/anomalies': typeof ApiThreatTenantIdAnomaliesRoute
@@ -3283,6 +3292,7 @@ export interface FileRouteTypes {
     | '/api/teams/$tenantId/create'
     | '/api/teams/$tenantId/tree'
     | '/api/tenants/$id/suspend'
+    | '/api/testing/$tenantId/runs'
     | '/api/testing/$tenantId/suites'
     | '/api/threat/$tenantId/analyze'
     | '/api/threat/$tenantId/anomalies'
@@ -3605,6 +3615,7 @@ export interface FileRouteTypes {
     | '/api/teams/$tenantId/create'
     | '/api/teams/$tenantId/tree'
     | '/api/tenants/$id/suspend'
+    | '/api/testing/$tenantId/runs'
     | '/api/testing/$tenantId/suites'
     | '/api/threat/$tenantId/analyze'
     | '/api/threat/$tenantId/anomalies'
@@ -3927,6 +3938,7 @@ export interface FileRouteTypes {
     | '/api/teams/$tenantId/create'
     | '/api/teams/$tenantId/tree'
     | '/api/tenants/$id/suspend'
+    | '/api/testing/$tenantId/runs'
     | '/api/testing/$tenantId/suites'
     | '/api/threat/$tenantId/analyze'
     | '/api/threat/$tenantId/anomalies'
@@ -4246,6 +4258,7 @@ export interface RootRouteChildren {
   ApiTeamsTenantIdCreateRoute: typeof ApiTeamsTenantIdCreateRoute
   ApiTeamsTenantIdTreeRoute: typeof ApiTeamsTenantIdTreeRoute
   ApiTenantsIdSuspendRoute: typeof ApiTenantsIdSuspendRoute
+  ApiTestingTenantIdRunsRoute: typeof ApiTestingTenantIdRunsRoute
   ApiTestingTenantIdSuitesRoute: typeof ApiTestingTenantIdSuitesRouteWithChildren
   ApiThreatTenantIdAnalyzeRoute: typeof ApiThreatTenantIdAnalyzeRoute
   ApiThreatTenantIdAnomaliesRoute: typeof ApiThreatTenantIdAnomaliesRoute
@@ -5051,6 +5064,13 @@ declare module '@tanstack/react-router' {
       path: '/api/testing/$tenantId/suites'
       fullPath: '/api/testing/$tenantId/suites'
       preLoaderRoute: typeof ApiTestingTenantIdSuitesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/testing/$tenantId/runs': {
+      id: '/api/testing/$tenantId/runs'
+      path: '/api/testing/$tenantId/runs'
+      fullPath: '/api/testing/$tenantId/runs'
+      preLoaderRoute: typeof ApiTestingTenantIdRunsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/tenants/$id/suspend': {
@@ -7241,6 +7261,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiTeamsTenantIdCreateRoute: ApiTeamsTenantIdCreateRoute,
   ApiTeamsTenantIdTreeRoute: ApiTeamsTenantIdTreeRoute,
   ApiTenantsIdSuspendRoute: ApiTenantsIdSuspendRoute,
+  ApiTestingTenantIdRunsRoute: ApiTestingTenantIdRunsRoute,
   ApiTestingTenantIdSuitesRoute: ApiTestingTenantIdSuitesRouteWithChildren,
   ApiThreatTenantIdAnalyzeRoute: ApiThreatTenantIdAnalyzeRoute,
   ApiThreatTenantIdAnomaliesRoute: ApiThreatTenantIdAnomaliesRoute,
