@@ -154,6 +154,7 @@ import { Route as ApiGovernanceRetentionEnforceRouteImport } from './routes/api/
 import { Route as ApiFinanceCostsTopToolsRouteImport } from './routes/api/finance/costs/top-tools'
 import { Route as ApiFinanceCostsPricingRouteImport } from './routes/api/finance/costs/pricing'
 import { Route as ApiFinanceCostsDepartmentsRouteImport } from './routes/api/finance/costs/departments'
+import { Route as ApiEncryptionTenantIdKeysRouteImport } from './routes/api/encryption/$tenantId/keys'
 import { Route as ApiDataVersionsRollbackRouteImport } from './routes/api/data/versions/rollback'
 import { Route as ApiDataVersionsDiffRouteImport } from './routes/api/data/versions/diff'
 import { Route as ApiDataVersionsVersionIdRouteImport } from './routes/api/data/versions/$versionId'
@@ -1062,6 +1063,12 @@ const ApiFinanceCostsDepartmentsRoute =
     path: '/api/finance/costs/departments',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiEncryptionTenantIdKeysRoute =
+  ApiEncryptionTenantIdKeysRouteImport.update({
+    id: '/api/encryption/$tenantId/keys',
+    path: '/api/encryption/$tenantId/keys',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiDataVersionsRollbackRoute = ApiDataVersionsRollbackRouteImport.update({
   id: '/api/data/versions/rollback',
   path: '/api/data/versions/rollback',
@@ -1909,6 +1916,7 @@ export interface FileRoutesByFullPath {
   '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
   '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
+  '/api/encryption/$tenantId/keys': typeof ApiEncryptionTenantIdKeysRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -2183,6 +2191,7 @@ export interface FileRoutesByTo {
   '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
   '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
+  '/api/encryption/$tenantId/keys': typeof ApiEncryptionTenantIdKeysRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -2458,6 +2467,7 @@ export interface FileRoutesById {
   '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
   '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
+  '/api/encryption/$tenantId/keys': typeof ApiEncryptionTenantIdKeysRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -2734,6 +2744,7 @@ export interface FileRouteTypes {
     | '/api/data/versions/$versionId'
     | '/api/data/versions/diff'
     | '/api/data/versions/rollback'
+    | '/api/encryption/$tenantId/keys'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -3008,6 +3019,7 @@ export interface FileRouteTypes {
     | '/api/data/versions/$versionId'
     | '/api/data/versions/diff'
     | '/api/data/versions/rollback'
+    | '/api/encryption/$tenantId/keys'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -3282,6 +3294,7 @@ export interface FileRouteTypes {
     | '/api/data/versions/$versionId'
     | '/api/data/versions/diff'
     | '/api/data/versions/rollback'
+    | '/api/encryption/$tenantId/keys'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -3557,6 +3570,7 @@ export interface RootRouteChildren {
   ApiDataVersionsVersionIdRoute: typeof ApiDataVersionsVersionIdRoute
   ApiDataVersionsDiffRoute: typeof ApiDataVersionsDiffRoute
   ApiDataVersionsRollbackRoute: typeof ApiDataVersionsRollbackRoute
+  ApiEncryptionTenantIdKeysRoute: typeof ApiEncryptionTenantIdKeysRoute
   ApiFinanceCostsDepartmentsRoute: typeof ApiFinanceCostsDepartmentsRoute
   ApiFinanceCostsPricingRoute: typeof ApiFinanceCostsPricingRoute
   ApiFinanceCostsTopToolsRoute: typeof ApiFinanceCostsTopToolsRoute
@@ -4706,6 +4720,13 @@ declare module '@tanstack/react-router' {
       path: '/api/finance/costs/departments'
       fullPath: '/api/finance/costs/departments'
       preLoaderRoute: typeof ApiFinanceCostsDepartmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/encryption/$tenantId/keys': {
+      id: '/api/encryption/$tenantId/keys'
+      path: '/api/encryption/$tenantId/keys'
+      fullPath: '/api/encryption/$tenantId/keys'
+      preLoaderRoute: typeof ApiEncryptionTenantIdKeysRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/data/versions/rollback': {
@@ -6064,6 +6085,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiDataVersionsVersionIdRoute: ApiDataVersionsVersionIdRoute,
   ApiDataVersionsDiffRoute: ApiDataVersionsDiffRoute,
   ApiDataVersionsRollbackRoute: ApiDataVersionsRollbackRoute,
+  ApiEncryptionTenantIdKeysRoute: ApiEncryptionTenantIdKeysRoute,
   ApiFinanceCostsDepartmentsRoute: ApiFinanceCostsDepartmentsRoute,
   ApiFinanceCostsPricingRoute: ApiFinanceCostsPricingRoute,
   ApiFinanceCostsTopToolsRoute: ApiFinanceCostsTopToolsRoute,
