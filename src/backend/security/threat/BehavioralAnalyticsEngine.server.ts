@@ -147,7 +147,7 @@ export class BehavioralAnalyticsEngine {
     const dayOfWeekAvg = baseline.day_of_week_patterns[currentDayOfWeek] || 0;
     
     // If activity is significantly outside normal pattern
-    if (hourlyAvg === 0 && Object.values(baseline.hourly_patterns).some(v => v > 0)) {
+    if (hourlyAvg === 0 && (Object.values(baseline.hourly_patterns) as number[]).some((v) => v > 0)) {
       anomalies.push(await this.createAnomaly(
         tenantId,
         baseline.id,
