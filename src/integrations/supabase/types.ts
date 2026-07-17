@@ -1444,6 +1444,80 @@ export type Database = {
           },
         ]
       }
+      attack_chains: {
+        Row: {
+          attack_vector: string | null
+          completed_at: string | null
+          confidence: number
+          created_at: string | null
+          description: string
+          detected_at: string
+          event_sequence: Json
+          id: string
+          kill_chain_phases: string[]
+          metadata: Json | null
+          name: string
+          related_event_ids: string[]
+          severity: string
+          status: string
+          tactics: string[]
+          target_resources: string[] | null
+          techniques: string[] | null
+          tenant_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          attack_vector?: string | null
+          completed_at?: string | null
+          confidence?: number
+          created_at?: string | null
+          description: string
+          detected_at: string
+          event_sequence?: Json
+          id: string
+          kill_chain_phases?: string[]
+          metadata?: Json | null
+          name: string
+          related_event_ids?: string[]
+          severity: string
+          status: string
+          tactics?: string[]
+          target_resources?: string[] | null
+          techniques?: string[] | null
+          tenant_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          attack_vector?: string | null
+          completed_at?: string | null
+          confidence?: number
+          created_at?: string | null
+          description?: string
+          detected_at?: string
+          event_sequence?: Json
+          id?: string
+          kill_chain_phases?: string[]
+          metadata?: Json | null
+          name?: string
+          related_event_ids?: string[]
+          severity?: string
+          status?: string
+          tactics?: string[]
+          target_resources?: string[] | null
+          techniques?: string[] | null
+          tenant_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attack_chains_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       audit_alerts: {
         Row: {
           acknowledged_at: string | null
@@ -1979,6 +2053,149 @@ export type Database = {
             columns: ["backup_job_id"]
             isOneToOne: false
             referencedRelation: "backup_jobs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      behavioral_anomalies: {
+        Row: {
+          anomaly_type: string
+          baseline_id: string
+          baseline_value: number
+          context: Json | null
+          contributing_factors: string[] | null
+          created_at: string | null
+          current_value: number
+          detected_at: string
+          deviation_score: number
+          entity_id: string
+          entity_type: string
+          id: string
+          metric: string
+          potential_threat: string | null
+          risk_score: number
+          severity: string
+          tenant_id: string
+        }
+        Insert: {
+          anomaly_type: string
+          baseline_id: string
+          baseline_value: number
+          context?: Json | null
+          contributing_factors?: string[] | null
+          created_at?: string | null
+          current_value: number
+          detected_at: string
+          deviation_score: number
+          entity_id: string
+          entity_type: string
+          id: string
+          metric: string
+          potential_threat?: string | null
+          risk_score?: number
+          severity: string
+          tenant_id: string
+        }
+        Update: {
+          anomaly_type?: string
+          baseline_id?: string
+          baseline_value?: number
+          context?: Json | null
+          contributing_factors?: string[] | null
+          created_at?: string | null
+          current_value?: number
+          detected_at?: string
+          deviation_score?: number
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          metric?: string
+          potential_threat?: string | null
+          risk_score?: number
+          severity?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "behavioral_anomalies_baseline_id_fkey"
+            columns: ["baseline_id"]
+            isOneToOne: false
+            referencedRelation: "behavioral_baselines"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "behavioral_anomalies_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      behavioral_baselines: {
+        Row: {
+          baseline_period: Json
+          common_ips: string[] | null
+          common_locations: string[] | null
+          common_user_agents: string[] | null
+          confidence: number
+          created_at: string | null
+          day_of_week_patterns: number[]
+          entity_id: string
+          entity_type: string
+          expires_at: string
+          hourly_patterns: number[]
+          id: string
+          is_active: boolean | null
+          metrics: Json
+          sample_size: number
+          tenant_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          baseline_period: Json
+          common_ips?: string[] | null
+          common_locations?: string[] | null
+          common_user_agents?: string[] | null
+          confidence?: number
+          created_at?: string | null
+          day_of_week_patterns?: number[]
+          entity_id: string
+          entity_type: string
+          expires_at: string
+          hourly_patterns?: number[]
+          id: string
+          is_active?: boolean | null
+          metrics?: Json
+          sample_size?: number
+          tenant_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          baseline_period?: Json
+          common_ips?: string[] | null
+          common_locations?: string[] | null
+          common_user_agents?: string[] | null
+          confidence?: number
+          created_at?: string | null
+          day_of_week_patterns?: number[]
+          entity_id?: string
+          entity_type?: string
+          expires_at?: string
+          hourly_patterns?: number[]
+          id?: string
+          is_active?: boolean | null
+          metrics?: Json
+          sample_size?: number
+          tenant_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "behavioral_baselines_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
         ]
@@ -4460,6 +4677,92 @@ export type Database = {
             columns: ["incident_id"]
             isOneToOne: false
             referencedRelation: "security_incidents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      indicators_of_compromise: {
+        Row: {
+          category: string
+          confidence: number
+          created_at: string | null
+          description: string | null
+          expiration_at: string | null
+          first_seen_at: string
+          hit_count: number
+          id: string
+          is_active: boolean | null
+          kill_chain_phase: string | null
+          last_hit_at: string | null
+          last_seen_at: string
+          mitre_tactics: string[] | null
+          mitre_techniques: string[] | null
+          severity: string
+          source: string
+          source_feed: string | null
+          source_url: string | null
+          tags: string[] | null
+          tenant_id: string
+          type: string
+          updated_at: string | null
+          value: string
+        }
+        Insert: {
+          category: string
+          confidence?: number
+          created_at?: string | null
+          description?: string | null
+          expiration_at?: string | null
+          first_seen_at: string
+          hit_count?: number
+          id: string
+          is_active?: boolean | null
+          kill_chain_phase?: string | null
+          last_hit_at?: string | null
+          last_seen_at: string
+          mitre_tactics?: string[] | null
+          mitre_techniques?: string[] | null
+          severity: string
+          source: string
+          source_feed?: string | null
+          source_url?: string | null
+          tags?: string[] | null
+          tenant_id: string
+          type: string
+          updated_at?: string | null
+          value: string
+        }
+        Update: {
+          category?: string
+          confidence?: number
+          created_at?: string | null
+          description?: string | null
+          expiration_at?: string | null
+          first_seen_at?: string
+          hit_count?: number
+          id?: string
+          is_active?: boolean | null
+          kill_chain_phase?: string | null
+          last_hit_at?: string | null
+          last_seen_at?: string
+          mitre_tactics?: string[] | null
+          mitre_techniques?: string[] | null
+          severity?: string
+          source?: string
+          source_feed?: string | null
+          source_url?: string | null
+          tags?: string[] | null
+          tenant_id?: string
+          type?: string
+          updated_at?: string | null
+          value?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "indicators_of_compromise_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
         ]
@@ -7583,6 +7886,77 @@ export type Database = {
         }
         Relationships: []
       }
+      threat_feeds: {
+        Row: {
+          api_key: string | null
+          auto_import: boolean | null
+          created_at: string | null
+          description: string | null
+          feed_type: string
+          feed_url: string
+          id: string
+          ioc_types: string[]
+          is_active: boolean | null
+          last_sync_at: string | null
+          last_sync_status: string | null
+          min_confidence: number
+          name: string
+          new_iocs_last_sync: number
+          refresh_interval_minutes: number
+          tenant_id: string
+          total_iocs: number
+          updated_at: string | null
+        }
+        Insert: {
+          api_key?: string | null
+          auto_import?: boolean | null
+          created_at?: string | null
+          description?: string | null
+          feed_type: string
+          feed_url: string
+          id: string
+          ioc_types?: string[]
+          is_active?: boolean | null
+          last_sync_at?: string | null
+          last_sync_status?: string | null
+          min_confidence?: number
+          name: string
+          new_iocs_last_sync?: number
+          refresh_interval_minutes?: number
+          tenant_id: string
+          total_iocs?: number
+          updated_at?: string | null
+        }
+        Update: {
+          api_key?: string | null
+          auto_import?: boolean | null
+          created_at?: string | null
+          description?: string | null
+          feed_type?: string
+          feed_url?: string
+          id?: string
+          ioc_types?: string[]
+          is_active?: boolean | null
+          last_sync_at?: string | null
+          last_sync_status?: string | null
+          min_confidence?: number
+          name?: string
+          new_iocs_last_sync?: number
+          refresh_interval_minutes?: number
+          tenant_id?: string
+          total_iocs?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "threat_feeds_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       threat_intelligence: {
         Row: {
           confidence: number
@@ -7639,6 +8013,62 @@ export type Database = {
           value?: string
         }
         Relationships: []
+      }
+      threat_scores: {
+        Row: {
+          behavioral_risk_score: number
+          calculated_at: string
+          contributing_factors: Json | null
+          entity_id: string
+          entity_type: string
+          expires_at: string
+          id: string
+          ioc_hit_score: number
+          overall_risk_score: number
+          reputation_risk_score: number
+          tenant_id: string
+          trend: string
+          trend_change: number
+        }
+        Insert: {
+          behavioral_risk_score: number
+          calculated_at: string
+          contributing_factors?: Json | null
+          entity_id: string
+          entity_type: string
+          expires_at: string
+          id?: string
+          ioc_hit_score: number
+          overall_risk_score: number
+          reputation_risk_score: number
+          tenant_id: string
+          trend: string
+          trend_change?: number
+        }
+        Update: {
+          behavioral_risk_score?: number
+          calculated_at?: string
+          contributing_factors?: Json | null
+          entity_id?: string
+          entity_type?: string
+          expires_at?: string
+          id?: string
+          ioc_hit_score?: number
+          overall_risk_score?: number
+          reputation_risk_score?: number
+          tenant_id?: string
+          trend?: string
+          trend_change?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "threat_scores_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       tool_access_logs: {
         Row: {
