@@ -2533,6 +2533,185 @@ export type Database = {
           },
         ]
       }
+      dr_regions: {
+        Row: {
+          api_endpoint: string
+          cache_endpoint: string
+          cpu_utilization: number
+          created_at: string | null
+          database_endpoint: string
+          failover_priority: number
+          health_score: number
+          id: string
+          is_healthy: boolean | null
+          is_primary: boolean | null
+          last_health_check_at: string
+          last_replicated_at: string
+          memory_utilization: number
+          metadata: Json | null
+          region_name: string
+          replication_lag_seconds: number
+          replication_status: string
+          status: string
+          storage_endpoint: string
+          storage_utilization: number
+          tenant_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          api_endpoint: string
+          cache_endpoint: string
+          cpu_utilization?: number
+          created_at?: string | null
+          database_endpoint: string
+          failover_priority?: number
+          health_score?: number
+          id: string
+          is_healthy?: boolean | null
+          is_primary?: boolean | null
+          last_health_check_at?: string
+          last_replicated_at?: string
+          memory_utilization?: number
+          metadata?: Json | null
+          region_name: string
+          replication_lag_seconds?: number
+          replication_status?: string
+          status: string
+          storage_endpoint: string
+          storage_utilization?: number
+          tenant_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          api_endpoint?: string
+          cache_endpoint?: string
+          cpu_utilization?: number
+          created_at?: string | null
+          database_endpoint?: string
+          failover_priority?: number
+          health_score?: number
+          id?: string
+          is_healthy?: boolean | null
+          is_primary?: boolean | null
+          last_health_check_at?: string
+          last_replicated_at?: string
+          memory_utilization?: number
+          metadata?: Json | null
+          region_name?: string
+          replication_lag_seconds?: number
+          replication_status?: string
+          status?: string
+          storage_endpoint?: string
+          storage_utilization?: number
+          tenant_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dr_regions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      dr_tests: {
+        Row: {
+          actual_rpo_seconds: number | null
+          actual_rto_seconds: number | null
+          completed_at: string | null
+          created_at: string | null
+          error_message: string | null
+          failed_steps: number
+          id: string
+          metadata: Json | null
+          passed_steps: number
+          plan_id: string
+          recommendations: string[] | null
+          rpo_met: boolean | null
+          rto_met: boolean | null
+          scheduled_at: string
+          started_at: string | null
+          status: string
+          target_rpo_seconds: number
+          target_rto_seconds: number
+          tenant_id: string
+          test_name: string
+          test_results: Json | null
+          test_type: string
+          total_steps: number
+          updated_at: string | null
+        }
+        Insert: {
+          actual_rpo_seconds?: number | null
+          actual_rto_seconds?: number | null
+          completed_at?: string | null
+          created_at?: string | null
+          error_message?: string | null
+          failed_steps?: number
+          id: string
+          metadata?: Json | null
+          passed_steps?: number
+          plan_id: string
+          recommendations?: string[] | null
+          rpo_met?: boolean | null
+          rto_met?: boolean | null
+          scheduled_at: string
+          started_at?: string | null
+          status: string
+          target_rpo_seconds: number
+          target_rto_seconds: number
+          tenant_id: string
+          test_name: string
+          test_results?: Json | null
+          test_type: string
+          total_steps?: number
+          updated_at?: string | null
+        }
+        Update: {
+          actual_rpo_seconds?: number | null
+          actual_rto_seconds?: number | null
+          completed_at?: string | null
+          created_at?: string | null
+          error_message?: string | null
+          failed_steps?: number
+          id?: string
+          metadata?: Json | null
+          passed_steps?: number
+          plan_id?: string
+          recommendations?: string[] | null
+          rpo_met?: boolean | null
+          rto_met?: boolean | null
+          scheduled_at?: string
+          started_at?: string | null
+          status?: string
+          target_rpo_seconds?: number
+          target_rto_seconds?: number
+          tenant_id?: string
+          test_name?: string
+          test_results?: Json | null
+          test_type?: string
+          total_steps?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dr_tests_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "failover_plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "dr_tests_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       dsar_requests: {
         Row: {
           completed_at: string | null
@@ -2631,6 +2810,189 @@ export type Database = {
           type?: string
         }
         Relationships: []
+      }
+      failover_events: {
+        Row: {
+          actual_rpo_seconds: number | null
+          actual_rto_seconds: number | null
+          completed_at: string | null
+          created_at: string | null
+          current_step_id: string | null
+          error_message: string | null
+          id: string
+          initiated_at: string
+          metadata: Json | null
+          plan_id: string
+          rollback_at: string | null
+          rollback_reason: string | null
+          rolled_back: boolean | null
+          source_region_id: string
+          status: string
+          steps_completed: number
+          steps_failed: number
+          target_region_id: string
+          tenant_id: string
+          trigger_reason: string
+          trigger_type: string
+          updated_at: string | null
+        }
+        Insert: {
+          actual_rpo_seconds?: number | null
+          actual_rto_seconds?: number | null
+          completed_at?: string | null
+          created_at?: string | null
+          current_step_id?: string | null
+          error_message?: string | null
+          id: string
+          initiated_at?: string
+          metadata?: Json | null
+          plan_id: string
+          rollback_at?: string | null
+          rollback_reason?: string | null
+          rolled_back?: boolean | null
+          source_region_id: string
+          status: string
+          steps_completed?: number
+          steps_failed?: number
+          target_region_id: string
+          tenant_id: string
+          trigger_reason: string
+          trigger_type: string
+          updated_at?: string | null
+        }
+        Update: {
+          actual_rpo_seconds?: number | null
+          actual_rto_seconds?: number | null
+          completed_at?: string | null
+          created_at?: string | null
+          current_step_id?: string | null
+          error_message?: string | null
+          id?: string
+          initiated_at?: string
+          metadata?: Json | null
+          plan_id?: string
+          rollback_at?: string | null
+          rollback_reason?: string | null
+          rolled_back?: boolean | null
+          source_region_id?: string
+          status?: string
+          steps_completed?: number
+          steps_failed?: number
+          target_region_id?: string
+          tenant_id?: string
+          trigger_reason?: string
+          trigger_type?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "failover_events_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "failover_plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "failover_events_source_region_id_fkey"
+            columns: ["source_region_id"]
+            isOneToOne: false
+            referencedRelation: "dr_regions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "failover_events_target_region_id_fkey"
+            columns: ["target_region_id"]
+            isOneToOne: false
+            referencedRelation: "dr_regions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "failover_events_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      failover_plans: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          failover_type: string
+          id: string
+          is_active: boolean | null
+          last_failover_at: string | null
+          last_tested_at: string | null
+          name: string
+          rpo_seconds: number
+          rto_seconds: number
+          source_region_id: string
+          steps: Json
+          target_region_id: string
+          tenant_id: string
+          triggers: Json | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          failover_type: string
+          id: string
+          is_active?: boolean | null
+          last_failover_at?: string | null
+          last_tested_at?: string | null
+          name: string
+          rpo_seconds: number
+          rto_seconds: number
+          source_region_id: string
+          steps?: Json
+          target_region_id: string
+          tenant_id: string
+          triggers?: Json | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          failover_type?: string
+          id?: string
+          is_active?: boolean | null
+          last_failover_at?: string | null
+          last_tested_at?: string | null
+          name?: string
+          rpo_seconds?: number
+          rto_seconds?: number
+          source_region_id?: string
+          steps?: Json
+          target_region_id?: string
+          tenant_id?: string
+          triggers?: Json | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "failover_plans_source_region_id_fkey"
+            columns: ["source_region_id"]
+            isOneToOne: false
+            referencedRelation: "dr_regions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "failover_plans_target_region_id_fkey"
+            columns: ["target_region_id"]
+            isOneToOne: false
+            referencedRelation: "dr_regions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "failover_plans_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       gpu_allocation_requests: {
         Row: {
