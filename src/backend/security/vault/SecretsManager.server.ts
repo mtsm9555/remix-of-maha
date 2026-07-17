@@ -141,8 +141,8 @@ export const SecretsManager = {
     newValue?: string,
   ): Promise<Secret> {
     const { supabaseAdmin } = await import('@/integrations/supabase/client.server');
-    const existing = await supabaseAdmin.from('secrets' as never).select('*').eq('id', secretId).single();
-    if (existing.error || !existing.data) throw existing.error ?? new Error('Not found');
+    const existing: { data: unknown; error: unknown } = await supabaseAdmin.from('secrets' as never).select('*').eq('id', secretId).single();
+    if (existing.error || !existing.data) throw (existing.error as Error) ?? new Error('Not found');
     const current = rowToSecret(existing.data as Record<string, unknown>);
 
     // archive current
