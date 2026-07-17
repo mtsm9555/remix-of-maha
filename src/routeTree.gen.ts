@@ -212,6 +212,7 @@ import { Route as ApiWorkspacesWorkspaceIdMembersUserIdRouteImport } from './rou
 import { Route as ApiToolsVersioningToolNameVersionsRouteImport } from './routes/api/tools/versioning/$toolName/versions'
 import { Route as ApiToolsVersioningToolNameRollbackRouteImport } from './routes/api/tools/versioning/$toolName/rollback'
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
+import { Route as ApiThreatTenantIdIocsCheckRouteImport } from './routes/api/threat/$tenantId/iocs.check'
 import { Route as ApiTeamsChannelsChannelIdMessagesRouteImport } from './routes/api/teams/channels/$channelId/messages'
 import { Route as ApiSecurityMonitoringIncidentsIncidentIdStatusRouteImport } from './routes/api/security-monitoring/incidents/$incidentId.status'
 import { Route as ApiSecurityMonitoringIncidentsIncidentIdActionsRouteImport } from './routes/api/security-monitoring/incidents/$incidentId.actions'
@@ -1413,6 +1414,12 @@ const ApiToolsMcpDisconnectServerIdRoute =
     path: '/api/tools/mcp/disconnect/$serverId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiThreatTenantIdIocsCheckRoute =
+  ApiThreatTenantIdIocsCheckRouteImport.update({
+    id: '/check',
+    path: '/check',
+    getParentRoute: () => ApiThreatTenantIdIocsRoute,
+  } as any)
 const ApiTeamsChannelsChannelIdMessagesRoute =
   ApiTeamsChannelsChannelIdMessagesRouteImport.update({
     id: '/api/teams/channels/$channelId/messages',
@@ -2099,7 +2106,7 @@ export interface FileRoutesByFullPath {
   '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
   '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
-  '/api/threat/$tenantId/iocs': typeof ApiThreatTenantIdIocsRoute
+  '/api/threat/$tenantId/iocs': typeof ApiThreatTenantIdIocsRouteWithChildren
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
   '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
@@ -2192,6 +2199,7 @@ export interface FileRoutesByFullPath {
   '/api/security-monitoring/incidents/$incidentId/actions': typeof ApiSecurityMonitoringIncidentsIncidentIdActionsRoute
   '/api/security-monitoring/incidents/$incidentId/status': typeof ApiSecurityMonitoringIncidentsIncidentIdStatusRoute
   '/api/teams/channels/$channelId/messages': typeof ApiTeamsChannelsChannelIdMessagesRoute
+  '/api/threat/$tenantId/iocs/check': typeof ApiThreatTenantIdIocsCheckRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
@@ -2391,7 +2399,7 @@ export interface FileRoutesByTo {
   '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
   '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
-  '/api/threat/$tenantId/iocs': typeof ApiThreatTenantIdIocsRoute
+  '/api/threat/$tenantId/iocs': typeof ApiThreatTenantIdIocsRouteWithChildren
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
   '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
@@ -2484,6 +2492,7 @@ export interface FileRoutesByTo {
   '/api/security-monitoring/incidents/$incidentId/actions': typeof ApiSecurityMonitoringIncidentsIncidentIdActionsRoute
   '/api/security-monitoring/incidents/$incidentId/status': typeof ApiSecurityMonitoringIncidentsIncidentIdStatusRoute
   '/api/teams/channels/$channelId/messages': typeof ApiTeamsChannelsChannelIdMessagesRoute
+  '/api/threat/$tenantId/iocs/check': typeof ApiThreatTenantIdIocsCheckRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
@@ -2684,7 +2693,7 @@ export interface FileRoutesById {
   '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
   '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
-  '/api/threat/$tenantId/iocs': typeof ApiThreatTenantIdIocsRoute
+  '/api/threat/$tenantId/iocs': typeof ApiThreatTenantIdIocsRouteWithChildren
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
   '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
@@ -2777,6 +2786,7 @@ export interface FileRoutesById {
   '/api/security-monitoring/incidents/$incidentId/actions': typeof ApiSecurityMonitoringIncidentsIncidentIdActionsRoute
   '/api/security-monitoring/incidents/$incidentId/status': typeof ApiSecurityMonitoringIncidentsIncidentIdStatusRoute
   '/api/teams/channels/$channelId/messages': typeof ApiTeamsChannelsChannelIdMessagesRoute
+  '/api/threat/$tenantId/iocs/check': typeof ApiThreatTenantIdIocsCheckRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
@@ -3071,6 +3081,7 @@ export interface FileRouteTypes {
     | '/api/security-monitoring/incidents/$incidentId/actions'
     | '/api/security-monitoring/incidents/$incidentId/status'
     | '/api/teams/channels/$channelId/messages'
+    | '/api/threat/$tenantId/iocs/check'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
@@ -3363,6 +3374,7 @@ export interface FileRouteTypes {
     | '/api/security-monitoring/incidents/$incidentId/actions'
     | '/api/security-monitoring/incidents/$incidentId/status'
     | '/api/teams/channels/$channelId/messages'
+    | '/api/threat/$tenantId/iocs/check'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
@@ -3655,6 +3667,7 @@ export interface FileRouteTypes {
     | '/api/security-monitoring/incidents/$incidentId/actions'
     | '/api/security-monitoring/incidents/$incidentId/status'
     | '/api/teams/channels/$channelId/messages'
+    | '/api/threat/$tenantId/iocs/check'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
@@ -3851,7 +3864,7 @@ export interface RootRouteChildren {
   ApiTeamsTenantIdCreateRoute: typeof ApiTeamsTenantIdCreateRoute
   ApiTeamsTenantIdTreeRoute: typeof ApiTeamsTenantIdTreeRoute
   ApiTenantsIdSuspendRoute: typeof ApiTenantsIdSuspendRoute
-  ApiThreatTenantIdIocsRoute: typeof ApiThreatTenantIdIocsRoute
+  ApiThreatTenantIdIocsRoute: typeof ApiThreatTenantIdIocsRouteWithChildren
   ApiToolsMarketplaceInstallRoute: typeof ApiToolsMarketplaceInstallRoute
   ApiToolsMarketplaceInstalledRoute: typeof ApiToolsMarketplaceInstalledRoute
   ApiToolsMarketplaceUninstallRoute: typeof ApiToolsMarketplaceUninstallRoute
@@ -5363,6 +5376,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiToolsMcpDisconnectServerIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/threat/$tenantId/iocs/check': {
+      id: '/api/threat/$tenantId/iocs/check'
+      path: '/check'
+      fullPath: '/api/threat/$tenantId/iocs/check'
+      preLoaderRoute: typeof ApiThreatTenantIdIocsCheckRouteImport
+      parentRoute: typeof ApiThreatTenantIdIocsRoute
+    }
     '/api/teams/channels/$channelId/messages': {
       id: '/api/teams/channels/$channelId/messages'
       path: '/api/teams/channels/$channelId/messages'
@@ -6294,6 +6314,19 @@ const ApiIntelligenceReflectionMetricsRouteWithChildren =
     ApiIntelligenceReflectionMetricsRouteChildren,
   )
 
+interface ApiThreatTenantIdIocsRouteChildren {
+  ApiThreatTenantIdIocsCheckRoute: typeof ApiThreatTenantIdIocsCheckRoute
+}
+
+const ApiThreatTenantIdIocsRouteChildren: ApiThreatTenantIdIocsRouteChildren = {
+  ApiThreatTenantIdIocsCheckRoute: ApiThreatTenantIdIocsCheckRoute,
+}
+
+const ApiThreatTenantIdIocsRouteWithChildren =
+  ApiThreatTenantIdIocsRoute._addFileChildren(
+    ApiThreatTenantIdIocsRouteChildren,
+  )
+
 interface ApiVaultTenantIdAccessRequestsRouteChildren {
   ApiVaultTenantIdAccessRequestsRequestIdDecideRoute: typeof ApiVaultTenantIdAccessRequestsRequestIdDecideRoute
 }
@@ -6534,7 +6567,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiTeamsTenantIdCreateRoute: ApiTeamsTenantIdCreateRoute,
   ApiTeamsTenantIdTreeRoute: ApiTeamsTenantIdTreeRoute,
   ApiTenantsIdSuspendRoute: ApiTenantsIdSuspendRoute,
-  ApiThreatTenantIdIocsRoute: ApiThreatTenantIdIocsRoute,
+  ApiThreatTenantIdIocsRoute: ApiThreatTenantIdIocsRouteWithChildren,
   ApiToolsMarketplaceInstallRoute: ApiToolsMarketplaceInstallRoute,
   ApiToolsMarketplaceInstalledRoute: ApiToolsMarketplaceInstalledRoute,
   ApiToolsMarketplaceUninstallRoute: ApiToolsMarketplaceUninstallRoute,
