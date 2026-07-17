@@ -181,6 +181,7 @@ import { Route as ApiAuditTenantIdRetentionRouteImport } from './routes/api/audi
 import { Route as ApiAuditTenantIdLogsRouteImport } from './routes/api/audit/$tenantId.logs'
 import { Route as ApiAuditTenantIdExportsRouteImport } from './routes/api/audit/$tenantId.exports'
 import { Route as ApiAuditTenantIdAlertsRouteImport } from './routes/api/audit/$tenantId.alerts'
+import { Route as ApiApprovalGatesTenantIdPoliciesRouteImport } from './routes/api/approval-gates/$tenantId.policies'
 import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
 import { Route as ApiAnalyticsRetrievalOverviewRouteImport } from './routes/api/analytics/retrieval/overview'
 import { Route as ApiAnalyticsRetrievalHealthCheckRouteImport } from './routes/api/analytics/retrieval/health-check'
@@ -1198,6 +1199,12 @@ const ApiAuditTenantIdAlertsRoute = ApiAuditTenantIdAlertsRouteImport.update({
   path: '/api/audit/$tenantId/alerts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiApprovalGatesTenantIdPoliciesRoute =
+  ApiApprovalGatesTenantIdPoliciesRouteImport.update({
+    id: '/api/approval-gates/$tenantId/policies',
+    path: '/api/approval-gates/$tenantId/policies',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiAnalyticsToolsOverviewRoute =
   ApiAnalyticsToolsOverviewRouteImport.update({
     id: '/api/analytics/tools/overview',
@@ -1795,6 +1802,7 @@ export interface FileRoutesByFullPath {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/approval-gates/$tenantId/policies': typeof ApiApprovalGatesTenantIdPoliciesRoute
   '/api/audit/$tenantId/alerts': typeof ApiAuditTenantIdAlertsRouteWithChildren
   '/api/audit/$tenantId/exports': typeof ApiAuditTenantIdExportsRouteWithChildren
   '/api/audit/$tenantId/logs': typeof ApiAuditTenantIdLogsRouteWithChildren
@@ -2057,6 +2065,7 @@ export interface FileRoutesByTo {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/approval-gates/$tenantId/policies': typeof ApiApprovalGatesTenantIdPoliciesRoute
   '/api/audit/$tenantId/alerts': typeof ApiAuditTenantIdAlertsRouteWithChildren
   '/api/audit/$tenantId/exports': typeof ApiAuditTenantIdExportsRouteWithChildren
   '/api/audit/$tenantId/logs': typeof ApiAuditTenantIdLogsRouteWithChildren
@@ -2320,6 +2329,7 @@ export interface FileRoutesById {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/approval-gates/$tenantId/policies': typeof ApiApprovalGatesTenantIdPoliciesRoute
   '/api/audit/$tenantId/alerts': typeof ApiAuditTenantIdAlertsRouteWithChildren
   '/api/audit/$tenantId/exports': typeof ApiAuditTenantIdExportsRouteWithChildren
   '/api/audit/$tenantId/logs': typeof ApiAuditTenantIdLogsRouteWithChildren
@@ -2584,6 +2594,7 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/approval-gates/$tenantId/policies'
     | '/api/audit/$tenantId/alerts'
     | '/api/audit/$tenantId/exports'
     | '/api/audit/$tenantId/logs'
@@ -2846,6 +2857,7 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/approval-gates/$tenantId/policies'
     | '/api/audit/$tenantId/alerts'
     | '/api/audit/$tenantId/exports'
     | '/api/audit/$tenantId/logs'
@@ -3108,6 +3120,7 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/approval-gates/$tenantId/policies'
     | '/api/audit/$tenantId/alerts'
     | '/api/audit/$tenantId/exports'
     | '/api/audit/$tenantId/logs'
@@ -3371,6 +3384,7 @@ export interface RootRouteChildren {
   ApiAnalyticsRetrievalHealthCheckRoute: typeof ApiAnalyticsRetrievalHealthCheckRoute
   ApiAnalyticsRetrievalOverviewRoute: typeof ApiAnalyticsRetrievalOverviewRoute
   ApiAnalyticsToolsOverviewRoute: typeof ApiAnalyticsToolsOverviewRoute
+  ApiApprovalGatesTenantIdPoliciesRoute: typeof ApiApprovalGatesTenantIdPoliciesRoute
   ApiAuditTenantIdAlertsRoute: typeof ApiAuditTenantIdAlertsRouteWithChildren
   ApiAuditTenantIdExportsRoute: typeof ApiAuditTenantIdExportsRouteWithChildren
   ApiAuditTenantIdLogsRoute: typeof ApiAuditTenantIdLogsRouteWithChildren
@@ -4736,6 +4750,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuditTenantIdAlertsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/approval-gates/$tenantId/policies': {
+      id: '/api/approval-gates/$tenantId/policies'
+      path: '/api/approval-gates/$tenantId/policies'
+      fullPath: '/api/approval-gates/$tenantId/policies'
+      preLoaderRoute: typeof ApiApprovalGatesTenantIdPoliciesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/analytics/tools/overview': {
       id: '/api/analytics/tools/overview'
       path: '/api/analytics/tools/overview'
@@ -5740,6 +5761,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAnalyticsRetrievalHealthCheckRoute: ApiAnalyticsRetrievalHealthCheckRoute,
   ApiAnalyticsRetrievalOverviewRoute: ApiAnalyticsRetrievalOverviewRoute,
   ApiAnalyticsToolsOverviewRoute: ApiAnalyticsToolsOverviewRoute,
+  ApiApprovalGatesTenantIdPoliciesRoute: ApiApprovalGatesTenantIdPoliciesRoute,
   ApiAuditTenantIdAlertsRoute: ApiAuditTenantIdAlertsRouteWithChildren,
   ApiAuditTenantIdExportsRoute: ApiAuditTenantIdExportsRouteWithChildren,
   ApiAuditTenantIdLogsRoute: ApiAuditTenantIdLogsRouteWithChildren,
