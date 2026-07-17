@@ -1153,6 +1153,57 @@ export type Database = {
         }
         Relationships: []
       }
+      knowledge_versions: {
+        Row: {
+          author_id: string
+          author_type: string
+          change_summary: string
+          change_type: string
+          content: string
+          created_at: string
+          embedding: string | null
+          entity_id: string
+          entity_type: string
+          id: string
+          is_current_version: boolean
+          metadata: Json
+          parent_version_id: string | null
+          version_number: number
+        }
+        Insert: {
+          author_id: string
+          author_type: string
+          change_summary: string
+          change_type: string
+          content: string
+          created_at?: string
+          embedding?: string | null
+          entity_id: string
+          entity_type: string
+          id: string
+          is_current_version?: boolean
+          metadata?: Json
+          parent_version_id?: string | null
+          version_number: number
+        }
+        Update: {
+          author_id?: string
+          author_type?: string
+          change_summary?: string
+          change_type?: string
+          content?: string
+          created_at?: string
+          embedding?: string | null
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          is_current_version?: boolean
+          metadata?: Json
+          parent_version_id?: string | null
+          version_number?: number
+        }
+        Relationships: []
+      }
       learning_cycles: {
         Row: {
           agent_id: string
