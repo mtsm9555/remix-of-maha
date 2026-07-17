@@ -5669,6 +5669,226 @@ export type Database = {
           },
         ]
       }
+      secret_access_requests: {
+        Row: {
+          access_expires_at: string | null
+          access_granted_at: string | null
+          approved_at: string | null
+          approved_by: string | null
+          created_at: string
+          id: string
+          ip_address: string | null
+          reason: string
+          rejection_reason: string | null
+          requested_by: string
+          requested_duration: number | null
+          secret_id: string
+          status: string
+          tenant_id: string
+          updated_at: string
+          user_agent: string | null
+        }
+        Insert: {
+          access_expires_at?: string | null
+          access_granted_at?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          id: string
+          ip_address?: string | null
+          reason: string
+          rejection_reason?: string | null
+          requested_by: string
+          requested_duration?: number | null
+          secret_id: string
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Update: {
+          access_expires_at?: string | null
+          access_granted_at?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          id?: string
+          ip_address?: string | null
+          reason?: string
+          rejection_reason?: string | null
+          requested_by?: string
+          requested_duration?: number | null
+          secret_id?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "secret_access_requests_secret_id_fkey"
+            columns: ["secret_id"]
+            isOneToOne: false
+            referencedRelation: "secrets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "secret_access_requests_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      secret_versions: {
+        Row: {
+          created_at: string
+          created_by: string
+          encrypted_value: string
+          encryption_key_id: string
+          id: string
+          rotated_by: string | null
+          rotation_reason: string | null
+          secret_id: string
+          version: number
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          encrypted_value: string
+          encryption_key_id: string
+          id: string
+          rotated_by?: string | null
+          rotation_reason?: string | null
+          secret_id: string
+          version: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          encrypted_value?: string
+          encryption_key_id?: string
+          id?: string
+          rotated_by?: string | null
+          rotation_reason?: string | null
+          secret_id?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "secret_versions_secret_id_fkey"
+            columns: ["secret_id"]
+            isOneToOne: false
+            referencedRelation: "secrets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      secrets: {
+        Row: {
+          access_count: number
+          access_policy: Json
+          created_at: string
+          created_by: string
+          description: string | null
+          encrypted_value: string
+          encryption_algorithm: string
+          encryption_key_id: string
+          expires_at: string | null
+          id: string
+          is_revoked: boolean
+          last_accessed_at: string | null
+          last_accessed_by: string | null
+          last_rotated_at: string | null
+          metadata: Json
+          name: string
+          next_rotation_at: string | null
+          previous_version_id: string | null
+          revoked_at: string | null
+          revoked_by: string | null
+          rotation_enabled: boolean
+          rotation_interval_days: number | null
+          rotation_status: string
+          tags: string[]
+          tenant_id: string
+          type: string
+          updated_at: string
+          version: number
+          workspace_id: string | null
+        }
+        Insert: {
+          access_count?: number
+          access_policy?: Json
+          created_at?: string
+          created_by: string
+          description?: string | null
+          encrypted_value: string
+          encryption_algorithm?: string
+          encryption_key_id?: string
+          expires_at?: string | null
+          id: string
+          is_revoked?: boolean
+          last_accessed_at?: string | null
+          last_accessed_by?: string | null
+          last_rotated_at?: string | null
+          metadata?: Json
+          name: string
+          next_rotation_at?: string | null
+          previous_version_id?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+          rotation_enabled?: boolean
+          rotation_interval_days?: number | null
+          rotation_status?: string
+          tags?: string[]
+          tenant_id: string
+          type?: string
+          updated_at?: string
+          version?: number
+          workspace_id?: string | null
+        }
+        Update: {
+          access_count?: number
+          access_policy?: Json
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          encrypted_value?: string
+          encryption_algorithm?: string
+          encryption_key_id?: string
+          expires_at?: string | null
+          id?: string
+          is_revoked?: boolean
+          last_accessed_at?: string | null
+          last_accessed_by?: string | null
+          last_rotated_at?: string | null
+          metadata?: Json
+          name?: string
+          next_rotation_at?: string | null
+          previous_version_id?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+          rotation_enabled?: boolean
+          rotation_interval_days?: number | null
+          rotation_status?: string
+          tags?: string[]
+          tenant_id?: string
+          type?: string
+          updated_at?: string
+          version?: number
+          workspace_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "secrets_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       shared_memories: {
         Row: {
           access_level: string
@@ -6700,6 +6920,53 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      vault_audit_logs: {
+        Row: {
+          action: string
+          details: Json
+          id: string
+          ip_address: string | null
+          secret_id: string | null
+          success: boolean
+          tenant_id: string
+          timestamp: string
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          details?: Json
+          id: string
+          ip_address?: string | null
+          secret_id?: string | null
+          success?: boolean
+          tenant_id: string
+          timestamp?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          details?: Json
+          id?: string
+          ip_address?: string | null
+          secret_id?: string | null
+          success?: boolean
+          tenant_id?: string
+          timestamp?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vault_audit_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       worker_health_checks: {
         Row: {
