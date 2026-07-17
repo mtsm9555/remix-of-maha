@@ -100,6 +100,7 @@ import { Route as ApiToolsMcpCallRouteImport } from './routes/api/tools/mcp/call
 import { Route as ApiToolsMarketplaceUninstallRouteImport } from './routes/api/tools/marketplace/uninstall'
 import { Route as ApiToolsMarketplaceInstalledRouteImport } from './routes/api/tools/marketplace/installed'
 import { Route as ApiToolsMarketplaceInstallRouteImport } from './routes/api/tools/marketplace/install'
+import { Route as ApiThreatTenantIdIocsRouteImport } from './routes/api/threat/$tenantId/iocs'
 import { Route as ApiTenantsIdSuspendRouteImport } from './routes/api/tenants/$id/suspend'
 import { Route as ApiTeamsTenantIdTreeRouteImport } from './routes/api/teams/$tenantId/tree'
 import { Route as ApiTeamsTenantIdCreateRouteImport } from './routes/api/teams/$tenantId/create'
@@ -776,6 +777,11 @@ const ApiToolsMarketplaceInstallRoute =
     path: '/api/tools/marketplace/install',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiThreatTenantIdIocsRoute = ApiThreatTenantIdIocsRouteImport.update({
+  id: '/api/threat/$tenantId/iocs',
+  path: '/api/threat/$tenantId/iocs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiTenantsIdSuspendRoute = ApiTenantsIdSuspendRouteImport.update({
   id: '/api/tenants/$id/suspend',
   path: '/api/tenants/$id/suspend',
@@ -2093,6 +2099,7 @@ export interface FileRoutesByFullPath {
   '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
   '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
+  '/api/threat/$tenantId/iocs': typeof ApiThreatTenantIdIocsRoute
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
   '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
@@ -2384,6 +2391,7 @@ export interface FileRoutesByTo {
   '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
   '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
+  '/api/threat/$tenantId/iocs': typeof ApiThreatTenantIdIocsRoute
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
   '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
@@ -2676,6 +2684,7 @@ export interface FileRoutesById {
   '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
   '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
+  '/api/threat/$tenantId/iocs': typeof ApiThreatTenantIdIocsRoute
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
   '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
@@ -2969,6 +2978,7 @@ export interface FileRouteTypes {
     | '/api/teams/$tenantId/create'
     | '/api/teams/$tenantId/tree'
     | '/api/tenants/$id/suspend'
+    | '/api/threat/$tenantId/iocs'
     | '/api/tools/marketplace/install'
     | '/api/tools/marketplace/installed'
     | '/api/tools/marketplace/uninstall'
@@ -3260,6 +3270,7 @@ export interface FileRouteTypes {
     | '/api/teams/$tenantId/create'
     | '/api/teams/$tenantId/tree'
     | '/api/tenants/$id/suspend'
+    | '/api/threat/$tenantId/iocs'
     | '/api/tools/marketplace/install'
     | '/api/tools/marketplace/installed'
     | '/api/tools/marketplace/uninstall'
@@ -3551,6 +3562,7 @@ export interface FileRouteTypes {
     | '/api/teams/$tenantId/create'
     | '/api/teams/$tenantId/tree'
     | '/api/tenants/$id/suspend'
+    | '/api/threat/$tenantId/iocs'
     | '/api/tools/marketplace/install'
     | '/api/tools/marketplace/installed'
     | '/api/tools/marketplace/uninstall'
@@ -3839,6 +3851,7 @@ export interface RootRouteChildren {
   ApiTeamsTenantIdCreateRoute: typeof ApiTeamsTenantIdCreateRoute
   ApiTeamsTenantIdTreeRoute: typeof ApiTeamsTenantIdTreeRoute
   ApiTenantsIdSuspendRoute: typeof ApiTenantsIdSuspendRoute
+  ApiThreatTenantIdIocsRoute: typeof ApiThreatTenantIdIocsRoute
   ApiToolsMarketplaceInstallRoute: typeof ApiToolsMarketplaceInstallRoute
   ApiToolsMarketplaceInstalledRoute: typeof ApiToolsMarketplaceInstalledRoute
   ApiToolsMarketplaceUninstallRoute: typeof ApiToolsMarketplaceUninstallRoute
@@ -4564,6 +4577,13 @@ declare module '@tanstack/react-router' {
       path: '/api/tools/marketplace/install'
       fullPath: '/api/tools/marketplace/install'
       preLoaderRoute: typeof ApiToolsMarketplaceInstallRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/threat/$tenantId/iocs': {
+      id: '/api/threat/$tenantId/iocs'
+      path: '/api/threat/$tenantId/iocs'
+      fullPath: '/api/threat/$tenantId/iocs'
+      preLoaderRoute: typeof ApiThreatTenantIdIocsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/tenants/$id/suspend': {
@@ -6514,6 +6534,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiTeamsTenantIdCreateRoute: ApiTeamsTenantIdCreateRoute,
   ApiTeamsTenantIdTreeRoute: ApiTeamsTenantIdTreeRoute,
   ApiTenantsIdSuspendRoute: ApiTenantsIdSuspendRoute,
+  ApiThreatTenantIdIocsRoute: ApiThreatTenantIdIocsRoute,
   ApiToolsMarketplaceInstallRoute: ApiToolsMarketplaceInstallRoute,
   ApiToolsMarketplaceInstalledRoute: ApiToolsMarketplaceInstalledRoute,
   ApiToolsMarketplaceUninstallRoute: ApiToolsMarketplaceUninstallRoute,
