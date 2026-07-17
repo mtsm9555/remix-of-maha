@@ -106,6 +106,7 @@ import { Route as ApiTeamsTenantIdCreateRouteImport } from './routes/api/teams/$
 import { Route as ApiTeamsTeamIdChannelsRouteImport } from './routes/api/teams/$teamId/channels'
 import { Route as ApiTeamsTeamIdBudgetRouteImport } from './routes/api/teams/$teamId/budget'
 import { Route as ApiTeamsTeamIdAnalyticsRouteImport } from './routes/api/teams/$teamId/analytics'
+import { Route as ApiSecurityMonitoringTenantIdMetricsRouteImport } from './routes/api/security-monitoring/$tenantId/metrics'
 import { Route as ApiSecurityMonitoringTenantIdEventsRouteImport } from './routes/api/security-monitoring/$tenantId/events'
 import { Route as ApiScalingPoliciesPolicyIdRouteImport } from './routes/api/scaling/policies/$policyId'
 import { Route as ApiRbacRolesRoleIdRouteImport } from './routes/api/rbac/roles.$roleId'
@@ -798,6 +799,12 @@ const ApiTeamsTeamIdAnalyticsRoute = ApiTeamsTeamIdAnalyticsRouteImport.update({
   path: '/api/teams/$teamId/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSecurityMonitoringTenantIdMetricsRoute =
+  ApiSecurityMonitoringTenantIdMetricsRouteImport.update({
+    id: '/api/security-monitoring/$tenantId/metrics',
+    path: '/api/security-monitoring/$tenantId/metrics',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiSecurityMonitoringTenantIdEventsRoute =
   ApiSecurityMonitoringTenantIdEventsRouteImport.update({
     id: '/api/security-monitoring/$tenantId/events',
@@ -2027,6 +2034,7 @@ export interface FileRoutesByFullPath {
   '/api/rbac/roles/$roleId': typeof ApiRbacRolesRoleIdRoute
   '/api/scaling/policies/$policyId': typeof ApiScalingPoliciesPolicyIdRouteWithChildren
   '/api/security-monitoring/$tenantId/events': typeof ApiSecurityMonitoringTenantIdEventsRoute
+  '/api/security-monitoring/$tenantId/metrics': typeof ApiSecurityMonitoringTenantIdMetricsRoute
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
   '/api/teams/$teamId/channels': typeof ApiTeamsTeamIdChannelsRoute
@@ -2310,6 +2318,7 @@ export interface FileRoutesByTo {
   '/api/rbac/roles/$roleId': typeof ApiRbacRolesRoleIdRoute
   '/api/scaling/policies/$policyId': typeof ApiScalingPoliciesPolicyIdRouteWithChildren
   '/api/security-monitoring/$tenantId/events': typeof ApiSecurityMonitoringTenantIdEventsRoute
+  '/api/security-monitoring/$tenantId/metrics': typeof ApiSecurityMonitoringTenantIdMetricsRoute
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
   '/api/teams/$teamId/channels': typeof ApiTeamsTeamIdChannelsRoute
@@ -2594,6 +2603,7 @@ export interface FileRoutesById {
   '/api/rbac/roles/$roleId': typeof ApiRbacRolesRoleIdRoute
   '/api/scaling/policies/$policyId': typeof ApiScalingPoliciesPolicyIdRouteWithChildren
   '/api/security-monitoring/$tenantId/events': typeof ApiSecurityMonitoringTenantIdEventsRoute
+  '/api/security-monitoring/$tenantId/metrics': typeof ApiSecurityMonitoringTenantIdMetricsRoute
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
   '/api/teams/$teamId/channels': typeof ApiTeamsTeamIdChannelsRoute
@@ -2879,6 +2889,7 @@ export interface FileRouteTypes {
     | '/api/rbac/roles/$roleId'
     | '/api/scaling/policies/$policyId'
     | '/api/security-monitoring/$tenantId/events'
+    | '/api/security-monitoring/$tenantId/metrics'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
     | '/api/teams/$teamId/channels'
@@ -3162,6 +3173,7 @@ export interface FileRouteTypes {
     | '/api/rbac/roles/$roleId'
     | '/api/scaling/policies/$policyId'
     | '/api/security-monitoring/$tenantId/events'
+    | '/api/security-monitoring/$tenantId/metrics'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
     | '/api/teams/$teamId/channels'
@@ -3445,6 +3457,7 @@ export interface FileRouteTypes {
     | '/api/rbac/roles/$roleId'
     | '/api/scaling/policies/$policyId'
     | '/api/security-monitoring/$tenantId/events'
+    | '/api/security-monitoring/$tenantId/metrics'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
     | '/api/teams/$teamId/channels'
@@ -3725,6 +3738,7 @@ export interface RootRouteChildren {
   ApiRbacAssignmentsIdRoute: typeof ApiRbacAssignmentsIdRoute
   ApiRbacRolesRoleIdRoute: typeof ApiRbacRolesRoleIdRoute
   ApiSecurityMonitoringTenantIdEventsRoute: typeof ApiSecurityMonitoringTenantIdEventsRoute
+  ApiSecurityMonitoringTenantIdMetricsRoute: typeof ApiSecurityMonitoringTenantIdMetricsRoute
   ApiTeamsTeamIdAnalyticsRoute: typeof ApiTeamsTeamIdAnalyticsRoute
   ApiTeamsTeamIdBudgetRoute: typeof ApiTeamsTeamIdBudgetRoute
   ApiTeamsTeamIdChannelsRoute: typeof ApiTeamsTeamIdChannelsRoute
@@ -4494,6 +4508,13 @@ declare module '@tanstack/react-router' {
       path: '/api/teams/$teamId/analytics'
       fullPath: '/api/teams/$teamId/analytics'
       preLoaderRoute: typeof ApiTeamsTeamIdAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/security-monitoring/$tenantId/metrics': {
+      id: '/api/security-monitoring/$tenantId/metrics'
+      path: '/api/security-monitoring/$tenantId/metrics'
+      fullPath: '/api/security-monitoring/$tenantId/metrics'
+      preLoaderRoute: typeof ApiSecurityMonitoringTenantIdMetricsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/security-monitoring/$tenantId/events': {
@@ -6332,6 +6353,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiRbacRolesRoleIdRoute: ApiRbacRolesRoleIdRoute,
   ApiSecurityMonitoringTenantIdEventsRoute:
     ApiSecurityMonitoringTenantIdEventsRoute,
+  ApiSecurityMonitoringTenantIdMetricsRoute:
+    ApiSecurityMonitoringTenantIdMetricsRoute,
   ApiTeamsTeamIdAnalyticsRoute: ApiTeamsTeamIdAnalyticsRoute,
   ApiTeamsTeamIdBudgetRoute: ApiTeamsTeamIdBudgetRoute,
   ApiTeamsTeamIdChannelsRoute: ApiTeamsTeamIdChannelsRoute,
