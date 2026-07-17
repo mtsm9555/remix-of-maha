@@ -176,6 +176,11 @@ import { Route as ApiBillingOpsTenantIdPaymentsRouteImport } from './routes/api/
 import { Route as ApiBillingOpsTenantIdEventsRouteImport } from './routes/api/billing-ops/$tenantId/events'
 import { Route as ApiBillingOpsTenantIdCreditsRouteImport } from './routes/api/billing-ops/$tenantId/credits'
 import { Route as ApiBackupSchedulerTickRouteImport } from './routes/api/backup/scheduler.tick'
+import { Route as ApiAuditRetentionTickRouteImport } from './routes/api/audit/retention.tick'
+import { Route as ApiAuditTenantIdRetentionRouteImport } from './routes/api/audit/$tenantId.retention'
+import { Route as ApiAuditTenantIdLogsRouteImport } from './routes/api/audit/$tenantId.logs'
+import { Route as ApiAuditTenantIdExportsRouteImport } from './routes/api/audit/$tenantId.exports'
+import { Route as ApiAuditTenantIdAlertsRouteImport } from './routes/api/audit/$tenantId.alerts'
 import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
 import { Route as ApiAnalyticsRetrievalOverviewRouteImport } from './routes/api/analytics/retrieval/overview'
 import { Route as ApiAnalyticsRetrievalHealthCheckRouteImport } from './routes/api/analytics/retrieval/health-check'
@@ -236,6 +241,9 @@ import { Route as ApiClusterWorkersWorkerIdHeartbeatRouteImport } from './routes
 import { Route as ApiClusterWorkersWorkerIdClaimRouteImport } from './routes/api/cluster/workers/$workerId/claim'
 import { Route as ApiClusterTasksTaskIdCompleteRouteImport } from './routes/api/cluster/tasks/$taskId/complete'
 import { Route as ApiBackupJobsIdExecuteRouteImport } from './routes/api/backup/jobs.$id.execute'
+import { Route as ApiAuditTenantIdMetricsPeriodRouteImport } from './routes/api/audit/$tenantId.metrics.$period'
+import { Route as ApiAuditTenantIdLogsEventIdRouteImport } from './routes/api/audit/$tenantId.logs.$eventId'
+import { Route as ApiAuditTenantIdExportsExportIdRouteImport } from './routes/api/audit/$tenantId.exports.$exportId'
 import { Route as ApiApikeysTenantIdKeyIdUsageRouteImport } from './routes/api/apikeys/$tenantId/$keyId/usage'
 import { Route as ApiApikeysTenantIdKeyIdRotateRouteImport } from './routes/api/apikeys/$tenantId/$keyId/rotate'
 import { Route as ApiApikeysTenantIdKeyIdRevokeRouteImport } from './routes/api/apikeys/$tenantId/$keyId/revoke'
@@ -256,6 +264,11 @@ import { Route as ApiDataSharedPromotionsPromotionIdRejectRouteImport } from './
 import { Route as ApiDataSharedPromotionsPromotionIdApproveRouteImport } from './routes/api/data/shared/promotions/$promotionId/approve'
 import { Route as ApiBillingOpsTenantIdInvoicesInvoiceIdPayRouteImport } from './routes/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
 import { Route as ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRouteImport } from './routes/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
+import { Route as ApiAuditTenantIdUsersUserIdActivityRouteImport } from './routes/api/audit/$tenantId.users.$userId.activity'
+import { Route as ApiAuditTenantIdTimelineTargetTypeTargetIdRouteImport } from './routes/api/audit/$tenantId.timeline.$targetType.$targetId'
+import { Route as ApiAuditTenantIdExportsExportIdDownloadRouteImport } from './routes/api/audit/$tenantId.exports.$exportId.download'
+import { Route as ApiAuditTenantIdAlertsAlertIdResolveRouteImport } from './routes/api/audit/$tenantId.alerts.$alertId.resolve'
+import { Route as ApiAuditTenantIdAlertsAlertIdAcknowledgeRouteImport } from './routes/api/audit/$tenantId.alerts.$alertId.acknowledge'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
@@ -1159,6 +1172,32 @@ const ApiBackupSchedulerTickRoute = ApiBackupSchedulerTickRouteImport.update({
   path: '/api/backup/scheduler/tick',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAuditRetentionTickRoute = ApiAuditRetentionTickRouteImport.update({
+  id: '/api/audit/retention/tick',
+  path: '/api/audit/retention/tick',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuditTenantIdRetentionRoute =
+  ApiAuditTenantIdRetentionRouteImport.update({
+    id: '/api/audit/$tenantId/retention',
+    path: '/api/audit/$tenantId/retention',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiAuditTenantIdLogsRoute = ApiAuditTenantIdLogsRouteImport.update({
+  id: '/api/audit/$tenantId/logs',
+  path: '/api/audit/$tenantId/logs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuditTenantIdExportsRoute = ApiAuditTenantIdExportsRouteImport.update({
+  id: '/api/audit/$tenantId/exports',
+  path: '/api/audit/$tenantId/exports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuditTenantIdAlertsRoute = ApiAuditTenantIdAlertsRouteImport.update({
+  id: '/api/audit/$tenantId/alerts',
+  path: '/api/audit/$tenantId/alerts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAnalyticsToolsOverviewRoute =
   ApiAnalyticsToolsOverviewRouteImport.update({
     id: '/api/analytics/tools/overview',
@@ -1514,6 +1553,24 @@ const ApiBackupJobsIdExecuteRoute = ApiBackupJobsIdExecuteRouteImport.update({
   path: '/$id/execute',
   getParentRoute: () => ApiBackupJobsRoute,
 } as any)
+const ApiAuditTenantIdMetricsPeriodRoute =
+  ApiAuditTenantIdMetricsPeriodRouteImport.update({
+    id: '/api/audit/$tenantId/metrics/$period',
+    path: '/api/audit/$tenantId/metrics/$period',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiAuditTenantIdLogsEventIdRoute =
+  ApiAuditTenantIdLogsEventIdRouteImport.update({
+    id: '/$eventId',
+    path: '/$eventId',
+    getParentRoute: () => ApiAuditTenantIdLogsRoute,
+  } as any)
+const ApiAuditTenantIdExportsExportIdRoute =
+  ApiAuditTenantIdExportsExportIdRouteImport.update({
+    id: '/$exportId',
+    path: '/$exportId',
+    getParentRoute: () => ApiAuditTenantIdExportsRoute,
+  } as any)
 const ApiApikeysTenantIdKeyIdUsageRoute =
   ApiApikeysTenantIdKeyIdUsageRouteImport.update({
     id: '/api/apikeys/$tenantId/$keyId/usage',
@@ -1634,6 +1691,36 @@ const ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute =
     path: '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiAuditTenantIdUsersUserIdActivityRoute =
+  ApiAuditTenantIdUsersUserIdActivityRouteImport.update({
+    id: '/api/audit/$tenantId/users/$userId/activity',
+    path: '/api/audit/$tenantId/users/$userId/activity',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiAuditTenantIdTimelineTargetTypeTargetIdRoute =
+  ApiAuditTenantIdTimelineTargetTypeTargetIdRouteImport.update({
+    id: '/api/audit/$tenantId/timeline/$targetType/$targetId',
+    path: '/api/audit/$tenantId/timeline/$targetType/$targetId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiAuditTenantIdExportsExportIdDownloadRoute =
+  ApiAuditTenantIdExportsExportIdDownloadRouteImport.update({
+    id: '/download',
+    path: '/download',
+    getParentRoute: () => ApiAuditTenantIdExportsExportIdRoute,
+  } as any)
+const ApiAuditTenantIdAlertsAlertIdResolveRoute =
+  ApiAuditTenantIdAlertsAlertIdResolveRouteImport.update({
+    id: '/$alertId/resolve',
+    path: '/$alertId/resolve',
+    getParentRoute: () => ApiAuditTenantIdAlertsRoute,
+  } as any)
+const ApiAuditTenantIdAlertsAlertIdAcknowledgeRoute =
+  ApiAuditTenantIdAlertsAlertIdAcknowledgeRouteImport.update({
+    id: '/$alertId/acknowledge',
+    path: '/$alertId/acknowledge',
+    getParentRoute: () => ApiAuditTenantIdAlertsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -1708,6 +1795,11 @@ export interface FileRoutesByFullPath {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/audit/$tenantId/alerts': typeof ApiAuditTenantIdAlertsRouteWithChildren
+  '/api/audit/$tenantId/exports': typeof ApiAuditTenantIdExportsRouteWithChildren
+  '/api/audit/$tenantId/logs': typeof ApiAuditTenantIdLogsRouteWithChildren
+  '/api/audit/$tenantId/retention': typeof ApiAuditTenantIdRetentionRoute
+  '/api/audit/retention/tick': typeof ApiAuditRetentionTickRoute
   '/api/backup/scheduler/tick': typeof ApiBackupSchedulerTickRoute
   '/api/billing-ops/$tenantId/credits': typeof ApiBillingOpsTenantIdCreditsRoute
   '/api/billing-ops/$tenantId/events': typeof ApiBillingOpsTenantIdEventsRoute
@@ -1821,6 +1913,9 @@ export interface FileRoutesByFullPath {
   '/api/apikeys/$tenantId/$keyId/revoke': typeof ApiApikeysTenantIdKeyIdRevokeRoute
   '/api/apikeys/$tenantId/$keyId/rotate': typeof ApiApikeysTenantIdKeyIdRotateRoute
   '/api/apikeys/$tenantId/$keyId/usage': typeof ApiApikeysTenantIdKeyIdUsageRoute
+  '/api/audit/$tenantId/exports/$exportId': typeof ApiAuditTenantIdExportsExportIdRouteWithChildren
+  '/api/audit/$tenantId/logs/$eventId': typeof ApiAuditTenantIdLogsEventIdRoute
+  '/api/audit/$tenantId/metrics/$period': typeof ApiAuditTenantIdMetricsPeriodRoute
   '/api/backup/jobs/$id/execute': typeof ApiBackupJobsIdExecuteRoute
   '/api/cluster/tasks/$taskId/complete': typeof ApiClusterTasksTaskIdCompleteRoute
   '/api/cluster/workers/$workerId/claim': typeof ApiClusterWorkersWorkerIdClaimRoute
@@ -1872,6 +1967,11 @@ export interface FileRoutesByFullPath {
   '/api/apikeys/$tenantId/$keyId/': typeof ApiApikeysTenantIdKeyIdIndexRoute
   '/api/cluster/tasks/$taskId/': typeof ApiClusterTasksTaskIdIndexRoute
   '/api/cluster/workers/$workerId/': typeof ApiClusterWorkersWorkerIdIndexRoute
+  '/api/audit/$tenantId/alerts/$alertId/acknowledge': typeof ApiAuditTenantIdAlertsAlertIdAcknowledgeRoute
+  '/api/audit/$tenantId/alerts/$alertId/resolve': typeof ApiAuditTenantIdAlertsAlertIdResolveRoute
+  '/api/audit/$tenantId/exports/$exportId/download': typeof ApiAuditTenantIdExportsExportIdDownloadRoute
+  '/api/audit/$tenantId/timeline/$targetType/$targetId': typeof ApiAuditTenantIdTimelineTargetTypeTargetIdRoute
+  '/api/audit/$tenantId/users/$userId/activity': typeof ApiAuditTenantIdUsersUserIdActivityRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
@@ -1957,6 +2057,11 @@ export interface FileRoutesByTo {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/audit/$tenantId/alerts': typeof ApiAuditTenantIdAlertsRouteWithChildren
+  '/api/audit/$tenantId/exports': typeof ApiAuditTenantIdExportsRouteWithChildren
+  '/api/audit/$tenantId/logs': typeof ApiAuditTenantIdLogsRouteWithChildren
+  '/api/audit/$tenantId/retention': typeof ApiAuditTenantIdRetentionRoute
+  '/api/audit/retention/tick': typeof ApiAuditRetentionTickRoute
   '/api/backup/scheduler/tick': typeof ApiBackupSchedulerTickRoute
   '/api/billing-ops/$tenantId/credits': typeof ApiBillingOpsTenantIdCreditsRoute
   '/api/billing-ops/$tenantId/events': typeof ApiBillingOpsTenantIdEventsRoute
@@ -2070,6 +2175,9 @@ export interface FileRoutesByTo {
   '/api/apikeys/$tenantId/$keyId/revoke': typeof ApiApikeysTenantIdKeyIdRevokeRoute
   '/api/apikeys/$tenantId/$keyId/rotate': typeof ApiApikeysTenantIdKeyIdRotateRoute
   '/api/apikeys/$tenantId/$keyId/usage': typeof ApiApikeysTenantIdKeyIdUsageRoute
+  '/api/audit/$tenantId/exports/$exportId': typeof ApiAuditTenantIdExportsExportIdRouteWithChildren
+  '/api/audit/$tenantId/logs/$eventId': typeof ApiAuditTenantIdLogsEventIdRoute
+  '/api/audit/$tenantId/metrics/$period': typeof ApiAuditTenantIdMetricsPeriodRoute
   '/api/backup/jobs/$id/execute': typeof ApiBackupJobsIdExecuteRoute
   '/api/cluster/tasks/$taskId/complete': typeof ApiClusterTasksTaskIdCompleteRoute
   '/api/cluster/workers/$workerId/claim': typeof ApiClusterWorkersWorkerIdClaimRoute
@@ -2121,6 +2229,11 @@ export interface FileRoutesByTo {
   '/api/apikeys/$tenantId/$keyId': typeof ApiApikeysTenantIdKeyIdIndexRoute
   '/api/cluster/tasks/$taskId': typeof ApiClusterTasksTaskIdIndexRoute
   '/api/cluster/workers/$workerId': typeof ApiClusterWorkersWorkerIdIndexRoute
+  '/api/audit/$tenantId/alerts/$alertId/acknowledge': typeof ApiAuditTenantIdAlertsAlertIdAcknowledgeRoute
+  '/api/audit/$tenantId/alerts/$alertId/resolve': typeof ApiAuditTenantIdAlertsAlertIdResolveRoute
+  '/api/audit/$tenantId/exports/$exportId/download': typeof ApiAuditTenantIdExportsExportIdDownloadRoute
+  '/api/audit/$tenantId/timeline/$targetType/$targetId': typeof ApiAuditTenantIdTimelineTargetTypeTargetIdRoute
+  '/api/audit/$tenantId/users/$userId/activity': typeof ApiAuditTenantIdUsersUserIdActivityRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
@@ -2207,6 +2320,11 @@ export interface FileRoutesById {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/audit/$tenantId/alerts': typeof ApiAuditTenantIdAlertsRouteWithChildren
+  '/api/audit/$tenantId/exports': typeof ApiAuditTenantIdExportsRouteWithChildren
+  '/api/audit/$tenantId/logs': typeof ApiAuditTenantIdLogsRouteWithChildren
+  '/api/audit/$tenantId/retention': typeof ApiAuditTenantIdRetentionRoute
+  '/api/audit/retention/tick': typeof ApiAuditRetentionTickRoute
   '/api/backup/scheduler/tick': typeof ApiBackupSchedulerTickRoute
   '/api/billing-ops/$tenantId/credits': typeof ApiBillingOpsTenantIdCreditsRoute
   '/api/billing-ops/$tenantId/events': typeof ApiBillingOpsTenantIdEventsRoute
@@ -2320,6 +2438,9 @@ export interface FileRoutesById {
   '/api/apikeys/$tenantId/$keyId/revoke': typeof ApiApikeysTenantIdKeyIdRevokeRoute
   '/api/apikeys/$tenantId/$keyId/rotate': typeof ApiApikeysTenantIdKeyIdRotateRoute
   '/api/apikeys/$tenantId/$keyId/usage': typeof ApiApikeysTenantIdKeyIdUsageRoute
+  '/api/audit/$tenantId/exports/$exportId': typeof ApiAuditTenantIdExportsExportIdRouteWithChildren
+  '/api/audit/$tenantId/logs/$eventId': typeof ApiAuditTenantIdLogsEventIdRoute
+  '/api/audit/$tenantId/metrics/$period': typeof ApiAuditTenantIdMetricsPeriodRoute
   '/api/backup/jobs/$id/execute': typeof ApiBackupJobsIdExecuteRoute
   '/api/cluster/tasks/$taskId/complete': typeof ApiClusterTasksTaskIdCompleteRoute
   '/api/cluster/workers/$workerId/claim': typeof ApiClusterWorkersWorkerIdClaimRoute
@@ -2371,6 +2492,11 @@ export interface FileRoutesById {
   '/api/apikeys/$tenantId/$keyId/': typeof ApiApikeysTenantIdKeyIdIndexRoute
   '/api/cluster/tasks/$taskId/': typeof ApiClusterTasksTaskIdIndexRoute
   '/api/cluster/workers/$workerId/': typeof ApiClusterWorkersWorkerIdIndexRoute
+  '/api/audit/$tenantId/alerts/$alertId/acknowledge': typeof ApiAuditTenantIdAlertsAlertIdAcknowledgeRoute
+  '/api/audit/$tenantId/alerts/$alertId/resolve': typeof ApiAuditTenantIdAlertsAlertIdResolveRoute
+  '/api/audit/$tenantId/exports/$exportId/download': typeof ApiAuditTenantIdExportsExportIdDownloadRoute
+  '/api/audit/$tenantId/timeline/$targetType/$targetId': typeof ApiAuditTenantIdTimelineTargetTypeTargetIdRoute
+  '/api/audit/$tenantId/users/$userId/activity': typeof ApiAuditTenantIdUsersUserIdActivityRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
@@ -2458,6 +2584,11 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/audit/$tenantId/alerts'
+    | '/api/audit/$tenantId/exports'
+    | '/api/audit/$tenantId/logs'
+    | '/api/audit/$tenantId/retention'
+    | '/api/audit/retention/tick'
     | '/api/backup/scheduler/tick'
     | '/api/billing-ops/$tenantId/credits'
     | '/api/billing-ops/$tenantId/events'
@@ -2571,6 +2702,9 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/revoke'
     | '/api/apikeys/$tenantId/$keyId/rotate'
     | '/api/apikeys/$tenantId/$keyId/usage'
+    | '/api/audit/$tenantId/exports/$exportId'
+    | '/api/audit/$tenantId/logs/$eventId'
+    | '/api/audit/$tenantId/metrics/$period'
     | '/api/backup/jobs/$id/execute'
     | '/api/cluster/tasks/$taskId/complete'
     | '/api/cluster/workers/$workerId/claim'
@@ -2622,6 +2756,11 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/'
     | '/api/cluster/tasks/$taskId/'
     | '/api/cluster/workers/$workerId/'
+    | '/api/audit/$tenantId/alerts/$alertId/acknowledge'
+    | '/api/audit/$tenantId/alerts/$alertId/resolve'
+    | '/api/audit/$tenantId/exports/$exportId/download'
+    | '/api/audit/$tenantId/timeline/$targetType/$targetId'
+    | '/api/audit/$tenantId/users/$userId/activity'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
     | '/api/data/shared/promotions/$promotionId/approve'
@@ -2707,6 +2846,11 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/audit/$tenantId/alerts'
+    | '/api/audit/$tenantId/exports'
+    | '/api/audit/$tenantId/logs'
+    | '/api/audit/$tenantId/retention'
+    | '/api/audit/retention/tick'
     | '/api/backup/scheduler/tick'
     | '/api/billing-ops/$tenantId/credits'
     | '/api/billing-ops/$tenantId/events'
@@ -2820,6 +2964,9 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/revoke'
     | '/api/apikeys/$tenantId/$keyId/rotate'
     | '/api/apikeys/$tenantId/$keyId/usage'
+    | '/api/audit/$tenantId/exports/$exportId'
+    | '/api/audit/$tenantId/logs/$eventId'
+    | '/api/audit/$tenantId/metrics/$period'
     | '/api/backup/jobs/$id/execute'
     | '/api/cluster/tasks/$taskId/complete'
     | '/api/cluster/workers/$workerId/claim'
@@ -2871,6 +3018,11 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId'
     | '/api/cluster/tasks/$taskId'
     | '/api/cluster/workers/$workerId'
+    | '/api/audit/$tenantId/alerts/$alertId/acknowledge'
+    | '/api/audit/$tenantId/alerts/$alertId/resolve'
+    | '/api/audit/$tenantId/exports/$exportId/download'
+    | '/api/audit/$tenantId/timeline/$targetType/$targetId'
+    | '/api/audit/$tenantId/users/$userId/activity'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
     | '/api/data/shared/promotions/$promotionId/approve'
@@ -2956,6 +3108,11 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/audit/$tenantId/alerts'
+    | '/api/audit/$tenantId/exports'
+    | '/api/audit/$tenantId/logs'
+    | '/api/audit/$tenantId/retention'
+    | '/api/audit/retention/tick'
     | '/api/backup/scheduler/tick'
     | '/api/billing-ops/$tenantId/credits'
     | '/api/billing-ops/$tenantId/events'
@@ -3069,6 +3226,9 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/revoke'
     | '/api/apikeys/$tenantId/$keyId/rotate'
     | '/api/apikeys/$tenantId/$keyId/usage'
+    | '/api/audit/$tenantId/exports/$exportId'
+    | '/api/audit/$tenantId/logs/$eventId'
+    | '/api/audit/$tenantId/metrics/$period'
     | '/api/backup/jobs/$id/execute'
     | '/api/cluster/tasks/$taskId/complete'
     | '/api/cluster/workers/$workerId/claim'
@@ -3120,6 +3280,11 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/'
     | '/api/cluster/tasks/$taskId/'
     | '/api/cluster/workers/$workerId/'
+    | '/api/audit/$tenantId/alerts/$alertId/acknowledge'
+    | '/api/audit/$tenantId/alerts/$alertId/resolve'
+    | '/api/audit/$tenantId/exports/$exportId/download'
+    | '/api/audit/$tenantId/timeline/$targetType/$targetId'
+    | '/api/audit/$tenantId/users/$userId/activity'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
     | '/api/data/shared/promotions/$promotionId/approve'
@@ -3206,6 +3371,11 @@ export interface RootRouteChildren {
   ApiAnalyticsRetrievalHealthCheckRoute: typeof ApiAnalyticsRetrievalHealthCheckRoute
   ApiAnalyticsRetrievalOverviewRoute: typeof ApiAnalyticsRetrievalOverviewRoute
   ApiAnalyticsToolsOverviewRoute: typeof ApiAnalyticsToolsOverviewRoute
+  ApiAuditTenantIdAlertsRoute: typeof ApiAuditTenantIdAlertsRouteWithChildren
+  ApiAuditTenantIdExportsRoute: typeof ApiAuditTenantIdExportsRouteWithChildren
+  ApiAuditTenantIdLogsRoute: typeof ApiAuditTenantIdLogsRouteWithChildren
+  ApiAuditTenantIdRetentionRoute: typeof ApiAuditTenantIdRetentionRoute
+  ApiAuditRetentionTickRoute: typeof ApiAuditRetentionTickRoute
   ApiBackupSchedulerTickRoute: typeof ApiBackupSchedulerTickRoute
   ApiBillingOpsTenantIdCreditsRoute: typeof ApiBillingOpsTenantIdCreditsRoute
   ApiBillingOpsTenantIdEventsRoute: typeof ApiBillingOpsTenantIdEventsRoute
@@ -3314,6 +3484,7 @@ export interface RootRouteChildren {
   ApiApikeysTenantIdKeyIdRevokeRoute: typeof ApiApikeysTenantIdKeyIdRevokeRoute
   ApiApikeysTenantIdKeyIdRotateRoute: typeof ApiApikeysTenantIdKeyIdRotateRoute
   ApiApikeysTenantIdKeyIdUsageRoute: typeof ApiApikeysTenantIdKeyIdUsageRoute
+  ApiAuditTenantIdMetricsPeriodRoute: typeof ApiAuditTenantIdMetricsPeriodRoute
   ApiClusterTasksTaskIdCompleteRoute: typeof ApiClusterTasksTaskIdCompleteRoute
   ApiClusterWorkersWorkerIdClaimRoute: typeof ApiClusterWorkersWorkerIdClaimRoute
   ApiClusterWorkersWorkerIdHeartbeatRoute: typeof ApiClusterWorkersWorkerIdHeartbeatRoute
@@ -3348,6 +3519,8 @@ export interface RootRouteChildren {
   ApiApikeysTenantIdKeyIdIndexRoute: typeof ApiApikeysTenantIdKeyIdIndexRoute
   ApiClusterTasksTaskIdIndexRoute: typeof ApiClusterTasksTaskIdIndexRoute
   ApiClusterWorkersWorkerIdIndexRoute: typeof ApiClusterWorkersWorkerIdIndexRoute
+  ApiAuditTenantIdTimelineTargetTypeTargetIdRoute: typeof ApiAuditTenantIdTimelineTargetTypeTargetIdRoute
+  ApiAuditTenantIdUsersUserIdActivityRoute: typeof ApiAuditTenantIdUsersUserIdActivityRoute
   ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute: typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute: typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   ApiDataSharedPromotionsPromotionIdApproveRoute: typeof ApiDataSharedPromotionsPromotionIdApproveRoute
@@ -4528,6 +4701,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiBackupSchedulerTickRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/audit/retention/tick': {
+      id: '/api/audit/retention/tick'
+      path: '/api/audit/retention/tick'
+      fullPath: '/api/audit/retention/tick'
+      preLoaderRoute: typeof ApiAuditRetentionTickRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/audit/$tenantId/retention': {
+      id: '/api/audit/$tenantId/retention'
+      path: '/api/audit/$tenantId/retention'
+      fullPath: '/api/audit/$tenantId/retention'
+      preLoaderRoute: typeof ApiAuditTenantIdRetentionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/audit/$tenantId/logs': {
+      id: '/api/audit/$tenantId/logs'
+      path: '/api/audit/$tenantId/logs'
+      fullPath: '/api/audit/$tenantId/logs'
+      preLoaderRoute: typeof ApiAuditTenantIdLogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/audit/$tenantId/exports': {
+      id: '/api/audit/$tenantId/exports'
+      path: '/api/audit/$tenantId/exports'
+      fullPath: '/api/audit/$tenantId/exports'
+      preLoaderRoute: typeof ApiAuditTenantIdExportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/audit/$tenantId/alerts': {
+      id: '/api/audit/$tenantId/alerts'
+      path: '/api/audit/$tenantId/alerts'
+      fullPath: '/api/audit/$tenantId/alerts'
+      preLoaderRoute: typeof ApiAuditTenantIdAlertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/analytics/tools/overview': {
       id: '/api/analytics/tools/overview'
       path: '/api/analytics/tools/overview'
@@ -4948,6 +5156,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiBackupJobsIdExecuteRouteImport
       parentRoute: typeof ApiBackupJobsRoute
     }
+    '/api/audit/$tenantId/metrics/$period': {
+      id: '/api/audit/$tenantId/metrics/$period'
+      path: '/api/audit/$tenantId/metrics/$period'
+      fullPath: '/api/audit/$tenantId/metrics/$period'
+      preLoaderRoute: typeof ApiAuditTenantIdMetricsPeriodRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/audit/$tenantId/logs/$eventId': {
+      id: '/api/audit/$tenantId/logs/$eventId'
+      path: '/$eventId'
+      fullPath: '/api/audit/$tenantId/logs/$eventId'
+      preLoaderRoute: typeof ApiAuditTenantIdLogsEventIdRouteImport
+      parentRoute: typeof ApiAuditTenantIdLogsRoute
+    }
+    '/api/audit/$tenantId/exports/$exportId': {
+      id: '/api/audit/$tenantId/exports/$exportId'
+      path: '/$exportId'
+      fullPath: '/api/audit/$tenantId/exports/$exportId'
+      preLoaderRoute: typeof ApiAuditTenantIdExportsExportIdRouteImport
+      parentRoute: typeof ApiAuditTenantIdExportsRoute
+    }
     '/api/apikeys/$tenantId/$keyId/usage': {
       id: '/api/apikeys/$tenantId/$keyId/usage'
       path: '/api/apikeys/$tenantId/$keyId/usage'
@@ -5087,6 +5316,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
       preLoaderRoute: typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/api/audit/$tenantId/users/$userId/activity': {
+      id: '/api/audit/$tenantId/users/$userId/activity'
+      path: '/api/audit/$tenantId/users/$userId/activity'
+      fullPath: '/api/audit/$tenantId/users/$userId/activity'
+      preLoaderRoute: typeof ApiAuditTenantIdUsersUserIdActivityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/audit/$tenantId/timeline/$targetType/$targetId': {
+      id: '/api/audit/$tenantId/timeline/$targetType/$targetId'
+      path: '/api/audit/$tenantId/timeline/$targetType/$targetId'
+      fullPath: '/api/audit/$tenantId/timeline/$targetType/$targetId'
+      preLoaderRoute: typeof ApiAuditTenantIdTimelineTargetTypeTargetIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/audit/$tenantId/exports/$exportId/download': {
+      id: '/api/audit/$tenantId/exports/$exportId/download'
+      path: '/download'
+      fullPath: '/api/audit/$tenantId/exports/$exportId/download'
+      preLoaderRoute: typeof ApiAuditTenantIdExportsExportIdDownloadRouteImport
+      parentRoute: typeof ApiAuditTenantIdExportsExportIdRoute
+    }
+    '/api/audit/$tenantId/alerts/$alertId/resolve': {
+      id: '/api/audit/$tenantId/alerts/$alertId/resolve'
+      path: '/$alertId/resolve'
+      fullPath: '/api/audit/$tenantId/alerts/$alertId/resolve'
+      preLoaderRoute: typeof ApiAuditTenantIdAlertsAlertIdResolveRouteImport
+      parentRoute: typeof ApiAuditTenantIdAlertsRoute
+    }
+    '/api/audit/$tenantId/alerts/$alertId/acknowledge': {
+      id: '/api/audit/$tenantId/alerts/$alertId/acknowledge'
+      path: '/$alertId/acknowledge'
+      fullPath: '/api/audit/$tenantId/alerts/$alertId/acknowledge'
+      preLoaderRoute: typeof ApiAuditTenantIdAlertsAlertIdAcknowledgeRouteImport
+      parentRoute: typeof ApiAuditTenantIdAlertsRoute
     }
   }
 }
@@ -5258,6 +5522,65 @@ const ApiAdvancedRolesTenantIdJitRouteWithChildren =
     ApiAdvancedRolesTenantIdJitRouteChildren,
   )
 
+interface ApiAuditTenantIdAlertsRouteChildren {
+  ApiAuditTenantIdAlertsAlertIdAcknowledgeRoute: typeof ApiAuditTenantIdAlertsAlertIdAcknowledgeRoute
+  ApiAuditTenantIdAlertsAlertIdResolveRoute: typeof ApiAuditTenantIdAlertsAlertIdResolveRoute
+}
+
+const ApiAuditTenantIdAlertsRouteChildren: ApiAuditTenantIdAlertsRouteChildren =
+  {
+    ApiAuditTenantIdAlertsAlertIdAcknowledgeRoute:
+      ApiAuditTenantIdAlertsAlertIdAcknowledgeRoute,
+    ApiAuditTenantIdAlertsAlertIdResolveRoute:
+      ApiAuditTenantIdAlertsAlertIdResolveRoute,
+  }
+
+const ApiAuditTenantIdAlertsRouteWithChildren =
+  ApiAuditTenantIdAlertsRoute._addFileChildren(
+    ApiAuditTenantIdAlertsRouteChildren,
+  )
+
+interface ApiAuditTenantIdExportsExportIdRouteChildren {
+  ApiAuditTenantIdExportsExportIdDownloadRoute: typeof ApiAuditTenantIdExportsExportIdDownloadRoute
+}
+
+const ApiAuditTenantIdExportsExportIdRouteChildren: ApiAuditTenantIdExportsExportIdRouteChildren =
+  {
+    ApiAuditTenantIdExportsExportIdDownloadRoute:
+      ApiAuditTenantIdExportsExportIdDownloadRoute,
+  }
+
+const ApiAuditTenantIdExportsExportIdRouteWithChildren =
+  ApiAuditTenantIdExportsExportIdRoute._addFileChildren(
+    ApiAuditTenantIdExportsExportIdRouteChildren,
+  )
+
+interface ApiAuditTenantIdExportsRouteChildren {
+  ApiAuditTenantIdExportsExportIdRoute: typeof ApiAuditTenantIdExportsExportIdRouteWithChildren
+}
+
+const ApiAuditTenantIdExportsRouteChildren: ApiAuditTenantIdExportsRouteChildren =
+  {
+    ApiAuditTenantIdExportsExportIdRoute:
+      ApiAuditTenantIdExportsExportIdRouteWithChildren,
+  }
+
+const ApiAuditTenantIdExportsRouteWithChildren =
+  ApiAuditTenantIdExportsRoute._addFileChildren(
+    ApiAuditTenantIdExportsRouteChildren,
+  )
+
+interface ApiAuditTenantIdLogsRouteChildren {
+  ApiAuditTenantIdLogsEventIdRoute: typeof ApiAuditTenantIdLogsEventIdRoute
+}
+
+const ApiAuditTenantIdLogsRouteChildren: ApiAuditTenantIdLogsRouteChildren = {
+  ApiAuditTenantIdLogsEventIdRoute: ApiAuditTenantIdLogsEventIdRoute,
+}
+
+const ApiAuditTenantIdLogsRouteWithChildren =
+  ApiAuditTenantIdLogsRoute._addFileChildren(ApiAuditTenantIdLogsRouteChildren)
+
 interface ApiInfrastructureHealthInstanceIdRouteChildren {
   ApiInfrastructureHealthInstanceIdHistoryRoute: typeof ApiInfrastructureHealthInstanceIdHistoryRoute
 }
@@ -5417,6 +5740,11 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAnalyticsRetrievalHealthCheckRoute: ApiAnalyticsRetrievalHealthCheckRoute,
   ApiAnalyticsRetrievalOverviewRoute: ApiAnalyticsRetrievalOverviewRoute,
   ApiAnalyticsToolsOverviewRoute: ApiAnalyticsToolsOverviewRoute,
+  ApiAuditTenantIdAlertsRoute: ApiAuditTenantIdAlertsRouteWithChildren,
+  ApiAuditTenantIdExportsRoute: ApiAuditTenantIdExportsRouteWithChildren,
+  ApiAuditTenantIdLogsRoute: ApiAuditTenantIdLogsRouteWithChildren,
+  ApiAuditTenantIdRetentionRoute: ApiAuditTenantIdRetentionRoute,
+  ApiAuditRetentionTickRoute: ApiAuditRetentionTickRoute,
   ApiBackupSchedulerTickRoute: ApiBackupSchedulerTickRoute,
   ApiBillingOpsTenantIdCreditsRoute: ApiBillingOpsTenantIdCreditsRoute,
   ApiBillingOpsTenantIdEventsRoute: ApiBillingOpsTenantIdEventsRoute,
@@ -5541,6 +5869,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiApikeysTenantIdKeyIdRevokeRoute: ApiApikeysTenantIdKeyIdRevokeRoute,
   ApiApikeysTenantIdKeyIdRotateRoute: ApiApikeysTenantIdKeyIdRotateRoute,
   ApiApikeysTenantIdKeyIdUsageRoute: ApiApikeysTenantIdKeyIdUsageRoute,
+  ApiAuditTenantIdMetricsPeriodRoute: ApiAuditTenantIdMetricsPeriodRoute,
   ApiClusterTasksTaskIdCompleteRoute: ApiClusterTasksTaskIdCompleteRoute,
   ApiClusterWorkersWorkerIdClaimRoute: ApiClusterWorkersWorkerIdClaimRoute,
   ApiClusterWorkersWorkerIdHeartbeatRoute:
@@ -5588,6 +5917,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiApikeysTenantIdKeyIdIndexRoute: ApiApikeysTenantIdKeyIdIndexRoute,
   ApiClusterTasksTaskIdIndexRoute: ApiClusterTasksTaskIdIndexRoute,
   ApiClusterWorkersWorkerIdIndexRoute: ApiClusterWorkersWorkerIdIndexRoute,
+  ApiAuditTenantIdTimelineTargetTypeTargetIdRoute:
+    ApiAuditTenantIdTimelineTargetTypeTargetIdRoute,
+  ApiAuditTenantIdUsersUserIdActivityRoute:
+    ApiAuditTenantIdUsersUserIdActivityRoute,
   ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute:
     ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute,
   ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute:
