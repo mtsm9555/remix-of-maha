@@ -181,6 +181,12 @@ import { Route as ApiDataSnapshotsDiffRouteImport } from './routes/api/data/snap
 import { Route as ApiDataSnapshotsIdRouteImport } from './routes/api/data/snapshots/$id'
 import { Route as ApiDataSharedSearchRouteImport } from './routes/api/data/shared/search'
 import { Route as ApiDataSharedPromoteRouteImport } from './routes/api/data/shared/promote'
+import { Route as ApiComplianceTenantIdResidencyRouteImport } from './routes/api/compliance/$tenantId/residency'
+import { Route as ApiComplianceTenantIdReportsRouteImport } from './routes/api/compliance/$tenantId/reports'
+import { Route as ApiComplianceTenantIdMetricsRouteImport } from './routes/api/compliance/$tenantId/metrics'
+import { Route as ApiComplianceTenantIdEvidenceRouteImport } from './routes/api/compliance/$tenantId/evidence'
+import { Route as ApiComplianceTenantIdControlsRouteImport } from './routes/api/compliance/$tenantId/controls'
+import { Route as ApiComplianceTenantIdConsentRouteImport } from './routes/api/compliance/$tenantId/consent'
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
 import { Route as ApiBillingTenantIdUsageRouteImport } from './routes/api/billing/$tenantId/usage'
@@ -1238,6 +1244,42 @@ const ApiDataSharedPromoteRoute = ApiDataSharedPromoteRouteImport.update({
   path: '/api/data/shared/promote',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiComplianceTenantIdResidencyRoute =
+  ApiComplianceTenantIdResidencyRouteImport.update({
+    id: '/api/compliance/$tenantId/residency',
+    path: '/api/compliance/$tenantId/residency',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiComplianceTenantIdReportsRoute =
+  ApiComplianceTenantIdReportsRouteImport.update({
+    id: '/api/compliance/$tenantId/reports',
+    path: '/api/compliance/$tenantId/reports',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiComplianceTenantIdMetricsRoute =
+  ApiComplianceTenantIdMetricsRouteImport.update({
+    id: '/api/compliance/$tenantId/metrics',
+    path: '/api/compliance/$tenantId/metrics',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiComplianceTenantIdEvidenceRoute =
+  ApiComplianceTenantIdEvidenceRouteImport.update({
+    id: '/api/compliance/$tenantId/evidence',
+    path: '/api/compliance/$tenantId/evidence',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiComplianceTenantIdControlsRoute =
+  ApiComplianceTenantIdControlsRouteImport.update({
+    id: '/api/compliance/$tenantId/controls',
+    path: '/api/compliance/$tenantId/controls',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiComplianceTenantIdConsentRoute =
+  ApiComplianceTenantIdConsentRouteImport.update({
+    id: '/api/compliance/$tenantId/consent',
+    path: '/api/compliance/$tenantId/consent',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiCollaborationSessionIdProposalRoute =
   ApiCollaborationSessionIdProposalRouteImport.update({
     id: '/api/collaboration/$sessionId/proposal',
@@ -2078,6 +2120,12 @@ export interface FileRoutesByFullPath {
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
+  '/api/compliance/$tenantId/consent': typeof ApiComplianceTenantIdConsentRoute
+  '/api/compliance/$tenantId/controls': typeof ApiComplianceTenantIdControlsRoute
+  '/api/compliance/$tenantId/evidence': typeof ApiComplianceTenantIdEvidenceRoute
+  '/api/compliance/$tenantId/metrics': typeof ApiComplianceTenantIdMetricsRoute
+  '/api/compliance/$tenantId/reports': typeof ApiComplianceTenantIdReportsRoute
+  '/api/compliance/$tenantId/residency': typeof ApiComplianceTenantIdResidencyRoute
   '/api/data/shared/promote': typeof ApiDataSharedPromoteRoute
   '/api/data/shared/search': typeof ApiDataSharedSearchRoute
   '/api/data/snapshots/$id': typeof ApiDataSnapshotsIdRoute
@@ -2378,6 +2426,12 @@ export interface FileRoutesByTo {
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
+  '/api/compliance/$tenantId/consent': typeof ApiComplianceTenantIdConsentRoute
+  '/api/compliance/$tenantId/controls': typeof ApiComplianceTenantIdControlsRoute
+  '/api/compliance/$tenantId/evidence': typeof ApiComplianceTenantIdEvidenceRoute
+  '/api/compliance/$tenantId/metrics': typeof ApiComplianceTenantIdMetricsRoute
+  '/api/compliance/$tenantId/reports': typeof ApiComplianceTenantIdReportsRoute
+  '/api/compliance/$tenantId/residency': typeof ApiComplianceTenantIdResidencyRoute
   '/api/data/shared/promote': typeof ApiDataSharedPromoteRoute
   '/api/data/shared/search': typeof ApiDataSharedSearchRoute
   '/api/data/snapshots/$id': typeof ApiDataSnapshotsIdRoute
@@ -2679,6 +2733,12 @@ export interface FileRoutesById {
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
+  '/api/compliance/$tenantId/consent': typeof ApiComplianceTenantIdConsentRoute
+  '/api/compliance/$tenantId/controls': typeof ApiComplianceTenantIdControlsRoute
+  '/api/compliance/$tenantId/evidence': typeof ApiComplianceTenantIdEvidenceRoute
+  '/api/compliance/$tenantId/metrics': typeof ApiComplianceTenantIdMetricsRoute
+  '/api/compliance/$tenantId/reports': typeof ApiComplianceTenantIdReportsRoute
+  '/api/compliance/$tenantId/residency': typeof ApiComplianceTenantIdResidencyRoute
   '/api/data/shared/promote': typeof ApiDataSharedPromoteRoute
   '/api/data/shared/search': typeof ApiDataSharedSearchRoute
   '/api/data/snapshots/$id': typeof ApiDataSnapshotsIdRoute
@@ -2981,6 +3041,12 @@ export interface FileRouteTypes {
     | '/api/billing/$tenantId/usage'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
+    | '/api/compliance/$tenantId/consent'
+    | '/api/compliance/$tenantId/controls'
+    | '/api/compliance/$tenantId/evidence'
+    | '/api/compliance/$tenantId/metrics'
+    | '/api/compliance/$tenantId/reports'
+    | '/api/compliance/$tenantId/residency'
     | '/api/data/shared/promote'
     | '/api/data/shared/search'
     | '/api/data/snapshots/$id'
@@ -3281,6 +3347,12 @@ export interface FileRouteTypes {
     | '/api/billing/$tenantId/usage'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
+    | '/api/compliance/$tenantId/consent'
+    | '/api/compliance/$tenantId/controls'
+    | '/api/compliance/$tenantId/evidence'
+    | '/api/compliance/$tenantId/metrics'
+    | '/api/compliance/$tenantId/reports'
+    | '/api/compliance/$tenantId/residency'
     | '/api/data/shared/promote'
     | '/api/data/shared/search'
     | '/api/data/snapshots/$id'
@@ -3581,6 +3653,12 @@ export interface FileRouteTypes {
     | '/api/billing/$tenantId/usage'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
+    | '/api/compliance/$tenantId/consent'
+    | '/api/compliance/$tenantId/controls'
+    | '/api/compliance/$tenantId/evidence'
+    | '/api/compliance/$tenantId/metrics'
+    | '/api/compliance/$tenantId/reports'
+    | '/api/compliance/$tenantId/residency'
     | '/api/data/shared/promote'
     | '/api/data/shared/search'
     | '/api/data/snapshots/$id'
@@ -3882,6 +3960,12 @@ export interface RootRouteChildren {
   ApiBillingTenantIdUsageRoute: typeof ApiBillingTenantIdUsageRoute
   ApiCollaborationSessionIdBlackboardRoute: typeof ApiCollaborationSessionIdBlackboardRoute
   ApiCollaborationSessionIdProposalRoute: typeof ApiCollaborationSessionIdProposalRoute
+  ApiComplianceTenantIdConsentRoute: typeof ApiComplianceTenantIdConsentRoute
+  ApiComplianceTenantIdControlsRoute: typeof ApiComplianceTenantIdControlsRoute
+  ApiComplianceTenantIdEvidenceRoute: typeof ApiComplianceTenantIdEvidenceRoute
+  ApiComplianceTenantIdMetricsRoute: typeof ApiComplianceTenantIdMetricsRoute
+  ApiComplianceTenantIdReportsRoute: typeof ApiComplianceTenantIdReportsRoute
+  ApiComplianceTenantIdResidencyRoute: typeof ApiComplianceTenantIdResidencyRoute
   ApiDataSharedPromoteRoute: typeof ApiDataSharedPromoteRoute
   ApiDataSharedSearchRoute: typeof ApiDataSharedSearchRoute
   ApiDataSnapshotsIdRoute: typeof ApiDataSnapshotsIdRoute
@@ -5251,6 +5335,48 @@ declare module '@tanstack/react-router' {
       path: '/api/data/shared/promote'
       fullPath: '/api/data/shared/promote'
       preLoaderRoute: typeof ApiDataSharedPromoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/compliance/$tenantId/residency': {
+      id: '/api/compliance/$tenantId/residency'
+      path: '/api/compliance/$tenantId/residency'
+      fullPath: '/api/compliance/$tenantId/residency'
+      preLoaderRoute: typeof ApiComplianceTenantIdResidencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/compliance/$tenantId/reports': {
+      id: '/api/compliance/$tenantId/reports'
+      path: '/api/compliance/$tenantId/reports'
+      fullPath: '/api/compliance/$tenantId/reports'
+      preLoaderRoute: typeof ApiComplianceTenantIdReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/compliance/$tenantId/metrics': {
+      id: '/api/compliance/$tenantId/metrics'
+      path: '/api/compliance/$tenantId/metrics'
+      fullPath: '/api/compliance/$tenantId/metrics'
+      preLoaderRoute: typeof ApiComplianceTenantIdMetricsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/compliance/$tenantId/evidence': {
+      id: '/api/compliance/$tenantId/evidence'
+      path: '/api/compliance/$tenantId/evidence'
+      fullPath: '/api/compliance/$tenantId/evidence'
+      preLoaderRoute: typeof ApiComplianceTenantIdEvidenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/compliance/$tenantId/controls': {
+      id: '/api/compliance/$tenantId/controls'
+      path: '/api/compliance/$tenantId/controls'
+      fullPath: '/api/compliance/$tenantId/controls'
+      preLoaderRoute: typeof ApiComplianceTenantIdControlsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/compliance/$tenantId/consent': {
+      id: '/api/compliance/$tenantId/consent'
+      path: '/api/compliance/$tenantId/consent'
+      fullPath: '/api/compliance/$tenantId/consent'
+      preLoaderRoute: typeof ApiComplianceTenantIdConsentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/collaboration/$sessionId/proposal': {
@@ -6639,6 +6765,12 @@ const rootRouteChildren: RootRouteChildren = {
     ApiCollaborationSessionIdBlackboardRoute,
   ApiCollaborationSessionIdProposalRoute:
     ApiCollaborationSessionIdProposalRoute,
+  ApiComplianceTenantIdConsentRoute: ApiComplianceTenantIdConsentRoute,
+  ApiComplianceTenantIdControlsRoute: ApiComplianceTenantIdControlsRoute,
+  ApiComplianceTenantIdEvidenceRoute: ApiComplianceTenantIdEvidenceRoute,
+  ApiComplianceTenantIdMetricsRoute: ApiComplianceTenantIdMetricsRoute,
+  ApiComplianceTenantIdReportsRoute: ApiComplianceTenantIdReportsRoute,
+  ApiComplianceTenantIdResidencyRoute: ApiComplianceTenantIdResidencyRoute,
   ApiDataSharedPromoteRoute: ApiDataSharedPromoteRoute,
   ApiDataSharedSearchRoute: ApiDataSharedSearchRoute,
   ApiDataSnapshotsIdRoute: ApiDataSnapshotsIdRoute,
