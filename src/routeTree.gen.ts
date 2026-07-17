@@ -117,6 +117,7 @@ import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './route
 import { Route as ApiBillingTenantIdUsageRouteImport } from './routes/api/billing/$tenantId/usage'
 import { Route as ApiBillingTenantIdSubscriptionRouteImport } from './routes/api/billing/$tenantId/subscription'
 import { Route as ApiBillingTenantIdSubscribeRouteImport } from './routes/api/billing/$tenantId/subscribe'
+import { Route as ApiBillingTenantIdInvoicesRouteImport } from './routes/api/billing/$tenantId/invoices'
 import { Route as ApiBillingTenantIdChangePlanRouteImport } from './routes/api/billing/$tenantId/change-plan'
 import { Route as ApiBillingTenantIdCancelRouteImport } from './routes/api/billing/$tenantId/cancel'
 import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
@@ -759,6 +760,12 @@ const ApiBillingTenantIdSubscribeRoute =
     path: '/api/billing/$tenantId/subscribe',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiBillingTenantIdInvoicesRoute =
+  ApiBillingTenantIdInvoicesRouteImport.update({
+    id: '/api/billing/$tenantId/invoices',
+    path: '/api/billing/$tenantId/invoices',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiBillingTenantIdChangePlanRoute =
   ApiBillingTenantIdChangePlanRouteImport.update({
     id: '/api/billing/$tenantId/change-plan',
@@ -1104,6 +1111,7 @@ export interface FileRoutesByFullPath {
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/billing/$tenantId/cancel': typeof ApiBillingTenantIdCancelRoute
   '/api/billing/$tenantId/change-plan': typeof ApiBillingTenantIdChangePlanRoute
+  '/api/billing/$tenantId/invoices': typeof ApiBillingTenantIdInvoicesRoute
   '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
@@ -1264,6 +1272,7 @@ export interface FileRoutesByTo {
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/billing/$tenantId/cancel': typeof ApiBillingTenantIdCancelRoute
   '/api/billing/$tenantId/change-plan': typeof ApiBillingTenantIdChangePlanRoute
+  '/api/billing/$tenantId/invoices': typeof ApiBillingTenantIdInvoicesRoute
   '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
@@ -1425,6 +1434,7 @@ export interface FileRoutesById {
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/billing/$tenantId/cancel': typeof ApiBillingTenantIdCancelRoute
   '/api/billing/$tenantId/change-plan': typeof ApiBillingTenantIdChangePlanRoute
+  '/api/billing/$tenantId/invoices': typeof ApiBillingTenantIdInvoicesRoute
   '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
@@ -1587,6 +1597,7 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/overview'
     | '/api/billing/$tenantId/cancel'
     | '/api/billing/$tenantId/change-plan'
+    | '/api/billing/$tenantId/invoices'
     | '/api/billing/$tenantId/subscribe'
     | '/api/billing/$tenantId/subscription'
     | '/api/billing/$tenantId/usage'
@@ -1747,6 +1758,7 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/overview'
     | '/api/billing/$tenantId/cancel'
     | '/api/billing/$tenantId/change-plan'
+    | '/api/billing/$tenantId/invoices'
     | '/api/billing/$tenantId/subscribe'
     | '/api/billing/$tenantId/subscription'
     | '/api/billing/$tenantId/usage'
@@ -1907,6 +1919,7 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/overview'
     | '/api/billing/$tenantId/cancel'
     | '/api/billing/$tenantId/change-plan'
+    | '/api/billing/$tenantId/invoices'
     | '/api/billing/$tenantId/subscribe'
     | '/api/billing/$tenantId/subscription'
     | '/api/billing/$tenantId/usage'
@@ -2068,6 +2081,7 @@ export interface RootRouteChildren {
   ApiAnalyticsToolsOverviewRoute: typeof ApiAnalyticsToolsOverviewRoute
   ApiBillingTenantIdCancelRoute: typeof ApiBillingTenantIdCancelRoute
   ApiBillingTenantIdChangePlanRoute: typeof ApiBillingTenantIdChangePlanRoute
+  ApiBillingTenantIdInvoicesRoute: typeof ApiBillingTenantIdInvoicesRoute
   ApiBillingTenantIdSubscribeRoute: typeof ApiBillingTenantIdSubscribeRoute
   ApiBillingTenantIdSubscriptionRoute: typeof ApiBillingTenantIdSubscriptionRoute
   ApiBillingTenantIdUsageRoute: typeof ApiBillingTenantIdUsageRoute
@@ -2938,6 +2952,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiBillingTenantIdSubscribeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/billing/$tenantId/invoices': {
+      id: '/api/billing/$tenantId/invoices'
+      path: '/api/billing/$tenantId/invoices'
+      fullPath: '/api/billing/$tenantId/invoices'
+      preLoaderRoute: typeof ApiBillingTenantIdInvoicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/billing/$tenantId/change-plan': {
       id: '/api/billing/$tenantId/change-plan'
       path: '/api/billing/$tenantId/change-plan'
@@ -3403,6 +3424,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAnalyticsToolsOverviewRoute: ApiAnalyticsToolsOverviewRoute,
   ApiBillingTenantIdCancelRoute: ApiBillingTenantIdCancelRoute,
   ApiBillingTenantIdChangePlanRoute: ApiBillingTenantIdChangePlanRoute,
+  ApiBillingTenantIdInvoicesRoute: ApiBillingTenantIdInvoicesRoute,
   ApiBillingTenantIdSubscribeRoute: ApiBillingTenantIdSubscribeRoute,
   ApiBillingTenantIdSubscriptionRoute: ApiBillingTenantIdSubscriptionRoute,
   ApiBillingTenantIdUsageRoute: ApiBillingTenantIdUsageRoute,
