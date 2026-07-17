@@ -877,6 +877,235 @@ export type Database = {
         }
         Relationships: []
       }
+      analytics_insights: {
+        Row: {
+          category: string
+          confidence: number
+          created_at: string
+          description: string
+          id: string
+          impact_level: string
+          priority: string
+          recommended_action: string | null
+          related_metrics: string[] | null
+          report_id: string | null
+          status: string
+          supporting_data: Json | null
+          tenant_id: string
+          title: string
+        }
+        Insert: {
+          category: string
+          confidence: number
+          created_at?: string
+          description: string
+          id: string
+          impact_level: string
+          priority: string
+          recommended_action?: string | null
+          related_metrics?: string[] | null
+          report_id?: string | null
+          status?: string
+          supporting_data?: Json | null
+          tenant_id: string
+          title: string
+        }
+        Update: {
+          category?: string
+          confidence?: number
+          created_at?: string
+          description?: string
+          id?: string
+          impact_level?: string
+          priority?: string
+          recommended_action?: string | null
+          related_metrics?: string[] | null
+          report_id?: string | null
+          status?: string
+          supporting_data?: Json | null
+          tenant_id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_insights_report_id_fkey"
+            columns: ["report_id"]
+            isOneToOne: false
+            referencedRelation: "analytics_reports"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "analytics_insights_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      analytics_metrics: {
+        Row: {
+          aggregation: string
+          change_percent: number | null
+          created_at: string
+          current_value: number | null
+          description: string
+          filters: Json | null
+          format: string
+          historical_data: Json | null
+          id: string
+          metric_type: string
+          module: string
+          name: string
+          previous_value: number | null
+          source_field: string
+          source_table: string
+          tenant_id: string
+          trend: string | null
+          unit: string | null
+          updated_at: string
+        }
+        Insert: {
+          aggregation: string
+          change_percent?: number | null
+          created_at?: string
+          current_value?: number | null
+          description: string
+          filters?: Json | null
+          format: string
+          historical_data?: Json | null
+          id: string
+          metric_type: string
+          module: string
+          name: string
+          previous_value?: number | null
+          source_field: string
+          source_table: string
+          tenant_id: string
+          trend?: string | null
+          unit?: string | null
+          updated_at?: string
+        }
+        Update: {
+          aggregation?: string
+          change_percent?: number | null
+          created_at?: string
+          current_value?: number | null
+          description?: string
+          filters?: Json | null
+          format?: string
+          historical_data?: Json | null
+          id?: string
+          metric_type?: string
+          module?: string
+          name?: string
+          previous_value?: number | null
+          source_field?: string
+          source_table?: string
+          tenant_id?: string
+          trend?: string | null
+          unit?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_metrics_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      analytics_reports: {
+        Row: {
+          category: string
+          charts: Json | null
+          created_at: string
+          data: Json | null
+          description: string | null
+          dimensions: string[] | null
+          filters: Json | null
+          id: string
+          insights: Json | null
+          is_public: boolean | null
+          is_scheduled: boolean | null
+          last_generated_at: string | null
+          layout: Json | null
+          metrics: string[]
+          name: string
+          next_scheduled_at: string | null
+          owner_id: string
+          recipients: string[] | null
+          schedule_cron: string | null
+          shared_with: string[] | null
+          status: string
+          tenant_id: string
+          time_range: Json
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          charts?: Json | null
+          created_at?: string
+          data?: Json | null
+          description?: string | null
+          dimensions?: string[] | null
+          filters?: Json | null
+          id: string
+          insights?: Json | null
+          is_public?: boolean | null
+          is_scheduled?: boolean | null
+          last_generated_at?: string | null
+          layout?: Json | null
+          metrics?: string[]
+          name: string
+          next_scheduled_at?: string | null
+          owner_id: string
+          recipients?: string[] | null
+          schedule_cron?: string | null
+          shared_with?: string[] | null
+          status?: string
+          tenant_id: string
+          time_range: Json
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          charts?: Json | null
+          created_at?: string
+          data?: Json | null
+          description?: string | null
+          dimensions?: string[] | null
+          filters?: Json | null
+          id?: string
+          insights?: Json | null
+          is_public?: boolean | null
+          is_scheduled?: boolean | null
+          last_generated_at?: string | null
+          layout?: Json | null
+          metrics?: string[]
+          name?: string
+          next_scheduled_at?: string | null
+          owner_id?: string
+          recipients?: string[] | null
+          schedule_cron?: string | null
+          shared_with?: string[] | null
+          status?: string
+          tenant_id?: string
+          time_range?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_reports_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       api_key_audit_logs: {
         Row: {
           action: string
@@ -2919,6 +3148,59 @@ export type Database = {
           },
           {
             foreignKeyName: "cluster_tasks_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cohort_analyses: {
+        Row: {
+          cohort_by: string
+          cohort_period: string
+          cohorts: Json | null
+          created_at: string
+          description: string | null
+          end_date: string
+          id: string
+          metric_to_track: string
+          name: string
+          retention_matrix: Json | null
+          start_date: string
+          tenant_id: string
+        }
+        Insert: {
+          cohort_by: string
+          cohort_period: string
+          cohorts?: Json | null
+          created_at?: string
+          description?: string | null
+          end_date: string
+          id: string
+          metric_to_track: string
+          name: string
+          retention_matrix?: Json | null
+          start_date: string
+          tenant_id: string
+        }
+        Update: {
+          cohort_by?: string
+          cohort_period?: string
+          cohorts?: Json | null
+          created_at?: string
+          description?: string | null
+          end_date?: string
+          id?: string
+          metric_to_track?: string
+          name?: string
+          retention_matrix?: Json | null
+          start_date?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cohort_analyses_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -5963,6 +6245,53 @@ export type Database = {
           },
           {
             foreignKeyName: "failover_plans_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      funnel_analyses: {
+        Row: {
+          conversion_rate: number
+          created_at: string
+          end_date: string
+          id: string
+          name: string
+          start_date: string
+          step_conversions: Json | null
+          steps: Json
+          tenant_id: string
+          total_entrants: number
+        }
+        Insert: {
+          conversion_rate?: number
+          created_at?: string
+          end_date: string
+          id: string
+          name: string
+          start_date: string
+          step_conversions?: Json | null
+          steps?: Json
+          tenant_id: string
+          total_entrants?: number
+        }
+        Update: {
+          conversion_rate?: number
+          created_at?: string
+          end_date?: string
+          id?: string
+          name?: string
+          start_date?: string
+          step_conversions?: Json | null
+          steps?: Json
+          tenant_id?: string
+          total_entrants?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "funnel_analyses_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -9230,6 +9559,66 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "pm_time_entries_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      predictive_forecasts: {
+        Row: {
+          created_at: string
+          forecast_data: Json | null
+          forecast_horizon: number
+          forecast_period: string
+          historical_data: Json | null
+          id: string
+          mape: number
+          metric_id: string
+          model_confidence: number
+          model_type: string
+          rmse: number
+          tenant_id: string
+        }
+        Insert: {
+          created_at?: string
+          forecast_data?: Json | null
+          forecast_horizon: number
+          forecast_period: string
+          historical_data?: Json | null
+          id: string
+          mape?: number
+          metric_id: string
+          model_confidence: number
+          model_type: string
+          rmse?: number
+          tenant_id: string
+        }
+        Update: {
+          created_at?: string
+          forecast_data?: Json | null
+          forecast_horizon?: number
+          forecast_period?: string
+          historical_data?: Json | null
+          id?: string
+          mape?: number
+          metric_id?: string
+          model_confidence?: number
+          model_type?: string
+          rmse?: number
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "predictive_forecasts_metric_id_fkey"
+            columns: ["metric_id"]
+            isOneToOne: false
+            referencedRelation: "analytics_metrics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "predictive_forecasts_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
