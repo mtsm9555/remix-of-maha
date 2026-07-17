@@ -244,6 +244,7 @@ import { Route as ApiAnalyticsToolsToolNameHistoryRouteImport } from './routes/a
 import { Route as ApiAnalyticsToolsToolNameErrorsRouteImport } from './routes/api/analytics/tools/$toolName/errors'
 import { Route as ApiAdvancedRolesTenantIdJitElevationIdRouteImport } from './routes/api/advanced-roles/$tenantId/jit/$elevationId'
 import { Route as ApiVaultTenantIdSecretsSecretIdRotateRouteImport } from './routes/api/vault/$tenantId/secrets.$secretId.rotate'
+import { Route as ApiVaultTenantIdSecretsSecretIdRevokeRouteImport } from './routes/api/vault/$tenantId/secrets.$secretId.revoke'
 import { Route as ApiVaultTenantIdSecretsSecretIdRevealRouteImport } from './routes/api/vault/$tenantId/secrets.$secretId.reveal'
 import { Route as ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport } from './routes/api/infrastructure/budget/topups/$requestId.approve'
 import { Route as ApiDataVersionsHistoryEntityTypeEntityIdRouteImport } from './routes/api/data/versions/history/$entityType/$entityId'
@@ -1559,6 +1560,12 @@ const ApiVaultTenantIdSecretsSecretIdRotateRoute =
     path: '/$secretId/rotate',
     getParentRoute: () => ApiVaultTenantIdSecretsRoute,
   } as any)
+const ApiVaultTenantIdSecretsSecretIdRevokeRoute =
+  ApiVaultTenantIdSecretsSecretIdRevokeRouteImport.update({
+    id: '/$secretId/revoke',
+    path: '/$secretId/revoke',
+    getParentRoute: () => ApiVaultTenantIdSecretsRoute,
+  } as any)
 const ApiVaultTenantIdSecretsSecretIdRevealRoute =
   ApiVaultTenantIdSecretsSecretIdRevealRouteImport.update({
     id: '/$secretId/reveal',
@@ -1851,6 +1858,7 @@ export interface FileRoutesByFullPath {
   '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
   '/api/vault/$tenantId/secrets/$secretId/reveal': typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
+  '/api/vault/$tenantId/secrets/$secretId/revoke': typeof ApiVaultTenantIdSecretsSecretIdRevokeRoute
   '/api/vault/$tenantId/secrets/$secretId/rotate': typeof ApiVaultTenantIdSecretsSecretIdRotateRoute
 }
 export interface FileRoutesByTo {
@@ -2096,6 +2104,7 @@ export interface FileRoutesByTo {
   '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
   '/api/vault/$tenantId/secrets/$secretId/reveal': typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
+  '/api/vault/$tenantId/secrets/$secretId/revoke': typeof ApiVaultTenantIdSecretsSecretIdRevokeRoute
   '/api/vault/$tenantId/secrets/$secretId/rotate': typeof ApiVaultTenantIdSecretsSecretIdRotateRoute
 }
 export interface FileRoutesById {
@@ -2342,6 +2351,7 @@ export interface FileRoutesById {
   '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
   '/api/vault/$tenantId/secrets/$secretId/reveal': typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
+  '/api/vault/$tenantId/secrets/$secretId/revoke': typeof ApiVaultTenantIdSecretsSecretIdRevokeRoute
   '/api/vault/$tenantId/secrets/$secretId/rotate': typeof ApiVaultTenantIdSecretsSecretIdRotateRoute
 }
 export interface FileRouteTypes {
@@ -2589,6 +2599,7 @@ export interface FileRouteTypes {
     | '/api/data/versions/history/$entityType/$entityId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
     | '/api/vault/$tenantId/secrets/$secretId/reveal'
+    | '/api/vault/$tenantId/secrets/$secretId/revoke'
     | '/api/vault/$tenantId/secrets/$secretId/rotate'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -2834,6 +2845,7 @@ export interface FileRouteTypes {
     | '/api/data/versions/history/$entityType/$entityId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
     | '/api/vault/$tenantId/secrets/$secretId/reveal'
+    | '/api/vault/$tenantId/secrets/$secretId/revoke'
     | '/api/vault/$tenantId/secrets/$secretId/rotate'
   id:
     | '__root__'
@@ -3079,6 +3091,7 @@ export interface FileRouteTypes {
     | '/api/data/versions/history/$entityType/$entityId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
     | '/api/vault/$tenantId/secrets/$secretId/reveal'
+    | '/api/vault/$tenantId/secrets/$secretId/revoke'
     | '/api/vault/$tenantId/secrets/$secretId/rotate'
   fileRoutesById: FileRoutesById
 }
@@ -4951,6 +4964,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiVaultTenantIdSecretsSecretIdRotateRouteImport
       parentRoute: typeof ApiVaultTenantIdSecretsRoute
     }
+    '/api/vault/$tenantId/secrets/$secretId/revoke': {
+      id: '/api/vault/$tenantId/secrets/$secretId/revoke'
+      path: '/$secretId/revoke'
+      fullPath: '/api/vault/$tenantId/secrets/$secretId/revoke'
+      preLoaderRoute: typeof ApiVaultTenantIdSecretsSecretIdRevokeRouteImport
+      parentRoute: typeof ApiVaultTenantIdSecretsRoute
+    }
     '/api/vault/$tenantId/secrets/$secretId/reveal': {
       id: '/api/vault/$tenantId/secrets/$secretId/reveal'
       path: '/$secretId/reveal'
@@ -5209,6 +5229,7 @@ const ApiIntelligenceReflectionMetricsRouteWithChildren =
 
 interface ApiVaultTenantIdSecretsRouteChildren {
   ApiVaultTenantIdSecretsSecretIdRevealRoute: typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
+  ApiVaultTenantIdSecretsSecretIdRevokeRoute: typeof ApiVaultTenantIdSecretsSecretIdRevokeRoute
   ApiVaultTenantIdSecretsSecretIdRotateRoute: typeof ApiVaultTenantIdSecretsSecretIdRotateRoute
 }
 
@@ -5216,6 +5237,8 @@ const ApiVaultTenantIdSecretsRouteChildren: ApiVaultTenantIdSecretsRouteChildren
   {
     ApiVaultTenantIdSecretsSecretIdRevealRoute:
       ApiVaultTenantIdSecretsSecretIdRevealRoute,
+    ApiVaultTenantIdSecretsSecretIdRevokeRoute:
+      ApiVaultTenantIdSecretsSecretIdRevokeRoute,
     ApiVaultTenantIdSecretsSecretIdRotateRoute:
       ApiVaultTenantIdSecretsSecretIdRotateRoute,
   }
