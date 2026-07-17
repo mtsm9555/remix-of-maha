@@ -1,10 +1,10 @@
 // src/index.ts
 
-import { AgentRegistry } from "./agents/agentRegistry";
-import { TaskStateManager } from "./lifecycle/taskStateManager";
-import { MemoryStore } from "./memory/memoryStore";
-import { RecoveryQueue } from "./recovery/recoveryQueue";
-import { RecoveryManager } from "./recovery/recoveryManager";
+import { AgentRegistry } from "../agents/agentRegistry";
+import { TaskStateManager } from "../lifecycle/taskStateManager";
+import { MemoryStore } from "../memory/memoryStore";
+import { RecoveryQueue } from "./recoveryQueue";
+import { RecoveryManager } from "./recoveryManager";
 
 const agentRegistry = new AgentRegistry();
 const taskManager = new TaskStateManager();
