@@ -675,6 +675,39 @@ export type Database = {
         }
         Relationships: []
       }
+      compliance_audit_log: {
+        Row: {
+          details: Json
+          entity_id: string | null
+          entity_type: string | null
+          event_type: string
+          id: string
+          performed_by: string
+          timestamp: string
+          user_id: string | null
+        }
+        Insert: {
+          details?: Json
+          entity_id?: string | null
+          entity_type?: string | null
+          event_type: string
+          id: string
+          performed_by: string
+          timestamp?: string
+          user_id?: string | null
+        }
+        Update: {
+          details?: Json
+          entity_id?: string | null
+          entity_type?: string | null
+          event_type?: string
+          id?: string
+          performed_by?: string
+          timestamp?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       consolidated_memories: {
         Row: {
           created_at: string
@@ -903,6 +936,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      dsar_requests: {
+        Row: {
+          completed_at: string | null
+          id: string
+          notes: string | null
+          processed_by: string
+          request_type: string
+          requested_at: string
+          scope: Json
+          status: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          id: string
+          notes?: string | null
+          processed_by: string
+          request_type: string
+          requested_at?: string
+          scope: Json
+          status: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          id?: string
+          notes?: string | null
+          processed_by?: string
+          request_type?: string
+          requested_at?: string
+          scope?: Json
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       enterprise_policies: {
         Row: {
@@ -1234,6 +1303,33 @@ export type Database = {
           reasoning?: string | null
           status?: string
           trigger?: string
+        }
+        Relationships: []
+      }
+      legal_holds: {
+        Row: {
+          entity_id: string
+          entity_type: string
+          id: string
+          placed_at: string
+          reason: string
+          requested_by: string
+        }
+        Insert: {
+          entity_id: string
+          entity_type: string
+          id?: string
+          placed_at?: string
+          reason: string
+          requested_by: string
+        }
+        Update: {
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          placed_at?: string
+          reason?: string
+          requested_by?: string
         }
         Relationships: []
       }
@@ -1738,6 +1834,42 @@ export type Database = {
           metadata?: Json
           score_impact?: number
           severity?: string
+        }
+        Relationships: []
+      }
+      retention_policies: {
+        Row: {
+          action_after_retention: string
+          applies_to: Json
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          legal_hold_capable: boolean
+          name: string
+          retention_days: number
+        }
+        Insert: {
+          action_after_retention: string
+          applies_to: Json
+          created_at?: string
+          description?: string | null
+          id: string
+          is_active?: boolean
+          legal_hold_capable?: boolean
+          name: string
+          retention_days: number
+        }
+        Update: {
+          action_after_retention?: string
+          applies_to?: Json
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          legal_hold_capable?: boolean
+          name?: string
+          retention_days?: number
         }
         Relationships: []
       }

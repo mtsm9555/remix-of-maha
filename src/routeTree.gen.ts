@@ -29,6 +29,8 @@ import { Route as ApiVisionSplatRouteImport } from './routes/api/vision/$'
 import { Route as ApiPrioritizationIncidentRouteImport } from './routes/api/prioritization/incident'
 import { Route as ApiPoliciesSplatRouteImport } from './routes/api/policies/$'
 import { Route as ApiManagerSplatRouteImport } from './routes/api/manager/$'
+import { Route as ApiGovernanceLegalHoldRouteImport } from './routes/api/governance/legal-hold'
+import { Route as ApiGovernanceAuditLogsRouteImport } from './routes/api/governance/audit-logs'
 import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
 import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
 import { Route as ApiCollaborationSessionsRouteImport } from './routes/api/collaboration/sessions'
@@ -42,6 +44,7 @@ import { Route as ApiIntelligenceLearnIndexRouteImport } from './routes/api/inte
 import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/api/intelligence/consolidate/index'
 import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
 import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/infrastructure/fleet/index'
+import { Route as ApiGovernanceDsarIndexRouteImport } from './routes/api/governance/dsar/index'
 import { Route as ApiToolsVersioningPinRouteImport } from './routes/api/tools/versioning/pin'
 import { Route as ApiToolsPoliciesTestRouteImport } from './routes/api/tools/policies/test'
 import { Route as ApiToolsPoliciesLogsRouteImport } from './routes/api/tools/policies/logs'
@@ -79,6 +82,8 @@ import { Route as ApiInfrastructureDiscoverySimulateRouteImport } from './routes
 import { Route as ApiInfrastructureCapabilitiesSearchRouteImport } from './routes/api/infrastructure/capabilities/search'
 import { Route as ApiInfrastructureCapabilitiesRevokeToolRouteImport } from './routes/api/infrastructure/capabilities/revoke-tool'
 import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './routes/api/infrastructure/capabilities/$agentId'
+import { Route as ApiGovernanceRetentionPoliciesRouteImport } from './routes/api/governance/retention/policies'
+import { Route as ApiGovernanceRetentionEnforceRouteImport } from './routes/api/governance/retention/enforce'
 import { Route as ApiFinanceCostsTopToolsRouteImport } from './routes/api/finance/costs/top-tools'
 import { Route as ApiFinanceCostsPricingRouteImport } from './routes/api/finance/costs/pricing'
 import { Route as ApiFinanceCostsDepartmentsRouteImport } from './routes/api/finance/costs/departments'
@@ -115,6 +120,7 @@ import { Route as ApiInfrastructureDiscoveryReputationAgentIdRouteImport } from 
 import { Route as ApiInfrastructureBudgetWalletInstanceIdRouteImport } from './routes/api/infrastructure/budget/wallet.$instanceId'
 import { Route as ApiInfrastructureBudgetTopupsPendingRouteImport } from './routes/api/infrastructure/budget/topups/pending'
 import { Route as ApiInfrastructureBudgetLedgerInstanceIdRouteImport } from './routes/api/infrastructure/budget/ledger.$instanceId'
+import { Route as ApiGovernanceDsarIdProcessRouteImport } from './routes/api/governance/dsar/$id/process'
 import { Route as ApiDataUserMemoriesSearchRouteImport } from './routes/api/data/user/memories/search'
 import { Route as ApiDataUserMemoriesMemoryIdRouteImport } from './routes/api/data/user/memories/$memoryId'
 import { Route as ApiDataSnapshotsTaskTaskIdRouteImport } from './routes/api/data/snapshots/task/$taskId'
@@ -237,6 +243,16 @@ const ApiManagerSplatRoute = ApiManagerSplatRouteImport.update({
   path: '/api/manager/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiGovernanceLegalHoldRoute = ApiGovernanceLegalHoldRouteImport.update({
+  id: '/api/governance/legal-hold',
+  path: '/api/governance/legal-hold',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGovernanceAuditLogsRoute = ApiGovernanceAuditLogsRouteImport.update({
+  id: '/api/governance/audit-logs',
+  path: '/api/governance/audit-logs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiGoalsSplatRoute = ApiGoalsSplatRouteImport.update({
   id: '/api/goals/$',
   path: '/api/goals/$',
@@ -310,6 +326,11 @@ const ApiInfrastructureFleetIndexRoute =
     path: '/api/infrastructure/fleet/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiGovernanceDsarIndexRoute = ApiGovernanceDsarIndexRouteImport.update({
+  id: '/api/governance/dsar/',
+  path: '/api/governance/dsar/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiToolsVersioningPinRoute = ApiToolsVersioningPinRouteImport.update({
   id: '/api/tools/versioning/pin',
   path: '/api/tools/versioning/pin',
@@ -526,6 +547,18 @@ const ApiInfrastructureCapabilitiesAgentIdRoute =
     path: '/api/infrastructure/capabilities/$agentId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiGovernanceRetentionPoliciesRoute =
+  ApiGovernanceRetentionPoliciesRouteImport.update({
+    id: '/api/governance/retention/policies',
+    path: '/api/governance/retention/policies',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiGovernanceRetentionEnforceRoute =
+  ApiGovernanceRetentionEnforceRouteImport.update({
+    id: '/api/governance/retention/enforce',
+    path: '/api/governance/retention/enforce',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiFinanceCostsTopToolsRoute = ApiFinanceCostsTopToolsRouteImport.update({
   id: '/api/finance/costs/top-tools',
   path: '/api/finance/costs/top-tools',
@@ -732,6 +765,12 @@ const ApiInfrastructureBudgetLedgerInstanceIdRoute =
     path: '/api/infrastructure/budget/ledger/$instanceId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiGovernanceDsarIdProcessRoute =
+  ApiGovernanceDsarIdProcessRouteImport.update({
+    id: '/api/governance/dsar/$id/process',
+    path: '/api/governance/dsar/$id/process',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiDataUserMemoriesSearchRoute =
   ApiDataUserMemoriesSearchRouteImport.update({
     id: '/api/data/user/memories/search',
@@ -867,6 +906,8 @@ export interface FileRoutesByFullPath {
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
+  '/api/governance/audit-logs': typeof ApiGovernanceAuditLogsRoute
+  '/api/governance/legal-hold': typeof ApiGovernanceLegalHoldRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/policies/$': typeof ApiPoliciesSplatRoute
   '/api/prioritization/incident': typeof ApiPrioritizationIncidentRoute
@@ -894,6 +935,8 @@ export interface FileRoutesByFullPath {
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
+  '/api/governance/retention/enforce': typeof ApiGovernanceRetentionEnforceRoute
+  '/api/governance/retention/policies': typeof ApiGovernanceRetentionPoliciesRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -931,6 +974,7 @@ export interface FileRoutesByFullPath {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
@@ -951,6 +995,7 @@ export interface FileRoutesByFullPath {
   '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
+  '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -994,6 +1039,8 @@ export interface FileRoutesByTo {
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
+  '/api/governance/audit-logs': typeof ApiGovernanceAuditLogsRoute
+  '/api/governance/legal-hold': typeof ApiGovernanceLegalHoldRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/policies/$': typeof ApiPoliciesSplatRoute
   '/api/prioritization/incident': typeof ApiPrioritizationIncidentRoute
@@ -1021,6 +1068,8 @@ export interface FileRoutesByTo {
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
+  '/api/governance/retention/enforce': typeof ApiGovernanceRetentionEnforceRoute
+  '/api/governance/retention/policies': typeof ApiGovernanceRetentionPoliciesRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -1058,6 +1107,7 @@ export interface FileRoutesByTo {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/governance/dsar': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate': typeof ApiIntelligenceConsolidateIndexRoute
@@ -1078,6 +1128,7 @@ export interface FileRoutesByTo {
   '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
+  '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -1122,6 +1173,8 @@ export interface FileRoutesById {
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
+  '/api/governance/audit-logs': typeof ApiGovernanceAuditLogsRoute
+  '/api/governance/legal-hold': typeof ApiGovernanceLegalHoldRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/policies/$': typeof ApiPoliciesSplatRoute
   '/api/prioritization/incident': typeof ApiPrioritizationIncidentRoute
@@ -1149,6 +1202,8 @@ export interface FileRoutesById {
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
+  '/api/governance/retention/enforce': typeof ApiGovernanceRetentionEnforceRoute
+  '/api/governance/retention/policies': typeof ApiGovernanceRetentionPoliciesRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -1186,6 +1241,7 @@ export interface FileRoutesById {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
@@ -1206,6 +1262,7 @@ export interface FileRoutesById {
   '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
+  '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -1251,6 +1308,8 @@ export interface FileRouteTypes {
     | '/api/collaboration/sessions'
     | '/api/departments/$'
     | '/api/goals/$'
+    | '/api/governance/audit-logs'
+    | '/api/governance/legal-hold'
     | '/api/manager/$'
     | '/api/policies/$'
     | '/api/prioritization/incident'
@@ -1278,6 +1337,8 @@ export interface FileRouteTypes {
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
+    | '/api/governance/retention/enforce'
+    | '/api/governance/retention/policies'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
     | '/api/infrastructure/capabilities/search'
@@ -1315,6 +1376,7 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/governance/dsar/'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
@@ -1335,6 +1397,7 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
+    | '/api/governance/dsar/$id/process'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -1378,6 +1441,8 @@ export interface FileRouteTypes {
     | '/api/collaboration/sessions'
     | '/api/departments/$'
     | '/api/goals/$'
+    | '/api/governance/audit-logs'
+    | '/api/governance/legal-hold'
     | '/api/manager/$'
     | '/api/policies/$'
     | '/api/prioritization/incident'
@@ -1405,6 +1470,8 @@ export interface FileRouteTypes {
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
+    | '/api/governance/retention/enforce'
+    | '/api/governance/retention/policies'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
     | '/api/infrastructure/capabilities/search'
@@ -1442,6 +1509,7 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/governance/dsar'
     | '/api/infrastructure/fleet'
     | '/api/infrastructure/registry'
     | '/api/intelligence/consolidate'
@@ -1462,6 +1530,7 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
+    | '/api/governance/dsar/$id/process'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -1505,6 +1574,8 @@ export interface FileRouteTypes {
     | '/api/collaboration/sessions'
     | '/api/departments/$'
     | '/api/goals/$'
+    | '/api/governance/audit-logs'
+    | '/api/governance/legal-hold'
     | '/api/manager/$'
     | '/api/policies/$'
     | '/api/prioritization/incident'
@@ -1532,6 +1603,8 @@ export interface FileRouteTypes {
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
+    | '/api/governance/retention/enforce'
+    | '/api/governance/retention/policies'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
     | '/api/infrastructure/capabilities/search'
@@ -1569,6 +1642,7 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/governance/dsar/'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
@@ -1589,6 +1663,7 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
+    | '/api/governance/dsar/$id/process'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -1633,6 +1708,8 @@ export interface RootRouteChildren {
   ApiCollaborationSessionsRoute: typeof ApiCollaborationSessionsRoute
   ApiDepartmentsSplatRoute: typeof ApiDepartmentsSplatRoute
   ApiGoalsSplatRoute: typeof ApiGoalsSplatRoute
+  ApiGovernanceAuditLogsRoute: typeof ApiGovernanceAuditLogsRoute
+  ApiGovernanceLegalHoldRoute: typeof ApiGovernanceLegalHoldRoute
   ApiManagerSplatRoute: typeof ApiManagerSplatRoute
   ApiPoliciesSplatRoute: typeof ApiPoliciesSplatRoute
   ApiPrioritizationIncidentRoute: typeof ApiPrioritizationIncidentRoute
@@ -1660,6 +1737,8 @@ export interface RootRouteChildren {
   ApiFinanceCostsDepartmentsRoute: typeof ApiFinanceCostsDepartmentsRoute
   ApiFinanceCostsPricingRoute: typeof ApiFinanceCostsPricingRoute
   ApiFinanceCostsTopToolsRoute: typeof ApiFinanceCostsTopToolsRoute
+  ApiGovernanceRetentionEnforceRoute: typeof ApiGovernanceRetentionEnforceRoute
+  ApiGovernanceRetentionPoliciesRoute: typeof ApiGovernanceRetentionPoliciesRoute
   ApiInfrastructureCapabilitiesAgentIdRoute: typeof ApiInfrastructureCapabilitiesAgentIdRoute
   ApiInfrastructureCapabilitiesRevokeToolRoute: typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   ApiInfrastructureCapabilitiesSearchRoute: typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -1696,6 +1775,7 @@ export interface RootRouteChildren {
   ApiToolsPoliciesLogsRoute: typeof ApiToolsPoliciesLogsRoute
   ApiToolsPoliciesTestRoute: typeof ApiToolsPoliciesTestRoute
   ApiToolsVersioningPinRoute: typeof ApiToolsVersioningPinRoute
+  ApiGovernanceDsarIndexRoute: typeof ApiGovernanceDsarIndexRoute
   ApiInfrastructureFleetIndexRoute: typeof ApiInfrastructureFleetIndexRoute
   ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
   ApiIntelligenceConsolidateIndexRoute: typeof ApiIntelligenceConsolidateIndexRoute
@@ -1716,6 +1796,7 @@ export interface RootRouteChildren {
   ApiDataSnapshotsTaskTaskIdRoute: typeof ApiDataSnapshotsTaskTaskIdRoute
   ApiDataUserMemoriesMemoryIdRoute: typeof ApiDataUserMemoriesMemoryIdRoute
   ApiDataUserMemoriesSearchRoute: typeof ApiDataUserMemoriesSearchRoute
+  ApiGovernanceDsarIdProcessRoute: typeof ApiGovernanceDsarIdProcessRoute
   ApiInfrastructureBudgetLedgerInstanceIdRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   ApiInfrastructureBudgetTopupsPendingRoute: typeof ApiInfrastructureBudgetTopupsPendingRoute
   ApiInfrastructureBudgetWalletInstanceIdRoute: typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -1879,6 +1960,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiManagerSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/governance/legal-hold': {
+      id: '/api/governance/legal-hold'
+      path: '/api/governance/legal-hold'
+      fullPath: '/api/governance/legal-hold'
+      preLoaderRoute: typeof ApiGovernanceLegalHoldRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/governance/audit-logs': {
+      id: '/api/governance/audit-logs'
+      path: '/api/governance/audit-logs'
+      fullPath: '/api/governance/audit-logs'
+      preLoaderRoute: typeof ApiGovernanceAuditLogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/goals/$': {
       id: '/api/goals/$'
       path: '/api/goals/$'
@@ -1968,6 +2063,13 @@ declare module '@tanstack/react-router' {
       path: '/api/infrastructure/fleet'
       fullPath: '/api/infrastructure/fleet/'
       preLoaderRoute: typeof ApiInfrastructureFleetIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/governance/dsar/': {
+      id: '/api/governance/dsar/'
+      path: '/api/governance/dsar'
+      fullPath: '/api/governance/dsar/'
+      preLoaderRoute: typeof ApiGovernanceDsarIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/tools/versioning/pin': {
@@ -2229,6 +2331,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureCapabilitiesAgentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/governance/retention/policies': {
+      id: '/api/governance/retention/policies'
+      path: '/api/governance/retention/policies'
+      fullPath: '/api/governance/retention/policies'
+      preLoaderRoute: typeof ApiGovernanceRetentionPoliciesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/governance/retention/enforce': {
+      id: '/api/governance/retention/enforce'
+      path: '/api/governance/retention/enforce'
+      fullPath: '/api/governance/retention/enforce'
+      preLoaderRoute: typeof ApiGovernanceRetentionEnforceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/finance/costs/top-tools': {
       id: '/api/finance/costs/top-tools'
       path: '/api/finance/costs/top-tools'
@@ -2481,6 +2597,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/governance/dsar/$id/process': {
+      id: '/api/governance/dsar/$id/process'
+      path: '/api/governance/dsar/$id/process'
+      fullPath: '/api/governance/dsar/$id/process'
+      preLoaderRoute: typeof ApiGovernanceDsarIdProcessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/data/user/memories/search': {
       id: '/api/data/user/memories/search'
       path: '/api/data/user/memories/search'
@@ -2686,6 +2809,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiCollaborationSessionsRoute: ApiCollaborationSessionsRoute,
   ApiDepartmentsSplatRoute: ApiDepartmentsSplatRoute,
   ApiGoalsSplatRoute: ApiGoalsSplatRoute,
+  ApiGovernanceAuditLogsRoute: ApiGovernanceAuditLogsRoute,
+  ApiGovernanceLegalHoldRoute: ApiGovernanceLegalHoldRoute,
   ApiManagerSplatRoute: ApiManagerSplatRoute,
   ApiPoliciesSplatRoute: ApiPoliciesSplatRoute,
   ApiPrioritizationIncidentRoute: ApiPrioritizationIncidentRoute,
@@ -2716,6 +2841,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiFinanceCostsDepartmentsRoute: ApiFinanceCostsDepartmentsRoute,
   ApiFinanceCostsPricingRoute: ApiFinanceCostsPricingRoute,
   ApiFinanceCostsTopToolsRoute: ApiFinanceCostsTopToolsRoute,
+  ApiGovernanceRetentionEnforceRoute: ApiGovernanceRetentionEnforceRoute,
+  ApiGovernanceRetentionPoliciesRoute: ApiGovernanceRetentionPoliciesRoute,
   ApiInfrastructureCapabilitiesAgentIdRoute:
     ApiInfrastructureCapabilitiesAgentIdRoute,
   ApiInfrastructureCapabilitiesRevokeToolRoute:
@@ -2763,6 +2890,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiToolsPoliciesLogsRoute: ApiToolsPoliciesLogsRoute,
   ApiToolsPoliciesTestRoute: ApiToolsPoliciesTestRoute,
   ApiToolsVersioningPinRoute: ApiToolsVersioningPinRoute,
+  ApiGovernanceDsarIndexRoute: ApiGovernanceDsarIndexRoute,
   ApiInfrastructureFleetIndexRoute: ApiInfrastructureFleetIndexRoute,
   ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,
   ApiIntelligenceConsolidateIndexRoute: ApiIntelligenceConsolidateIndexRoute,
@@ -2784,6 +2912,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiDataSnapshotsTaskTaskIdRoute: ApiDataSnapshotsTaskTaskIdRoute,
   ApiDataUserMemoriesMemoryIdRoute: ApiDataUserMemoriesMemoryIdRoute,
   ApiDataUserMemoriesSearchRoute: ApiDataUserMemoriesSearchRoute,
+  ApiGovernanceDsarIdProcessRoute: ApiGovernanceDsarIdProcessRoute,
   ApiInfrastructureBudgetLedgerInstanceIdRoute:
     ApiInfrastructureBudgetLedgerInstanceIdRoute,
   ApiInfrastructureBudgetTopupsPendingRoute:
