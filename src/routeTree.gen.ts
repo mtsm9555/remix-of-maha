@@ -114,6 +114,7 @@ import { Route as ApiDataSharedSearchRouteImport } from './routes/api/data/share
 import { Route as ApiDataSharedPromoteRouteImport } from './routes/api/data/shared/promote'
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
+import { Route as ApiBillingTenantIdUsageRouteImport } from './routes/api/billing/$tenantId/usage'
 import { Route as ApiBillingTenantIdSubscriptionRouteImport } from './routes/api/billing/$tenantId/subscription'
 import { Route as ApiBillingTenantIdSubscribeRouteImport } from './routes/api/billing/$tenantId/subscribe'
 import { Route as ApiBillingTenantIdChangePlanRouteImport } from './routes/api/billing/$tenantId/change-plan'
@@ -741,6 +742,11 @@ const ApiCollaborationSessionIdBlackboardRoute =
     path: '/api/collaboration/$sessionId/blackboard',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiBillingTenantIdUsageRoute = ApiBillingTenantIdUsageRouteImport.update({
+  id: '/api/billing/$tenantId/usage',
+  path: '/api/billing/$tenantId/usage',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiBillingTenantIdSubscriptionRoute =
   ApiBillingTenantIdSubscriptionRouteImport.update({
     id: '/api/billing/$tenantId/subscription',
@@ -1100,6 +1106,7 @@ export interface FileRoutesByFullPath {
   '/api/billing/$tenantId/change-plan': typeof ApiBillingTenantIdChangePlanRoute
   '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
+  '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/data/shared/promote': typeof ApiDataSharedPromoteRoute
@@ -1259,6 +1266,7 @@ export interface FileRoutesByTo {
   '/api/billing/$tenantId/change-plan': typeof ApiBillingTenantIdChangePlanRoute
   '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
+  '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/data/shared/promote': typeof ApiDataSharedPromoteRoute
@@ -1419,6 +1427,7 @@ export interface FileRoutesById {
   '/api/billing/$tenantId/change-plan': typeof ApiBillingTenantIdChangePlanRoute
   '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
+  '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/data/shared/promote': typeof ApiDataSharedPromoteRoute
@@ -1580,6 +1589,7 @@ export interface FileRouteTypes {
     | '/api/billing/$tenantId/change-plan'
     | '/api/billing/$tenantId/subscribe'
     | '/api/billing/$tenantId/subscription'
+    | '/api/billing/$tenantId/usage'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/data/shared/promote'
@@ -1739,6 +1749,7 @@ export interface FileRouteTypes {
     | '/api/billing/$tenantId/change-plan'
     | '/api/billing/$tenantId/subscribe'
     | '/api/billing/$tenantId/subscription'
+    | '/api/billing/$tenantId/usage'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/data/shared/promote'
@@ -1898,6 +1909,7 @@ export interface FileRouteTypes {
     | '/api/billing/$tenantId/change-plan'
     | '/api/billing/$tenantId/subscribe'
     | '/api/billing/$tenantId/subscription'
+    | '/api/billing/$tenantId/usage'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/data/shared/promote'
@@ -2058,6 +2070,7 @@ export interface RootRouteChildren {
   ApiBillingTenantIdChangePlanRoute: typeof ApiBillingTenantIdChangePlanRoute
   ApiBillingTenantIdSubscribeRoute: typeof ApiBillingTenantIdSubscribeRoute
   ApiBillingTenantIdSubscriptionRoute: typeof ApiBillingTenantIdSubscriptionRoute
+  ApiBillingTenantIdUsageRoute: typeof ApiBillingTenantIdUsageRoute
   ApiCollaborationSessionIdBlackboardRoute: typeof ApiCollaborationSessionIdBlackboardRoute
   ApiCollaborationSessionIdProposalRoute: typeof ApiCollaborationSessionIdProposalRoute
   ApiDataSharedPromoteRoute: typeof ApiDataSharedPromoteRoute
@@ -2904,6 +2917,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCollaborationSessionIdBlackboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/billing/$tenantId/usage': {
+      id: '/api/billing/$tenantId/usage'
+      path: '/api/billing/$tenantId/usage'
+      fullPath: '/api/billing/$tenantId/usage'
+      preLoaderRoute: typeof ApiBillingTenantIdUsageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/billing/$tenantId/subscription': {
       id: '/api/billing/$tenantId/subscription'
       path: '/api/billing/$tenantId/subscription'
@@ -3385,6 +3405,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiBillingTenantIdChangePlanRoute: ApiBillingTenantIdChangePlanRoute,
   ApiBillingTenantIdSubscribeRoute: ApiBillingTenantIdSubscribeRoute,
   ApiBillingTenantIdSubscriptionRoute: ApiBillingTenantIdSubscriptionRoute,
+  ApiBillingTenantIdUsageRoute: ApiBillingTenantIdUsageRoute,
   ApiCollaborationSessionIdBlackboardRoute:
     ApiCollaborationSessionIdBlackboardRoute,
   ApiCollaborationSessionIdProposalRoute:
