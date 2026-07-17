@@ -1690,6 +1690,45 @@ export type Database = {
         }
         Relationships: []
       }
+      retrieval_events: {
+        Row: {
+          avg_relevance_score: number
+          estimated_cost_usd: number
+          id: string
+          latency_ms: number
+          memory_ids_fetched: string[]
+          query_text: string
+          results_returned: number
+          source: string
+          timestamp: string
+          tokens_consumed: number
+        }
+        Insert: {
+          avg_relevance_score?: number
+          estimated_cost_usd: number
+          id: string
+          latency_ms: number
+          memory_ids_fetched?: string[]
+          query_text: string
+          results_returned: number
+          source: string
+          timestamp?: string
+          tokens_consumed: number
+        }
+        Update: {
+          avg_relevance_score?: number
+          estimated_cost_usd?: number
+          id?: string
+          latency_ms?: number
+          memory_ids_fetched?: string[]
+          query_text?: string
+          results_returned?: number
+          source?: string
+          timestamp?: string
+          tokens_consumed?: number
+        }
+        Relationships: []
+      }
       sandbox_executions: {
         Row: {
           agent_id: string
@@ -2519,6 +2558,16 @@ export type Database = {
       boost_memory_importance: {
         Args: { memory_ids: string[] }
         Returns: undefined
+      }
+      calculate_memory_health_stats: {
+        Args: never
+        Returns: {
+          avg_relevance: number
+          last_retrieved: string
+          memory_id: string
+          source: string
+          total_retrievals: number
+        }[]
       }
       clearance_rank: { Args: { _level: string }; Returns: number }
       decay_stale_memories: {
