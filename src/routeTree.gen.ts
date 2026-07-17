@@ -37,6 +37,7 @@ import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/department
 import { Route as ApiCollaborationSessionsRouteImport } from './routes/api/collaboration/sessions'
 import { Route as ApiCollaborationInitiateRouteImport } from './routes/api/collaboration/initiate'
 import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
+import { Route as ApiBillingPlansRouteImport } from './routes/api/billing/plans'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
 import { Route as ApiAdvancedRolesTemplatesRouteImport } from './routes/api/advanced-roles/templates'
 import { Route as ApiInfrastructureDiscoveryRouteRouteImport } from './routes/api/infrastructure/discovery/route'
@@ -63,6 +64,7 @@ import { Route as ApiTeamsTenantIdCreateRouteImport } from './routes/api/teams/$
 import { Route as ApiTeamsTeamIdChannelsRouteImport } from './routes/api/teams/$teamId/channels'
 import { Route as ApiTeamsTeamIdBudgetRouteImport } from './routes/api/teams/$teamId/budget'
 import { Route as ApiTeamsTeamIdAnalyticsRouteImport } from './routes/api/teams/$teamId/analytics'
+import { Route as ApiPublicWebhooksStripeRouteImport } from './routes/api/public/webhooks/stripe'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
 import { Route as ApiOrgInvitesAcceptRouteImport } from './routes/api/org/invites/accept'
@@ -113,6 +115,12 @@ import { Route as ApiDataSharedSearchRouteImport } from './routes/api/data/share
 import { Route as ApiDataSharedPromoteRouteImport } from './routes/api/data/shared/promote'
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
+import { Route as ApiBillingTenantIdUsageRouteImport } from './routes/api/billing/$tenantId/usage'
+import { Route as ApiBillingTenantIdSubscriptionRouteImport } from './routes/api/billing/$tenantId/subscription'
+import { Route as ApiBillingTenantIdSubscribeRouteImport } from './routes/api/billing/$tenantId/subscribe'
+import { Route as ApiBillingTenantIdInvoicesRouteImport } from './routes/api/billing/$tenantId/invoices'
+import { Route as ApiBillingTenantIdChangePlanRouteImport } from './routes/api/billing/$tenantId/change-plan'
+import { Route as ApiBillingTenantIdCancelRouteImport } from './routes/api/billing/$tenantId/cancel'
 import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
 import { Route as ApiAnalyticsRetrievalOverviewRouteImport } from './routes/api/analytics/retrieval/overview'
 import { Route as ApiAnalyticsRetrievalHealthCheckRouteImport } from './routes/api/analytics/retrieval/health-check'
@@ -306,6 +314,11 @@ const ApiBudgetSplatRoute = ApiBudgetSplatRouteImport.update({
   path: '/api/budget/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiBillingPlansRoute = ApiBillingPlansRouteImport.update({
+  id: '/api/billing/plans',
+  path: '/api/billing/plans',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiApprovalsSplatRoute = ApiApprovalsSplatRouteImport.update({
   id: '/api/approvals/$',
   path: '/api/approvals/$',
@@ -445,6 +458,11 @@ const ApiTeamsTeamIdBudgetRoute = ApiTeamsTeamIdBudgetRouteImport.update({
 const ApiTeamsTeamIdAnalyticsRoute = ApiTeamsTeamIdAnalyticsRouteImport.update({
   id: '/api/teams/$teamId/analytics',
   path: '/api/teams/$teamId/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicWebhooksStripeRoute = ApiPublicWebhooksStripeRouteImport.update({
+  id: '/api/public/webhooks/stripe',
+  path: '/api/public/webhooks/stripe',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPrioritizationQueuePlanIdRoute =
@@ -729,6 +747,41 @@ const ApiCollaborationSessionIdBlackboardRoute =
   ApiCollaborationSessionIdBlackboardRouteImport.update({
     id: '/api/collaboration/$sessionId/blackboard',
     path: '/api/collaboration/$sessionId/blackboard',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiBillingTenantIdUsageRoute = ApiBillingTenantIdUsageRouteImport.update({
+  id: '/api/billing/$tenantId/usage',
+  path: '/api/billing/$tenantId/usage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBillingTenantIdSubscriptionRoute =
+  ApiBillingTenantIdSubscriptionRouteImport.update({
+    id: '/api/billing/$tenantId/subscription',
+    path: '/api/billing/$tenantId/subscription',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiBillingTenantIdSubscribeRoute =
+  ApiBillingTenantIdSubscribeRouteImport.update({
+    id: '/api/billing/$tenantId/subscribe',
+    path: '/api/billing/$tenantId/subscribe',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiBillingTenantIdInvoicesRoute =
+  ApiBillingTenantIdInvoicesRouteImport.update({
+    id: '/api/billing/$tenantId/invoices',
+    path: '/api/billing/$tenantId/invoices',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiBillingTenantIdChangePlanRoute =
+  ApiBillingTenantIdChangePlanRouteImport.update({
+    id: '/api/billing/$tenantId/change-plan',
+    path: '/api/billing/$tenantId/change-plan',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiBillingTenantIdCancelRoute =
+  ApiBillingTenantIdCancelRouteImport.update({
+    id: '/api/billing/$tenantId/cancel',
+    path: '/api/billing/$tenantId/cancel',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiAnalyticsToolsOverviewRoute =
@@ -1036,6 +1089,7 @@ export interface FileRoutesByFullPath {
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
+  '/api/billing/plans': typeof ApiBillingPlansRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
@@ -1061,6 +1115,12 @@ export interface FileRoutesByFullPath {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/billing/$tenantId/cancel': typeof ApiBillingTenantIdCancelRoute
+  '/api/billing/$tenantId/change-plan': typeof ApiBillingTenantIdChangePlanRoute
+  '/api/billing/$tenantId/invoices': typeof ApiBillingTenantIdInvoicesRoute
+  '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
+  '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
+  '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/data/shared/promote': typeof ApiDataSharedPromoteRoute
@@ -1111,6 +1171,7 @@ export interface FileRoutesByFullPath {
   '/api/org/invites/accept': typeof ApiOrgInvitesAcceptRoute
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
   '/api/teams/$teamId/channels': typeof ApiTeamsTeamIdChannelsRoute
@@ -1190,6 +1251,7 @@ export interface FileRoutesByTo {
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
+  '/api/billing/plans': typeof ApiBillingPlansRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
@@ -1215,6 +1277,12 @@ export interface FileRoutesByTo {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/billing/$tenantId/cancel': typeof ApiBillingTenantIdCancelRoute
+  '/api/billing/$tenantId/change-plan': typeof ApiBillingTenantIdChangePlanRoute
+  '/api/billing/$tenantId/invoices': typeof ApiBillingTenantIdInvoicesRoute
+  '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
+  '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
+  '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/data/shared/promote': typeof ApiDataSharedPromoteRoute
@@ -1265,6 +1333,7 @@ export interface FileRoutesByTo {
   '/api/org/invites/accept': typeof ApiOrgInvitesAcceptRoute
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
   '/api/teams/$teamId/channels': typeof ApiTeamsTeamIdChannelsRoute
@@ -1345,6 +1414,7 @@ export interface FileRoutesById {
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
+  '/api/billing/plans': typeof ApiBillingPlansRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
@@ -1370,6 +1440,12 @@ export interface FileRoutesById {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/billing/$tenantId/cancel': typeof ApiBillingTenantIdCancelRoute
+  '/api/billing/$tenantId/change-plan': typeof ApiBillingTenantIdChangePlanRoute
+  '/api/billing/$tenantId/invoices': typeof ApiBillingTenantIdInvoicesRoute
+  '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
+  '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
+  '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/data/shared/promote': typeof ApiDataSharedPromoteRoute
@@ -1420,6 +1496,7 @@ export interface FileRoutesById {
   '/api/org/invites/accept': typeof ApiOrgInvitesAcceptRoute
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
   '/api/teams/$teamId/channels': typeof ApiTeamsTeamIdChannelsRoute
@@ -1501,6 +1578,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/discovery'
     | '/api/advanced-roles/templates'
     | '/api/approvals/$'
+    | '/api/billing/plans'
     | '/api/budget/$'
     | '/api/collaboration/initiate'
     | '/api/collaboration/sessions'
@@ -1526,6 +1604,12 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/billing/$tenantId/cancel'
+    | '/api/billing/$tenantId/change-plan'
+    | '/api/billing/$tenantId/invoices'
+    | '/api/billing/$tenantId/subscribe'
+    | '/api/billing/$tenantId/subscription'
+    | '/api/billing/$tenantId/usage'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/data/shared/promote'
@@ -1576,6 +1660,7 @@ export interface FileRouteTypes {
     | '/api/org/invites/accept'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/public/webhooks/stripe'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
     | '/api/teams/$teamId/channels'
@@ -1655,6 +1740,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/discovery'
     | '/api/advanced-roles/templates'
     | '/api/approvals/$'
+    | '/api/billing/plans'
     | '/api/budget/$'
     | '/api/collaboration/initiate'
     | '/api/collaboration/sessions'
@@ -1680,6 +1766,12 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/billing/$tenantId/cancel'
+    | '/api/billing/$tenantId/change-plan'
+    | '/api/billing/$tenantId/invoices'
+    | '/api/billing/$tenantId/subscribe'
+    | '/api/billing/$tenantId/subscription'
+    | '/api/billing/$tenantId/usage'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/data/shared/promote'
@@ -1730,6 +1822,7 @@ export interface FileRouteTypes {
     | '/api/org/invites/accept'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/public/webhooks/stripe'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
     | '/api/teams/$teamId/channels'
@@ -1809,6 +1902,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/discovery'
     | '/api/advanced-roles/templates'
     | '/api/approvals/$'
+    | '/api/billing/plans'
     | '/api/budget/$'
     | '/api/collaboration/initiate'
     | '/api/collaboration/sessions'
@@ -1834,6 +1928,12 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/billing/$tenantId/cancel'
+    | '/api/billing/$tenantId/change-plan'
+    | '/api/billing/$tenantId/invoices'
+    | '/api/billing/$tenantId/subscribe'
+    | '/api/billing/$tenantId/subscription'
+    | '/api/billing/$tenantId/usage'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/data/shared/promote'
@@ -1884,6 +1984,7 @@ export interface FileRouteTypes {
     | '/api/org/invites/accept'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/public/webhooks/stripe'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
     | '/api/teams/$teamId/channels'
@@ -1964,6 +2065,7 @@ export interface RootRouteChildren {
   ApiInfrastructureDiscoveryRouteRoute: typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   ApiAdvancedRolesTemplatesRoute: typeof ApiAdvancedRolesTemplatesRoute
   ApiApprovalsSplatRoute: typeof ApiApprovalsSplatRoute
+  ApiBillingPlansRoute: typeof ApiBillingPlansRoute
   ApiBudgetSplatRoute: typeof ApiBudgetSplatRoute
   ApiCollaborationInitiateRoute: typeof ApiCollaborationInitiateRoute
   ApiCollaborationSessionsRoute: typeof ApiCollaborationSessionsRoute
@@ -1989,6 +2091,12 @@ export interface RootRouteChildren {
   ApiAnalyticsRetrievalHealthCheckRoute: typeof ApiAnalyticsRetrievalHealthCheckRoute
   ApiAnalyticsRetrievalOverviewRoute: typeof ApiAnalyticsRetrievalOverviewRoute
   ApiAnalyticsToolsOverviewRoute: typeof ApiAnalyticsToolsOverviewRoute
+  ApiBillingTenantIdCancelRoute: typeof ApiBillingTenantIdCancelRoute
+  ApiBillingTenantIdChangePlanRoute: typeof ApiBillingTenantIdChangePlanRoute
+  ApiBillingTenantIdInvoicesRoute: typeof ApiBillingTenantIdInvoicesRoute
+  ApiBillingTenantIdSubscribeRoute: typeof ApiBillingTenantIdSubscribeRoute
+  ApiBillingTenantIdSubscriptionRoute: typeof ApiBillingTenantIdSubscriptionRoute
+  ApiBillingTenantIdUsageRoute: typeof ApiBillingTenantIdUsageRoute
   ApiCollaborationSessionIdBlackboardRoute: typeof ApiCollaborationSessionIdBlackboardRoute
   ApiCollaborationSessionIdProposalRoute: typeof ApiCollaborationSessionIdProposalRoute
   ApiDataSharedPromoteRoute: typeof ApiDataSharedPromoteRoute
@@ -2038,6 +2146,7 @@ export interface RootRouteChildren {
   ApiOrgInvitesAcceptRoute: typeof ApiOrgInvitesAcceptRoute
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
+  ApiPublicWebhooksStripeRoute: typeof ApiPublicWebhooksStripeRoute
   ApiTeamsTeamIdAnalyticsRoute: typeof ApiTeamsTeamIdAnalyticsRoute
   ApiTeamsTeamIdBudgetRoute: typeof ApiTeamsTeamIdBudgetRoute
   ApiTeamsTeamIdChannelsRoute: typeof ApiTeamsTeamIdChannelsRoute
@@ -2296,6 +2405,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiBudgetSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/billing/plans': {
+      id: '/api/billing/plans'
+      path: '/api/billing/plans'
+      fullPath: '/api/billing/plans'
+      preLoaderRoute: typeof ApiBillingPlansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/approvals/$': {
       id: '/api/approvals/$'
       path: '/api/approvals/$'
@@ -2476,6 +2592,13 @@ declare module '@tanstack/react-router' {
       path: '/api/teams/$teamId/analytics'
       fullPath: '/api/teams/$teamId/analytics'
       preLoaderRoute: typeof ApiTeamsTeamIdAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/webhooks/stripe': {
+      id: '/api/public/webhooks/stripe'
+      path: '/api/public/webhooks/stripe'
+      fullPath: '/api/public/webhooks/stripe'
+      preLoaderRoute: typeof ApiPublicWebhooksStripeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/prioritization/queue/$planId': {
@@ -2826,6 +2949,48 @@ declare module '@tanstack/react-router' {
       path: '/api/collaboration/$sessionId/blackboard'
       fullPath: '/api/collaboration/$sessionId/blackboard'
       preLoaderRoute: typeof ApiCollaborationSessionIdBlackboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/billing/$tenantId/usage': {
+      id: '/api/billing/$tenantId/usage'
+      path: '/api/billing/$tenantId/usage'
+      fullPath: '/api/billing/$tenantId/usage'
+      preLoaderRoute: typeof ApiBillingTenantIdUsageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/billing/$tenantId/subscription': {
+      id: '/api/billing/$tenantId/subscription'
+      path: '/api/billing/$tenantId/subscription'
+      fullPath: '/api/billing/$tenantId/subscription'
+      preLoaderRoute: typeof ApiBillingTenantIdSubscriptionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/billing/$tenantId/subscribe': {
+      id: '/api/billing/$tenantId/subscribe'
+      path: '/api/billing/$tenantId/subscribe'
+      fullPath: '/api/billing/$tenantId/subscribe'
+      preLoaderRoute: typeof ApiBillingTenantIdSubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/billing/$tenantId/invoices': {
+      id: '/api/billing/$tenantId/invoices'
+      path: '/api/billing/$tenantId/invoices'
+      fullPath: '/api/billing/$tenantId/invoices'
+      preLoaderRoute: typeof ApiBillingTenantIdInvoicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/billing/$tenantId/change-plan': {
+      id: '/api/billing/$tenantId/change-plan'
+      path: '/api/billing/$tenantId/change-plan'
+      fullPath: '/api/billing/$tenantId/change-plan'
+      preLoaderRoute: typeof ApiBillingTenantIdChangePlanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/billing/$tenantId/cancel': {
+      id: '/api/billing/$tenantId/cancel'
+      path: '/api/billing/$tenantId/cancel'
+      fullPath: '/api/billing/$tenantId/cancel'
+      preLoaderRoute: typeof ApiBillingTenantIdCancelRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/analytics/tools/overview': {
@@ -3247,6 +3412,7 @@ const rootRouteChildren: RootRouteChildren = {
     ApiInfrastructureDiscoveryRouteRouteWithChildren,
   ApiAdvancedRolesTemplatesRoute: ApiAdvancedRolesTemplatesRoute,
   ApiApprovalsSplatRoute: ApiApprovalsSplatRoute,
+  ApiBillingPlansRoute: ApiBillingPlansRoute,
   ApiBudgetSplatRoute: ApiBudgetSplatRoute,
   ApiCollaborationInitiateRoute: ApiCollaborationInitiateRoute,
   ApiCollaborationSessionsRoute: ApiCollaborationSessionsRoute,
@@ -3276,6 +3442,12 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAnalyticsRetrievalHealthCheckRoute: ApiAnalyticsRetrievalHealthCheckRoute,
   ApiAnalyticsRetrievalOverviewRoute: ApiAnalyticsRetrievalOverviewRoute,
   ApiAnalyticsToolsOverviewRoute: ApiAnalyticsToolsOverviewRoute,
+  ApiBillingTenantIdCancelRoute: ApiBillingTenantIdCancelRoute,
+  ApiBillingTenantIdChangePlanRoute: ApiBillingTenantIdChangePlanRoute,
+  ApiBillingTenantIdInvoicesRoute: ApiBillingTenantIdInvoicesRoute,
+  ApiBillingTenantIdSubscribeRoute: ApiBillingTenantIdSubscribeRoute,
+  ApiBillingTenantIdSubscriptionRoute: ApiBillingTenantIdSubscriptionRoute,
+  ApiBillingTenantIdUsageRoute: ApiBillingTenantIdUsageRoute,
   ApiCollaborationSessionIdBlackboardRoute:
     ApiCollaborationSessionIdBlackboardRoute,
   ApiCollaborationSessionIdProposalRoute:
@@ -3338,6 +3510,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiOrgInvitesAcceptRoute: ApiOrgInvitesAcceptRoute,
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
   ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
+  ApiPublicWebhooksStripeRoute: ApiPublicWebhooksStripeRoute,
   ApiTeamsTeamIdAnalyticsRoute: ApiTeamsTeamIdAnalyticsRoute,
   ApiTeamsTeamIdBudgetRoute: ApiTeamsTeamIdBudgetRoute,
   ApiTeamsTeamIdChannelsRoute: ApiTeamsTeamIdChannelsRoute,
