@@ -119,6 +119,7 @@ import { Route as ApiAnalyticsRetrievalHealthCheckRouteImport } from './routes/a
 import { Route as ApiAnalyticsRetrievalExpensiveQueriesRouteImport } from './routes/api/analytics/retrieval/expensive-queries'
 import { Route as ApiAnalyticsRetrievalEvaluateRouteImport } from './routes/api/analytics/retrieval/evaluate'
 import { Route as ApiAdvancedRolesTenantIdHierarchyRouteImport } from './routes/api/advanced-roles/$tenantId/hierarchy'
+import { Route as ApiAdvancedRolesTenantIdFromTemplateRouteImport } from './routes/api/advanced-roles/$tenantId/from-template'
 import { Route as ApiAdvancedRolesTenantIdRoleIdRouteImport } from './routes/api/advanced-roles/$tenantId/$roleId'
 import { Route as ApiToolsVersioningToolNameVersionsRouteImport } from './routes/api/tools/versioning/$toolName/versions'
 import { Route as ApiToolsVersioningToolNameRollbackRouteImport } from './routes/api/tools/versioning/$toolName/rollback'
@@ -764,6 +765,12 @@ const ApiAdvancedRolesTenantIdHierarchyRoute =
     path: '/api/advanced-roles/$tenantId/hierarchy',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiAdvancedRolesTenantIdFromTemplateRoute =
+  ApiAdvancedRolesTenantIdFromTemplateRouteImport.update({
+    id: '/api/advanced-roles/$tenantId/from-template',
+    path: '/api/advanced-roles/$tenantId/from-template',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiAdvancedRolesTenantIdRoleIdRoute =
   ApiAdvancedRolesTenantIdRoleIdRouteImport.update({
     id: '/api/advanced-roles/$tenantId/$roleId',
@@ -1032,6 +1039,7 @@ export interface FileRoutesByFullPath {
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/tenants/': typeof ApiTenantsIndexRoute
   '/api/advanced-roles/$tenantId/$roleId': typeof ApiAdvancedRolesTenantIdRoleIdRoute
+  '/api/advanced-roles/$tenantId/from-template': typeof ApiAdvancedRolesTenantIdFromTemplateRoute
   '/api/advanced-roles/$tenantId/hierarchy': typeof ApiAdvancedRolesTenantIdHierarchyRoute
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
@@ -1183,6 +1191,7 @@ export interface FileRoutesByTo {
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/tenants': typeof ApiTenantsIndexRoute
   '/api/advanced-roles/$tenantId/$roleId': typeof ApiAdvancedRolesTenantIdRoleIdRoute
+  '/api/advanced-roles/$tenantId/from-template': typeof ApiAdvancedRolesTenantIdFromTemplateRoute
   '/api/advanced-roles/$tenantId/hierarchy': typeof ApiAdvancedRolesTenantIdHierarchyRoute
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
@@ -1335,6 +1344,7 @@ export interface FileRoutesById {
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/tenants/': typeof ApiTenantsIndexRoute
   '/api/advanced-roles/$tenantId/$roleId': typeof ApiAdvancedRolesTenantIdRoleIdRoute
+  '/api/advanced-roles/$tenantId/from-template': typeof ApiAdvancedRolesTenantIdFromTemplateRoute
   '/api/advanced-roles/$tenantId/hierarchy': typeof ApiAdvancedRolesTenantIdHierarchyRoute
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
@@ -1488,6 +1498,7 @@ export interface FileRouteTypes {
     | '/api/workflows/openapi.json'
     | '/api/tenants/'
     | '/api/advanced-roles/$tenantId/$roleId'
+    | '/api/advanced-roles/$tenantId/from-template'
     | '/api/advanced-roles/$tenantId/hierarchy'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
@@ -1639,6 +1650,7 @@ export interface FileRouteTypes {
     | '/api/workflows/openapi.json'
     | '/api/tenants'
     | '/api/advanced-roles/$tenantId/$roleId'
+    | '/api/advanced-roles/$tenantId/from-template'
     | '/api/advanced-roles/$tenantId/hierarchy'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
@@ -1790,6 +1802,7 @@ export interface FileRouteTypes {
     | '/api/workflows/openapi.json'
     | '/api/tenants/'
     | '/api/advanced-roles/$tenantId/$roleId'
+    | '/api/advanced-roles/$tenantId/from-template'
     | '/api/advanced-roles/$tenantId/hierarchy'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
@@ -1942,6 +1955,7 @@ export interface RootRouteChildren {
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
   ApiTenantsIndexRoute: typeof ApiTenantsIndexRoute
   ApiAdvancedRolesTenantIdRoleIdRoute: typeof ApiAdvancedRolesTenantIdRoleIdRoute
+  ApiAdvancedRolesTenantIdFromTemplateRoute: typeof ApiAdvancedRolesTenantIdFromTemplateRoute
   ApiAdvancedRolesTenantIdHierarchyRoute: typeof ApiAdvancedRolesTenantIdHierarchyRoute
   ApiAnalyticsRetrievalEvaluateRoute: typeof ApiAnalyticsRetrievalEvaluateRoute
   ApiAnalyticsRetrievalExpensiveQueriesRoute: typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
@@ -2829,6 +2843,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAdvancedRolesTenantIdHierarchyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/advanced-roles/$tenantId/from-template': {
+      id: '/api/advanced-roles/$tenantId/from-template'
+      path: '/api/advanced-roles/$tenantId/from-template'
+      fullPath: '/api/advanced-roles/$tenantId/from-template'
+      preLoaderRoute: typeof ApiAdvancedRolesTenantIdFromTemplateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/advanced-roles/$tenantId/$roleId': {
       id: '/api/advanced-roles/$tenantId/$roleId'
       path: '/api/advanced-roles/$tenantId/$roleId'
@@ -3187,6 +3208,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
   ApiTenantsIndexRoute: ApiTenantsIndexRoute,
   ApiAdvancedRolesTenantIdRoleIdRoute: ApiAdvancedRolesTenantIdRoleIdRoute,
+  ApiAdvancedRolesTenantIdFromTemplateRoute:
+    ApiAdvancedRolesTenantIdFromTemplateRoute,
   ApiAdvancedRolesTenantIdHierarchyRoute:
     ApiAdvancedRolesTenantIdHierarchyRoute,
   ApiAnalyticsRetrievalEvaluateRoute: ApiAnalyticsRetrievalEvaluateRoute,
