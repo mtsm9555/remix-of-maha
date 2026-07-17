@@ -41,12 +41,12 @@ export class DocumentationManager {
       title: doc.title,
       version: doc.version,
       description: doc.description,
-      servers: doc.servers,
-      auth_methods: doc.authMethods,
-      endpoints: doc.endpoints,
-      schemas: doc.schemas,
+      servers: doc.servers as any,
+      auth_methods: doc.authMethods as any,
+      endpoints: doc.endpoints as any,
+      schemas: doc.schemas as any,
       tags: doc.tags,
-      external_docs: doc.externalDocs ?? null,
+      external_docs: (doc.externalDocs ?? null) as any,
     });
 
     await this.createVersion(doc.id, doc.version, doc);
