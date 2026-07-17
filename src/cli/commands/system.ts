@@ -75,7 +75,7 @@ export function createSystemCommands(context: CLIContext): CLICommand[] {
       options: [],
       action: async () => {
         try {
-          const info = await context.api.get<{ version: string }>('/version');
+          const info: { version: string } = await context.api.get('/version');
           context.output.json({ cli: '1.0.0', api: info.version });
         } catch (error: any) {
           context.output.text('CLI Version: 1.0.0');
