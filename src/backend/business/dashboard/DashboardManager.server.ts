@@ -74,7 +74,10 @@ export class DashboardManager {
   }
 
   static async updateDashboard(id: string, tenantId: string, updates: Partial<Dashboard>): Promise<Dashboard | null> {
-    const patch: Record<string, any> = {};
+    const patch: {
+      name?: string; description?: string; widgets?: any; layout?: any;
+      shared_with?: string[]; is_public?: boolean; is_default?: boolean; default_time_range?: string;
+    } = {};
     if (updates.name !== undefined) patch.name = updates.name;
     if (updates.description !== undefined) patch.description = updates.description;
     if (updates.widgets !== undefined) patch.widgets = updates.widgets;
