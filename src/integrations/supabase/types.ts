@@ -1899,33 +1899,67 @@ export type Database = {
       }
       organization_teams: {
         Row: {
+          child_team_count: number
           created_at: string
           department_id: string | null
           description: string | null
           id: string
+          level: number
           member_count: number
+          metadata: Json
           name: string
+          parent_team_id: string | null
+          path: string | null
+          resource_quota: Json
+          settings: Json
+          status: string
           tenant_id: string
+          updated_at: string
         }
         Insert: {
+          child_team_count?: number
           created_at?: string
           department_id?: string | null
           description?: string | null
           id: string
+          level?: number
           member_count?: number
+          metadata?: Json
           name: string
+          parent_team_id?: string | null
+          path?: string | null
+          resource_quota?: Json
+          settings?: Json
+          status?: string
           tenant_id: string
+          updated_at?: string
         }
         Update: {
+          child_team_count?: number
           created_at?: string
           department_id?: string | null
           description?: string | null
           id?: string
+          level?: number
           member_count?: number
+          metadata?: Json
           name?: string
+          parent_team_id?: string | null
+          path?: string | null
+          resource_quota?: Json
+          settings?: Json
+          status?: string
           tenant_id?: string
+          updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "organization_teams_parent_team_id_fkey"
+            columns: ["parent_team_id"]
+            isOneToOne: false
+            referencedRelation: "organization_teams"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "organization_teams_tenant_id_fkey"
             columns: ["tenant_id"]
@@ -2382,6 +2416,139 @@ export type Database = {
           updated_at?: string | null
         }
         Relationships: []
+      }
+      team_budget_usage: {
+        Row: {
+          amount_usd: number
+          id: string
+          recorded_at: string
+          resource_type: string | null
+          team_id: string
+        }
+        Insert: {
+          amount_usd: number
+          id?: string
+          recorded_at?: string
+          resource_type?: string | null
+          team_id: string
+        }
+        Update: {
+          amount_usd?: number
+          id?: string
+          recorded_at?: string
+          resource_type?: string | null
+          team_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "team_budget_usage_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "organization_teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      team_channels: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          last_message_at: string | null
+          member_ids: string[]
+          message_count: number
+          name: string
+          team_id: string
+          type: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id: string
+          last_message_at?: string | null
+          member_ids?: string[]
+          message_count?: number
+          name: string
+          team_id: string
+          type: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          last_message_at?: string | null
+          member_ids?: string[]
+          message_count?: number
+          name?: string
+          team_id?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "team_channels_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "organization_teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      team_messages: {
+        Row: {
+          attachments: string[]
+          channel_id: string
+          content: string
+          created_at: string
+          edited_at: string | null
+          id: string
+          mentions: string[]
+          reactions: Json
+          reply_to_id: string | null
+          sender_id: string
+          sender_name: string
+        }
+        Insert: {
+          attachments?: string[]
+          channel_id: string
+          content: string
+          created_at?: string
+          edited_at?: string | null
+          id: string
+          mentions?: string[]
+          reactions?: Json
+          reply_to_id?: string | null
+          sender_id: string
+          sender_name: string
+        }
+        Update: {
+          attachments?: string[]
+          channel_id?: string
+          content?: string
+          created_at?: string
+          edited_at?: string | null
+          id?: string
+          mentions?: string[]
+          reactions?: Json
+          reply_to_id?: string | null
+          sender_id?: string
+          sender_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "team_messages_channel_id_fkey"
+            columns: ["channel_id"]
+            isOneToOne: false
+            referencedRelation: "team_channels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "team_messages_reply_to_id_fkey"
+            columns: ["reply_to_id"]
+            isOneToOne: false
+            referencedRelation: "team_messages"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       tenant_members: {
         Row: {
@@ -3161,6 +3328,10 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      increment_team_child_count: {
+        Args: { _team_id: string }
+        Returns: undefined
       }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
       is_project_member: {
