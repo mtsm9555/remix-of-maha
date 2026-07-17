@@ -840,6 +840,69 @@ export type Database = {
           },
         ]
       }
+      billing_invoices: {
+        Row: {
+          amount_usd: number
+          created_at: string
+          currency: string
+          due_date: string | null
+          id: string
+          line_items: Json
+          paid_at: string | null
+          period_end: string
+          period_start: string
+          status: string
+          stripe_invoice_id: string | null
+          subscription_id: string | null
+          tenant_id: string
+        }
+        Insert: {
+          amount_usd: number
+          created_at?: string
+          currency?: string
+          due_date?: string | null
+          id?: string
+          line_items?: Json
+          paid_at?: string | null
+          period_end: string
+          period_start: string
+          status: string
+          stripe_invoice_id?: string | null
+          subscription_id?: string | null
+          tenant_id: string
+        }
+        Update: {
+          amount_usd?: number
+          created_at?: string
+          currency?: string
+          due_date?: string | null
+          id?: string
+          line_items?: Json
+          paid_at?: string | null
+          period_end?: string
+          period_start?: string
+          status?: string
+          stripe_invoice_id?: string | null
+          subscription_id?: string | null
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_invoices_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "subscriptions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billing_invoices_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blackboard_artifacts: {
         Row: {
           collaboration_id: string
@@ -2233,6 +2296,54 @@ export type Database = {
           },
         ]
       }
+      pricing_plans: {
+        Row: {
+          created_at: string
+          description: string
+          features: Json
+          id: string
+          is_active: boolean
+          monthly_price_usd: number
+          name: string
+          quotas: Json
+          stripe_monthly_price_id: string | null
+          stripe_yearly_price_id: string | null
+          tier: string
+          updated_at: string
+          yearly_price_usd: number
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          features?: Json
+          id: string
+          is_active?: boolean
+          monthly_price_usd?: number
+          name: string
+          quotas?: Json
+          stripe_monthly_price_id?: string | null
+          stripe_yearly_price_id?: string | null
+          tier: string
+          updated_at?: string
+          yearly_price_usd?: number
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          features?: Json
+          id?: string
+          is_active?: boolean
+          monthly_price_usd?: number
+          name?: string
+          quotas?: Json
+          stripe_monthly_price_id?: string | null
+          stripe_yearly_price_id?: string | null
+          tier?: string
+          updated_at?: string
+          yearly_price_usd?: number
+        }
+        Relationships: []
+      }
       project_members: {
         Row: {
           granted_at: string
@@ -2647,6 +2758,75 @@ export type Database = {
           version?: number
         }
         Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          billing_cycle: string
+          canceled_at: string | null
+          created_at: string
+          current_period_end: string
+          current_period_start: string
+          id: string
+          plan_id: string
+          status: string
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
+          tenant_id: string
+          trial_end: string | null
+          trial_start: string | null
+          updated_at: string
+          usage: Json
+        }
+        Insert: {
+          billing_cycle: string
+          canceled_at?: string | null
+          created_at?: string
+          current_period_end: string
+          current_period_start: string
+          id?: string
+          plan_id: string
+          status: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          tenant_id: string
+          trial_end?: string | null
+          trial_start?: string | null
+          updated_at?: string
+          usage?: Json
+        }
+        Update: {
+          billing_cycle?: string
+          canceled_at?: string | null
+          created_at?: string
+          current_period_end?: string
+          current_period_start?: string
+          id?: string
+          plan_id?: string
+          status?: string
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          tenant_id?: string
+          trial_end?: string | null
+          trial_start?: string | null
+          updated_at?: string
+          usage?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "pricing_plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscriptions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: true
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       tasks: {
         Row: {
@@ -3357,6 +3537,44 @@ export type Database = {
           url?: string | null
         }
         Relationships: []
+      }
+      usage_meters: {
+        Row: {
+          id: string
+          metric_name: string
+          period_end: string
+          period_start: string
+          recorded_at: string
+          tenant_id: string
+          value: number
+        }
+        Insert: {
+          id?: string
+          metric_name: string
+          period_end: string
+          period_start: string
+          recorded_at?: string
+          tenant_id: string
+          value: number
+        }
+        Update: {
+          id?: string
+          metric_name?: string
+          period_end?: string
+          period_start?: string
+          recorded_at?: string
+          tenant_id?: string
+          value?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "usage_meters_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_memories: {
         Row: {
