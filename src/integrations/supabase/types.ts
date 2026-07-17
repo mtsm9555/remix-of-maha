@@ -812,8 +812,11 @@ export type Database = {
           embedding: string | null
           id: string
           importance_score: number
+          kpi_impact: Json | null
           last_accessed_at: string
           metadata: Json
+          source_project_id: string | null
+          synthesis_state: string
           type: string
         }
         Insert: {
@@ -824,8 +827,11 @@ export type Database = {
           embedding?: string | null
           id?: string
           importance_score?: number
+          kpi_impact?: Json | null
           last_accessed_at?: string
           metadata?: Json
+          source_project_id?: string | null
+          synthesis_state?: string
           type: string
         }
         Update: {
@@ -836,11 +842,22 @@ export type Database = {
           embedding?: string | null
           id?: string
           importance_score?: number
+          kpi_impact?: Json | null
           last_accessed_at?: string
           metadata?: Json
+          source_project_id?: string | null
+          synthesis_state?: string
           type?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "department_memories_source_project_id_fkey"
+            columns: ["source_project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       enterprise_policies: {
         Row: {
@@ -2279,6 +2296,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      boost_department_memory_access: {
+        Args: { memory_ids: string[] }
+        Returns: undefined
+      }
       boost_memory_importance: {
         Args: { memory_ids: string[] }
         Returns: undefined
@@ -2307,6 +2328,25 @@ export type Database = {
           importance_score: number
           metadata: Json
           similarity: number
+          type: string
+        }[]
+      }
+      match_department_memories_v2: {
+        Args: {
+          filter_types: string[]
+          match_count: number
+          match_threshold: number
+          query_department: string
+          query_embedding: string
+        }
+        Returns: {
+          content: string
+          department_id: string
+          id: string
+          importance_score: number
+          kpi_impact: Json
+          similarity: number
+          synthesis_state: string
           type: string
         }[]
       }

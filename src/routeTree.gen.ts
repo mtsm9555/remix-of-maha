@@ -105,6 +105,9 @@ import { Route as ApiInfrastructureBudgetLedgerInstanceIdRouteImport } from './r
 import { Route as ApiDataProjectProjectIdSearchRouteImport } from './routes/api/data/project/$projectId/search'
 import { Route as ApiDataProjectProjectIdMemoryRouteImport } from './routes/api/data/project/$projectId/memory'
 import { Route as ApiDataProjectProjectIdContextRouteImport } from './routes/api/data/project/$projectId/context'
+import { Route as ApiDataDepartmentDeptIdSynthesizeProjectRouteImport } from './routes/api/data/department/$deptId/synthesize-project'
+import { Route as ApiDataDepartmentDeptIdSearchRouteImport } from './routes/api/data/department/$deptId/search'
+import { Route as ApiDataDepartmentDeptIdInsightsRouteImport } from './routes/api/data/department/$deptId/insights'
 import { Route as ApiAnalyticsToolsToolNameRpmRouteImport } from './routes/api/analytics/tools/$toolName/rpm'
 import { Route as ApiAnalyticsToolsToolNameHistoryRouteImport } from './routes/api/analytics/tools/$toolName/history'
 import { Route as ApiAnalyticsToolsToolNameErrorsRouteImport } from './routes/api/analytics/tools/$toolName/errors'
@@ -655,6 +658,24 @@ const ApiDataProjectProjectIdContextRoute =
     path: '/api/data/project/$projectId/context',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiDataDepartmentDeptIdSynthesizeProjectRoute =
+  ApiDataDepartmentDeptIdSynthesizeProjectRouteImport.update({
+    id: '/api/data/department/$deptId/synthesize-project',
+    path: '/api/data/department/$deptId/synthesize-project',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiDataDepartmentDeptIdSearchRoute =
+  ApiDataDepartmentDeptIdSearchRouteImport.update({
+    id: '/api/data/department/$deptId/search',
+    path: '/api/data/department/$deptId/search',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiDataDepartmentDeptIdInsightsRoute =
+  ApiDataDepartmentDeptIdInsightsRouteImport.update({
+    id: '/api/data/department/$deptId/insights',
+    path: '/api/data/department/$deptId/insights',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiAnalyticsToolsToolNameRpmRoute =
   ApiAnalyticsToolsToolNameRpmRouteImport.update({
     id: '/api/analytics/tools/$toolName/rpm',
@@ -760,6 +781,9 @@ export interface FileRoutesByFullPath {
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
+  '/api/data/department/$deptId/insights': typeof ApiDataDepartmentDeptIdInsightsRoute
+  '/api/data/department/$deptId/search': typeof ApiDataDepartmentDeptIdSearchRoute
+  '/api/data/department/$deptId/synthesize-project': typeof ApiDataDepartmentDeptIdSynthesizeProjectRoute
   '/api/data/project/$projectId/context': typeof ApiDataProjectProjectIdContextRoute
   '/api/data/project/$projectId/memory': typeof ApiDataProjectProjectIdMemoryRoute
   '/api/data/project/$projectId/search': typeof ApiDataProjectProjectIdSearchRoute
@@ -862,6 +886,9 @@ export interface FileRoutesByTo {
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
+  '/api/data/department/$deptId/insights': typeof ApiDataDepartmentDeptIdInsightsRoute
+  '/api/data/department/$deptId/search': typeof ApiDataDepartmentDeptIdSearchRoute
+  '/api/data/department/$deptId/synthesize-project': typeof ApiDataDepartmentDeptIdSynthesizeProjectRoute
   '/api/data/project/$projectId/context': typeof ApiDataProjectProjectIdContextRoute
   '/api/data/project/$projectId/memory': typeof ApiDataProjectProjectIdMemoryRoute
   '/api/data/project/$projectId/search': typeof ApiDataProjectProjectIdSearchRoute
@@ -965,6 +992,9 @@ export interface FileRoutesById {
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
+  '/api/data/department/$deptId/insights': typeof ApiDataDepartmentDeptIdInsightsRoute
+  '/api/data/department/$deptId/search': typeof ApiDataDepartmentDeptIdSearchRoute
+  '/api/data/department/$deptId/synthesize-project': typeof ApiDataDepartmentDeptIdSynthesizeProjectRoute
   '/api/data/project/$projectId/context': typeof ApiDataProjectProjectIdContextRoute
   '/api/data/project/$projectId/memory': typeof ApiDataProjectProjectIdMemoryRoute
   '/api/data/project/$projectId/search': typeof ApiDataProjectProjectIdSearchRoute
@@ -1069,6 +1099,9 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
+    | '/api/data/department/$deptId/insights'
+    | '/api/data/department/$deptId/search'
+    | '/api/data/department/$deptId/synthesize-project'
     | '/api/data/project/$projectId/context'
     | '/api/data/project/$projectId/memory'
     | '/api/data/project/$projectId/search'
@@ -1171,6 +1204,9 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
+    | '/api/data/department/$deptId/insights'
+    | '/api/data/department/$deptId/search'
+    | '/api/data/department/$deptId/synthesize-project'
     | '/api/data/project/$projectId/context'
     | '/api/data/project/$projectId/memory'
     | '/api/data/project/$projectId/search'
@@ -1273,6 +1309,9 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
+    | '/api/data/department/$deptId/insights'
+    | '/api/data/department/$deptId/search'
+    | '/api/data/department/$deptId/synthesize-project'
     | '/api/data/project/$projectId/context'
     | '/api/data/project/$projectId/memory'
     | '/api/data/project/$projectId/search'
@@ -1375,6 +1414,9 @@ export interface RootRouteChildren {
   ApiAnalyticsToolsToolNameErrorsRoute: typeof ApiAnalyticsToolsToolNameErrorsRoute
   ApiAnalyticsToolsToolNameHistoryRoute: typeof ApiAnalyticsToolsToolNameHistoryRoute
   ApiAnalyticsToolsToolNameRpmRoute: typeof ApiAnalyticsToolsToolNameRpmRoute
+  ApiDataDepartmentDeptIdInsightsRoute: typeof ApiDataDepartmentDeptIdInsightsRoute
+  ApiDataDepartmentDeptIdSearchRoute: typeof ApiDataDepartmentDeptIdSearchRoute
+  ApiDataDepartmentDeptIdSynthesizeProjectRoute: typeof ApiDataDepartmentDeptIdSynthesizeProjectRoute
   ApiDataProjectProjectIdContextRoute: typeof ApiDataProjectProjectIdContextRoute
   ApiDataProjectProjectIdMemoryRoute: typeof ApiDataProjectProjectIdMemoryRoute
   ApiDataProjectProjectIdSearchRoute: typeof ApiDataProjectProjectIdSearchRoute
@@ -2069,6 +2111,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDataProjectProjectIdContextRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/data/department/$deptId/synthesize-project': {
+      id: '/api/data/department/$deptId/synthesize-project'
+      path: '/api/data/department/$deptId/synthesize-project'
+      fullPath: '/api/data/department/$deptId/synthesize-project'
+      preLoaderRoute: typeof ApiDataDepartmentDeptIdSynthesizeProjectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/data/department/$deptId/search': {
+      id: '/api/data/department/$deptId/search'
+      path: '/api/data/department/$deptId/search'
+      fullPath: '/api/data/department/$deptId/search'
+      preLoaderRoute: typeof ApiDataDepartmentDeptIdSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/data/department/$deptId/insights': {
+      id: '/api/data/department/$deptId/insights'
+      path: '/api/data/department/$deptId/insights'
+      fullPath: '/api/data/department/$deptId/insights'
+      preLoaderRoute: typeof ApiDataDepartmentDeptIdInsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/analytics/tools/$toolName/rpm': {
       id: '/api/analytics/tools/$toolName/rpm'
       path: '/api/analytics/tools/$toolName/rpm'
@@ -2241,6 +2304,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAnalyticsToolsToolNameErrorsRoute: ApiAnalyticsToolsToolNameErrorsRoute,
   ApiAnalyticsToolsToolNameHistoryRoute: ApiAnalyticsToolsToolNameHistoryRoute,
   ApiAnalyticsToolsToolNameRpmRoute: ApiAnalyticsToolsToolNameRpmRoute,
+  ApiDataDepartmentDeptIdInsightsRoute: ApiDataDepartmentDeptIdInsightsRoute,
+  ApiDataDepartmentDeptIdSearchRoute: ApiDataDepartmentDeptIdSearchRoute,
+  ApiDataDepartmentDeptIdSynthesizeProjectRoute:
+    ApiDataDepartmentDeptIdSynthesizeProjectRoute,
   ApiDataProjectProjectIdContextRoute: ApiDataProjectProjectIdContextRoute,
   ApiDataProjectProjectIdMemoryRoute: ApiDataProjectProjectIdMemoryRoute,
   ApiDataProjectProjectIdSearchRoute: ApiDataProjectProjectIdSearchRoute,
