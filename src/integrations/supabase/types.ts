@@ -3375,6 +3375,202 @@ export type Database = {
         }
         Relationships: []
       }
+      encrypted_fields: {
+        Row: {
+          algorithm: string
+          classification: string
+          created_at: string
+          description: string | null
+          encryption_key_id: string
+          field_name: string
+          id: string
+          is_active: boolean | null
+          requires_audit: boolean | null
+          table_name: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          algorithm: string
+          classification: string
+          created_at?: string
+          description?: string | null
+          encryption_key_id: string
+          field_name: string
+          id?: string
+          is_active?: boolean | null
+          requires_audit?: boolean | null
+          table_name: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          algorithm?: string
+          classification?: string
+          created_at?: string
+          description?: string | null
+          encryption_key_id?: string
+          field_name?: string
+          id?: string
+          is_active?: boolean | null
+          requires_audit?: boolean | null
+          table_name?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "encrypted_fields_encryption_key_id_fkey"
+            columns: ["encryption_key_id"]
+            isOneToOne: false
+            referencedRelation: "encryption_keys"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "encrypted_fields_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      encryption_audit_logs: {
+        Row: {
+          action: string
+          actor_id: string
+          actor_type: string
+          error_message: string | null
+          field_name: string | null
+          id: string
+          ip_address: string | null
+          key_id: string | null
+          record_count: number | null
+          success: boolean
+          table_name: string | null
+          tenant_id: string
+          timestamp: string
+          user_agent: string | null
+        }
+        Insert: {
+          action: string
+          actor_id: string
+          actor_type: string
+          error_message?: string | null
+          field_name?: string | null
+          id: string
+          ip_address?: string | null
+          key_id?: string | null
+          record_count?: number | null
+          success: boolean
+          table_name?: string | null
+          tenant_id: string
+          timestamp?: string
+          user_agent?: string | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string
+          actor_type?: string
+          error_message?: string | null
+          field_name?: string | null
+          id?: string
+          ip_address?: string | null
+          key_id?: string | null
+          record_count?: number | null
+          success?: boolean
+          table_name?: string | null
+          tenant_id?: string
+          timestamp?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "encryption_audit_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      encryption_keys: {
+        Row: {
+          algorithm: string
+          allowed_roles: string[] | null
+          allowed_services: string[] | null
+          created_at: string
+          created_by: string
+          description: string | null
+          encrypted_key_material: string
+          id: string
+          is_active: boolean | null
+          is_revoked: boolean | null
+          key_version: number
+          last_rotated_at: string | null
+          name: string
+          next_rotation_at: string | null
+          revoked_at: string | null
+          rotation_enabled: boolean | null
+          rotation_interval_days: number | null
+          tenant_id: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          algorithm: string
+          allowed_roles?: string[] | null
+          allowed_services?: string[] | null
+          created_at?: string
+          created_by: string
+          description?: string | null
+          encrypted_key_material: string
+          id: string
+          is_active?: boolean | null
+          is_revoked?: boolean | null
+          key_version?: number
+          last_rotated_at?: string | null
+          name: string
+          next_rotation_at?: string | null
+          revoked_at?: string | null
+          rotation_enabled?: boolean | null
+          rotation_interval_days?: number | null
+          tenant_id: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          algorithm?: string
+          allowed_roles?: string[] | null
+          allowed_services?: string[] | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          encrypted_key_material?: string
+          id?: string
+          is_active?: boolean | null
+          is_revoked?: boolean | null
+          key_version?: number
+          last_rotated_at?: string | null
+          name?: string
+          next_rotation_at?: string | null
+          revoked_at?: string | null
+          rotation_enabled?: boolean | null
+          rotation_interval_days?: number | null
+          tenant_id?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "encryption_keys_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       enterprise_policies: {
         Row: {
           action: string
@@ -4250,6 +4446,60 @@ export type Database = {
           version?: string
         }
         Relationships: []
+      }
+      key_rotation_events: {
+        Row: {
+          created_at: string
+          from_version: number
+          id: string
+          key_id: string
+          metadata: Json | null
+          reason: string
+          rotated_at: string
+          rotated_by: string
+          tenant_id: string
+          to_version: number
+        }
+        Insert: {
+          created_at?: string
+          from_version: number
+          id: string
+          key_id: string
+          metadata?: Json | null
+          reason: string
+          rotated_at: string
+          rotated_by: string
+          tenant_id: string
+          to_version: number
+        }
+        Update: {
+          created_at?: string
+          from_version?: number
+          id?: string
+          key_id?: string
+          metadata?: Json | null
+          reason?: string
+          rotated_at?: string
+          rotated_by?: string
+          tenant_id?: string
+          to_version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "key_rotation_events_key_id_fkey"
+            columns: ["key_id"]
+            isOneToOne: false
+            referencedRelation: "encryption_keys"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "key_rotation_events_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       knowledge_versions: {
         Row: {
