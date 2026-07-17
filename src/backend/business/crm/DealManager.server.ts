@@ -108,7 +108,7 @@ export class DealManager {
     }
     const { data: updated, error } = await supabaseAdmin
       .from(TABLE)
-      .update(updates)
+      .update(updates as any)
       .eq("id", dealId)
       .select("*")
       .single();

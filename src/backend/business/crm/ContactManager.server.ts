@@ -110,7 +110,7 @@ export class ContactManager {
 
     const { data, error } = await supabaseAdmin
       .from(TABLE)
-      .update(patch)
+      .update(patch as any)
       .eq("id", contactId)
       .eq("tenant_id", tenantId)
       .select("*")
