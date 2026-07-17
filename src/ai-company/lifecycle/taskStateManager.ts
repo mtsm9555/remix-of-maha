@@ -1,5 +1,4 @@
 import { LifecycleRules, type TaskStatus } from "./lifecycleRules";
-export type { TaskStatus };
 
 export type Task = {
   id: string;
