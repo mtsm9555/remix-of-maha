@@ -49,7 +49,7 @@ export class AuditExportManager {
     if (!exp) return;
     try {
       await supabaseAdmin.from('audit_exports').update({ status: 'processing', progress: 25 } as never).eq('id', exportId);
-      const result = await AuditQueryEngine.queryLogs({ ...(exp.query as AuditLogQuery), tenantId: exp.tenant_id, limit: 100000 });
+      const result = await AuditQueryEngine.queryLogs({ ...(exp.query as unknown as AuditLogQuery), tenantId: exp.tenant_id, limit: 100000 });
       let content: string;
       if (exp.format === 'csv') content = generateCSV(result.events);
       else if (exp.format === 'json') content = JSON.stringify(result.events, null, 2);
