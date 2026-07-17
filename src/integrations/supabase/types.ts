@@ -12977,6 +12977,150 @@ export type Database = {
         }
         Relationships: []
       }
+      workflow_executions: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          current_step_id: string | null
+          error: string | null
+          error_step_id: string | null
+          id: string
+          input: Json | null
+          output: Json | null
+          started_at: string
+          state: Json | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          workflow_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          current_step_id?: string | null
+          error?: string | null
+          error_step_id?: string | null
+          id: string
+          input?: Json | null
+          output?: Json | null
+          started_at?: string
+          state?: Json | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          workflow_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          current_step_id?: string | null
+          error?: string | null
+          error_step_id?: string | null
+          id?: string
+          input?: Json | null
+          output?: Json | null
+          started_at?: string
+          state?: Json | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          workflow_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workflow_executions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workflow_logs: {
+        Row: {
+          created_at: string
+          execution_id: string
+          id: string
+          level: string
+          message: string
+          metadata: Json | null
+          tenant_id: string
+          workflow_id: string
+        }
+        Insert: {
+          created_at?: string
+          execution_id: string
+          id: string
+          level: string
+          message: string
+          metadata?: Json | null
+          tenant_id: string
+          workflow_id: string
+        }
+        Update: {
+          created_at?: string
+          execution_id?: string
+          id?: string
+          level?: string
+          message?: string
+          metadata?: Json | null
+          tenant_id?: string
+          workflow_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workflow_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workflow_registrations: {
+        Row: {
+          config: Json | null
+          created_at: string
+          id: string
+          manifest: Json | null
+          manifest_id: string
+          status: string
+          tenant_id: string
+          updated_at: string
+          workspace_id: string | null
+        }
+        Insert: {
+          config?: Json | null
+          created_at?: string
+          id: string
+          manifest?: Json | null
+          manifest_id: string
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          workspace_id?: string | null
+        }
+        Update: {
+          config?: Json | null
+          created_at?: string
+          id?: string
+          manifest?: Json | null
+          manifest_id?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          workspace_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workflow_registrations_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       workflow_runs: {
         Row: {
           completed_at: string | null
@@ -13023,6 +13167,53 @@ export type Database = {
             columns: ["workflow_id"]
             isOneToOne: false
             referencedRelation: "workflow_definitions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workflow_step_results: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          duration_ms: number
+          error: string | null
+          execution_id: string
+          id: string
+          result: Json | null
+          started_at: string
+          status: string
+          step_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          duration_ms?: number
+          error?: string | null
+          execution_id: string
+          id: string
+          result?: Json | null
+          started_at?: string
+          status: string
+          step_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          duration_ms?: number
+          error?: string | null
+          execution_id?: string
+          id?: string
+          result?: Json | null
+          started_at?: string
+          status?: string
+          step_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workflow_step_results_execution_id_fkey"
+            columns: ["execution_id"]
+            isOneToOne: false
+            referencedRelation: "workflow_executions"
             referencedColumns: ["id"]
           },
         ]
