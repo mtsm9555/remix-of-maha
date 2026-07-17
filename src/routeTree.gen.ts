@@ -21,6 +21,7 @@ import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AgencyRouteImport } from './routes/agency'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPlannerTestRouteImport } from './routes/api/planner-test'
+import { Route as ApiTenantsIndexRouteImport } from './routes/api/tenants/index'
 import { Route as ApiWorkflowsOpenapiDotjsonRouteImport } from './routes/api/workflows/openapi[.]json'
 import { Route as ApiWorkflowsDocsRouteImport } from './routes/api/workflows/docs'
 import { Route as ApiWorkflowsSplatRouteImport } from './routes/api/workflows/$'
@@ -54,6 +55,7 @@ import { Route as ApiToolsMcpCallRouteImport } from './routes/api/tools/mcp/call
 import { Route as ApiToolsMarketplaceUninstallRouteImport } from './routes/api/tools/marketplace/uninstall'
 import { Route as ApiToolsMarketplaceInstalledRouteImport } from './routes/api/tools/marketplace/installed'
 import { Route as ApiToolsMarketplaceInstallRouteImport } from './routes/api/tools/marketplace/install'
+import { Route as ApiTenantsIdSuspendRouteImport } from './routes/api/tenants/$id/suspend'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
 import { Route as ApiIntelligenceReflectionMetricsRouteImport } from './routes/api/intelligence/reflection/metrics'
@@ -199,6 +201,11 @@ const IndexRoute = IndexRouteImport.update({
 const ApiPlannerTestRoute = ApiPlannerTestRouteImport.update({
   id: '/api/planner-test',
   path: '/api/planner-test',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTenantsIndexRoute = ApiTenantsIndexRouteImport.update({
+  id: '/api/tenants/',
+  path: '/api/tenants/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiWorkflowsOpenapiDotjsonRoute =
@@ -379,6 +386,11 @@ const ApiToolsMarketplaceInstallRoute =
     path: '/api/tools/marketplace/install',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiTenantsIdSuspendRoute = ApiTenantsIdSuspendRouteImport.update({
+  id: '/api/tenants/$id/suspend',
+  path: '/api/tenants/$id/suspend',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPrioritizationQueuePlanIdRoute =
   ApiPrioritizationQueuePlanIdRouteImport.update({
     id: '/api/prioritization/queue/$planId',
@@ -916,6 +928,7 @@ export interface FileRoutesByFullPath {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/tenants/': typeof ApiTenantsIndexRoute
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -965,6 +978,7 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
   '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
@@ -1049,6 +1063,7 @@ export interface FileRoutesByTo {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/tenants': typeof ApiTenantsIndexRoute
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -1098,6 +1113,7 @@ export interface FileRoutesByTo {
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
   '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
@@ -1183,6 +1199,7 @@ export interface FileRoutesById {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/tenants/': typeof ApiTenantsIndexRoute
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -1232,6 +1249,7 @@ export interface FileRoutesById {
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
   '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
@@ -1318,6 +1336,7 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/tenants/'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
     | '/api/analytics/retrieval/health-check'
@@ -1367,6 +1386,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/tenants/$id/suspend'
     | '/api/tools/marketplace/install'
     | '/api/tools/marketplace/installed'
     | '/api/tools/marketplace/uninstall'
@@ -1451,6 +1471,7 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/tenants'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
     | '/api/analytics/retrieval/health-check'
@@ -1500,6 +1521,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/tenants/$id/suspend'
     | '/api/tools/marketplace/install'
     | '/api/tools/marketplace/installed'
     | '/api/tools/marketplace/uninstall'
@@ -1584,6 +1606,7 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/tenants/'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
     | '/api/analytics/retrieval/health-check'
@@ -1633,6 +1656,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/tenants/$id/suspend'
     | '/api/tools/marketplace/install'
     | '/api/tools/marketplace/installed'
     | '/api/tools/marketplace/uninstall'
@@ -1718,6 +1742,7 @@ export interface RootRouteChildren {
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
+  ApiTenantsIndexRoute: typeof ApiTenantsIndexRoute
   ApiAnalyticsRetrievalEvaluateRoute: typeof ApiAnalyticsRetrievalEvaluateRoute
   ApiAnalyticsRetrievalExpensiveQueriesRoute: typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   ApiAnalyticsRetrievalHealthCheckRoute: typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -1766,6 +1791,7 @@ export interface RootRouteChildren {
   ApiIntelligenceReflectionMetricsRoute: typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
+  ApiTenantsIdSuspendRoute: typeof ApiTenantsIdSuspendRoute
   ApiToolsMarketplaceInstallRoute: typeof ApiToolsMarketplaceInstallRoute
   ApiToolsMarketplaceInstalledRoute: typeof ApiToolsMarketplaceInstalledRoute
   ApiToolsMarketplaceUninstallRoute: typeof ApiToolsMarketplaceUninstallRoute
@@ -1902,6 +1928,13 @@ declare module '@tanstack/react-router' {
       path: '/api/planner-test'
       fullPath: '/api/planner-test'
       preLoaderRoute: typeof ApiPlannerTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tenants/': {
+      id: '/api/tenants/'
+      path: '/api/tenants'
+      fullPath: '/api/tenants/'
+      preLoaderRoute: typeof ApiTenantsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/workflows/openapi.json': {
@@ -2133,6 +2166,13 @@ declare module '@tanstack/react-router' {
       path: '/api/tools/marketplace/install'
       fullPath: '/api/tools/marketplace/install'
       preLoaderRoute: typeof ApiToolsMarketplaceInstallRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tenants/$id/suspend': {
+      id: '/api/tenants/$id/suspend'
+      path: '/api/tenants/$id/suspend'
+      fullPath: '/api/tenants/$id/suspend'
+      preLoaderRoute: typeof ApiTenantsIdSuspendRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/prioritization/queue/$planId': {
@@ -2819,6 +2859,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
+  ApiTenantsIndexRoute: ApiTenantsIndexRoute,
   ApiAnalyticsRetrievalEvaluateRoute: ApiAnalyticsRetrievalEvaluateRoute,
   ApiAnalyticsRetrievalExpensiveQueriesRoute:
     ApiAnalyticsRetrievalExpensiveQueriesRoute,
@@ -2881,6 +2922,7 @@ const rootRouteChildren: RootRouteChildren = {
     ApiIntelligenceReflectionMetricsRouteWithChildren,
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
   ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
+  ApiTenantsIdSuspendRoute: ApiTenantsIdSuspendRoute,
   ApiToolsMarketplaceInstallRoute: ApiToolsMarketplaceInstallRoute,
   ApiToolsMarketplaceInstalledRoute: ApiToolsMarketplaceInstalledRoute,
   ApiToolsMarketplaceUninstallRoute: ApiToolsMarketplaceUninstallRoute,

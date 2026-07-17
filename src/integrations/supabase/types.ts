@@ -765,6 +765,7 @@ export type Database = {
           llm_temperature: number
           prompt_hash: string
           task_id: string
+          tenant_id: string | null
           total_tokens: number
         }
         Insert: {
@@ -779,6 +780,7 @@ export type Database = {
           llm_temperature: number
           prompt_hash: string
           task_id: string
+          tenant_id?: string | null
           total_tokens: number
         }
         Update: {
@@ -793,9 +795,18 @@ export type Database = {
           llm_temperature?: number
           prompt_hash?: string
           task_id?: string
+          tenant_id?: string | null
           total_tokens?: number
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "context_snapshots_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       conversations: {
         Row: {
@@ -895,6 +906,7 @@ export type Database = {
           metadata: Json
           source_project_id: string | null
           synthesis_state: string
+          tenant_id: string | null
           type: string
         }
         Insert: {
@@ -910,6 +922,7 @@ export type Database = {
           metadata?: Json
           source_project_id?: string | null
           synthesis_state?: string
+          tenant_id?: string | null
           type: string
         }
         Update: {
@@ -925,6 +938,7 @@ export type Database = {
           metadata?: Json
           source_project_id?: string | null
           synthesis_state?: string
+          tenant_id?: string | null
           type?: string
         }
         Relationships: [
@@ -933,6 +947,13 @@ export type Database = {
             columns: ["source_project_id"]
             isOneToOne: false
             referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "department_memories_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
         ]
@@ -1675,6 +1696,7 @@ export type Database = {
           id: string
           metadata: Json
           project_id: string
+          tenant_id: string | null
           type: string
           updated_at: string
         }
@@ -1685,6 +1707,7 @@ export type Database = {
           id: string
           metadata?: Json
           project_id: string
+          tenant_id?: string | null
           type: string
           updated_at?: string
         }
@@ -1695,6 +1718,7 @@ export type Database = {
           id?: string
           metadata?: Json
           project_id?: string
+          tenant_id?: string | null
           type?: string
           updated_at?: string
         }
@@ -1704,6 +1728,13 @@ export type Database = {
             columns: ["project_id"]
             isOneToOne: false
             referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_memories_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
         ]
@@ -2073,6 +2104,71 @@ export type Database = {
         }
         Relationships: []
       }
+      tenant_members: {
+        Row: {
+          id: string
+          joined_at: string
+          role: string
+          tenant_id: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          joined_at?: string
+          role: string
+          tenant_id: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          joined_at?: string
+          role?: string
+          tenant_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tenant_members_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tenants: {
+        Row: {
+          config: Json
+          created_at: string
+          id: string
+          name: string
+          plan: string
+          slug: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          config?: Json
+          created_at?: string
+          id?: string
+          name: string
+          plan?: string
+          slug: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          config?: Json
+          created_at?: string
+          id?: string
+          name?: string
+          plan?: string
+          slug?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       tool_access_logs: {
         Row: {
           agent_id: string
@@ -2155,6 +2251,7 @@ export type Database = {
           latency_ms: number
           payload_size_bytes: number | null
           success: boolean
+          tenant_id: string | null
           timestamp: string
           tokens_used: number | null
           tool_name: string
@@ -2168,6 +2265,7 @@ export type Database = {
           latency_ms: number
           payload_size_bytes?: number | null
           success: boolean
+          tenant_id?: string | null
           timestamp?: string
           tokens_used?: number | null
           tool_name: string
@@ -2181,11 +2279,20 @@ export type Database = {
           latency_ms?: number
           payload_size_bytes?: number | null
           success?: boolean
+          tenant_id?: string | null
           timestamp?: string
           tokens_used?: number | null
           tool_name?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "tool_execution_events_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       tool_executions: {
         Row: {
@@ -2548,6 +2655,7 @@ export type Database = {
           embedding: string | null
           id: string
           metadata: Json
+          tenant_id: string | null
           type: string
           updated_at: string
           user_id: string
@@ -2558,6 +2666,7 @@ export type Database = {
           embedding?: string | null
           id: string
           metadata?: Json
+          tenant_id?: string | null
           type: string
           updated_at?: string
           user_id: string
@@ -2568,11 +2677,20 @@ export type Database = {
           embedding?: string | null
           id?: string
           metadata?: Json
+          tenant_id?: string | null
           type?: string
           updated_at?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "user_memories_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_profiles: {
         Row: {
@@ -2770,6 +2888,10 @@ export type Database = {
         Args: { _project_id: string; _user_id: string }
         Returns: boolean
       }
+      is_tenant_member: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
       match_department_memories: {
         Args: {
           filter_types: string[]
@@ -2869,6 +2991,10 @@ export type Database = {
           type: string
           user_id: string
         }[]
+      }
+      tenant_role: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: string
       }
       transfer_edges: {
         Args: {
