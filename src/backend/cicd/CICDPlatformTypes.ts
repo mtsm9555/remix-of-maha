@@ -42,8 +42,8 @@ export interface Pipeline {
 export interface PipelineDefinition {
   version: string;
   stages: PipelineStage[];
-  artifacts?: ArtifactConfig[];
-  notifications?: NotificationConfig[];
+  artifacts?: Record<string, unknown>[];
+  notifications?: Record<string, unknown>[];
 }
 
 export interface PipelineStage {
