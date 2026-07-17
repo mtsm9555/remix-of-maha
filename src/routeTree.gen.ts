@@ -29,6 +29,8 @@ import { Route as ApiVoiceSplatRouteImport } from './routes/api/voice/$'
 import { Route as ApiVisionSplatRouteImport } from './routes/api/vision/$'
 import { Route as ApiScalingPoliciesRouteImport } from './routes/api/scaling/policies'
 import { Route as ApiScalingEvaluateAllRouteImport } from './routes/api/scaling/evaluate-all'
+import { Route as ApiRbacPermissionsRouteImport } from './routes/api/rbac/permissions'
+import { Route as ApiRbacCheckRouteImport } from './routes/api/rbac/check'
 import { Route as ApiQueueTasksRouteImport } from './routes/api/queue/tasks'
 import { Route as ApiQueueSeedDefaultsRouteImport } from './routes/api/queue/seed-defaults'
 import { Route as ApiQueueQueuesRouteImport } from './routes/api/queue/queues'
@@ -102,6 +104,11 @@ import { Route as ApiTeamsTeamIdChannelsRouteImport } from './routes/api/teams/$
 import { Route as ApiTeamsTeamIdBudgetRouteImport } from './routes/api/teams/$teamId/budget'
 import { Route as ApiTeamsTeamIdAnalyticsRouteImport } from './routes/api/teams/$teamId/analytics'
 import { Route as ApiScalingPoliciesPolicyIdRouteImport } from './routes/api/scaling/policies/$policyId'
+import { Route as ApiRbacRolesRoleIdRouteImport } from './routes/api/rbac/roles.$roleId'
+import { Route as ApiRbacPermissionsSeedRouteImport } from './routes/api/rbac/permissions.seed'
+import { Route as ApiRbacAssignmentsIdRouteImport } from './routes/api/rbac/assignments.$id'
+import { Route as ApiRbacTenantIdRolesRouteImport } from './routes/api/rbac/$tenantId.roles'
+import { Route as ApiRbacTenantIdAssignmentsRouteImport } from './routes/api/rbac/$tenantId.assignments'
 import { Route as ApiQueueDlqTenantIdRouteImport } from './routes/api/queue/dlq/$tenantId'
 import { Route as ApiPublicWebhooksStripeRouteImport } from './routes/api/public/webhooks/stripe'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
@@ -342,6 +349,16 @@ const ApiScalingPoliciesRoute = ApiScalingPoliciesRouteImport.update({
 const ApiScalingEvaluateAllRoute = ApiScalingEvaluateAllRouteImport.update({
   id: '/api/scaling/evaluate-all',
   path: '/api/scaling/evaluate-all',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRbacPermissionsRoute = ApiRbacPermissionsRouteImport.update({
+  id: '/api/rbac/permissions',
+  path: '/api/rbac/permissions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRbacCheckRoute = ApiRbacCheckRouteImport.update({
+  id: '/api/rbac/check',
+  path: '/api/rbac/check',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiQueueTasksRoute = ApiQueueTasksRouteImport.update({
@@ -729,6 +746,32 @@ const ApiScalingPoliciesPolicyIdRoute =
     id: '/$policyId',
     path: '/$policyId',
     getParentRoute: () => ApiScalingPoliciesRoute,
+  } as any)
+const ApiRbacRolesRoleIdRoute = ApiRbacRolesRoleIdRouteImport.update({
+  id: '/api/rbac/roles/$roleId',
+  path: '/api/rbac/roles/$roleId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRbacPermissionsSeedRoute = ApiRbacPermissionsSeedRouteImport.update({
+  id: '/seed',
+  path: '/seed',
+  getParentRoute: () => ApiRbacPermissionsRoute,
+} as any)
+const ApiRbacAssignmentsIdRoute = ApiRbacAssignmentsIdRouteImport.update({
+  id: '/api/rbac/assignments/$id',
+  path: '/api/rbac/assignments/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRbacTenantIdRolesRoute = ApiRbacTenantIdRolesRouteImport.update({
+  id: '/api/rbac/$tenantId/roles',
+  path: '/api/rbac/$tenantId/roles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiRbacTenantIdAssignmentsRoute =
+  ApiRbacTenantIdAssignmentsRouteImport.update({
+    id: '/api/rbac/$tenantId/assignments',
+    path: '/api/rbac/$tenantId/assignments',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const ApiQueueDlqTenantIdRoute = ApiQueueDlqTenantIdRouteImport.update({
   id: '/api/queue/dlq/$tenantId',
@@ -1599,6 +1642,8 @@ export interface FileRoutesByFullPath {
   '/api/queue/queues': typeof ApiQueueQueuesRouteWithChildren
   '/api/queue/seed-defaults': typeof ApiQueueSeedDefaultsRoute
   '/api/queue/tasks': typeof ApiQueueTasksRouteWithChildren
+  '/api/rbac/check': typeof ApiRbacCheckRoute
+  '/api/rbac/permissions': typeof ApiRbacPermissionsRouteWithChildren
   '/api/scaling/evaluate-all': typeof ApiScalingEvaluateAllRoute
   '/api/scaling/policies': typeof ApiScalingPoliciesRouteWithChildren
   '/api/vision/$': typeof ApiVisionSplatRoute
@@ -1680,6 +1725,11 @@ export interface FileRoutesByFullPath {
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
   '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
   '/api/queue/dlq/$tenantId': typeof ApiQueueDlqTenantIdRoute
+  '/api/rbac/$tenantId/assignments': typeof ApiRbacTenantIdAssignmentsRoute
+  '/api/rbac/$tenantId/roles': typeof ApiRbacTenantIdRolesRoute
+  '/api/rbac/assignments/$id': typeof ApiRbacAssignmentsIdRoute
+  '/api/rbac/permissions/seed': typeof ApiRbacPermissionsSeedRoute
+  '/api/rbac/roles/$roleId': typeof ApiRbacRolesRoleIdRoute
   '/api/scaling/policies/$policyId': typeof ApiScalingPoliciesPolicyIdRouteWithChildren
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
@@ -1834,6 +1884,8 @@ export interface FileRoutesByTo {
   '/api/queue/queues': typeof ApiQueueQueuesRouteWithChildren
   '/api/queue/seed-defaults': typeof ApiQueueSeedDefaultsRoute
   '/api/queue/tasks': typeof ApiQueueTasksRouteWithChildren
+  '/api/rbac/check': typeof ApiRbacCheckRoute
+  '/api/rbac/permissions': typeof ApiRbacPermissionsRouteWithChildren
   '/api/scaling/evaluate-all': typeof ApiScalingEvaluateAllRoute
   '/api/scaling/policies': typeof ApiScalingPoliciesRouteWithChildren
   '/api/vision/$': typeof ApiVisionSplatRoute
@@ -1915,6 +1967,11 @@ export interface FileRoutesByTo {
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
   '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
   '/api/queue/dlq/$tenantId': typeof ApiQueueDlqTenantIdRoute
+  '/api/rbac/$tenantId/assignments': typeof ApiRbacTenantIdAssignmentsRoute
+  '/api/rbac/$tenantId/roles': typeof ApiRbacTenantIdRolesRoute
+  '/api/rbac/assignments/$id': typeof ApiRbacAssignmentsIdRoute
+  '/api/rbac/permissions/seed': typeof ApiRbacPermissionsSeedRoute
+  '/api/rbac/roles/$roleId': typeof ApiRbacRolesRoleIdRoute
   '/api/scaling/policies/$policyId': typeof ApiScalingPoliciesPolicyIdRouteWithChildren
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
@@ -2070,6 +2127,8 @@ export interface FileRoutesById {
   '/api/queue/queues': typeof ApiQueueQueuesRouteWithChildren
   '/api/queue/seed-defaults': typeof ApiQueueSeedDefaultsRoute
   '/api/queue/tasks': typeof ApiQueueTasksRouteWithChildren
+  '/api/rbac/check': typeof ApiRbacCheckRoute
+  '/api/rbac/permissions': typeof ApiRbacPermissionsRouteWithChildren
   '/api/scaling/evaluate-all': typeof ApiScalingEvaluateAllRoute
   '/api/scaling/policies': typeof ApiScalingPoliciesRouteWithChildren
   '/api/vision/$': typeof ApiVisionSplatRoute
@@ -2151,6 +2210,11 @@ export interface FileRoutesById {
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
   '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
   '/api/queue/dlq/$tenantId': typeof ApiQueueDlqTenantIdRoute
+  '/api/rbac/$tenantId/assignments': typeof ApiRbacTenantIdAssignmentsRoute
+  '/api/rbac/$tenantId/roles': typeof ApiRbacTenantIdRolesRoute
+  '/api/rbac/assignments/$id': typeof ApiRbacAssignmentsIdRoute
+  '/api/rbac/permissions/seed': typeof ApiRbacPermissionsSeedRoute
+  '/api/rbac/roles/$roleId': typeof ApiRbacRolesRoleIdRoute
   '/api/scaling/policies/$policyId': typeof ApiScalingPoliciesPolicyIdRouteWithChildren
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
@@ -2307,6 +2371,8 @@ export interface FileRouteTypes {
     | '/api/queue/queues'
     | '/api/queue/seed-defaults'
     | '/api/queue/tasks'
+    | '/api/rbac/check'
+    | '/api/rbac/permissions'
     | '/api/scaling/evaluate-all'
     | '/api/scaling/policies'
     | '/api/vision/$'
@@ -2388,6 +2454,11 @@ export interface FileRouteTypes {
     | '/api/prioritization/queue/$planId'
     | '/api/public/webhooks/stripe'
     | '/api/queue/dlq/$tenantId'
+    | '/api/rbac/$tenantId/assignments'
+    | '/api/rbac/$tenantId/roles'
+    | '/api/rbac/assignments/$id'
+    | '/api/rbac/permissions/seed'
+    | '/api/rbac/roles/$roleId'
     | '/api/scaling/policies/$policyId'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
@@ -2542,6 +2613,8 @@ export interface FileRouteTypes {
     | '/api/queue/queues'
     | '/api/queue/seed-defaults'
     | '/api/queue/tasks'
+    | '/api/rbac/check'
+    | '/api/rbac/permissions'
     | '/api/scaling/evaluate-all'
     | '/api/scaling/policies'
     | '/api/vision/$'
@@ -2623,6 +2696,11 @@ export interface FileRouteTypes {
     | '/api/prioritization/queue/$planId'
     | '/api/public/webhooks/stripe'
     | '/api/queue/dlq/$tenantId'
+    | '/api/rbac/$tenantId/assignments'
+    | '/api/rbac/$tenantId/roles'
+    | '/api/rbac/assignments/$id'
+    | '/api/rbac/permissions/seed'
+    | '/api/rbac/roles/$roleId'
     | '/api/scaling/policies/$policyId'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
@@ -2777,6 +2855,8 @@ export interface FileRouteTypes {
     | '/api/queue/queues'
     | '/api/queue/seed-defaults'
     | '/api/queue/tasks'
+    | '/api/rbac/check'
+    | '/api/rbac/permissions'
     | '/api/scaling/evaluate-all'
     | '/api/scaling/policies'
     | '/api/vision/$'
@@ -2858,6 +2938,11 @@ export interface FileRouteTypes {
     | '/api/prioritization/queue/$planId'
     | '/api/public/webhooks/stripe'
     | '/api/queue/dlq/$tenantId'
+    | '/api/rbac/$tenantId/assignments'
+    | '/api/rbac/$tenantId/roles'
+    | '/api/rbac/assignments/$id'
+    | '/api/rbac/permissions/seed'
+    | '/api/rbac/roles/$roleId'
     | '/api/scaling/policies/$policyId'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
@@ -3013,6 +3098,8 @@ export interface RootRouteChildren {
   ApiQueueQueuesRoute: typeof ApiQueueQueuesRouteWithChildren
   ApiQueueSeedDefaultsRoute: typeof ApiQueueSeedDefaultsRoute
   ApiQueueTasksRoute: typeof ApiQueueTasksRouteWithChildren
+  ApiRbacCheckRoute: typeof ApiRbacCheckRoute
+  ApiRbacPermissionsRoute: typeof ApiRbacPermissionsRouteWithChildren
   ApiScalingEvaluateAllRoute: typeof ApiScalingEvaluateAllRoute
   ApiScalingPoliciesRoute: typeof ApiScalingPoliciesRouteWithChildren
   ApiVisionSplatRoute: typeof ApiVisionSplatRoute
@@ -3092,6 +3179,10 @@ export interface RootRouteChildren {
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
   ApiPublicWebhooksStripeRoute: typeof ApiPublicWebhooksStripeRoute
   ApiQueueDlqTenantIdRoute: typeof ApiQueueDlqTenantIdRoute
+  ApiRbacTenantIdAssignmentsRoute: typeof ApiRbacTenantIdAssignmentsRoute
+  ApiRbacTenantIdRolesRoute: typeof ApiRbacTenantIdRolesRoute
+  ApiRbacAssignmentsIdRoute: typeof ApiRbacAssignmentsIdRoute
+  ApiRbacRolesRoleIdRoute: typeof ApiRbacRolesRoleIdRoute
   ApiTeamsTeamIdAnalyticsRoute: typeof ApiTeamsTeamIdAnalyticsRoute
   ApiTeamsTeamIdBudgetRoute: typeof ApiTeamsTeamIdBudgetRoute
   ApiTeamsTeamIdChannelsRoute: typeof ApiTeamsTeamIdChannelsRoute
@@ -3314,6 +3405,20 @@ declare module '@tanstack/react-router' {
       path: '/api/scaling/evaluate-all'
       fullPath: '/api/scaling/evaluate-all'
       preLoaderRoute: typeof ApiScalingEvaluateAllRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/rbac/permissions': {
+      id: '/api/rbac/permissions'
+      path: '/api/rbac/permissions'
+      fullPath: '/api/rbac/permissions'
+      preLoaderRoute: typeof ApiRbacPermissionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/rbac/check': {
+      id: '/api/rbac/check'
+      path: '/api/rbac/check'
+      fullPath: '/api/rbac/check'
+      preLoaderRoute: typeof ApiRbacCheckRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/queue/tasks': {
@@ -3826,6 +3931,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/scaling/policies/$policyId'
       preLoaderRoute: typeof ApiScalingPoliciesPolicyIdRouteImport
       parentRoute: typeof ApiScalingPoliciesRoute
+    }
+    '/api/rbac/roles/$roleId': {
+      id: '/api/rbac/roles/$roleId'
+      path: '/api/rbac/roles/$roleId'
+      fullPath: '/api/rbac/roles/$roleId'
+      preLoaderRoute: typeof ApiRbacRolesRoleIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/rbac/permissions/seed': {
+      id: '/api/rbac/permissions/seed'
+      path: '/seed'
+      fullPath: '/api/rbac/permissions/seed'
+      preLoaderRoute: typeof ApiRbacPermissionsSeedRouteImport
+      parentRoute: typeof ApiRbacPermissionsRoute
+    }
+    '/api/rbac/assignments/$id': {
+      id: '/api/rbac/assignments/$id'
+      path: '/api/rbac/assignments/$id'
+      fullPath: '/api/rbac/assignments/$id'
+      preLoaderRoute: typeof ApiRbacAssignmentsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/rbac/$tenantId/roles': {
+      id: '/api/rbac/$tenantId/roles'
+      path: '/api/rbac/$tenantId/roles'
+      fullPath: '/api/rbac/$tenantId/roles'
+      preLoaderRoute: typeof ApiRbacTenantIdRolesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/rbac/$tenantId/assignments': {
+      id: '/api/rbac/$tenantId/assignments'
+      path: '/api/rbac/$tenantId/assignments'
+      fullPath: '/api/rbac/$tenantId/assignments'
+      preLoaderRoute: typeof ApiRbacTenantIdAssignmentsRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/queue/dlq/$tenantId': {
       id: '/api/queue/dlq/$tenantId'
@@ -4919,6 +5059,17 @@ const ApiQueueTasksRouteWithChildren = ApiQueueTasksRoute._addFileChildren(
   ApiQueueTasksRouteChildren,
 )
 
+interface ApiRbacPermissionsRouteChildren {
+  ApiRbacPermissionsSeedRoute: typeof ApiRbacPermissionsSeedRoute
+}
+
+const ApiRbacPermissionsRouteChildren: ApiRbacPermissionsRouteChildren = {
+  ApiRbacPermissionsSeedRoute: ApiRbacPermissionsSeedRoute,
+}
+
+const ApiRbacPermissionsRouteWithChildren =
+  ApiRbacPermissionsRoute._addFileChildren(ApiRbacPermissionsRouteChildren)
+
 interface ApiScalingPoliciesPolicyIdRouteChildren {
   ApiScalingPoliciesPolicyIdEvaluateRoute: typeof ApiScalingPoliciesPolicyIdEvaluateRoute
   ApiScalingPoliciesPolicyIdMetricsRoute: typeof ApiScalingPoliciesPolicyIdMetricsRoute
@@ -5066,6 +5217,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiQueueQueuesRoute: ApiQueueQueuesRouteWithChildren,
   ApiQueueSeedDefaultsRoute: ApiQueueSeedDefaultsRoute,
   ApiQueueTasksRoute: ApiQueueTasksRouteWithChildren,
+  ApiRbacCheckRoute: ApiRbacCheckRoute,
+  ApiRbacPermissionsRoute: ApiRbacPermissionsRouteWithChildren,
   ApiScalingEvaluateAllRoute: ApiScalingEvaluateAllRoute,
   ApiScalingPoliciesRoute: ApiScalingPoliciesRouteWithChildren,
   ApiVisionSplatRoute: ApiVisionSplatRoute,
@@ -5162,6 +5315,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
   ApiPublicWebhooksStripeRoute: ApiPublicWebhooksStripeRoute,
   ApiQueueDlqTenantIdRoute: ApiQueueDlqTenantIdRoute,
+  ApiRbacTenantIdAssignmentsRoute: ApiRbacTenantIdAssignmentsRoute,
+  ApiRbacTenantIdRolesRoute: ApiRbacTenantIdRolesRoute,
+  ApiRbacAssignmentsIdRoute: ApiRbacAssignmentsIdRoute,
+  ApiRbacRolesRoleIdRoute: ApiRbacRolesRoleIdRoute,
   ApiTeamsTeamIdAnalyticsRoute: ApiTeamsTeamIdAnalyticsRoute,
   ApiTeamsTeamIdBudgetRoute: ApiTeamsTeamIdBudgetRoute,
   ApiTeamsTeamIdChannelsRoute: ApiTeamsTeamIdChannelsRoute,
