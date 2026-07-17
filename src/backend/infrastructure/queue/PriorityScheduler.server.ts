@@ -112,7 +112,7 @@ export class PriorityScheduler {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     await supabaseAdmin
       .from("orchestrated_tasks")
-      .update({ state: "completed", completed_at: new Date().toISOString(), result: result ?? null })
+      .update({ state: "completed", completed_at: new Date().toISOString(), result: (result ?? null) as any })
       .eq("id", taskId);
     await TaskDependencyResolver.resolveDependencies(taskId);
   }
