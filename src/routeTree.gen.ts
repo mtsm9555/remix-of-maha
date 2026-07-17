@@ -108,6 +108,7 @@ import { Route as ApiInfrastructureBudgetTopupsPendingRouteImport } from './rout
 import { Route as ApiInfrastructureBudgetLedgerInstanceIdRouteImport } from './routes/api/infrastructure/budget/ledger.$instanceId'
 import { Route as ApiDataUserMemoriesSearchRouteImport } from './routes/api/data/user/memories/search'
 import { Route as ApiDataUserMemoriesMemoryIdRouteImport } from './routes/api/data/user/memories/$memoryId'
+import { Route as ApiDataSharedPromotionsPendingRouteImport } from './routes/api/data/shared/promotions/pending'
 import { Route as ApiDataProjectProjectIdSearchRouteImport } from './routes/api/data/project/$projectId/search'
 import { Route as ApiDataProjectProjectIdMemoryRouteImport } from './routes/api/data/project/$projectId/memory'
 import { Route as ApiDataProjectProjectIdContextRouteImport } from './routes/api/data/project/$projectId/context'
@@ -118,6 +119,8 @@ import { Route as ApiAnalyticsToolsToolNameRpmRouteImport } from './routes/api/a
 import { Route as ApiAnalyticsToolsToolNameHistoryRouteImport } from './routes/api/analytics/tools/$toolName/history'
 import { Route as ApiAnalyticsToolsToolNameErrorsRouteImport } from './routes/api/analytics/tools/$toolName/errors'
 import { Route as ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport } from './routes/api/infrastructure/budget/topups/$requestId.approve'
+import { Route as ApiDataSharedPromotionsPromotionIdRejectRouteImport } from './routes/api/data/shared/promotions/$promotionId/reject'
+import { Route as ApiDataSharedPromotionsPromotionIdApproveRouteImport } from './routes/api/data/shared/promotions/$promotionId/approve'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
@@ -678,6 +681,12 @@ const ApiDataUserMemoriesMemoryIdRoute =
     path: '/api/data/user/memories/$memoryId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiDataSharedPromotionsPendingRoute =
+  ApiDataSharedPromotionsPendingRouteImport.update({
+    id: '/api/data/shared/promotions/pending',
+    path: '/api/data/shared/promotions/pending',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiDataProjectProjectIdSearchRoute =
   ApiDataProjectProjectIdSearchRouteImport.update({
     id: '/api/data/project/$projectId/search',
@@ -736,6 +745,18 @@ const ApiInfrastructureBudgetTopupsRequestIdApproveRoute =
   ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport.update({
     id: '/api/infrastructure/budget/topups/$requestId/approve',
     path: '/api/infrastructure/budget/topups/$requestId/approve',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiDataSharedPromotionsPromotionIdRejectRoute =
+  ApiDataSharedPromotionsPromotionIdRejectRouteImport.update({
+    id: '/api/data/shared/promotions/$promotionId/reject',
+    path: '/api/data/shared/promotions/$promotionId/reject',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiDataSharedPromotionsPromotionIdApproveRoute =
+  ApiDataSharedPromotionsPromotionIdApproveRouteImport.update({
+    id: '/api/data/shared/promotions/$promotionId/approve',
+    path: '/api/data/shared/promotions/$promotionId/approve',
     getParentRoute: () => rootRouteImport,
   } as any)
 
@@ -829,6 +850,7 @@ export interface FileRoutesByFullPath {
   '/api/data/project/$projectId/context': typeof ApiDataProjectProjectIdContextRoute
   '/api/data/project/$projectId/memory': typeof ApiDataProjectProjectIdMemoryRoute
   '/api/data/project/$projectId/search': typeof ApiDataProjectProjectIdSearchRoute
+  '/api/data/shared/promotions/pending': typeof ApiDataSharedPromotionsPendingRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
@@ -848,6 +870,8 @@ export interface FileRoutesByFullPath {
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
+  '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
+  '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRoutesByTo {
@@ -940,6 +964,7 @@ export interface FileRoutesByTo {
   '/api/data/project/$projectId/context': typeof ApiDataProjectProjectIdContextRoute
   '/api/data/project/$projectId/memory': typeof ApiDataProjectProjectIdMemoryRoute
   '/api/data/project/$projectId/search': typeof ApiDataProjectProjectIdSearchRoute
+  '/api/data/shared/promotions/pending': typeof ApiDataSharedPromotionsPendingRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
@@ -959,6 +984,8 @@ export interface FileRoutesByTo {
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
+  '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
+  '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRoutesById {
@@ -1052,6 +1079,7 @@ export interface FileRoutesById {
   '/api/data/project/$projectId/context': typeof ApiDataProjectProjectIdContextRoute
   '/api/data/project/$projectId/memory': typeof ApiDataProjectProjectIdMemoryRoute
   '/api/data/project/$projectId/search': typeof ApiDataProjectProjectIdSearchRoute
+  '/api/data/shared/promotions/pending': typeof ApiDataSharedPromotionsPendingRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
@@ -1071,6 +1099,8 @@ export interface FileRoutesById {
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
+  '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
+  '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 export interface FileRouteTypes {
@@ -1165,6 +1195,7 @@ export interface FileRouteTypes {
     | '/api/data/project/$projectId/context'
     | '/api/data/project/$projectId/memory'
     | '/api/data/project/$projectId/search'
+    | '/api/data/shared/promotions/pending'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
     | '/api/infrastructure/budget/ledger/$instanceId'
@@ -1184,6 +1215,8 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
+    | '/api/data/shared/promotions/$promotionId/approve'
+    | '/api/data/shared/promotions/$promotionId/reject'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -1276,6 +1309,7 @@ export interface FileRouteTypes {
     | '/api/data/project/$projectId/context'
     | '/api/data/project/$projectId/memory'
     | '/api/data/project/$projectId/search'
+    | '/api/data/shared/promotions/pending'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
     | '/api/infrastructure/budget/ledger/$instanceId'
@@ -1295,6 +1329,8 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
+    | '/api/data/shared/promotions/$promotionId/approve'
+    | '/api/data/shared/promotions/$promotionId/reject'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   id:
     | '__root__'
@@ -1387,6 +1423,7 @@ export interface FileRouteTypes {
     | '/api/data/project/$projectId/context'
     | '/api/data/project/$projectId/memory'
     | '/api/data/project/$projectId/search'
+    | '/api/data/shared/promotions/pending'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
     | '/api/infrastructure/budget/ledger/$instanceId'
@@ -1406,6 +1443,8 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
+    | '/api/data/shared/promotions/$promotionId/approve'
+    | '/api/data/shared/promotions/$promotionId/reject'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesById: FileRoutesById
 }
@@ -1498,6 +1537,7 @@ export interface RootRouteChildren {
   ApiDataProjectProjectIdContextRoute: typeof ApiDataProjectProjectIdContextRoute
   ApiDataProjectProjectIdMemoryRoute: typeof ApiDataProjectProjectIdMemoryRoute
   ApiDataProjectProjectIdSearchRoute: typeof ApiDataProjectProjectIdSearchRoute
+  ApiDataSharedPromotionsPendingRoute: typeof ApiDataSharedPromotionsPendingRoute
   ApiDataUserMemoriesMemoryIdRoute: typeof ApiDataUserMemoriesMemoryIdRoute
   ApiDataUserMemoriesSearchRoute: typeof ApiDataUserMemoriesSearchRoute
   ApiInfrastructureBudgetLedgerInstanceIdRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
@@ -1514,6 +1554,8 @@ export interface RootRouteChildren {
   ApiToolsMcpDisconnectServerIdRoute: typeof ApiToolsMcpDisconnectServerIdRoute
   ApiToolsVersioningToolNameRollbackRoute: typeof ApiToolsVersioningToolNameRollbackRoute
   ApiToolsVersioningToolNameVersionsRoute: typeof ApiToolsVersioningToolNameVersionsRoute
+  ApiDataSharedPromotionsPromotionIdApproveRoute: typeof ApiDataSharedPromotionsPromotionIdApproveRoute
+  ApiDataSharedPromotionsPromotionIdRejectRoute: typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
 
@@ -2212,6 +2254,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDataUserMemoriesMemoryIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/data/shared/promotions/pending': {
+      id: '/api/data/shared/promotions/pending'
+      path: '/api/data/shared/promotions/pending'
+      fullPath: '/api/data/shared/promotions/pending'
+      preLoaderRoute: typeof ApiDataSharedPromotionsPendingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/data/project/$projectId/search': {
       id: '/api/data/project/$projectId/search'
       path: '/api/data/project/$projectId/search'
@@ -2280,6 +2329,20 @@ declare module '@tanstack/react-router' {
       path: '/api/infrastructure/budget/topups/$requestId/approve'
       fullPath: '/api/infrastructure/budget/topups/$requestId/approve'
       preLoaderRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/data/shared/promotions/$promotionId/reject': {
+      id: '/api/data/shared/promotions/$promotionId/reject'
+      path: '/api/data/shared/promotions/$promotionId/reject'
+      fullPath: '/api/data/shared/promotions/$promotionId/reject'
+      preLoaderRoute: typeof ApiDataSharedPromotionsPromotionIdRejectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/data/shared/promotions/$promotionId/approve': {
+      id: '/api/data/shared/promotions/$promotionId/approve'
+      path: '/api/data/shared/promotions/$promotionId/approve'
+      fullPath: '/api/data/shared/promotions/$promotionId/approve'
+      preLoaderRoute: typeof ApiDataSharedPromotionsPromotionIdApproveRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -2437,6 +2500,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiDataProjectProjectIdContextRoute: ApiDataProjectProjectIdContextRoute,
   ApiDataProjectProjectIdMemoryRoute: ApiDataProjectProjectIdMemoryRoute,
   ApiDataProjectProjectIdSearchRoute: ApiDataProjectProjectIdSearchRoute,
+  ApiDataSharedPromotionsPendingRoute: ApiDataSharedPromotionsPendingRoute,
   ApiDataUserMemoriesMemoryIdRoute: ApiDataUserMemoriesMemoryIdRoute,
   ApiDataUserMemoriesSearchRoute: ApiDataUserMemoriesSearchRoute,
   ApiInfrastructureBudgetLedgerInstanceIdRoute:
@@ -2463,6 +2527,10 @@ const rootRouteChildren: RootRouteChildren = {
     ApiToolsVersioningToolNameRollbackRoute,
   ApiToolsVersioningToolNameVersionsRoute:
     ApiToolsVersioningToolNameVersionsRoute,
+  ApiDataSharedPromotionsPromotionIdApproveRoute:
+    ApiDataSharedPromotionsPromotionIdApproveRoute,
+  ApiDataSharedPromotionsPromotionIdRejectRoute:
+    ApiDataSharedPromotionsPromotionIdRejectRoute,
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute:
     ApiInfrastructureBudgetTopupsRequestIdApproveRoute,
 }
