@@ -509,6 +509,44 @@ export type Database = {
         }
         Relationships: []
       }
+      agent_logs: {
+        Row: {
+          agent_id: string
+          created_at: string
+          id: string
+          level: string
+          message: string
+          metadata: Json | null
+          tenant_id: string
+        }
+        Insert: {
+          agent_id: string
+          created_at?: string
+          id: string
+          level: string
+          message: string
+          metadata?: Json | null
+          tenant_id: string
+        }
+        Update: {
+          agent_id?: string
+          created_at?: string
+          id?: string
+          level?: string
+          message?: string
+          metadata?: Json | null
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       agent_message_logs: {
         Row: {
           collaboration_id: string | null
@@ -649,6 +687,50 @@ export type Database = {
         }
         Relationships: []
       }
+      agent_registrations: {
+        Row: {
+          config: Json | null
+          created_at: string
+          id: string
+          manifest: Json | null
+          manifest_id: string
+          status: string
+          tenant_id: string
+          updated_at: string
+          workspace_id: string | null
+        }
+        Insert: {
+          config?: Json | null
+          created_at?: string
+          id: string
+          manifest?: Json | null
+          manifest_id: string
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          workspace_id?: string | null
+        }
+        Update: {
+          config?: Json | null
+          created_at?: string
+          id?: string
+          manifest?: Json | null
+          manifest_id?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          workspace_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_registrations_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       agent_registry_persistent: {
         Row: {
           agent_type: string
@@ -762,6 +844,47 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      agent_sdk_messages: {
+        Row: {
+          content: string
+          from_agent_id: string
+          id: string
+          metadata: Json | null
+          tenant_id: string
+          timestamp: string
+          to_agent_id: string
+          type: string
+        }
+        Insert: {
+          content: string
+          from_agent_id: string
+          id: string
+          metadata?: Json | null
+          tenant_id: string
+          timestamp?: string
+          to_agent_id: string
+          type: string
+        }
+        Update: {
+          content?: string
+          from_agent_id?: string
+          id?: string
+          metadata?: Json | null
+          tenant_id?: string
+          timestamp?: string
+          to_agent_id?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_sdk_messages_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       agent_tool_pins: {
         Row: {
