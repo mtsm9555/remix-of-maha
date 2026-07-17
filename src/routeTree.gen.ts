@@ -76,6 +76,7 @@ import { Route as ApiWorkspacesWorkspaceIdIndexRouteImport } from './routes/api/
 import { Route as ApiWorkspacesTenantIdIndexRouteImport } from './routes/api/workspaces/$tenantId/index'
 import { Route as ApiToolsPoliciesIndexRouteImport } from './routes/api/tools/policies/index'
 import { Route as ApiToolsMarketplaceIndexRouteImport } from './routes/api/tools/marketplace/index'
+import { Route as ApiSystemDocsTenantIdIndexRouteImport } from './routes/api/system-docs/$tenantId/index'
 import { Route as ApiIntelligenceLearnIndexRouteImport } from './routes/api/intelligence/learn/index'
 import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/api/intelligence/consolidate/index'
 import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
@@ -664,6 +665,12 @@ const ApiToolsMarketplaceIndexRoute =
   ApiToolsMarketplaceIndexRouteImport.update({
     id: '/api/tools/marketplace/',
     path: '/api/tools/marketplace/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiSystemDocsTenantIdIndexRoute =
+  ApiSystemDocsTenantIdIndexRouteImport.update({
+    id: '/api/system-docs/$tenantId/',
+    path: '/api/system-docs/$tenantId/',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiIntelligenceLearnIndexRoute =
@@ -2280,6 +2287,7 @@ export interface FileRoutesByFullPath {
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
+  '/api/system-docs/$tenantId/': typeof ApiSystemDocsTenantIdIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
   '/api/tools/policies/': typeof ApiToolsPoliciesIndexRoute
   '/api/workspaces/$tenantId/': typeof ApiWorkspacesTenantIdIndexRoute
@@ -2593,6 +2601,7 @@ export interface FileRoutesByTo {
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn': typeof ApiIntelligenceLearnIndexRoute
+  '/api/system-docs/$tenantId': typeof ApiSystemDocsTenantIdIndexRoute
   '/api/tools/marketplace': typeof ApiToolsMarketplaceIndexRoute
   '/api/tools/policies': typeof ApiToolsPoliciesIndexRoute
   '/api/workspaces/$tenantId': typeof ApiWorkspacesTenantIdIndexRoute
@@ -2907,6 +2916,7 @@ export interface FileRoutesById {
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
   '/api/intelligence/consolidate/': typeof ApiIntelligenceConsolidateIndexRoute
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
+  '/api/system-docs/$tenantId/': typeof ApiSystemDocsTenantIdIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
   '/api/tools/policies/': typeof ApiToolsPoliciesIndexRoute
   '/api/workspaces/$tenantId/': typeof ApiWorkspacesTenantIdIndexRoute
@@ -3222,6 +3232,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
+    | '/api/system-docs/$tenantId/'
     | '/api/tools/marketplace/'
     | '/api/tools/policies/'
     | '/api/workspaces/$tenantId/'
@@ -3535,6 +3546,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry'
     | '/api/intelligence/consolidate'
     | '/api/intelligence/learn'
+    | '/api/system-docs/$tenantId'
     | '/api/tools/marketplace'
     | '/api/tools/policies'
     | '/api/workspaces/$tenantId'
@@ -3848,6 +3860,7 @@ export interface FileRouteTypes {
     | '/api/infrastructure/registry/'
     | '/api/intelligence/consolidate/'
     | '/api/intelligence/learn/'
+    | '/api/system-docs/$tenantId/'
     | '/api/tools/marketplace/'
     | '/api/tools/policies/'
     | '/api/workspaces/$tenantId/'
@@ -4158,6 +4171,7 @@ export interface RootRouteChildren {
   ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
   ApiIntelligenceConsolidateIndexRoute: typeof ApiIntelligenceConsolidateIndexRoute
   ApiIntelligenceLearnIndexRoute: typeof ApiIntelligenceLearnIndexRoute
+  ApiSystemDocsTenantIdIndexRoute: typeof ApiSystemDocsTenantIdIndexRoute
   ApiToolsMarketplaceIndexRoute: typeof ApiToolsMarketplaceIndexRoute
   ApiToolsPoliciesIndexRoute: typeof ApiToolsPoliciesIndexRoute
   ApiWorkspacesTenantIdIndexRoute: typeof ApiWorkspacesTenantIdIndexRoute
@@ -4691,6 +4705,13 @@ declare module '@tanstack/react-router' {
       path: '/api/tools/marketplace'
       fullPath: '/api/tools/marketplace/'
       preLoaderRoute: typeof ApiToolsMarketplaceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/system-docs/$tenantId/': {
+      id: '/api/system-docs/$tenantId/'
+      path: '/api/system-docs/$tenantId'
+      fullPath: '/api/system-docs/$tenantId/'
+      preLoaderRoute: typeof ApiSystemDocsTenantIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/intelligence/learn/': {
@@ -7052,6 +7073,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,
   ApiIntelligenceConsolidateIndexRoute: ApiIntelligenceConsolidateIndexRoute,
   ApiIntelligenceLearnIndexRoute: ApiIntelligenceLearnIndexRoute,
+  ApiSystemDocsTenantIdIndexRoute: ApiSystemDocsTenantIdIndexRoute,
   ApiToolsMarketplaceIndexRoute: ApiToolsMarketplaceIndexRoute,
   ApiToolsPoliciesIndexRoute: ApiToolsPoliciesIndexRoute,
   ApiWorkspacesTenantIdIndexRoute: ApiWorkspacesTenantIdIndexRoute,
