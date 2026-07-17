@@ -91,6 +91,10 @@ import { Route as ApiDataSharedPromoteRouteImport } from './routes/api/data/shar
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
 import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
+import { Route as ApiAnalyticsRetrievalOverviewRouteImport } from './routes/api/analytics/retrieval/overview'
+import { Route as ApiAnalyticsRetrievalHealthCheckRouteImport } from './routes/api/analytics/retrieval/health-check'
+import { Route as ApiAnalyticsRetrievalExpensiveQueriesRouteImport } from './routes/api/analytics/retrieval/expensive-queries'
+import { Route as ApiAnalyticsRetrievalEvaluateRouteImport } from './routes/api/analytics/retrieval/evaluate'
 import { Route as ApiToolsVersioningToolNameVersionsRouteImport } from './routes/api/tools/versioning/$toolName/versions'
 import { Route as ApiToolsVersioningToolNameRollbackRouteImport } from './routes/api/tools/versioning/$toolName/rollback'
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
@@ -581,6 +585,30 @@ const ApiAnalyticsToolsOverviewRoute =
     path: '/api/analytics/tools/overview',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiAnalyticsRetrievalOverviewRoute =
+  ApiAnalyticsRetrievalOverviewRouteImport.update({
+    id: '/api/analytics/retrieval/overview',
+    path: '/api/analytics/retrieval/overview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiAnalyticsRetrievalHealthCheckRoute =
+  ApiAnalyticsRetrievalHealthCheckRouteImport.update({
+    id: '/api/analytics/retrieval/health-check',
+    path: '/api/analytics/retrieval/health-check',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiAnalyticsRetrievalExpensiveQueriesRoute =
+  ApiAnalyticsRetrievalExpensiveQueriesRouteImport.update({
+    id: '/api/analytics/retrieval/expensive-queries',
+    path: '/api/analytics/retrieval/expensive-queries',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiAnalyticsRetrievalEvaluateRoute =
+  ApiAnalyticsRetrievalEvaluateRouteImport.update({
+    id: '/api/analytics/retrieval/evaluate',
+    path: '/api/analytics/retrieval/evaluate',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiToolsVersioningToolNameVersionsRoute =
   ApiToolsVersioningToolNameVersionsRouteImport.update({
     id: '/api/tools/versioning/$toolName/versions',
@@ -814,6 +842,10 @@ export interface FileRoutesByFullPath {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
+  '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
+  '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
+  '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
@@ -932,6 +964,10 @@ export interface FileRoutesByTo {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
+  '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
+  '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
+  '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
@@ -1051,6 +1087,10 @@ export interface FileRoutesById {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
+  '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
+  '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
+  '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
@@ -1171,6 +1211,10 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/analytics/retrieval/evaluate'
+    | '/api/analytics/retrieval/expensive-queries'
+    | '/api/analytics/retrieval/health-check'
+    | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
@@ -1289,6 +1333,10 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/analytics/retrieval/evaluate'
+    | '/api/analytics/retrieval/expensive-queries'
+    | '/api/analytics/retrieval/health-check'
+    | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
@@ -1407,6 +1455,10 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/analytics/retrieval/evaluate'
+    | '/api/analytics/retrieval/expensive-queries'
+    | '/api/analytics/retrieval/health-check'
+    | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
@@ -1526,6 +1578,10 @@ export interface RootRouteChildren {
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
+  ApiAnalyticsRetrievalEvaluateRoute: typeof ApiAnalyticsRetrievalEvaluateRoute
+  ApiAnalyticsRetrievalExpensiveQueriesRoute: typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
+  ApiAnalyticsRetrievalHealthCheckRoute: typeof ApiAnalyticsRetrievalHealthCheckRoute
+  ApiAnalyticsRetrievalOverviewRoute: typeof ApiAnalyticsRetrievalOverviewRoute
   ApiAnalyticsToolsOverviewRoute: typeof ApiAnalyticsToolsOverviewRoute
   ApiCollaborationSessionIdBlackboardRoute: typeof ApiCollaborationSessionIdBlackboardRoute
   ApiCollaborationSessionIdProposalRoute: typeof ApiCollaborationSessionIdProposalRoute
@@ -2189,6 +2245,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAnalyticsToolsOverviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/analytics/retrieval/overview': {
+      id: '/api/analytics/retrieval/overview'
+      path: '/api/analytics/retrieval/overview'
+      fullPath: '/api/analytics/retrieval/overview'
+      preLoaderRoute: typeof ApiAnalyticsRetrievalOverviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/analytics/retrieval/health-check': {
+      id: '/api/analytics/retrieval/health-check'
+      path: '/api/analytics/retrieval/health-check'
+      fullPath: '/api/analytics/retrieval/health-check'
+      preLoaderRoute: typeof ApiAnalyticsRetrievalHealthCheckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/analytics/retrieval/expensive-queries': {
+      id: '/api/analytics/retrieval/expensive-queries'
+      path: '/api/analytics/retrieval/expensive-queries'
+      fullPath: '/api/analytics/retrieval/expensive-queries'
+      preLoaderRoute: typeof ApiAnalyticsRetrievalExpensiveQueriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/analytics/retrieval/evaluate': {
+      id: '/api/analytics/retrieval/evaluate'
+      path: '/api/analytics/retrieval/evaluate'
+      fullPath: '/api/analytics/retrieval/evaluate'
+      preLoaderRoute: typeof ApiAnalyticsRetrievalEvaluateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/tools/versioning/$toolName/versions': {
       id: '/api/tools/versioning/$toolName/versions'
       path: '/api/tools/versioning/$toolName/versions'
@@ -2507,6 +2591,11 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
+  ApiAnalyticsRetrievalEvaluateRoute: ApiAnalyticsRetrievalEvaluateRoute,
+  ApiAnalyticsRetrievalExpensiveQueriesRoute:
+    ApiAnalyticsRetrievalExpensiveQueriesRoute,
+  ApiAnalyticsRetrievalHealthCheckRoute: ApiAnalyticsRetrievalHealthCheckRoute,
+  ApiAnalyticsRetrievalOverviewRoute: ApiAnalyticsRetrievalOverviewRoute,
   ApiAnalyticsToolsOverviewRoute: ApiAnalyticsToolsOverviewRoute,
   ApiCollaborationSessionIdBlackboardRoute:
     ApiCollaborationSessionIdBlackboardRoute,
