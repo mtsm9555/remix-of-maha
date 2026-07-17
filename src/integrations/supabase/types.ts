@@ -1086,6 +1086,275 @@ export type Database = {
           },
         ]
       }
+      audit_alerts: {
+        Row: {
+          acknowledged_at: string | null
+          acknowledged_by: string | null
+          alert_type: string
+          created_at: string
+          description: string
+          event_count: number
+          id: string
+          metadata: Json | null
+          related_event_ids: string[]
+          resolved_at: string | null
+          resolved_by: string | null
+          severity: string
+          status: string
+          tenant_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          alert_type: string
+          created_at?: string
+          description: string
+          event_count?: number
+          id: string
+          metadata?: Json | null
+          related_event_ids?: string[]
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity: string
+          status: string
+          tenant_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          alert_type?: string
+          created_at?: string
+          description?: string
+          event_count?: number
+          id?: string
+          metadata?: Json | null
+          related_event_ids?: string[]
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity?: string
+          status?: string
+          tenant_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_alerts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      audit_exports: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          downloaded_at: string | null
+          downloaded_by: string | null
+          error_message: string | null
+          event_count: number | null
+          expires_at: string
+          file_content: string | null
+          file_size_bytes: number | null
+          file_url: string | null
+          format: string
+          id: string
+          progress: number
+          query: Json
+          status: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          downloaded_at?: string | null
+          downloaded_by?: string | null
+          error_message?: string | null
+          event_count?: number | null
+          expires_at: string
+          file_content?: string | null
+          file_size_bytes?: number | null
+          file_url?: string | null
+          format: string
+          id: string
+          progress?: number
+          query: Json
+          status: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          downloaded_at?: string | null
+          downloaded_by?: string | null
+          error_message?: string | null
+          event_count?: number | null
+          expires_at?: string
+          file_content?: string | null
+          file_size_bytes?: number | null
+          file_url?: string | null
+          format?: string
+          id?: string
+          progress?: number
+          query?: Json
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_exports_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      audit_logs: {
+        Row: {
+          actor_email: string | null
+          actor_id: string
+          actor_name: string | null
+          actor_type: string
+          correlation_id: string | null
+          created_at: string
+          details: Json
+          error_message: string | null
+          event_type: string
+          id: string
+          ip_address: string
+          metadata: Json | null
+          session_id: string | null
+          severity: string
+          success: boolean
+          target_id: string | null
+          target_name: string | null
+          target_type: string | null
+          tenant_id: string
+          timestamp: string
+          user_agent: string
+          workspace_id: string | null
+        }
+        Insert: {
+          actor_email?: string | null
+          actor_id: string
+          actor_name?: string | null
+          actor_type: string
+          correlation_id?: string | null
+          created_at?: string
+          details?: Json
+          error_message?: string | null
+          event_type: string
+          id: string
+          ip_address: string
+          metadata?: Json | null
+          session_id?: string | null
+          severity: string
+          success: boolean
+          target_id?: string | null
+          target_name?: string | null
+          target_type?: string | null
+          tenant_id: string
+          timestamp: string
+          user_agent: string
+          workspace_id?: string | null
+        }
+        Update: {
+          actor_email?: string | null
+          actor_id?: string
+          actor_name?: string | null
+          actor_type?: string
+          correlation_id?: string | null
+          created_at?: string
+          details?: Json
+          error_message?: string | null
+          event_type?: string
+          id?: string
+          ip_address?: string
+          metadata?: Json | null
+          session_id?: string | null
+          severity?: string
+          success?: boolean
+          target_id?: string | null
+          target_name?: string | null
+          target_type?: string | null
+          tenant_id?: string
+          timestamp?: string
+          user_agent?: string
+          workspace_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      audit_retention: {
+        Row: {
+          archive_after_days: number
+          archived_storage_bytes: number
+          created_at: string
+          last_cleanup_at: string | null
+          newest_event_date: string | null
+          next_cleanup_at: string | null
+          oldest_event_date: string | null
+          retention_days: number
+          storage_used_bytes: number
+          tenant_id: string
+          total_events: number
+          updated_at: string
+        }
+        Insert: {
+          archive_after_days?: number
+          archived_storage_bytes?: number
+          created_at?: string
+          last_cleanup_at?: string | null
+          newest_event_date?: string | null
+          next_cleanup_at?: string | null
+          oldest_event_date?: string | null
+          retention_days?: number
+          storage_used_bytes?: number
+          tenant_id: string
+          total_events?: number
+          updated_at?: string
+        }
+        Update: {
+          archive_after_days?: number
+          archived_storage_bytes?: number
+          created_at?: string
+          last_cleanup_at?: string | null
+          newest_event_date?: string | null
+          next_cleanup_at?: string | null
+          oldest_event_date?: string | null
+          retention_days?: number
+          storage_used_bytes?: number
+          tenant_id?: string
+          total_events?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_retention_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: true
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       backup_jobs: {
         Row: {
           backup_id: string
