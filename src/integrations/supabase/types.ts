@@ -1937,6 +1937,69 @@ export type Database = {
           },
         ]
       }
+      artifacts: {
+        Row: {
+          checksum: string
+          created_at: string | null
+          downloaded_at: string | null
+          downloaded_by: string | null
+          expires_at: string | null
+          id: string
+          mime_type: string
+          name: string
+          path: string
+          run_id: string
+          size_bytes: number
+          storage_url: string
+          tenant_id: string
+        }
+        Insert: {
+          checksum: string
+          created_at?: string | null
+          downloaded_at?: string | null
+          downloaded_by?: string | null
+          expires_at?: string | null
+          id: string
+          mime_type: string
+          name: string
+          path: string
+          run_id: string
+          size_bytes: number
+          storage_url: string
+          tenant_id: string
+        }
+        Update: {
+          checksum?: string
+          created_at?: string | null
+          downloaded_at?: string | null
+          downloaded_by?: string | null
+          expires_at?: string | null
+          id?: string
+          mime_type?: string
+          name?: string
+          path?: string
+          run_id?: string
+          size_bytes?: number
+          storage_url?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "artifacts_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "pipeline_runs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "artifacts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       attack_chains: {
         Row: {
           attack_vector: string | null
@@ -4973,6 +5036,91 @@ export type Database = {
           },
         ]
       }
+      deployments: {
+        Row: {
+          approved_by: string | null
+          commit_hash: string | null
+          completed_at: string | null
+          created_at: string | null
+          deployed_by: string
+          duration_seconds: number | null
+          environment_id: string
+          health_check_passed: boolean | null
+          health_check_url: string | null
+          id: string
+          previous_deployment_id: string | null
+          rollback_reason: string | null
+          run_id: string
+          started_at: string
+          status: string
+          strategy: string
+          tenant_id: string
+          version: string
+        }
+        Insert: {
+          approved_by?: string | null
+          commit_hash?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          deployed_by: string
+          duration_seconds?: number | null
+          environment_id: string
+          health_check_passed?: boolean | null
+          health_check_url?: string | null
+          id: string
+          previous_deployment_id?: string | null
+          rollback_reason?: string | null
+          run_id: string
+          started_at: string
+          status: string
+          strategy: string
+          tenant_id: string
+          version: string
+        }
+        Update: {
+          approved_by?: string | null
+          commit_hash?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          deployed_by?: string
+          duration_seconds?: number | null
+          environment_id?: string
+          health_check_passed?: boolean | null
+          health_check_url?: string | null
+          id?: string
+          previous_deployment_id?: string | null
+          rollback_reason?: string | null
+          run_id?: string
+          started_at?: string
+          status?: string
+          strategy?: string
+          tenant_id?: string
+          version?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "deployments_environment_id_fkey"
+            columns: ["environment_id"]
+            isOneToOne: false
+            referencedRelation: "environments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "deployments_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "pipeline_runs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "deployments_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       doc_activities: {
         Row: {
           activity_type: string
@@ -6047,6 +6195,71 @@ export type Database = {
           type?: string
         }
         Relationships: []
+      }
+      environments: {
+        Row: {
+          allowed_branches: string[] | null
+          approvers: string[] | null
+          auto_deploy_on_success: boolean | null
+          created_at: string | null
+          deployment_strategy: string
+          description: string | null
+          id: string
+          is_protected: boolean | null
+          name: string
+          require_approval: boolean | null
+          secrets: string[] | null
+          tenant_id: string
+          type: string
+          updated_at: string | null
+          url: string | null
+          variables: Json | null
+        }
+        Insert: {
+          allowed_branches?: string[] | null
+          approvers?: string[] | null
+          auto_deploy_on_success?: boolean | null
+          created_at?: string | null
+          deployment_strategy?: string
+          description?: string | null
+          id: string
+          is_protected?: boolean | null
+          name: string
+          require_approval?: boolean | null
+          secrets?: string[] | null
+          tenant_id: string
+          type: string
+          updated_at?: string | null
+          url?: string | null
+          variables?: Json | null
+        }
+        Update: {
+          allowed_branches?: string[] | null
+          approvers?: string[] | null
+          auto_deploy_on_success?: boolean | null
+          created_at?: string | null
+          deployment_strategy?: string
+          description?: string | null
+          id?: string
+          is_protected?: boolean | null
+          name?: string
+          require_approval?: boolean | null
+          secrets?: string[] | null
+          tenant_id?: string
+          type?: string
+          updated_at?: string | null
+          url?: string | null
+          variables?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "environments_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       executive_briefings: {
         Row: {
@@ -9486,6 +9699,158 @@ export type Database = {
           },
           {
             foreignKeyName: "organization_teams_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pipeline_runs: {
+        Row: {
+          artifacts: Json | null
+          branch: string | null
+          commit_hash: string | null
+          commit_message: string | null
+          completed_at: string | null
+          created_at: string | null
+          duration_seconds: number | null
+          environment: string | null
+          id: string
+          pipeline_id: string
+          stages: Json | null
+          started_at: string
+          status: string
+          tag: string | null
+          tenant_id: string
+          trigger_type: string
+          triggered_by: string
+          variables: Json | null
+        }
+        Insert: {
+          artifacts?: Json | null
+          branch?: string | null
+          commit_hash?: string | null
+          commit_message?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          duration_seconds?: number | null
+          environment?: string | null
+          id: string
+          pipeline_id: string
+          stages?: Json | null
+          started_at: string
+          status: string
+          tag?: string | null
+          tenant_id: string
+          trigger_type: string
+          triggered_by: string
+          variables?: Json | null
+        }
+        Update: {
+          artifacts?: Json | null
+          branch?: string | null
+          commit_hash?: string | null
+          commit_message?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          duration_seconds?: number | null
+          environment?: string | null
+          id?: string
+          pipeline_id?: string
+          stages?: Json | null
+          started_at?: string
+          status?: string
+          tag?: string | null
+          tenant_id?: string
+          trigger_type?: string
+          triggered_by?: string
+          variables?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pipeline_runs_pipeline_id_fkey"
+            columns: ["pipeline_id"]
+            isOneToOne: false
+            referencedRelation: "pipelines"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pipeline_runs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pipelines: {
+        Row: {
+          auto_cancel_on_new_push: boolean | null
+          branch: string
+          concurrency_limit: number | null
+          created_at: string | null
+          created_by: string
+          definition: Json
+          description: string | null
+          id: string
+          last_run_at: string | null
+          last_run_status: string | null
+          name: string
+          repository_url: string
+          run_count: number | null
+          secrets: string[] | null
+          tenant_id: string
+          timeout_minutes: number | null
+          triggers: Json | null
+          updated_at: string | null
+          variables: Json | null
+        }
+        Insert: {
+          auto_cancel_on_new_push?: boolean | null
+          branch?: string
+          concurrency_limit?: number | null
+          created_at?: string | null
+          created_by: string
+          definition: Json
+          description?: string | null
+          id: string
+          last_run_at?: string | null
+          last_run_status?: string | null
+          name: string
+          repository_url: string
+          run_count?: number | null
+          secrets?: string[] | null
+          tenant_id: string
+          timeout_minutes?: number | null
+          triggers?: Json | null
+          updated_at?: string | null
+          variables?: Json | null
+        }
+        Update: {
+          auto_cancel_on_new_push?: boolean | null
+          branch?: string
+          concurrency_limit?: number | null
+          created_at?: string | null
+          created_by?: string
+          definition?: Json
+          description?: string | null
+          id?: string
+          last_run_at?: string | null
+          last_run_status?: string | null
+          name?: string
+          repository_url?: string
+          run_count?: number | null
+          secrets?: string[] | null
+          tenant_id?: string
+          timeout_minutes?: number | null
+          triggers?: Json | null
+          updated_at?: string | null
+          variables?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pipelines_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -13416,6 +13781,53 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "vault_audit_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      webhook_configs: {
+        Row: {
+          created_at: string | null
+          events: string[] | null
+          id: string
+          is_active: boolean | null
+          last_triggered_at: string | null
+          provider: string
+          repository_url: string
+          secret: string
+          tenant_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          events?: string[] | null
+          id: string
+          is_active?: boolean | null
+          last_triggered_at?: string | null
+          provider: string
+          repository_url: string
+          secret: string
+          tenant_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          events?: string[] | null
+          id?: string
+          is_active?: boolean | null
+          last_triggered_at?: string | null
+          provider?: string
+          repository_url?: string
+          secret?: string
+          tenant_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "webhook_configs_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"

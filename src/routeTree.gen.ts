@@ -198,6 +198,10 @@ import { Route as ApiComplianceTenantIdControlsRouteImport } from './routes/api/
 import { Route as ApiComplianceTenantIdConsentRouteImport } from './routes/api/compliance/$tenantId/consent'
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
+import { Route as ApiCicdTenantIdRunsRouteImport } from './routes/api/cicd/$tenantId/runs'
+import { Route as ApiCicdTenantIdPipelinesRouteImport } from './routes/api/cicd/$tenantId/pipelines'
+import { Route as ApiCicdTenantIdEnvironmentsRouteImport } from './routes/api/cicd/$tenantId/environments'
+import { Route as ApiCicdTenantIdDeploymentsRouteImport } from './routes/api/cicd/$tenantId/deployments'
 import { Route as ApiBillingTenantIdUsageRouteImport } from './routes/api/billing/$tenantId/usage'
 import { Route as ApiBillingTenantIdSubscriptionRouteImport } from './routes/api/billing/$tenantId/subscription'
 import { Route as ApiBillingTenantIdSubscribeRouteImport } from './routes/api/billing/$tenantId/subscribe'
@@ -316,6 +320,7 @@ import { Route as ApiTestingTenantIdSuitesSuiteIdRunRouteImport } from './routes
 import { Route as ApiTestingTenantIdRunsRunIdReportRouteImport } from './routes/api/testing/$tenantId/runs.$runId.report'
 import { Route as ApiTestingTenantIdReportsReportIdExportRouteImport } from './routes/api/testing/$tenantId/reports.$reportId.export'
 import { Route as ApiTestingTenantIdDatasetsDatasetIdEvaluateRouteImport } from './routes/api/testing/$tenantId/datasets.$datasetId.evaluate'
+import { Route as ApiPublicCicdWebhooksGithubTenantIdRouteImport } from './routes/api/public/cicd/webhooks/github.$tenantId'
 import { Route as ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport } from './routes/api/infrastructure/budget/topups/$requestId.approve'
 import { Route as ApiEncryptionTenantIdKeysKeyIdRotateRouteImport } from './routes/api/encryption/$tenantId/keys.$keyId.rotate'
 import { Route as ApiEncryptionTenantIdKeysKeyIdRevokeRouteImport } from './routes/api/encryption/$tenantId/keys.$keyId.revoke'
@@ -323,6 +328,7 @@ import { Route as ApiDataVersionsHistoryEntityTypeEntityIdRouteImport } from './
 import { Route as ApiDataVersionsCurrentEntityTypeEntityIdRouteImport } from './routes/api/data/versions/current/$entityType/$entityId'
 import { Route as ApiDataSharedPromotionsPromotionIdRejectRouteImport } from './routes/api/data/shared/promotions/$promotionId/reject'
 import { Route as ApiDataSharedPromotionsPromotionIdApproveRouteImport } from './routes/api/data/shared/promotions/$promotionId/approve'
+import { Route as ApiCicdTenantIdPipelinesPipelineIdRunRouteImport } from './routes/api/cicd/$tenantId/pipelines.$pipelineId.run'
 import { Route as ApiBillingOpsTenantIdInvoicesInvoiceIdPayRouteImport } from './routes/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
 import { Route as ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRouteImport } from './routes/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
 import { Route as ApiAuditTenantIdUsersUserIdActivityRouteImport } from './routes/api/audit/$tenantId.users.$userId.activity'
@@ -1365,6 +1371,29 @@ const ApiCollaborationSessionIdBlackboardRoute =
     path: '/api/collaboration/$sessionId/blackboard',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiCicdTenantIdRunsRoute = ApiCicdTenantIdRunsRouteImport.update({
+  id: '/api/cicd/$tenantId/runs',
+  path: '/api/cicd/$tenantId/runs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCicdTenantIdPipelinesRoute =
+  ApiCicdTenantIdPipelinesRouteImport.update({
+    id: '/api/cicd/$tenantId/pipelines',
+    path: '/api/cicd/$tenantId/pipelines',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiCicdTenantIdEnvironmentsRoute =
+  ApiCicdTenantIdEnvironmentsRouteImport.update({
+    id: '/api/cicd/$tenantId/environments',
+    path: '/api/cicd/$tenantId/environments',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiCicdTenantIdDeploymentsRoute =
+  ApiCicdTenantIdDeploymentsRouteImport.update({
+    id: '/api/cicd/$tenantId/deployments',
+    path: '/api/cicd/$tenantId/deployments',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiBillingTenantIdUsageRoute = ApiBillingTenantIdUsageRouteImport.update({
   id: '/api/billing/$tenantId/usage',
   path: '/api/billing/$tenantId/usage',
@@ -2062,6 +2091,12 @@ const ApiTestingTenantIdDatasetsDatasetIdEvaluateRoute =
     path: '/$datasetId/evaluate',
     getParentRoute: () => ApiTestingTenantIdDatasetsRoute,
   } as any)
+const ApiPublicCicdWebhooksGithubTenantIdRoute =
+  ApiPublicCicdWebhooksGithubTenantIdRouteImport.update({
+    id: '/api/public/cicd/webhooks/github/$tenantId',
+    path: '/api/public/cicd/webhooks/github/$tenantId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiInfrastructureBudgetTopupsRequestIdApproveRoute =
   ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport.update({
     id: '/api/infrastructure/budget/topups/$requestId/approve',
@@ -2103,6 +2138,12 @@ const ApiDataSharedPromotionsPromotionIdApproveRoute =
     id: '/api/data/shared/promotions/$promotionId/approve',
     path: '/api/data/shared/promotions/$promotionId/approve',
     getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiCicdTenantIdPipelinesPipelineIdRunRoute =
+  ApiCicdTenantIdPipelinesPipelineIdRunRouteImport.update({
+    id: '/$pipelineId/run',
+    path: '/$pipelineId/run',
+    getParentRoute: () => ApiCicdTenantIdPipelinesRoute,
   } as any)
 const ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute =
   ApiBillingOpsTenantIdInvoicesInvoiceIdPayRouteImport.update({
@@ -2269,6 +2310,10 @@ export interface FileRoutesByFullPath {
   '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
+  '/api/cicd/$tenantId/deployments': typeof ApiCicdTenantIdDeploymentsRoute
+  '/api/cicd/$tenantId/environments': typeof ApiCicdTenantIdEnvironmentsRoute
+  '/api/cicd/$tenantId/pipelines': typeof ApiCicdTenantIdPipelinesRouteWithChildren
+  '/api/cicd/$tenantId/runs': typeof ApiCicdTenantIdRunsRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/compliance/$tenantId/consent': typeof ApiComplianceTenantIdConsentRoute
@@ -2488,6 +2533,7 @@ export interface FileRoutesByFullPath {
   '/api/audit/$tenantId/users/$userId/activity': typeof ApiAuditTenantIdUsersUserIdActivityRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
+  '/api/cicd/$tenantId/pipelines/$pipelineId/run': typeof ApiCicdTenantIdPipelinesPipelineIdRunRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
@@ -2495,6 +2541,7 @@ export interface FileRoutesByFullPath {
   '/api/encryption/$tenantId/keys/$keyId/revoke': typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
   '/api/encryption/$tenantId/keys/$keyId/rotate': typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  '/api/public/cicd/webhooks/github/$tenantId': typeof ApiPublicCicdWebhooksGithubTenantIdRoute
   '/api/testing/$tenantId/datasets/$datasetId/evaluate': typeof ApiTestingTenantIdDatasetsDatasetIdEvaluateRoute
   '/api/testing/$tenantId/reports/$reportId/export': typeof ApiTestingTenantIdReportsReportIdExportRoute
   '/api/testing/$tenantId/runs/$runId/report': typeof ApiTestingTenantIdRunsRunIdReportRoute
@@ -2597,6 +2644,10 @@ export interface FileRoutesByTo {
   '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
+  '/api/cicd/$tenantId/deployments': typeof ApiCicdTenantIdDeploymentsRoute
+  '/api/cicd/$tenantId/environments': typeof ApiCicdTenantIdEnvironmentsRoute
+  '/api/cicd/$tenantId/pipelines': typeof ApiCicdTenantIdPipelinesRouteWithChildren
+  '/api/cicd/$tenantId/runs': typeof ApiCicdTenantIdRunsRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/compliance/$tenantId/consent': typeof ApiComplianceTenantIdConsentRoute
@@ -2816,6 +2867,7 @@ export interface FileRoutesByTo {
   '/api/audit/$tenantId/users/$userId/activity': typeof ApiAuditTenantIdUsersUserIdActivityRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
+  '/api/cicd/$tenantId/pipelines/$pipelineId/run': typeof ApiCicdTenantIdPipelinesPipelineIdRunRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
@@ -2823,6 +2875,7 @@ export interface FileRoutesByTo {
   '/api/encryption/$tenantId/keys/$keyId/revoke': typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
   '/api/encryption/$tenantId/keys/$keyId/rotate': typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  '/api/public/cicd/webhooks/github/$tenantId': typeof ApiPublicCicdWebhooksGithubTenantIdRoute
   '/api/testing/$tenantId/datasets/$datasetId/evaluate': typeof ApiTestingTenantIdDatasetsDatasetIdEvaluateRoute
   '/api/testing/$tenantId/reports/$reportId/export': typeof ApiTestingTenantIdReportsReportIdExportRoute
   '/api/testing/$tenantId/runs/$runId/report': typeof ApiTestingTenantIdRunsRunIdReportRoute
@@ -2926,6 +2979,10 @@ export interface FileRoutesById {
   '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
+  '/api/cicd/$tenantId/deployments': typeof ApiCicdTenantIdDeploymentsRoute
+  '/api/cicd/$tenantId/environments': typeof ApiCicdTenantIdEnvironmentsRoute
+  '/api/cicd/$tenantId/pipelines': typeof ApiCicdTenantIdPipelinesRouteWithChildren
+  '/api/cicd/$tenantId/runs': typeof ApiCicdTenantIdRunsRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/compliance/$tenantId/consent': typeof ApiComplianceTenantIdConsentRoute
@@ -3145,6 +3202,7 @@ export interface FileRoutesById {
   '/api/audit/$tenantId/users/$userId/activity': typeof ApiAuditTenantIdUsersUserIdActivityRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
+  '/api/cicd/$tenantId/pipelines/$pipelineId/run': typeof ApiCicdTenantIdPipelinesPipelineIdRunRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
@@ -3152,6 +3210,7 @@ export interface FileRoutesById {
   '/api/encryption/$tenantId/keys/$keyId/revoke': typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
   '/api/encryption/$tenantId/keys/$keyId/rotate': typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  '/api/public/cicd/webhooks/github/$tenantId': typeof ApiPublicCicdWebhooksGithubTenantIdRoute
   '/api/testing/$tenantId/datasets/$datasetId/evaluate': typeof ApiTestingTenantIdDatasetsDatasetIdEvaluateRoute
   '/api/testing/$tenantId/reports/$reportId/export': typeof ApiTestingTenantIdReportsReportIdExportRoute
   '/api/testing/$tenantId/runs/$runId/report': typeof ApiTestingTenantIdRunsRunIdReportRoute
@@ -3256,6 +3315,10 @@ export interface FileRouteTypes {
     | '/api/billing/$tenantId/subscribe'
     | '/api/billing/$tenantId/subscription'
     | '/api/billing/$tenantId/usage'
+    | '/api/cicd/$tenantId/deployments'
+    | '/api/cicd/$tenantId/environments'
+    | '/api/cicd/$tenantId/pipelines'
+    | '/api/cicd/$tenantId/runs'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/compliance/$tenantId/consent'
@@ -3475,6 +3538,7 @@ export interface FileRouteTypes {
     | '/api/audit/$tenantId/users/$userId/activity'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
+    | '/api/cicd/$tenantId/pipelines/$pipelineId/run'
     | '/api/data/shared/promotions/$promotionId/approve'
     | '/api/data/shared/promotions/$promotionId/reject'
     | '/api/data/versions/current/$entityType/$entityId'
@@ -3482,6 +3546,7 @@ export interface FileRouteTypes {
     | '/api/encryption/$tenantId/keys/$keyId/revoke'
     | '/api/encryption/$tenantId/keys/$keyId/rotate'
     | '/api/infrastructure/budget/topups/$requestId/approve'
+    | '/api/public/cicd/webhooks/github/$tenantId'
     | '/api/testing/$tenantId/datasets/$datasetId/evaluate'
     | '/api/testing/$tenantId/reports/$reportId/export'
     | '/api/testing/$tenantId/runs/$runId/report'
@@ -3584,6 +3649,10 @@ export interface FileRouteTypes {
     | '/api/billing/$tenantId/subscribe'
     | '/api/billing/$tenantId/subscription'
     | '/api/billing/$tenantId/usage'
+    | '/api/cicd/$tenantId/deployments'
+    | '/api/cicd/$tenantId/environments'
+    | '/api/cicd/$tenantId/pipelines'
+    | '/api/cicd/$tenantId/runs'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/compliance/$tenantId/consent'
@@ -3803,6 +3872,7 @@ export interface FileRouteTypes {
     | '/api/audit/$tenantId/users/$userId/activity'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
+    | '/api/cicd/$tenantId/pipelines/$pipelineId/run'
     | '/api/data/shared/promotions/$promotionId/approve'
     | '/api/data/shared/promotions/$promotionId/reject'
     | '/api/data/versions/current/$entityType/$entityId'
@@ -3810,6 +3880,7 @@ export interface FileRouteTypes {
     | '/api/encryption/$tenantId/keys/$keyId/revoke'
     | '/api/encryption/$tenantId/keys/$keyId/rotate'
     | '/api/infrastructure/budget/topups/$requestId/approve'
+    | '/api/public/cicd/webhooks/github/$tenantId'
     | '/api/testing/$tenantId/datasets/$datasetId/evaluate'
     | '/api/testing/$tenantId/reports/$reportId/export'
     | '/api/testing/$tenantId/runs/$runId/report'
@@ -3912,6 +3983,10 @@ export interface FileRouteTypes {
     | '/api/billing/$tenantId/subscribe'
     | '/api/billing/$tenantId/subscription'
     | '/api/billing/$tenantId/usage'
+    | '/api/cicd/$tenantId/deployments'
+    | '/api/cicd/$tenantId/environments'
+    | '/api/cicd/$tenantId/pipelines'
+    | '/api/cicd/$tenantId/runs'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/compliance/$tenantId/consent'
@@ -4131,6 +4206,7 @@ export interface FileRouteTypes {
     | '/api/audit/$tenantId/users/$userId/activity'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
+    | '/api/cicd/$tenantId/pipelines/$pipelineId/run'
     | '/api/data/shared/promotions/$promotionId/approve'
     | '/api/data/shared/promotions/$promotionId/reject'
     | '/api/data/versions/current/$entityType/$entityId'
@@ -4138,6 +4214,7 @@ export interface FileRouteTypes {
     | '/api/encryption/$tenantId/keys/$keyId/revoke'
     | '/api/encryption/$tenantId/keys/$keyId/rotate'
     | '/api/infrastructure/budget/topups/$requestId/approve'
+    | '/api/public/cicd/webhooks/github/$tenantId'
     | '/api/testing/$tenantId/datasets/$datasetId/evaluate'
     | '/api/testing/$tenantId/reports/$reportId/export'
     | '/api/testing/$tenantId/runs/$runId/report'
@@ -4241,6 +4318,10 @@ export interface RootRouteChildren {
   ApiBillingTenantIdSubscribeRoute: typeof ApiBillingTenantIdSubscribeRoute
   ApiBillingTenantIdSubscriptionRoute: typeof ApiBillingTenantIdSubscriptionRoute
   ApiBillingTenantIdUsageRoute: typeof ApiBillingTenantIdUsageRoute
+  ApiCicdTenantIdDeploymentsRoute: typeof ApiCicdTenantIdDeploymentsRoute
+  ApiCicdTenantIdEnvironmentsRoute: typeof ApiCicdTenantIdEnvironmentsRoute
+  ApiCicdTenantIdPipelinesRoute: typeof ApiCicdTenantIdPipelinesRouteWithChildren
+  ApiCicdTenantIdRunsRoute: typeof ApiCicdTenantIdRunsRoute
   ApiCollaborationSessionIdBlackboardRoute: typeof ApiCollaborationSessionIdBlackboardRoute
   ApiCollaborationSessionIdProposalRoute: typeof ApiCollaborationSessionIdProposalRoute
   ApiComplianceTenantIdConsentRoute: typeof ApiComplianceTenantIdConsentRoute
@@ -4421,6 +4502,7 @@ export interface RootRouteChildren {
   ApiDataVersionsCurrentEntityTypeEntityIdRoute: typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
   ApiDataVersionsHistoryEntityTypeEntityIdRoute: typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  ApiPublicCicdWebhooksGithubTenantIdRoute: typeof ApiPublicCicdWebhooksGithubTenantIdRoute
   ApiTestingTenantIdReportsReportIdExportRoute: typeof ApiTestingTenantIdReportsReportIdExportRoute
 }
 
@@ -5749,6 +5831,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCollaborationSessionIdBlackboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/cicd/$tenantId/runs': {
+      id: '/api/cicd/$tenantId/runs'
+      path: '/api/cicd/$tenantId/runs'
+      fullPath: '/api/cicd/$tenantId/runs'
+      preLoaderRoute: typeof ApiCicdTenantIdRunsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cicd/$tenantId/pipelines': {
+      id: '/api/cicd/$tenantId/pipelines'
+      path: '/api/cicd/$tenantId/pipelines'
+      fullPath: '/api/cicd/$tenantId/pipelines'
+      preLoaderRoute: typeof ApiCicdTenantIdPipelinesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cicd/$tenantId/environments': {
+      id: '/api/cicd/$tenantId/environments'
+      path: '/api/cicd/$tenantId/environments'
+      fullPath: '/api/cicd/$tenantId/environments'
+      preLoaderRoute: typeof ApiCicdTenantIdEnvironmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cicd/$tenantId/deployments': {
+      id: '/api/cicd/$tenantId/deployments'
+      path: '/api/cicd/$tenantId/deployments'
+      fullPath: '/api/cicd/$tenantId/deployments'
+      preLoaderRoute: typeof ApiCicdTenantIdDeploymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/billing/$tenantId/usage': {
       id: '/api/billing/$tenantId/usage'
       path: '/api/billing/$tenantId/usage'
@@ -6575,6 +6685,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiTestingTenantIdDatasetsDatasetIdEvaluateRouteImport
       parentRoute: typeof ApiTestingTenantIdDatasetsRoute
     }
+    '/api/public/cicd/webhooks/github/$tenantId': {
+      id: '/api/public/cicd/webhooks/github/$tenantId'
+      path: '/api/public/cicd/webhooks/github/$tenantId'
+      fullPath: '/api/public/cicd/webhooks/github/$tenantId'
+      preLoaderRoute: typeof ApiPublicCicdWebhooksGithubTenantIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/infrastructure/budget/topups/$requestId/approve': {
       id: '/api/infrastructure/budget/topups/$requestId/approve'
       path: '/api/infrastructure/budget/topups/$requestId/approve'
@@ -6623,6 +6740,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/data/shared/promotions/$promotionId/approve'
       preLoaderRoute: typeof ApiDataSharedPromotionsPromotionIdApproveRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/api/cicd/$tenantId/pipelines/$pipelineId/run': {
+      id: '/api/cicd/$tenantId/pipelines/$pipelineId/run'
+      path: '/$pipelineId/run'
+      fullPath: '/api/cicd/$tenantId/pipelines/$pipelineId/run'
+      preLoaderRoute: typeof ApiCicdTenantIdPipelinesPipelineIdRunRouteImport
+      parentRoute: typeof ApiCicdTenantIdPipelinesRoute
     }
     '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': {
       id: '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
@@ -6982,6 +7106,21 @@ const ApiAuditTenantIdLogsRouteChildren: ApiAuditTenantIdLogsRouteChildren = {
 const ApiAuditTenantIdLogsRouteWithChildren =
   ApiAuditTenantIdLogsRoute._addFileChildren(ApiAuditTenantIdLogsRouteChildren)
 
+interface ApiCicdTenantIdPipelinesRouteChildren {
+  ApiCicdTenantIdPipelinesPipelineIdRunRoute: typeof ApiCicdTenantIdPipelinesPipelineIdRunRoute
+}
+
+const ApiCicdTenantIdPipelinesRouteChildren: ApiCicdTenantIdPipelinesRouteChildren =
+  {
+    ApiCicdTenantIdPipelinesPipelineIdRunRoute:
+      ApiCicdTenantIdPipelinesPipelineIdRunRoute,
+  }
+
+const ApiCicdTenantIdPipelinesRouteWithChildren =
+  ApiCicdTenantIdPipelinesRoute._addFileChildren(
+    ApiCicdTenantIdPipelinesRouteChildren,
+  )
+
 interface ApiDocsTenantIdDocIdRouteChildren {
   ApiDocsTenantIdDocIdExamplesRoute: typeof ApiDocsTenantIdDocIdExamplesRoute
   ApiDocsTenantIdDocIdMarkdownRoute: typeof ApiDocsTenantIdDocIdMarkdownRoute
@@ -7308,6 +7447,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiBillingTenantIdSubscribeRoute: ApiBillingTenantIdSubscribeRoute,
   ApiBillingTenantIdSubscriptionRoute: ApiBillingTenantIdSubscriptionRoute,
   ApiBillingTenantIdUsageRoute: ApiBillingTenantIdUsageRoute,
+  ApiCicdTenantIdDeploymentsRoute: ApiCicdTenantIdDeploymentsRoute,
+  ApiCicdTenantIdEnvironmentsRoute: ApiCicdTenantIdEnvironmentsRoute,
+  ApiCicdTenantIdPipelinesRoute: ApiCicdTenantIdPipelinesRouteWithChildren,
+  ApiCicdTenantIdRunsRoute: ApiCicdTenantIdRunsRoute,
   ApiCollaborationSessionIdBlackboardRoute:
     ApiCollaborationSessionIdBlackboardRoute,
   ApiCollaborationSessionIdProposalRoute:
@@ -7537,6 +7680,8 @@ const rootRouteChildren: RootRouteChildren = {
     ApiDataVersionsHistoryEntityTypeEntityIdRoute,
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute:
     ApiInfrastructureBudgetTopupsRequestIdApproveRoute,
+  ApiPublicCicdWebhooksGithubTenantIdRoute:
+    ApiPublicCicdWebhooksGithubTenantIdRoute,
   ApiTestingTenantIdReportsReportIdExportRoute:
     ApiTestingTenantIdReportsReportIdExportRoute,
 }
