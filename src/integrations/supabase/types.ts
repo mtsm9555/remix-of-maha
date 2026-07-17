@@ -1384,6 +1384,112 @@ export type Database = {
         }
         Relationships: []
       }
+      project_members: {
+        Row: {
+          granted_at: string
+          id: string
+          project_id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          granted_at?: string
+          id?: string
+          project_id: string
+          role?: string
+          user_id: string
+        }
+        Update: {
+          granted_at?: string
+          id?: string
+          project_id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_members_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      project_memories: {
+        Row: {
+          content: string
+          created_at: string
+          embedding: string | null
+          id: string
+          metadata: Json
+          project_id: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          embedding?: string | null
+          id: string
+          metadata?: Json
+          project_id: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          embedding?: string | null
+          id?: string
+          metadata?: Json
+          project_id?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_memories_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      projects: {
+        Row: {
+          active_phase: string
+          client_name: string
+          created_at: string
+          created_by: string | null
+          id: string
+          name: string
+          summary: string | null
+          updated_at: string
+        }
+        Insert: {
+          active_phase?: string
+          client_name: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          name: string
+          summary?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active_phase?: string
+          client_name?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          name?: string
+          summary?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       raw_memories: {
         Row: {
           content: string
@@ -2182,6 +2288,10 @@ export type Database = {
         Returns: undefined
       }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
+      is_project_member: {
+        Args: { _project_id: string; _user_id: string }
+        Returns: boolean
+      }
       match_department_memories: {
         Args: {
           filter_types: string[]
@@ -2211,6 +2321,23 @@ export type Database = {
           id: string
           similarity: number
           summary: string
+        }[]
+      }
+      match_project_memories: {
+        Args: {
+          filter_types: string[]
+          match_count: number
+          match_threshold: number
+          query_embedding: string
+          query_project_id: string
+        }
+        Returns: {
+          content: string
+          id: string
+          metadata: Json
+          project_id: string
+          similarity: number
+          type: string
         }[]
       }
       transfer_edges: {
