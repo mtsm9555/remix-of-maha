@@ -2178,32 +2178,86 @@ export type Database = {
         }
         Relationships: []
       }
+      user_memories: {
+        Row: {
+          content: string
+          created_at: string
+          embedding: string | null
+          id: string
+          metadata: Json
+          type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          embedding?: string | null
+          id: string
+          metadata?: Json
+          type: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          embedding?: string | null
+          id?: string
+          metadata?: Json
+          type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_profiles: {
         Row: {
+          active_hours_end: number
+          active_hours_start: number
+          category: string
+          communication_style: string
           created_at: string
           email: string
           id: string
+          name: string | null
           permissions: string[]
           preferences: Json
+          preferred_language: string
           role: string
+          timezone: string
           updated_at: string
         }
         Insert: {
+          active_hours_end?: number
+          active_hours_start?: number
+          category?: string
+          communication_style?: string
           created_at?: string
           email: string
           id: string
+          name?: string | null
           permissions?: string[]
           preferences?: Json
+          preferred_language?: string
           role?: string
+          timezone?: string
           updated_at?: string
         }
         Update: {
+          active_hours_end?: number
+          active_hours_start?: number
+          category?: string
+          communication_style?: string
           created_at?: string
           email?: string
           id?: string
+          name?: string | null
           permissions?: string[]
           preferences?: Json
+          preferred_language?: string
           role?: string
+          timezone?: string
           updated_at?: string
         }
         Relationships: []
@@ -2378,6 +2432,22 @@ export type Database = {
           project_id: string
           similarity: number
           type: string
+        }[]
+      }
+      match_user_memories: {
+        Args: {
+          match_count: number
+          match_threshold: number
+          query_embedding: string
+          query_user_id: string
+        }
+        Returns: {
+          content: string
+          id: string
+          metadata: Json
+          similarity: number
+          type: string
+          user_id: string
         }[]
       }
       transfer_edges: {
