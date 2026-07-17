@@ -44,6 +44,10 @@ import { Route as ApiModelsFallbackStatsRouteImport } from './routes/api/models/
 import { Route as ApiModelsCostsByTaskRouteImport } from './routes/api/models/costs-by-task'
 import { Route as ApiModelsCostsRouteImport } from './routes/api/models/costs'
 import { Route as ApiManagerSplatRouteImport } from './routes/api/manager/$'
+import { Route as ApiGpuQueueRouteImport } from './routes/api/gpu/queue'
+import { Route as ApiGpuHealthRouteImport } from './routes/api/gpu/health'
+import { Route as ApiGpuGpusRouteImport } from './routes/api/gpu/gpus'
+import { Route as ApiGpuAllocationsRouteImport } from './routes/api/gpu/allocations'
 import { Route as ApiGovernanceLegalHoldRouteImport } from './routes/api/governance/legal-hold'
 import { Route as ApiGovernanceAuditLogsRouteImport } from './routes/api/governance/audit-logs'
 import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
@@ -124,6 +128,7 @@ import { Route as ApiInfrastructureDiscoverySimulateRouteImport } from './routes
 import { Route as ApiInfrastructureCapabilitiesSearchRouteImport } from './routes/api/infrastructure/capabilities/search'
 import { Route as ApiInfrastructureCapabilitiesRevokeToolRouteImport } from './routes/api/infrastructure/capabilities/revoke-tool'
 import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './routes/api/infrastructure/capabilities/$agentId'
+import { Route as ApiGpuQueueProcessRouteImport } from './routes/api/gpu/queue.process'
 import { Route as ApiGovernanceRetentionPoliciesRouteImport } from './routes/api/governance/retention/policies'
 import { Route as ApiGovernanceRetentionEnforceRouteImport } from './routes/api/governance/retention/enforce'
 import { Route as ApiFinanceCostsTopToolsRouteImport } from './routes/api/finance/costs/top-tools'
@@ -191,6 +196,7 @@ import { Route as ApiInfrastructureDiscoveryReputationAgentIdRouteImport } from 
 import { Route as ApiInfrastructureBudgetWalletInstanceIdRouteImport } from './routes/api/infrastructure/budget/wallet.$instanceId'
 import { Route as ApiInfrastructureBudgetTopupsPendingRouteImport } from './routes/api/infrastructure/budget/topups/pending'
 import { Route as ApiInfrastructureBudgetLedgerInstanceIdRouteImport } from './routes/api/infrastructure/budget/ledger.$instanceId'
+import { Route as ApiGpuAllocationsIdReleaseRouteImport } from './routes/api/gpu/allocations.$id.release'
 import { Route as ApiGovernanceDsarIdProcessRouteImport } from './routes/api/governance/dsar/$id/process'
 import { Route as ApiDataUserMemoriesSearchRouteImport } from './routes/api/data/user/memories/search'
 import { Route as ApiDataUserMemoriesMemoryIdRouteImport } from './routes/api/data/user/memories/$memoryId'
@@ -399,6 +405,26 @@ const ApiModelsCostsRoute = ApiModelsCostsRouteImport.update({
 const ApiManagerSplatRoute = ApiManagerSplatRouteImport.update({
   id: '/api/manager/$',
   path: '/api/manager/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGpuQueueRoute = ApiGpuQueueRouteImport.update({
+  id: '/api/gpu/queue',
+  path: '/api/gpu/queue',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGpuHealthRoute = ApiGpuHealthRouteImport.update({
+  id: '/api/gpu/health',
+  path: '/api/gpu/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGpuGpusRoute = ApiGpuGpusRouteImport.update({
+  id: '/api/gpu/gpus',
+  path: '/api/gpu/gpus',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGpuAllocationsRoute = ApiGpuAllocationsRouteImport.update({
+  id: '/api/gpu/allocations',
+  path: '/api/gpu/allocations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiGovernanceLegalHoldRoute = ApiGovernanceLegalHoldRouteImport.update({
@@ -848,6 +874,11 @@ const ApiInfrastructureCapabilitiesAgentIdRoute =
     path: '/api/infrastructure/capabilities/$agentId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiGpuQueueProcessRoute = ApiGpuQueueProcessRouteImport.update({
+  id: '/process',
+  path: '/process',
+  getParentRoute: () => ApiGpuQueueRoute,
+} as any)
 const ApiGovernanceRetentionPoliciesRoute =
   ApiGovernanceRetentionPoliciesRouteImport.update({
     id: '/api/governance/retention/policies',
@@ -1237,6 +1268,12 @@ const ApiInfrastructureBudgetLedgerInstanceIdRoute =
     path: '/api/infrastructure/budget/ledger/$instanceId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiGpuAllocationsIdReleaseRoute =
+  ApiGpuAllocationsIdReleaseRouteImport.update({
+    id: '/$id/release',
+    path: '/$id/release',
+    getParentRoute: () => ApiGpuAllocationsRoute,
+  } as any)
 const ApiGovernanceDsarIdProcessRoute =
   ApiGovernanceDsarIdProcessRouteImport.update({
     id: '/api/governance/dsar/$id/process',
@@ -1449,6 +1486,10 @@ export interface FileRoutesByFullPath {
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/governance/audit-logs': typeof ApiGovernanceAuditLogsRoute
   '/api/governance/legal-hold': typeof ApiGovernanceLegalHoldRoute
+  '/api/gpu/allocations': typeof ApiGpuAllocationsRouteWithChildren
+  '/api/gpu/gpus': typeof ApiGpuGpusRoute
+  '/api/gpu/health': typeof ApiGpuHealthRoute
+  '/api/gpu/queue': typeof ApiGpuQueueRouteWithChildren
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/models/costs': typeof ApiModelsCostsRoute
   '/api/models/costs-by-task': typeof ApiModelsCostsByTaskRoute
@@ -1507,6 +1548,7 @@ export interface FileRoutesByFullPath {
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
   '/api/governance/retention/enforce': typeof ApiGovernanceRetentionEnforceRoute
   '/api/governance/retention/policies': typeof ApiGovernanceRetentionPoliciesRoute
+  '/api/gpu/queue/process': typeof ApiGpuQueueProcessRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -1599,6 +1641,7 @@ export interface FileRoutesByFullPath {
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
   '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
+  '/api/gpu/allocations/$id/release': typeof ApiGpuAllocationsIdReleaseRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -1664,6 +1707,10 @@ export interface FileRoutesByTo {
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/governance/audit-logs': typeof ApiGovernanceAuditLogsRoute
   '/api/governance/legal-hold': typeof ApiGovernanceLegalHoldRoute
+  '/api/gpu/allocations': typeof ApiGpuAllocationsRouteWithChildren
+  '/api/gpu/gpus': typeof ApiGpuGpusRoute
+  '/api/gpu/health': typeof ApiGpuHealthRoute
+  '/api/gpu/queue': typeof ApiGpuQueueRouteWithChildren
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/models/costs': typeof ApiModelsCostsRoute
   '/api/models/costs-by-task': typeof ApiModelsCostsByTaskRoute
@@ -1722,6 +1769,7 @@ export interface FileRoutesByTo {
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
   '/api/governance/retention/enforce': typeof ApiGovernanceRetentionEnforceRoute
   '/api/governance/retention/policies': typeof ApiGovernanceRetentionPoliciesRoute
+  '/api/gpu/queue/process': typeof ApiGpuQueueProcessRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -1814,6 +1862,7 @@ export interface FileRoutesByTo {
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
   '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
+  '/api/gpu/allocations/$id/release': typeof ApiGpuAllocationsIdReleaseRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -1880,6 +1929,10 @@ export interface FileRoutesById {
   '/api/goals/$': typeof ApiGoalsSplatRoute
   '/api/governance/audit-logs': typeof ApiGovernanceAuditLogsRoute
   '/api/governance/legal-hold': typeof ApiGovernanceLegalHoldRoute
+  '/api/gpu/allocations': typeof ApiGpuAllocationsRouteWithChildren
+  '/api/gpu/gpus': typeof ApiGpuGpusRoute
+  '/api/gpu/health': typeof ApiGpuHealthRoute
+  '/api/gpu/queue': typeof ApiGpuQueueRouteWithChildren
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/models/costs': typeof ApiModelsCostsRoute
   '/api/models/costs-by-task': typeof ApiModelsCostsByTaskRoute
@@ -1938,6 +1991,7 @@ export interface FileRoutesById {
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
   '/api/governance/retention/enforce': typeof ApiGovernanceRetentionEnforceRoute
   '/api/governance/retention/policies': typeof ApiGovernanceRetentionPoliciesRoute
+  '/api/gpu/queue/process': typeof ApiGpuQueueProcessRoute
   '/api/infrastructure/capabilities/$agentId': typeof ApiInfrastructureCapabilitiesAgentIdRoute
   '/api/infrastructure/capabilities/revoke-tool': typeof ApiInfrastructureCapabilitiesRevokeToolRoute
   '/api/infrastructure/capabilities/search': typeof ApiInfrastructureCapabilitiesSearchRoute
@@ -2030,6 +2084,7 @@ export interface FileRoutesById {
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
   '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
+  '/api/gpu/allocations/$id/release': typeof ApiGpuAllocationsIdReleaseRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -2097,6 +2152,10 @@ export interface FileRouteTypes {
     | '/api/goals/$'
     | '/api/governance/audit-logs'
     | '/api/governance/legal-hold'
+    | '/api/gpu/allocations'
+    | '/api/gpu/gpus'
+    | '/api/gpu/health'
+    | '/api/gpu/queue'
     | '/api/manager/$'
     | '/api/models/costs'
     | '/api/models/costs-by-task'
@@ -2155,6 +2214,7 @@ export interface FileRouteTypes {
     | '/api/finance/costs/top-tools'
     | '/api/governance/retention/enforce'
     | '/api/governance/retention/policies'
+    | '/api/gpu/queue/process'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
     | '/api/infrastructure/capabilities/search'
@@ -2247,6 +2307,7 @@ export interface FileRouteTypes {
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
     | '/api/governance/dsar/$id/process'
+    | '/api/gpu/allocations/$id/release'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -2312,6 +2373,10 @@ export interface FileRouteTypes {
     | '/api/goals/$'
     | '/api/governance/audit-logs'
     | '/api/governance/legal-hold'
+    | '/api/gpu/allocations'
+    | '/api/gpu/gpus'
+    | '/api/gpu/health'
+    | '/api/gpu/queue'
     | '/api/manager/$'
     | '/api/models/costs'
     | '/api/models/costs-by-task'
@@ -2370,6 +2435,7 @@ export interface FileRouteTypes {
     | '/api/finance/costs/top-tools'
     | '/api/governance/retention/enforce'
     | '/api/governance/retention/policies'
+    | '/api/gpu/queue/process'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
     | '/api/infrastructure/capabilities/search'
@@ -2462,6 +2528,7 @@ export interface FileRouteTypes {
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
     | '/api/governance/dsar/$id/process'
+    | '/api/gpu/allocations/$id/release'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -2527,6 +2594,10 @@ export interface FileRouteTypes {
     | '/api/goals/$'
     | '/api/governance/audit-logs'
     | '/api/governance/legal-hold'
+    | '/api/gpu/allocations'
+    | '/api/gpu/gpus'
+    | '/api/gpu/health'
+    | '/api/gpu/queue'
     | '/api/manager/$'
     | '/api/models/costs'
     | '/api/models/costs-by-task'
@@ -2585,6 +2656,7 @@ export interface FileRouteTypes {
     | '/api/finance/costs/top-tools'
     | '/api/governance/retention/enforce'
     | '/api/governance/retention/policies'
+    | '/api/gpu/queue/process'
     | '/api/infrastructure/capabilities/$agentId'
     | '/api/infrastructure/capabilities/revoke-tool'
     | '/api/infrastructure/capabilities/search'
@@ -2677,6 +2749,7 @@ export interface FileRouteTypes {
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
     | '/api/governance/dsar/$id/process'
+    | '/api/gpu/allocations/$id/release'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -2743,6 +2816,10 @@ export interface RootRouteChildren {
   ApiGoalsSplatRoute: typeof ApiGoalsSplatRoute
   ApiGovernanceAuditLogsRoute: typeof ApiGovernanceAuditLogsRoute
   ApiGovernanceLegalHoldRoute: typeof ApiGovernanceLegalHoldRoute
+  ApiGpuAllocationsRoute: typeof ApiGpuAllocationsRouteWithChildren
+  ApiGpuGpusRoute: typeof ApiGpuGpusRoute
+  ApiGpuHealthRoute: typeof ApiGpuHealthRoute
+  ApiGpuQueueRoute: typeof ApiGpuQueueRouteWithChildren
   ApiManagerSplatRoute: typeof ApiManagerSplatRoute
   ApiModelsCostsRoute: typeof ApiModelsCostsRoute
   ApiModelsCostsByTaskRoute: typeof ApiModelsCostsByTaskRoute
@@ -3163,6 +3240,34 @@ declare module '@tanstack/react-router' {
       path: '/api/manager/$'
       fullPath: '/api/manager/$'
       preLoaderRoute: typeof ApiManagerSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/gpu/queue': {
+      id: '/api/gpu/queue'
+      path: '/api/gpu/queue'
+      fullPath: '/api/gpu/queue'
+      preLoaderRoute: typeof ApiGpuQueueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/gpu/health': {
+      id: '/api/gpu/health'
+      path: '/api/gpu/health'
+      fullPath: '/api/gpu/health'
+      preLoaderRoute: typeof ApiGpuHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/gpu/gpus': {
+      id: '/api/gpu/gpus'
+      path: '/api/gpu/gpus'
+      fullPath: '/api/gpu/gpus'
+      preLoaderRoute: typeof ApiGpuGpusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/gpu/allocations': {
+      id: '/api/gpu/allocations'
+      path: '/api/gpu/allocations'
+      fullPath: '/api/gpu/allocations'
+      preLoaderRoute: typeof ApiGpuAllocationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/governance/legal-hold': {
@@ -3725,6 +3830,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureCapabilitiesAgentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/gpu/queue/process': {
+      id: '/api/gpu/queue/process'
+      path: '/process'
+      fullPath: '/api/gpu/queue/process'
+      preLoaderRoute: typeof ApiGpuQueueProcessRouteImport
+      parentRoute: typeof ApiGpuQueueRoute
+    }
     '/api/governance/retention/policies': {
       id: '/api/governance/retention/policies'
       path: '/api/governance/retention/policies'
@@ -4194,6 +4306,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/gpu/allocations/$id/release': {
+      id: '/api/gpu/allocations/$id/release'
+      path: '/$id/release'
+      fullPath: '/api/gpu/allocations/$id/release'
+      preLoaderRoute: typeof ApiGpuAllocationsIdReleaseRouteImport
+      parentRoute: typeof ApiGpuAllocationsRoute
+    }
     '/api/governance/dsar/$id/process': {
       id: '/api/governance/dsar/$id/process'
       path: '/api/governance/dsar/$id/process'
@@ -4432,6 +4551,29 @@ const ApiInfrastructureDiscoveryRouteRouteWithChildren =
     ApiInfrastructureDiscoveryRouteRouteChildren,
   )
 
+interface ApiGpuAllocationsRouteChildren {
+  ApiGpuAllocationsIdReleaseRoute: typeof ApiGpuAllocationsIdReleaseRoute
+}
+
+const ApiGpuAllocationsRouteChildren: ApiGpuAllocationsRouteChildren = {
+  ApiGpuAllocationsIdReleaseRoute: ApiGpuAllocationsIdReleaseRoute,
+}
+
+const ApiGpuAllocationsRouteWithChildren =
+  ApiGpuAllocationsRoute._addFileChildren(ApiGpuAllocationsRouteChildren)
+
+interface ApiGpuQueueRouteChildren {
+  ApiGpuQueueProcessRoute: typeof ApiGpuQueueProcessRoute
+}
+
+const ApiGpuQueueRouteChildren: ApiGpuQueueRouteChildren = {
+  ApiGpuQueueProcessRoute: ApiGpuQueueProcessRoute,
+}
+
+const ApiGpuQueueRouteWithChildren = ApiGpuQueueRoute._addFileChildren(
+  ApiGpuQueueRouteChildren,
+)
+
 interface ApiQueueQueuesRouteChildren {
   ApiQueueQueuesQueueIdHealthRoute: typeof ApiQueueQueuesQueueIdHealthRoute
   ApiQueueQueuesQueueIdNextRoute: typeof ApiQueueQueuesQueueIdNextRoute
@@ -4582,6 +4724,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiGoalsSplatRoute: ApiGoalsSplatRoute,
   ApiGovernanceAuditLogsRoute: ApiGovernanceAuditLogsRoute,
   ApiGovernanceLegalHoldRoute: ApiGovernanceLegalHoldRoute,
+  ApiGpuAllocationsRoute: ApiGpuAllocationsRouteWithChildren,
+  ApiGpuGpusRoute: ApiGpuGpusRoute,
+  ApiGpuHealthRoute: ApiGpuHealthRoute,
+  ApiGpuQueueRoute: ApiGpuQueueRouteWithChildren,
   ApiManagerSplatRoute: ApiManagerSplatRoute,
   ApiModelsCostsRoute: ApiModelsCostsRoute,
   ApiModelsCostsByTaskRoute: ApiModelsCostsByTaskRoute,
