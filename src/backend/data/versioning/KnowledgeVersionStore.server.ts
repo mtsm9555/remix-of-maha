@@ -88,7 +88,7 @@ export class KnowledgeVersionStore {
       version_number: newVersionNumber,
       content,
       embedding: embedding as unknown as string,
-      metadata,
+      metadata: metadata as never,
       author_id: authorId,
       author_type: authorType,
       change_summary: changeSummary,
