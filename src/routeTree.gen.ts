@@ -181,6 +181,9 @@ import { Route as ApiAuditTenantIdRetentionRouteImport } from './routes/api/audi
 import { Route as ApiAuditTenantIdLogsRouteImport } from './routes/api/audit/$tenantId.logs'
 import { Route as ApiAuditTenantIdExportsRouteImport } from './routes/api/audit/$tenantId.exports'
 import { Route as ApiAuditTenantIdAlertsRouteImport } from './routes/api/audit/$tenantId.alerts'
+import { Route as ApiApprovalGatesExpireTickRouteImport } from './routes/api/approval-gates/expire.tick'
+import { Route as ApiApprovalGatesTenantIdRequestsRouteImport } from './routes/api/approval-gates/$tenantId.requests'
+import { Route as ApiApprovalGatesTenantIdPoliciesRouteImport } from './routes/api/approval-gates/$tenantId.policies'
 import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
 import { Route as ApiAnalyticsRetrievalOverviewRouteImport } from './routes/api/analytics/retrieval/overview'
 import { Route as ApiAnalyticsRetrievalHealthCheckRouteImport } from './routes/api/analytics/retrieval/health-check'
@@ -244,6 +247,10 @@ import { Route as ApiBackupJobsIdExecuteRouteImport } from './routes/api/backup/
 import { Route as ApiAuditTenantIdMetricsPeriodRouteImport } from './routes/api/audit/$tenantId.metrics.$period'
 import { Route as ApiAuditTenantIdLogsEventIdRouteImport } from './routes/api/audit/$tenantId.logs.$eventId'
 import { Route as ApiAuditTenantIdExportsExportIdRouteImport } from './routes/api/audit/$tenantId.exports.$exportId'
+import { Route as ApiApprovalGatesNotificationsNotificationIdReadRouteImport } from './routes/api/approval-gates/notifications.$notificationId.read'
+import { Route as ApiApprovalGatesTenantIdPoliciesSeedRouteImport } from './routes/api/approval-gates/$tenantId.policies.seed'
+import { Route as ApiApprovalGatesTenantIdPoliciesPolicyIdRouteImport } from './routes/api/approval-gates/$tenantId.policies.$policyId'
+import { Route as ApiApprovalGatesTenantIdNotificationsUserIdRouteImport } from './routes/api/approval-gates/$tenantId.notifications.$userId'
 import { Route as ApiApikeysTenantIdKeyIdUsageRouteImport } from './routes/api/apikeys/$tenantId/$keyId/usage'
 import { Route as ApiApikeysTenantIdKeyIdRotateRouteImport } from './routes/api/apikeys/$tenantId/$keyId/rotate'
 import { Route as ApiApikeysTenantIdKeyIdRevokeRouteImport } from './routes/api/apikeys/$tenantId/$keyId/revoke'
@@ -269,6 +276,11 @@ import { Route as ApiAuditTenantIdTimelineTargetTypeTargetIdRouteImport } from '
 import { Route as ApiAuditTenantIdExportsExportIdDownloadRouteImport } from './routes/api/audit/$tenantId.exports.$exportId.download'
 import { Route as ApiAuditTenantIdAlertsAlertIdResolveRouteImport } from './routes/api/audit/$tenantId.alerts.$alertId.resolve'
 import { Route as ApiAuditTenantIdAlertsAlertIdAcknowledgeRouteImport } from './routes/api/audit/$tenantId.alerts.$alertId.acknowledge'
+import { Route as ApiApprovalGatesTenantIdRequestsPendingApproverIdRouteImport } from './routes/api/approval-gates/$tenantId.requests.pending.$approverId'
+import { Route as ApiApprovalGatesTenantIdRequestsHistoryUserIdRouteImport } from './routes/api/approval-gates/$tenantId.requests.history.$userId'
+import { Route as ApiApprovalGatesTenantIdRequestsRequestIdExecuteRouteImport } from './routes/api/approval-gates/$tenantId.requests.$requestId.execute'
+import { Route as ApiApprovalGatesTenantIdRequestsRequestIdDecisionRouteImport } from './routes/api/approval-gates/$tenantId.requests.$requestId.decision'
+import { Route as ApiApprovalGatesTenantIdRequestsRequestIdCancelRouteImport } from './routes/api/approval-gates/$tenantId.requests.$requestId.cancel'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
@@ -1198,6 +1210,24 @@ const ApiAuditTenantIdAlertsRoute = ApiAuditTenantIdAlertsRouteImport.update({
   path: '/api/audit/$tenantId/alerts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiApprovalGatesExpireTickRoute =
+  ApiApprovalGatesExpireTickRouteImport.update({
+    id: '/api/approval-gates/expire/tick',
+    path: '/api/approval-gates/expire/tick',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiApprovalGatesTenantIdRequestsRoute =
+  ApiApprovalGatesTenantIdRequestsRouteImport.update({
+    id: '/api/approval-gates/$tenantId/requests',
+    path: '/api/approval-gates/$tenantId/requests',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiApprovalGatesTenantIdPoliciesRoute =
+  ApiApprovalGatesTenantIdPoliciesRouteImport.update({
+    id: '/api/approval-gates/$tenantId/policies',
+    path: '/api/approval-gates/$tenantId/policies',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiAnalyticsToolsOverviewRoute =
   ApiAnalyticsToolsOverviewRouteImport.update({
     id: '/api/analytics/tools/overview',
@@ -1571,6 +1601,30 @@ const ApiAuditTenantIdExportsExportIdRoute =
     path: '/$exportId',
     getParentRoute: () => ApiAuditTenantIdExportsRoute,
   } as any)
+const ApiApprovalGatesNotificationsNotificationIdReadRoute =
+  ApiApprovalGatesNotificationsNotificationIdReadRouteImport.update({
+    id: '/api/approval-gates/notifications/$notificationId/read',
+    path: '/api/approval-gates/notifications/$notificationId/read',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiApprovalGatesTenantIdPoliciesSeedRoute =
+  ApiApprovalGatesTenantIdPoliciesSeedRouteImport.update({
+    id: '/seed',
+    path: '/seed',
+    getParentRoute: () => ApiApprovalGatesTenantIdPoliciesRoute,
+  } as any)
+const ApiApprovalGatesTenantIdPoliciesPolicyIdRoute =
+  ApiApprovalGatesTenantIdPoliciesPolicyIdRouteImport.update({
+    id: '/$policyId',
+    path: '/$policyId',
+    getParentRoute: () => ApiApprovalGatesTenantIdPoliciesRoute,
+  } as any)
+const ApiApprovalGatesTenantIdNotificationsUserIdRoute =
+  ApiApprovalGatesTenantIdNotificationsUserIdRouteImport.update({
+    id: '/api/approval-gates/$tenantId/notifications/$userId',
+    path: '/api/approval-gates/$tenantId/notifications/$userId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiApikeysTenantIdKeyIdUsageRoute =
   ApiApikeysTenantIdKeyIdUsageRouteImport.update({
     id: '/api/apikeys/$tenantId/$keyId/usage',
@@ -1721,6 +1775,36 @@ const ApiAuditTenantIdAlertsAlertIdAcknowledgeRoute =
     path: '/$alertId/acknowledge',
     getParentRoute: () => ApiAuditTenantIdAlertsRoute,
   } as any)
+const ApiApprovalGatesTenantIdRequestsPendingApproverIdRoute =
+  ApiApprovalGatesTenantIdRequestsPendingApproverIdRouteImport.update({
+    id: '/pending/$approverId',
+    path: '/pending/$approverId',
+    getParentRoute: () => ApiApprovalGatesTenantIdRequestsRoute,
+  } as any)
+const ApiApprovalGatesTenantIdRequestsHistoryUserIdRoute =
+  ApiApprovalGatesTenantIdRequestsHistoryUserIdRouteImport.update({
+    id: '/history/$userId',
+    path: '/history/$userId',
+    getParentRoute: () => ApiApprovalGatesTenantIdRequestsRoute,
+  } as any)
+const ApiApprovalGatesTenantIdRequestsRequestIdExecuteRoute =
+  ApiApprovalGatesTenantIdRequestsRequestIdExecuteRouteImport.update({
+    id: '/$requestId/execute',
+    path: '/$requestId/execute',
+    getParentRoute: () => ApiApprovalGatesTenantIdRequestsRoute,
+  } as any)
+const ApiApprovalGatesTenantIdRequestsRequestIdDecisionRoute =
+  ApiApprovalGatesTenantIdRequestsRequestIdDecisionRouteImport.update({
+    id: '/$requestId/decision',
+    path: '/$requestId/decision',
+    getParentRoute: () => ApiApprovalGatesTenantIdRequestsRoute,
+  } as any)
+const ApiApprovalGatesTenantIdRequestsRequestIdCancelRoute =
+  ApiApprovalGatesTenantIdRequestsRequestIdCancelRouteImport.update({
+    id: '/$requestId/cancel',
+    path: '/$requestId/cancel',
+    getParentRoute: () => ApiApprovalGatesTenantIdRequestsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -1795,6 +1879,9 @@ export interface FileRoutesByFullPath {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/approval-gates/$tenantId/policies': typeof ApiApprovalGatesTenantIdPoliciesRouteWithChildren
+  '/api/approval-gates/$tenantId/requests': typeof ApiApprovalGatesTenantIdRequestsRouteWithChildren
+  '/api/approval-gates/expire/tick': typeof ApiApprovalGatesExpireTickRoute
   '/api/audit/$tenantId/alerts': typeof ApiAuditTenantIdAlertsRouteWithChildren
   '/api/audit/$tenantId/exports': typeof ApiAuditTenantIdExportsRouteWithChildren
   '/api/audit/$tenantId/logs': typeof ApiAuditTenantIdLogsRouteWithChildren
@@ -1913,6 +2000,10 @@ export interface FileRoutesByFullPath {
   '/api/apikeys/$tenantId/$keyId/revoke': typeof ApiApikeysTenantIdKeyIdRevokeRoute
   '/api/apikeys/$tenantId/$keyId/rotate': typeof ApiApikeysTenantIdKeyIdRotateRoute
   '/api/apikeys/$tenantId/$keyId/usage': typeof ApiApikeysTenantIdKeyIdUsageRoute
+  '/api/approval-gates/$tenantId/notifications/$userId': typeof ApiApprovalGatesTenantIdNotificationsUserIdRoute
+  '/api/approval-gates/$tenantId/policies/$policyId': typeof ApiApprovalGatesTenantIdPoliciesPolicyIdRoute
+  '/api/approval-gates/$tenantId/policies/seed': typeof ApiApprovalGatesTenantIdPoliciesSeedRoute
+  '/api/approval-gates/notifications/$notificationId/read': typeof ApiApprovalGatesNotificationsNotificationIdReadRoute
   '/api/audit/$tenantId/exports/$exportId': typeof ApiAuditTenantIdExportsExportIdRouteWithChildren
   '/api/audit/$tenantId/logs/$eventId': typeof ApiAuditTenantIdLogsEventIdRoute
   '/api/audit/$tenantId/metrics/$period': typeof ApiAuditTenantIdMetricsPeriodRoute
@@ -1967,6 +2058,11 @@ export interface FileRoutesByFullPath {
   '/api/apikeys/$tenantId/$keyId/': typeof ApiApikeysTenantIdKeyIdIndexRoute
   '/api/cluster/tasks/$taskId/': typeof ApiClusterTasksTaskIdIndexRoute
   '/api/cluster/workers/$workerId/': typeof ApiClusterWorkersWorkerIdIndexRoute
+  '/api/approval-gates/$tenantId/requests/$requestId/cancel': typeof ApiApprovalGatesTenantIdRequestsRequestIdCancelRoute
+  '/api/approval-gates/$tenantId/requests/$requestId/decision': typeof ApiApprovalGatesTenantIdRequestsRequestIdDecisionRoute
+  '/api/approval-gates/$tenantId/requests/$requestId/execute': typeof ApiApprovalGatesTenantIdRequestsRequestIdExecuteRoute
+  '/api/approval-gates/$tenantId/requests/history/$userId': typeof ApiApprovalGatesTenantIdRequestsHistoryUserIdRoute
+  '/api/approval-gates/$tenantId/requests/pending/$approverId': typeof ApiApprovalGatesTenantIdRequestsPendingApproverIdRoute
   '/api/audit/$tenantId/alerts/$alertId/acknowledge': typeof ApiAuditTenantIdAlertsAlertIdAcknowledgeRoute
   '/api/audit/$tenantId/alerts/$alertId/resolve': typeof ApiAuditTenantIdAlertsAlertIdResolveRoute
   '/api/audit/$tenantId/exports/$exportId/download': typeof ApiAuditTenantIdExportsExportIdDownloadRoute
@@ -2057,6 +2153,9 @@ export interface FileRoutesByTo {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/approval-gates/$tenantId/policies': typeof ApiApprovalGatesTenantIdPoliciesRouteWithChildren
+  '/api/approval-gates/$tenantId/requests': typeof ApiApprovalGatesTenantIdRequestsRouteWithChildren
+  '/api/approval-gates/expire/tick': typeof ApiApprovalGatesExpireTickRoute
   '/api/audit/$tenantId/alerts': typeof ApiAuditTenantIdAlertsRouteWithChildren
   '/api/audit/$tenantId/exports': typeof ApiAuditTenantIdExportsRouteWithChildren
   '/api/audit/$tenantId/logs': typeof ApiAuditTenantIdLogsRouteWithChildren
@@ -2175,6 +2274,10 @@ export interface FileRoutesByTo {
   '/api/apikeys/$tenantId/$keyId/revoke': typeof ApiApikeysTenantIdKeyIdRevokeRoute
   '/api/apikeys/$tenantId/$keyId/rotate': typeof ApiApikeysTenantIdKeyIdRotateRoute
   '/api/apikeys/$tenantId/$keyId/usage': typeof ApiApikeysTenantIdKeyIdUsageRoute
+  '/api/approval-gates/$tenantId/notifications/$userId': typeof ApiApprovalGatesTenantIdNotificationsUserIdRoute
+  '/api/approval-gates/$tenantId/policies/$policyId': typeof ApiApprovalGatesTenantIdPoliciesPolicyIdRoute
+  '/api/approval-gates/$tenantId/policies/seed': typeof ApiApprovalGatesTenantIdPoliciesSeedRoute
+  '/api/approval-gates/notifications/$notificationId/read': typeof ApiApprovalGatesNotificationsNotificationIdReadRoute
   '/api/audit/$tenantId/exports/$exportId': typeof ApiAuditTenantIdExportsExportIdRouteWithChildren
   '/api/audit/$tenantId/logs/$eventId': typeof ApiAuditTenantIdLogsEventIdRoute
   '/api/audit/$tenantId/metrics/$period': typeof ApiAuditTenantIdMetricsPeriodRoute
@@ -2229,6 +2332,11 @@ export interface FileRoutesByTo {
   '/api/apikeys/$tenantId/$keyId': typeof ApiApikeysTenantIdKeyIdIndexRoute
   '/api/cluster/tasks/$taskId': typeof ApiClusterTasksTaskIdIndexRoute
   '/api/cluster/workers/$workerId': typeof ApiClusterWorkersWorkerIdIndexRoute
+  '/api/approval-gates/$tenantId/requests/$requestId/cancel': typeof ApiApprovalGatesTenantIdRequestsRequestIdCancelRoute
+  '/api/approval-gates/$tenantId/requests/$requestId/decision': typeof ApiApprovalGatesTenantIdRequestsRequestIdDecisionRoute
+  '/api/approval-gates/$tenantId/requests/$requestId/execute': typeof ApiApprovalGatesTenantIdRequestsRequestIdExecuteRoute
+  '/api/approval-gates/$tenantId/requests/history/$userId': typeof ApiApprovalGatesTenantIdRequestsHistoryUserIdRoute
+  '/api/approval-gates/$tenantId/requests/pending/$approverId': typeof ApiApprovalGatesTenantIdRequestsPendingApproverIdRoute
   '/api/audit/$tenantId/alerts/$alertId/acknowledge': typeof ApiAuditTenantIdAlertsAlertIdAcknowledgeRoute
   '/api/audit/$tenantId/alerts/$alertId/resolve': typeof ApiAuditTenantIdAlertsAlertIdResolveRoute
   '/api/audit/$tenantId/exports/$exportId/download': typeof ApiAuditTenantIdExportsExportIdDownloadRoute
@@ -2320,6 +2428,9 @@ export interface FileRoutesById {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/approval-gates/$tenantId/policies': typeof ApiApprovalGatesTenantIdPoliciesRouteWithChildren
+  '/api/approval-gates/$tenantId/requests': typeof ApiApprovalGatesTenantIdRequestsRouteWithChildren
+  '/api/approval-gates/expire/tick': typeof ApiApprovalGatesExpireTickRoute
   '/api/audit/$tenantId/alerts': typeof ApiAuditTenantIdAlertsRouteWithChildren
   '/api/audit/$tenantId/exports': typeof ApiAuditTenantIdExportsRouteWithChildren
   '/api/audit/$tenantId/logs': typeof ApiAuditTenantIdLogsRouteWithChildren
@@ -2438,6 +2549,10 @@ export interface FileRoutesById {
   '/api/apikeys/$tenantId/$keyId/revoke': typeof ApiApikeysTenantIdKeyIdRevokeRoute
   '/api/apikeys/$tenantId/$keyId/rotate': typeof ApiApikeysTenantIdKeyIdRotateRoute
   '/api/apikeys/$tenantId/$keyId/usage': typeof ApiApikeysTenantIdKeyIdUsageRoute
+  '/api/approval-gates/$tenantId/notifications/$userId': typeof ApiApprovalGatesTenantIdNotificationsUserIdRoute
+  '/api/approval-gates/$tenantId/policies/$policyId': typeof ApiApprovalGatesTenantIdPoliciesPolicyIdRoute
+  '/api/approval-gates/$tenantId/policies/seed': typeof ApiApprovalGatesTenantIdPoliciesSeedRoute
+  '/api/approval-gates/notifications/$notificationId/read': typeof ApiApprovalGatesNotificationsNotificationIdReadRoute
   '/api/audit/$tenantId/exports/$exportId': typeof ApiAuditTenantIdExportsExportIdRouteWithChildren
   '/api/audit/$tenantId/logs/$eventId': typeof ApiAuditTenantIdLogsEventIdRoute
   '/api/audit/$tenantId/metrics/$period': typeof ApiAuditTenantIdMetricsPeriodRoute
@@ -2492,6 +2607,11 @@ export interface FileRoutesById {
   '/api/apikeys/$tenantId/$keyId/': typeof ApiApikeysTenantIdKeyIdIndexRoute
   '/api/cluster/tasks/$taskId/': typeof ApiClusterTasksTaskIdIndexRoute
   '/api/cluster/workers/$workerId/': typeof ApiClusterWorkersWorkerIdIndexRoute
+  '/api/approval-gates/$tenantId/requests/$requestId/cancel': typeof ApiApprovalGatesTenantIdRequestsRequestIdCancelRoute
+  '/api/approval-gates/$tenantId/requests/$requestId/decision': typeof ApiApprovalGatesTenantIdRequestsRequestIdDecisionRoute
+  '/api/approval-gates/$tenantId/requests/$requestId/execute': typeof ApiApprovalGatesTenantIdRequestsRequestIdExecuteRoute
+  '/api/approval-gates/$tenantId/requests/history/$userId': typeof ApiApprovalGatesTenantIdRequestsHistoryUserIdRoute
+  '/api/approval-gates/$tenantId/requests/pending/$approverId': typeof ApiApprovalGatesTenantIdRequestsPendingApproverIdRoute
   '/api/audit/$tenantId/alerts/$alertId/acknowledge': typeof ApiAuditTenantIdAlertsAlertIdAcknowledgeRoute
   '/api/audit/$tenantId/alerts/$alertId/resolve': typeof ApiAuditTenantIdAlertsAlertIdResolveRoute
   '/api/audit/$tenantId/exports/$exportId/download': typeof ApiAuditTenantIdExportsExportIdDownloadRoute
@@ -2584,6 +2704,9 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/approval-gates/$tenantId/policies'
+    | '/api/approval-gates/$tenantId/requests'
+    | '/api/approval-gates/expire/tick'
     | '/api/audit/$tenantId/alerts'
     | '/api/audit/$tenantId/exports'
     | '/api/audit/$tenantId/logs'
@@ -2702,6 +2825,10 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/revoke'
     | '/api/apikeys/$tenantId/$keyId/rotate'
     | '/api/apikeys/$tenantId/$keyId/usage'
+    | '/api/approval-gates/$tenantId/notifications/$userId'
+    | '/api/approval-gates/$tenantId/policies/$policyId'
+    | '/api/approval-gates/$tenantId/policies/seed'
+    | '/api/approval-gates/notifications/$notificationId/read'
     | '/api/audit/$tenantId/exports/$exportId'
     | '/api/audit/$tenantId/logs/$eventId'
     | '/api/audit/$tenantId/metrics/$period'
@@ -2756,6 +2883,11 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/'
     | '/api/cluster/tasks/$taskId/'
     | '/api/cluster/workers/$workerId/'
+    | '/api/approval-gates/$tenantId/requests/$requestId/cancel'
+    | '/api/approval-gates/$tenantId/requests/$requestId/decision'
+    | '/api/approval-gates/$tenantId/requests/$requestId/execute'
+    | '/api/approval-gates/$tenantId/requests/history/$userId'
+    | '/api/approval-gates/$tenantId/requests/pending/$approverId'
     | '/api/audit/$tenantId/alerts/$alertId/acknowledge'
     | '/api/audit/$tenantId/alerts/$alertId/resolve'
     | '/api/audit/$tenantId/exports/$exportId/download'
@@ -2846,6 +2978,9 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/approval-gates/$tenantId/policies'
+    | '/api/approval-gates/$tenantId/requests'
+    | '/api/approval-gates/expire/tick'
     | '/api/audit/$tenantId/alerts'
     | '/api/audit/$tenantId/exports'
     | '/api/audit/$tenantId/logs'
@@ -2964,6 +3099,10 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/revoke'
     | '/api/apikeys/$tenantId/$keyId/rotate'
     | '/api/apikeys/$tenantId/$keyId/usage'
+    | '/api/approval-gates/$tenantId/notifications/$userId'
+    | '/api/approval-gates/$tenantId/policies/$policyId'
+    | '/api/approval-gates/$tenantId/policies/seed'
+    | '/api/approval-gates/notifications/$notificationId/read'
     | '/api/audit/$tenantId/exports/$exportId'
     | '/api/audit/$tenantId/logs/$eventId'
     | '/api/audit/$tenantId/metrics/$period'
@@ -3018,6 +3157,11 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId'
     | '/api/cluster/tasks/$taskId'
     | '/api/cluster/workers/$workerId'
+    | '/api/approval-gates/$tenantId/requests/$requestId/cancel'
+    | '/api/approval-gates/$tenantId/requests/$requestId/decision'
+    | '/api/approval-gates/$tenantId/requests/$requestId/execute'
+    | '/api/approval-gates/$tenantId/requests/history/$userId'
+    | '/api/approval-gates/$tenantId/requests/pending/$approverId'
     | '/api/audit/$tenantId/alerts/$alertId/acknowledge'
     | '/api/audit/$tenantId/alerts/$alertId/resolve'
     | '/api/audit/$tenantId/exports/$exportId/download'
@@ -3108,6 +3252,9 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/approval-gates/$tenantId/policies'
+    | '/api/approval-gates/$tenantId/requests'
+    | '/api/approval-gates/expire/tick'
     | '/api/audit/$tenantId/alerts'
     | '/api/audit/$tenantId/exports'
     | '/api/audit/$tenantId/logs'
@@ -3226,6 +3373,10 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/revoke'
     | '/api/apikeys/$tenantId/$keyId/rotate'
     | '/api/apikeys/$tenantId/$keyId/usage'
+    | '/api/approval-gates/$tenantId/notifications/$userId'
+    | '/api/approval-gates/$tenantId/policies/$policyId'
+    | '/api/approval-gates/$tenantId/policies/seed'
+    | '/api/approval-gates/notifications/$notificationId/read'
     | '/api/audit/$tenantId/exports/$exportId'
     | '/api/audit/$tenantId/logs/$eventId'
     | '/api/audit/$tenantId/metrics/$period'
@@ -3280,6 +3431,11 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/'
     | '/api/cluster/tasks/$taskId/'
     | '/api/cluster/workers/$workerId/'
+    | '/api/approval-gates/$tenantId/requests/$requestId/cancel'
+    | '/api/approval-gates/$tenantId/requests/$requestId/decision'
+    | '/api/approval-gates/$tenantId/requests/$requestId/execute'
+    | '/api/approval-gates/$tenantId/requests/history/$userId'
+    | '/api/approval-gates/$tenantId/requests/pending/$approverId'
     | '/api/audit/$tenantId/alerts/$alertId/acknowledge'
     | '/api/audit/$tenantId/alerts/$alertId/resolve'
     | '/api/audit/$tenantId/exports/$exportId/download'
@@ -3371,6 +3527,9 @@ export interface RootRouteChildren {
   ApiAnalyticsRetrievalHealthCheckRoute: typeof ApiAnalyticsRetrievalHealthCheckRoute
   ApiAnalyticsRetrievalOverviewRoute: typeof ApiAnalyticsRetrievalOverviewRoute
   ApiAnalyticsToolsOverviewRoute: typeof ApiAnalyticsToolsOverviewRoute
+  ApiApprovalGatesTenantIdPoliciesRoute: typeof ApiApprovalGatesTenantIdPoliciesRouteWithChildren
+  ApiApprovalGatesTenantIdRequestsRoute: typeof ApiApprovalGatesTenantIdRequestsRouteWithChildren
+  ApiApprovalGatesExpireTickRoute: typeof ApiApprovalGatesExpireTickRoute
   ApiAuditTenantIdAlertsRoute: typeof ApiAuditTenantIdAlertsRouteWithChildren
   ApiAuditTenantIdExportsRoute: typeof ApiAuditTenantIdExportsRouteWithChildren
   ApiAuditTenantIdLogsRoute: typeof ApiAuditTenantIdLogsRouteWithChildren
@@ -3484,6 +3643,8 @@ export interface RootRouteChildren {
   ApiApikeysTenantIdKeyIdRevokeRoute: typeof ApiApikeysTenantIdKeyIdRevokeRoute
   ApiApikeysTenantIdKeyIdRotateRoute: typeof ApiApikeysTenantIdKeyIdRotateRoute
   ApiApikeysTenantIdKeyIdUsageRoute: typeof ApiApikeysTenantIdKeyIdUsageRoute
+  ApiApprovalGatesTenantIdNotificationsUserIdRoute: typeof ApiApprovalGatesTenantIdNotificationsUserIdRoute
+  ApiApprovalGatesNotificationsNotificationIdReadRoute: typeof ApiApprovalGatesNotificationsNotificationIdReadRoute
   ApiAuditTenantIdMetricsPeriodRoute: typeof ApiAuditTenantIdMetricsPeriodRoute
   ApiClusterTasksTaskIdCompleteRoute: typeof ApiClusterTasksTaskIdCompleteRoute
   ApiClusterWorkersWorkerIdClaimRoute: typeof ApiClusterWorkersWorkerIdClaimRoute
@@ -4736,6 +4897,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuditTenantIdAlertsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/approval-gates/expire/tick': {
+      id: '/api/approval-gates/expire/tick'
+      path: '/api/approval-gates/expire/tick'
+      fullPath: '/api/approval-gates/expire/tick'
+      preLoaderRoute: typeof ApiApprovalGatesExpireTickRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/approval-gates/$tenantId/requests': {
+      id: '/api/approval-gates/$tenantId/requests'
+      path: '/api/approval-gates/$tenantId/requests'
+      fullPath: '/api/approval-gates/$tenantId/requests'
+      preLoaderRoute: typeof ApiApprovalGatesTenantIdRequestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/approval-gates/$tenantId/policies': {
+      id: '/api/approval-gates/$tenantId/policies'
+      path: '/api/approval-gates/$tenantId/policies'
+      fullPath: '/api/approval-gates/$tenantId/policies'
+      preLoaderRoute: typeof ApiApprovalGatesTenantIdPoliciesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/analytics/tools/overview': {
       id: '/api/analytics/tools/overview'
       path: '/api/analytics/tools/overview'
@@ -5177,6 +5359,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuditTenantIdExportsExportIdRouteImport
       parentRoute: typeof ApiAuditTenantIdExportsRoute
     }
+    '/api/approval-gates/notifications/$notificationId/read': {
+      id: '/api/approval-gates/notifications/$notificationId/read'
+      path: '/api/approval-gates/notifications/$notificationId/read'
+      fullPath: '/api/approval-gates/notifications/$notificationId/read'
+      preLoaderRoute: typeof ApiApprovalGatesNotificationsNotificationIdReadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/approval-gates/$tenantId/policies/seed': {
+      id: '/api/approval-gates/$tenantId/policies/seed'
+      path: '/seed'
+      fullPath: '/api/approval-gates/$tenantId/policies/seed'
+      preLoaderRoute: typeof ApiApprovalGatesTenantIdPoliciesSeedRouteImport
+      parentRoute: typeof ApiApprovalGatesTenantIdPoliciesRoute
+    }
+    '/api/approval-gates/$tenantId/policies/$policyId': {
+      id: '/api/approval-gates/$tenantId/policies/$policyId'
+      path: '/$policyId'
+      fullPath: '/api/approval-gates/$tenantId/policies/$policyId'
+      preLoaderRoute: typeof ApiApprovalGatesTenantIdPoliciesPolicyIdRouteImport
+      parentRoute: typeof ApiApprovalGatesTenantIdPoliciesRoute
+    }
+    '/api/approval-gates/$tenantId/notifications/$userId': {
+      id: '/api/approval-gates/$tenantId/notifications/$userId'
+      path: '/api/approval-gates/$tenantId/notifications/$userId'
+      fullPath: '/api/approval-gates/$tenantId/notifications/$userId'
+      preLoaderRoute: typeof ApiApprovalGatesTenantIdNotificationsUserIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/apikeys/$tenantId/$keyId/usage': {
       id: '/api/apikeys/$tenantId/$keyId/usage'
       path: '/api/apikeys/$tenantId/$keyId/usage'
@@ -5352,6 +5562,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuditTenantIdAlertsAlertIdAcknowledgeRouteImport
       parentRoute: typeof ApiAuditTenantIdAlertsRoute
     }
+    '/api/approval-gates/$tenantId/requests/pending/$approverId': {
+      id: '/api/approval-gates/$tenantId/requests/pending/$approverId'
+      path: '/pending/$approverId'
+      fullPath: '/api/approval-gates/$tenantId/requests/pending/$approverId'
+      preLoaderRoute: typeof ApiApprovalGatesTenantIdRequestsPendingApproverIdRouteImport
+      parentRoute: typeof ApiApprovalGatesTenantIdRequestsRoute
+    }
+    '/api/approval-gates/$tenantId/requests/history/$userId': {
+      id: '/api/approval-gates/$tenantId/requests/history/$userId'
+      path: '/history/$userId'
+      fullPath: '/api/approval-gates/$tenantId/requests/history/$userId'
+      preLoaderRoute: typeof ApiApprovalGatesTenantIdRequestsHistoryUserIdRouteImport
+      parentRoute: typeof ApiApprovalGatesTenantIdRequestsRoute
+    }
+    '/api/approval-gates/$tenantId/requests/$requestId/execute': {
+      id: '/api/approval-gates/$tenantId/requests/$requestId/execute'
+      path: '/$requestId/execute'
+      fullPath: '/api/approval-gates/$tenantId/requests/$requestId/execute'
+      preLoaderRoute: typeof ApiApprovalGatesTenantIdRequestsRequestIdExecuteRouteImport
+      parentRoute: typeof ApiApprovalGatesTenantIdRequestsRoute
+    }
+    '/api/approval-gates/$tenantId/requests/$requestId/decision': {
+      id: '/api/approval-gates/$tenantId/requests/$requestId/decision'
+      path: '/$requestId/decision'
+      fullPath: '/api/approval-gates/$tenantId/requests/$requestId/decision'
+      preLoaderRoute: typeof ApiApprovalGatesTenantIdRequestsRequestIdDecisionRouteImport
+      parentRoute: typeof ApiApprovalGatesTenantIdRequestsRoute
+    }
+    '/api/approval-gates/$tenantId/requests/$requestId/cancel': {
+      id: '/api/approval-gates/$tenantId/requests/$requestId/cancel'
+      path: '/$requestId/cancel'
+      fullPath: '/api/approval-gates/$tenantId/requests/$requestId/cancel'
+      preLoaderRoute: typeof ApiApprovalGatesTenantIdRequestsRequestIdCancelRouteImport
+      parentRoute: typeof ApiApprovalGatesTenantIdRequestsRoute
+    }
   }
 }
 
@@ -5520,6 +5765,51 @@ const ApiAdvancedRolesTenantIdJitRouteChildren: ApiAdvancedRolesTenantIdJitRoute
 const ApiAdvancedRolesTenantIdJitRouteWithChildren =
   ApiAdvancedRolesTenantIdJitRoute._addFileChildren(
     ApiAdvancedRolesTenantIdJitRouteChildren,
+  )
+
+interface ApiApprovalGatesTenantIdPoliciesRouteChildren {
+  ApiApprovalGatesTenantIdPoliciesPolicyIdRoute: typeof ApiApprovalGatesTenantIdPoliciesPolicyIdRoute
+  ApiApprovalGatesTenantIdPoliciesSeedRoute: typeof ApiApprovalGatesTenantIdPoliciesSeedRoute
+}
+
+const ApiApprovalGatesTenantIdPoliciesRouteChildren: ApiApprovalGatesTenantIdPoliciesRouteChildren =
+  {
+    ApiApprovalGatesTenantIdPoliciesPolicyIdRoute:
+      ApiApprovalGatesTenantIdPoliciesPolicyIdRoute,
+    ApiApprovalGatesTenantIdPoliciesSeedRoute:
+      ApiApprovalGatesTenantIdPoliciesSeedRoute,
+  }
+
+const ApiApprovalGatesTenantIdPoliciesRouteWithChildren =
+  ApiApprovalGatesTenantIdPoliciesRoute._addFileChildren(
+    ApiApprovalGatesTenantIdPoliciesRouteChildren,
+  )
+
+interface ApiApprovalGatesTenantIdRequestsRouteChildren {
+  ApiApprovalGatesTenantIdRequestsRequestIdCancelRoute: typeof ApiApprovalGatesTenantIdRequestsRequestIdCancelRoute
+  ApiApprovalGatesTenantIdRequestsRequestIdDecisionRoute: typeof ApiApprovalGatesTenantIdRequestsRequestIdDecisionRoute
+  ApiApprovalGatesTenantIdRequestsRequestIdExecuteRoute: typeof ApiApprovalGatesTenantIdRequestsRequestIdExecuteRoute
+  ApiApprovalGatesTenantIdRequestsHistoryUserIdRoute: typeof ApiApprovalGatesTenantIdRequestsHistoryUserIdRoute
+  ApiApprovalGatesTenantIdRequestsPendingApproverIdRoute: typeof ApiApprovalGatesTenantIdRequestsPendingApproverIdRoute
+}
+
+const ApiApprovalGatesTenantIdRequestsRouteChildren: ApiApprovalGatesTenantIdRequestsRouteChildren =
+  {
+    ApiApprovalGatesTenantIdRequestsRequestIdCancelRoute:
+      ApiApprovalGatesTenantIdRequestsRequestIdCancelRoute,
+    ApiApprovalGatesTenantIdRequestsRequestIdDecisionRoute:
+      ApiApprovalGatesTenantIdRequestsRequestIdDecisionRoute,
+    ApiApprovalGatesTenantIdRequestsRequestIdExecuteRoute:
+      ApiApprovalGatesTenantIdRequestsRequestIdExecuteRoute,
+    ApiApprovalGatesTenantIdRequestsHistoryUserIdRoute:
+      ApiApprovalGatesTenantIdRequestsHistoryUserIdRoute,
+    ApiApprovalGatesTenantIdRequestsPendingApproverIdRoute:
+      ApiApprovalGatesTenantIdRequestsPendingApproverIdRoute,
+  }
+
+const ApiApprovalGatesTenantIdRequestsRouteWithChildren =
+  ApiApprovalGatesTenantIdRequestsRoute._addFileChildren(
+    ApiApprovalGatesTenantIdRequestsRouteChildren,
   )
 
 interface ApiAuditTenantIdAlertsRouteChildren {
@@ -5740,6 +6030,11 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAnalyticsRetrievalHealthCheckRoute: ApiAnalyticsRetrievalHealthCheckRoute,
   ApiAnalyticsRetrievalOverviewRoute: ApiAnalyticsRetrievalOverviewRoute,
   ApiAnalyticsToolsOverviewRoute: ApiAnalyticsToolsOverviewRoute,
+  ApiApprovalGatesTenantIdPoliciesRoute:
+    ApiApprovalGatesTenantIdPoliciesRouteWithChildren,
+  ApiApprovalGatesTenantIdRequestsRoute:
+    ApiApprovalGatesTenantIdRequestsRouteWithChildren,
+  ApiApprovalGatesExpireTickRoute: ApiApprovalGatesExpireTickRoute,
   ApiAuditTenantIdAlertsRoute: ApiAuditTenantIdAlertsRouteWithChildren,
   ApiAuditTenantIdExportsRoute: ApiAuditTenantIdExportsRouteWithChildren,
   ApiAuditTenantIdLogsRoute: ApiAuditTenantIdLogsRouteWithChildren,
@@ -5869,6 +6164,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiApikeysTenantIdKeyIdRevokeRoute: ApiApikeysTenantIdKeyIdRevokeRoute,
   ApiApikeysTenantIdKeyIdRotateRoute: ApiApikeysTenantIdKeyIdRotateRoute,
   ApiApikeysTenantIdKeyIdUsageRoute: ApiApikeysTenantIdKeyIdUsageRoute,
+  ApiApprovalGatesTenantIdNotificationsUserIdRoute:
+    ApiApprovalGatesTenantIdNotificationsUserIdRoute,
+  ApiApprovalGatesNotificationsNotificationIdReadRoute:
+    ApiApprovalGatesNotificationsNotificationIdReadRoute,
   ApiAuditTenantIdMetricsPeriodRoute: ApiAuditTenantIdMetricsPeriodRoute,
   ApiClusterTasksTaskIdCompleteRoute: ApiClusterTasksTaskIdCompleteRoute,
   ApiClusterWorkersWorkerIdClaimRoute: ApiClusterWorkersWorkerIdClaimRoute,
