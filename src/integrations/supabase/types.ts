@@ -347,6 +347,53 @@ export type Database = {
         }
         Relationships: []
       }
+      agent_evaluations: {
+        Row: {
+          actual_output: Json | null
+          created_at: string | null
+          expected_output: Json | null
+          id: string
+          judge_model: string
+          judge_reasoning: string | null
+          metrics: Json
+          overall_score: number
+          run_id: string
+          test_case_id: string
+        }
+        Insert: {
+          actual_output?: Json | null
+          created_at?: string | null
+          expected_output?: Json | null
+          id: string
+          judge_model: string
+          judge_reasoning?: string | null
+          metrics?: Json
+          overall_score: number
+          run_id: string
+          test_case_id: string
+        }
+        Update: {
+          actual_output?: Json | null
+          created_at?: string | null
+          expected_output?: Json | null
+          id?: string
+          judge_model?: string
+          judge_reasoning?: string | null
+          metrics?: Json
+          overall_score?: number
+          run_id?: string
+          test_case_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_evaluations_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "test_runs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       agent_execution_logs: {
         Row: {
           created_at: string
@@ -6640,6 +6687,53 @@ export type Database = {
           },
         ]
       }
+      golden_datasets: {
+        Row: {
+          category: string
+          created_at: string | null
+          description: string | null
+          entries: Json | null
+          entry_count: number
+          id: string
+          last_evaluated_at: string | null
+          name: string
+          tenant_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          description?: string | null
+          entries?: Json | null
+          entry_count?: number
+          id: string
+          last_evaluated_at?: string | null
+          name: string
+          tenant_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          description?: string | null
+          entries?: Json | null
+          entry_count?: number
+          id?: string
+          last_evaluated_at?: string | null
+          name?: string
+          tenant_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "golden_datasets_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       gpu_allocation_requests: {
         Row: {
           created_at: string
@@ -12264,6 +12358,206 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      test_reports: {
+        Row: {
+          by_priority: Json | null
+          by_type: Json | null
+          failed_tests: Json | null
+          file_url: string | null
+          format: string
+          generated_at: string
+          id: string
+          run_id: string
+          slowest_tests: Json | null
+          summary: Json
+          tenant_id: string
+        }
+        Insert: {
+          by_priority?: Json | null
+          by_type?: Json | null
+          failed_tests?: Json | null
+          file_url?: string | null
+          format: string
+          generated_at: string
+          id: string
+          run_id: string
+          slowest_tests?: Json | null
+          summary: Json
+          tenant_id: string
+        }
+        Update: {
+          by_priority?: Json | null
+          by_type?: Json | null
+          failed_tests?: Json | null
+          file_url?: string | null
+          format?: string
+          generated_at?: string
+          id?: string
+          run_id?: string
+          slowest_tests?: Json | null
+          summary?: Json
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "test_reports_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "test_runs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "test_reports_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      test_runs: {
+        Row: {
+          branch: string | null
+          commit_hash: string | null
+          completed_at: string | null
+          created_at: string | null
+          duration_ms: number | null
+          environment: string
+          failed_tests: number
+          id: string
+          passed_tests: number
+          results: Json | null
+          skipped_tests: number
+          started_at: string
+          status: string
+          suite_id: string
+          tenant_id: string
+          total_tests: number
+          triggered_by: string
+        }
+        Insert: {
+          branch?: string | null
+          commit_hash?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          duration_ms?: number | null
+          environment: string
+          failed_tests?: number
+          id: string
+          passed_tests?: number
+          results?: Json | null
+          skipped_tests?: number
+          started_at: string
+          status: string
+          suite_id: string
+          tenant_id: string
+          total_tests?: number
+          triggered_by: string
+        }
+        Update: {
+          branch?: string | null
+          commit_hash?: string | null
+          completed_at?: string | null
+          created_at?: string | null
+          duration_ms?: number | null
+          environment?: string
+          failed_tests?: number
+          id?: string
+          passed_tests?: number
+          results?: Json | null
+          skipped_tests?: number
+          started_at?: string
+          status?: string
+          suite_id?: string
+          tenant_id?: string
+          total_tests?: number
+          triggered_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "test_runs_suite_id_fkey"
+            columns: ["suite_id"]
+            isOneToOne: false
+            referencedRelation: "test_suites"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "test_runs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      test_suites: {
+        Row: {
+          created_at: string | null
+          created_by: string
+          description: string | null
+          id: string
+          last_run_at: string | null
+          last_run_status: string | null
+          name: string
+          parallel_execution: boolean | null
+          retry_count: number | null
+          setup_script: string | null
+          tags: string[] | null
+          teardown_script: string | null
+          tenant_id: string
+          test_cases: Json | null
+          timeout_ms: number | null
+          type: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by: string
+          description?: string | null
+          id: string
+          last_run_at?: string | null
+          last_run_status?: string | null
+          name: string
+          parallel_execution?: boolean | null
+          retry_count?: number | null
+          setup_script?: string | null
+          tags?: string[] | null
+          teardown_script?: string | null
+          tenant_id: string
+          test_cases?: Json | null
+          timeout_ms?: number | null
+          type: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string
+          description?: string | null
+          id?: string
+          last_run_at?: string | null
+          last_run_status?: string | null
+          name?: string
+          parallel_execution?: boolean | null
+          retry_count?: number | null
+          setup_script?: string | null
+          tags?: string[] | null
+          teardown_script?: string | null
+          tenant_id?: string
+          test_cases?: Json | null
+          timeout_ms?: number | null
+          type?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "test_suites_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       threat_feeds: {
         Row: {
