@@ -26,4 +26,6 @@ export * from "./review/review";
 export * from "./recovery/recoveryTypes";
 export * from "./recovery/recoveryQueue";
 export * from "./recovery/recoveryManager";
-export * from "./audit/audit";
+export * from "./audit/auditTypes";
+export * from "./audit/auditLog";
+export * from "./testing/systemTest";
