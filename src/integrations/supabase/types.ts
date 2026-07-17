@@ -4967,6 +4967,203 @@ export type Database = {
         }
         Relationships: []
       }
+      rbac_audit_logs: {
+        Row: {
+          action: string
+          details: Json
+          id: string
+          ip_address: string | null
+          tenant_id: string
+          timestamp: string
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          action: string
+          details?: Json
+          id: string
+          ip_address?: string | null
+          tenant_id: string
+          timestamp?: string
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          action?: string
+          details?: Json
+          id?: string
+          ip_address?: string | null
+          tenant_id?: string
+          timestamp?: string
+          user_agent?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rbac_audit_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rbac_permissions: {
+        Row: {
+          action: string
+          created_at: string
+          description: string
+          id: string
+          is_system: boolean
+          resource: string
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          description: string
+          id: string
+          is_system?: boolean
+          resource: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          description?: string
+          id?: string
+          is_system?: boolean
+          resource?: string
+        }
+        Relationships: []
+      }
+      rbac_role_assignments: {
+        Row: {
+          assigned_at: string
+          assigned_by: string
+          created_at: string
+          expires_at: string | null
+          id: string
+          is_active: boolean
+          metadata: Json
+          role_id: string
+          tenant_id: string
+          updated_at: string
+          user_id: string
+          workspace_id: string | null
+        }
+        Insert: {
+          assigned_at?: string
+          assigned_by: string
+          created_at?: string
+          expires_at?: string | null
+          id: string
+          is_active?: boolean
+          metadata?: Json
+          role_id: string
+          tenant_id: string
+          updated_at?: string
+          user_id: string
+          workspace_id?: string | null
+        }
+        Update: {
+          assigned_at?: string
+          assigned_by?: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          metadata?: Json
+          role_id?: string
+          tenant_id?: string
+          updated_at?: string
+          user_id?: string
+          workspace_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rbac_role_assignments_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "rbac_roles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "rbac_role_assignments_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rbac_roles: {
+        Row: {
+          created_at: string
+          current_member_count: number
+          description: string | null
+          effective_permissions: string[]
+          id: string
+          inherits_permissions: boolean
+          is_active: boolean
+          is_system_role: boolean
+          max_members: number | null
+          name: string
+          parent_role_id: string | null
+          permissions: string[]
+          tenant_id: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          current_member_count?: number
+          description?: string | null
+          effective_permissions?: string[]
+          id: string
+          inherits_permissions?: boolean
+          is_active?: boolean
+          is_system_role?: boolean
+          max_members?: number | null
+          name: string
+          parent_role_id?: string | null
+          permissions?: string[]
+          tenant_id: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          current_member_count?: number
+          description?: string | null
+          effective_permissions?: string[]
+          id?: string
+          inherits_permissions?: boolean
+          is_active?: boolean
+          is_system_role?: boolean
+          max_members?: number | null
+          name?: string
+          parent_role_id?: string | null
+          permissions?: string[]
+          tenant_id?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rbac_roles_parent_role_id_fkey"
+            columns: ["parent_role_id"]
+            isOneToOne: false
+            referencedRelation: "rbac_roles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "rbac_roles_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       relationships: {
         Row: {
           created_at: string
