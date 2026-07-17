@@ -1852,6 +1852,78 @@ export type Database = {
         }
         Relationships: []
       }
+      dead_letter_queue: {
+        Row: {
+          attempts: number
+          can_retry: boolean
+          created_at: string
+          failed_at: string
+          id: string
+          last_error: string
+          last_error_code: string
+          max_manual_retries: number
+          metadata: Json
+          original_task_id: string
+          payload: Json
+          priority: number
+          queue_id: string
+          retry_count: number
+          tenant_id: string
+          type: string
+        }
+        Insert: {
+          attempts: number
+          can_retry?: boolean
+          created_at?: string
+          failed_at: string
+          id: string
+          last_error: string
+          last_error_code: string
+          max_manual_retries?: number
+          metadata?: Json
+          original_task_id: string
+          payload?: Json
+          priority: number
+          queue_id: string
+          retry_count?: number
+          tenant_id: string
+          type: string
+        }
+        Update: {
+          attempts?: number
+          can_retry?: boolean
+          created_at?: string
+          failed_at?: string
+          id?: string
+          last_error?: string
+          last_error_code?: string
+          max_manual_retries?: number
+          metadata?: Json
+          original_task_id?: string
+          payload?: Json
+          priority?: number
+          queue_id?: string
+          retry_count?: number
+          tenant_id?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dead_letter_queue_queue_id_fkey"
+            columns: ["queue_id"]
+            isOneToOne: false
+            referencedRelation: "queues"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "dead_letter_queue_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       department_memories: {
         Row: {
           access_count: number
@@ -2666,6 +2738,102 @@ export type Database = {
         }
         Relationships: []
       }
+      orchestrated_tasks: {
+        Row: {
+          attempts: number
+          completed_at: string | null
+          correlation_id: string | null
+          created_at: string
+          depends_on: Json
+          error: string | null
+          error_code: string | null
+          id: string
+          max_attempts: number
+          metadata: Json
+          next_retry_at: string | null
+          payload: Json
+          priority: number
+          queue_id: string
+          queued_at: string | null
+          result: Json | null
+          retry_delay_ms: number
+          retry_strategy: string
+          started_at: string | null
+          state: string
+          tenant_id: string
+          timeout_ms: number
+          type: string
+          workspace_id: string | null
+        }
+        Insert: {
+          attempts?: number
+          completed_at?: string | null
+          correlation_id?: string | null
+          created_at?: string
+          depends_on?: Json
+          error?: string | null
+          error_code?: string | null
+          id: string
+          max_attempts?: number
+          metadata?: Json
+          next_retry_at?: string | null
+          payload?: Json
+          priority?: number
+          queue_id: string
+          queued_at?: string | null
+          result?: Json | null
+          retry_delay_ms?: number
+          retry_strategy?: string
+          started_at?: string | null
+          state?: string
+          tenant_id: string
+          timeout_ms?: number
+          type: string
+          workspace_id?: string | null
+        }
+        Update: {
+          attempts?: number
+          completed_at?: string | null
+          correlation_id?: string | null
+          created_at?: string
+          depends_on?: Json
+          error?: string | null
+          error_code?: string | null
+          id?: string
+          max_attempts?: number
+          metadata?: Json
+          next_retry_at?: string | null
+          payload?: Json
+          priority?: number
+          queue_id?: string
+          queued_at?: string | null
+          result?: Json | null
+          retry_delay_ms?: number
+          retry_strategy?: string
+          started_at?: string | null
+          state?: string
+          tenant_id?: string
+          timeout_ms?: number
+          type?: string
+          workspace_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orchestrated_tasks_queue_id_fkey"
+            columns: ["queue_id"]
+            isOneToOne: false
+            referencedRelation: "queues"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orchestrated_tasks_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       organization_members: {
         Row: {
           avatar_url: string | null
@@ -3042,6 +3210,133 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      queue_metrics: {
+        Row: {
+          avg_processing_time_ms: number
+          avg_wait_time_ms: number
+          completed_tasks: number
+          dead_letter_tasks: number
+          failed_tasks: number
+          failure_rate: number
+          id: string
+          oldest_pending_task_age: number
+          p95_processing_time_ms: number
+          p99_processing_time_ms: number
+          pending_tasks: number
+          processing_tasks: number
+          queue_id: string
+          success_rate: number
+          tasks_per_minute: number
+          timestamp: string
+        }
+        Insert: {
+          avg_processing_time_ms?: number
+          avg_wait_time_ms?: number
+          completed_tasks?: number
+          dead_letter_tasks?: number
+          failed_tasks?: number
+          failure_rate?: number
+          id: string
+          oldest_pending_task_age?: number
+          p95_processing_time_ms?: number
+          p99_processing_time_ms?: number
+          pending_tasks?: number
+          processing_tasks?: number
+          queue_id: string
+          success_rate?: number
+          tasks_per_minute?: number
+          timestamp?: string
+        }
+        Update: {
+          avg_processing_time_ms?: number
+          avg_wait_time_ms?: number
+          completed_tasks?: number
+          dead_letter_tasks?: number
+          failed_tasks?: number
+          failure_rate?: number
+          id?: string
+          oldest_pending_task_age?: number
+          p95_processing_time_ms?: number
+          p99_processing_time_ms?: number
+          pending_tasks?: number
+          processing_tasks?: number
+          queue_id?: string
+          success_rate?: number
+          tasks_per_minute?: number
+          timestamp?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "queue_metrics_queue_id_fkey"
+            columns: ["queue_id"]
+            isOneToOne: false
+            referencedRelation: "queues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      queues: {
+        Row: {
+          created_at: string
+          current_depth: number
+          default_max_retries: number
+          default_retry_strategy: string
+          default_timeout_ms: number
+          description: string | null
+          failure_rate: number
+          id: string
+          is_active: boolean
+          max_concurrent_tasks: number
+          name: string
+          processing_rate: number
+          tenant_id: string | null
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          current_depth?: number
+          default_max_retries?: number
+          default_retry_strategy?: string
+          default_timeout_ms?: number
+          description?: string | null
+          failure_rate?: number
+          id: string
+          is_active?: boolean
+          max_concurrent_tasks?: number
+          name: string
+          processing_rate?: number
+          tenant_id?: string | null
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          current_depth?: number
+          default_max_retries?: number
+          default_retry_strategy?: string
+          default_timeout_ms?: number
+          description?: string | null
+          failure_rate?: number
+          id?: string
+          is_active?: boolean
+          max_concurrent_tasks?: number
+          name?: string
+          processing_rate?: number
+          tenant_id?: string | null
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "queues_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       raw_memories: {
         Row: {
@@ -3620,6 +3915,51 @@ export type Database = {
             columns: ["tenant_id"]
             isOneToOne: true
             referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      task_dependencies: {
+        Row: {
+          condition: string | null
+          created_at: string
+          dependency_type: string
+          depends_on_task_id: string
+          id: string
+          resolved_at: string | null
+          task_id: string
+        }
+        Insert: {
+          condition?: string | null
+          created_at?: string
+          dependency_type?: string
+          depends_on_task_id: string
+          id: string
+          resolved_at?: string | null
+          task_id: string
+        }
+        Update: {
+          condition?: string | null
+          created_at?: string
+          dependency_type?: string
+          depends_on_task_id?: string
+          id?: string
+          resolved_at?: string | null
+          task_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "task_dependencies_depends_on_task_id_fkey"
+            columns: ["depends_on_task_id"]
+            isOneToOne: false
+            referencedRelation: "orchestrated_tasks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "task_dependencies_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "orchestrated_tasks"
             referencedColumns: ["id"]
           },
         ]
