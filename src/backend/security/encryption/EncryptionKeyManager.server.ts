@@ -113,7 +113,7 @@ export class EncryptionKeyManager {
       .single();
     if (!existing) throw new Error('Key not found');
 
-    const newKeyMaterial = EncryptionEngine.generateKey(existing.algorithm);
+    const newKeyMaterial = EncryptionEngine.generateKey(existing.algorithm as EncryptionAlgorithm);
     const { encrypted, iv, authTag } = EncryptionEngine.encryptWithMasterKey(newKeyMaterial);
     const encryptedKeyMaterial = JSON.stringify({ encrypted, iv, authTag });
     const newVersion = existing.key_version + 1;
