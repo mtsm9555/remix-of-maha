@@ -1,8 +1,7 @@
 // src/backend/business/analytics/AnalyticsManager.ts
 import { createClient } from "@supabase/supabase-js";
 import { AnalyticsReport, AnalyticsInsight, InsightCategory } from "./BusinessAnalyticsTypes";
-import { AnalyticsDataAggregator } from "./AnalyticsDataAggregator";
-import { ModelServer } from "../../model/ModelServer";
+import { AnalyticsDataAggregator } from "./AnalyticsDataAggregator.server";
 import * as crypto from "crypto";
 
 const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
