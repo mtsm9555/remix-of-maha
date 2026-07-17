@@ -42,10 +42,15 @@ export class ThreatIntelligenceManager {
     
     if (existing) {
       // Update hit count
+      const { data: current } = await supabase
+        .from('indicators_of_compromise')
+        .select('hit_count')
+        .eq('id', existing.id)
+        .single();
       await supabase
         .from('indicators_of_compromise')
         .update({
-          hit_count: supabase.raw('hit_count + 1'),
+          hit_count: (current?.hit_count ?? 0) + 1,
           last_hit_at: new Date().toISOString(),
           last_seen_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
@@ -65,7 +70,7 @@ export class ThreatIntelligenceManager {
       confidence: options.confidence || 0.8,
       mitreTactics: options.mitreTactics || [],
       mitreTechniques: options.mitreTechniques || [],
-      source: options.source || 'manual',
+      source: (options.source as IndicatorOfCompromise['source']) || 'manual',
       sourceFeed: options.sourceFeed,
       description: options.description,
       tags: options.tags || [],
@@ -232,12 +237,17 @@ export class ThreatIntelligenceManager {
       }
       
       // Update feed metadata
+      const { data: feedCurrent } = await supabase
+        .from('threat_feeds')
+        .select('total_iocs')
+        .eq('id', feedId)
+        .single();
       await supabase
         .from('threat_feeds')
         .update({
           last_sync_at: new Date().toISOString(),
           last_sync_status: errors === 0 ? 'success' : 'partial',
-          total_iocs: supabase.raw(`total_iocs + ${imported}`),
+          total_iocs: (feedCurrent?.total_iocs ?? 0) + imported,
           new_iocs_last_sync: imported,
           updated_at: new Date().toISOString()
         })
