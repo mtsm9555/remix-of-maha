@@ -83,7 +83,7 @@ export class AuditLogger {
       createdAt: new Date(),
     };
 
-    const { error } = await supabaseAdmin.from('audit_logs').insert(toRow(event));
+    const { error } = await supabaseAdmin.from('audit_logs').insert(toRow(event) as never);
     if (error) console.error('[AuditLogger] insert failed:', error);
 
     await AuditLogger.checkForAlerts(event);
@@ -161,6 +161,6 @@ export class AuditLogger {
       event_count: relatedEventIds.length,
       status: 'active',
       metadata: {},
-    });
+    } as never);
   }
 }
