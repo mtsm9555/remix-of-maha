@@ -719,6 +719,51 @@ export type Database = {
           },
         ]
       }
+      context_snapshots: {
+        Row: {
+          agent_id: string
+          chunk_metadata: Json
+          created_at: string
+          department: string
+          estimated_cost_usd: number
+          full_prompt_text: string
+          id: string
+          llm_model_used: string
+          llm_temperature: number
+          prompt_hash: string
+          task_id: string
+          total_tokens: number
+        }
+        Insert: {
+          agent_id: string
+          chunk_metadata?: Json
+          created_at?: string
+          department: string
+          estimated_cost_usd: number
+          full_prompt_text: string
+          id: string
+          llm_model_used: string
+          llm_temperature: number
+          prompt_hash: string
+          task_id: string
+          total_tokens: number
+        }
+        Update: {
+          agent_id?: string
+          chunk_metadata?: Json
+          created_at?: string
+          department?: string
+          estimated_cost_usd?: number
+          full_prompt_text?: string
+          id?: string
+          llm_model_used?: string
+          llm_temperature?: number
+          prompt_hash?: string
+          task_id?: string
+          total_tokens?: number
+        }
+        Relationships: []
+      }
       conversations: {
         Row: {
           created_at: string
