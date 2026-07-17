@@ -16,7 +16,7 @@ export const Route = createFileRoute("/api/scaling/policies/$policyId")({
       },
       PATCH: async ({ params, request }) => {
         const body = (await request.json()) as Record<string, unknown>;
-        const update: Record<string, unknown> = { updated_at: new Date().toISOString() };
+        const update: Record<string, any> = { updated_at: new Date().toISOString() };
         const map: Record<string, string> = {
           name: "name",
           description: "description",
@@ -32,7 +32,7 @@ export const Route = createFileRoute("/api/scaling/policies/$policyId")({
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const { data, error } = await supabaseAdmin
           .from("scaling_policies")
-          .update(update)
+          .update(update as any)
           .eq("id", params.policyId)
           .select()
           .single();
