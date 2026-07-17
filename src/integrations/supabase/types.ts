@@ -3559,6 +3559,465 @@ export type Database = {
         }
         Relationships: []
       }
+      crm_activities: {
+        Row: {
+          assigned_to: string | null
+          attachments: string[] | null
+          company_id: string | null
+          completed_at: string | null
+          contact_ids: string[] | null
+          created_at: string
+          created_by: string
+          deal_id: string | null
+          description: string | null
+          duration_minutes: number | null
+          id: string
+          next_steps: string | null
+          outcome: string | null
+          scheduled_at: string | null
+          status: string
+          subject: string
+          tags: string[] | null
+          tenant_id: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          attachments?: string[] | null
+          company_id?: string | null
+          completed_at?: string | null
+          contact_ids?: string[] | null
+          created_at?: string
+          created_by: string
+          deal_id?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          id: string
+          next_steps?: string | null
+          outcome?: string | null
+          scheduled_at?: string | null
+          status: string
+          subject: string
+          tags?: string[] | null
+          tenant_id: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          attachments?: string[] | null
+          company_id?: string | null
+          completed_at?: string | null
+          contact_ids?: string[] | null
+          created_at?: string
+          created_by?: string
+          deal_id?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          next_steps?: string | null
+          outcome?: string | null
+          scheduled_at?: string | null
+          status?: string
+          subject?: string
+          tags?: string[] | null
+          tenant_id?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_activities_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "crm_companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_activities_deal_id_fkey"
+            columns: ["deal_id"]
+            isOneToOne: false
+            referencedRelation: "crm_deals"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_activities_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_companies: {
+        Row: {
+          account_tier: string | null
+          address: Json | null
+          annual_revenue: number | null
+          assigned_to: string | null
+          created_at: string
+          description: string | null
+          domain: string | null
+          email: string | null
+          funding_stage: string | null
+          id: string
+          industry: string | null
+          lifetime_value: number | null
+          name: string
+          notes: string | null
+          phone: string | null
+          segments: string[] | null
+          size: string | null
+          status: string
+          tags: string[] | null
+          tenant_id: string
+          total_contacts: number | null
+          total_deals: number | null
+          total_revenue: number | null
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          account_tier?: string | null
+          address?: Json | null
+          annual_revenue?: number | null
+          assigned_to?: string | null
+          created_at?: string
+          description?: string | null
+          domain?: string | null
+          email?: string | null
+          funding_stage?: string | null
+          id: string
+          industry?: string | null
+          lifetime_value?: number | null
+          name: string
+          notes?: string | null
+          phone?: string | null
+          segments?: string[] | null
+          size?: string | null
+          status: string
+          tags?: string[] | null
+          tenant_id: string
+          total_contacts?: number | null
+          total_deals?: number | null
+          total_revenue?: number | null
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          account_tier?: string | null
+          address?: Json | null
+          annual_revenue?: number | null
+          assigned_to?: string | null
+          created_at?: string
+          description?: string | null
+          domain?: string | null
+          email?: string | null
+          funding_stage?: string | null
+          id?: string
+          industry?: string | null
+          lifetime_value?: number | null
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          segments?: string[] | null
+          size?: string | null
+          status?: string
+          tags?: string[] | null
+          tenant_id?: string
+          total_contacts?: number | null
+          total_deals?: number | null
+          total_revenue?: number | null
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_companies_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_contacts: {
+        Row: {
+          address: Json | null
+          assigned_to: string | null
+          company_id: string | null
+          consent_date: string | null
+          consent_given: boolean | null
+          created_at: string
+          do_not_contact: boolean | null
+          email: string
+          first_name: string
+          id: string
+          language: string | null
+          last_activity_at: string | null
+          last_name: string
+          lead_score: number | null
+          lifecycle_stage: string | null
+          linkedin_url: string | null
+          next_activity_at: string | null
+          phone: string | null
+          preferred_contact_method: string | null
+          segments: string[] | null
+          source: string | null
+          status: string
+          tags: string[] | null
+          tenant_id: string
+          timezone: string | null
+          title: string | null
+          twitter_handle: string | null
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          address?: Json | null
+          assigned_to?: string | null
+          company_id?: string | null
+          consent_date?: string | null
+          consent_given?: boolean | null
+          created_at?: string
+          do_not_contact?: boolean | null
+          email: string
+          first_name: string
+          id: string
+          language?: string | null
+          last_activity_at?: string | null
+          last_name: string
+          lead_score?: number | null
+          lifecycle_stage?: string | null
+          linkedin_url?: string | null
+          next_activity_at?: string | null
+          phone?: string | null
+          preferred_contact_method?: string | null
+          segments?: string[] | null
+          source?: string | null
+          status: string
+          tags?: string[] | null
+          tenant_id: string
+          timezone?: string | null
+          title?: string | null
+          twitter_handle?: string | null
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          address?: Json | null
+          assigned_to?: string | null
+          company_id?: string | null
+          consent_date?: string | null
+          consent_given?: boolean | null
+          created_at?: string
+          do_not_contact?: boolean | null
+          email?: string
+          first_name?: string
+          id?: string
+          language?: string | null
+          last_activity_at?: string | null
+          last_name?: string
+          lead_score?: number | null
+          lifecycle_stage?: string | null
+          linkedin_url?: string | null
+          next_activity_at?: string | null
+          phone?: string | null
+          preferred_contact_method?: string | null
+          segments?: string[] | null
+          source?: string | null
+          status?: string
+          tags?: string[] | null
+          tenant_id?: string
+          timezone?: string | null
+          title?: string | null
+          twitter_handle?: string | null
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_contacts_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "crm_companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_contacts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_deals: {
+        Row: {
+          assigned_to: string | null
+          campaign_id: string | null
+          closed_at: string | null
+          company_id: string | null
+          contact_ids: string[] | null
+          created_at: string
+          currency: string
+          description: string | null
+          expected_close_date: string | null
+          forecast_category: string | null
+          id: string
+          lost_reason: string | null
+          metadata: Json | null
+          name: string
+          pipeline_id: string
+          priority: string
+          probability: number
+          source: string | null
+          stage: string
+          stage_entered_at: string
+          tags: string[] | null
+          team_ids: string[] | null
+          tenant_id: string
+          updated_at: string
+          value: number
+        }
+        Insert: {
+          assigned_to?: string | null
+          campaign_id?: string | null
+          closed_at?: string | null
+          company_id?: string | null
+          contact_ids?: string[] | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          expected_close_date?: string | null
+          forecast_category?: string | null
+          id: string
+          lost_reason?: string | null
+          metadata?: Json | null
+          name: string
+          pipeline_id: string
+          priority: string
+          probability?: number
+          source?: string | null
+          stage: string
+          stage_entered_at?: string
+          tags?: string[] | null
+          team_ids?: string[] | null
+          tenant_id: string
+          updated_at?: string
+          value: number
+        }
+        Update: {
+          assigned_to?: string | null
+          campaign_id?: string | null
+          closed_at?: string | null
+          company_id?: string | null
+          contact_ids?: string[] | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          expected_close_date?: string | null
+          forecast_category?: string | null
+          id?: string
+          lost_reason?: string | null
+          metadata?: Json | null
+          name?: string
+          pipeline_id?: string
+          priority?: string
+          probability?: number
+          source?: string | null
+          stage?: string
+          stage_entered_at?: string
+          tags?: string[] | null
+          team_ids?: string[] | null
+          tenant_id?: string
+          updated_at?: string
+          value?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_deals_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "crm_companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_deals_pipeline_id_fkey"
+            columns: ["pipeline_id"]
+            isOneToOne: false
+            referencedRelation: "crm_pipelines"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "crm_deals_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_pipelines: {
+        Row: {
+          average_days_in_pipeline: number | null
+          average_deal_size: number | null
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean | null
+          is_default: boolean | null
+          name: string
+          stages: Json
+          tenant_id: string
+          total_deals: number | null
+          total_value: number | null
+          updated_at: string
+          win_rate: number | null
+        }
+        Insert: {
+          average_days_in_pipeline?: number | null
+          average_deal_size?: number | null
+          created_at?: string
+          description?: string | null
+          id: string
+          is_active?: boolean | null
+          is_default?: boolean | null
+          name: string
+          stages?: Json
+          tenant_id: string
+          total_deals?: number | null
+          total_value?: number | null
+          updated_at?: string
+          win_rate?: number | null
+        }
+        Update: {
+          average_days_in_pipeline?: number | null
+          average_deal_size?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_default?: boolean | null
+          name?: string
+          stages?: Json
+          tenant_id?: string
+          total_deals?: number | null
+          total_value?: number | null
+          updated_at?: string
+          win_rate?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_pipelines_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cross_workspace_access: {
         Row: {
           access_type: string
