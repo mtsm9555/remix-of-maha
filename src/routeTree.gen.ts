@@ -56,8 +56,12 @@ import { Route as ApiCollaborationSessionsRouteImport } from './routes/api/colla
 import { Route as ApiCollaborationInitiateRouteImport } from './routes/api/collaboration/initiate'
 import { Route as ApiClusterMetricsRouteImport } from './routes/api/cluster/metrics'
 import { Route as ApiCacheStatsRouteImport } from './routes/api/cache/stats'
+import { Route as ApiCachePurgeRouteImport } from './routes/api/cache/purge'
+import { Route as ApiCacheInvalidateRouteImport } from './routes/api/cache/invalidate'
 import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiBillingPlansRouteImport } from './routes/api/billing/plans'
+import { Route as ApiBackupRestoreRouteImport } from './routes/api/backup/restore'
+import { Route as ApiBackupJobsRouteImport } from './routes/api/backup/jobs'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
 import { Route as ApiAdvancedRolesTemplatesRouteImport } from './routes/api/advanced-roles/templates'
 import { Route as ApiInfrastructureDiscoveryRouteRouteImport } from './routes/api/infrastructure/discovery/route'
@@ -156,6 +160,7 @@ import { Route as ApiBillingOpsTenantIdRefundsRouteImport } from './routes/api/b
 import { Route as ApiBillingOpsTenantIdPaymentsRouteImport } from './routes/api/billing-ops/$tenantId/payments'
 import { Route as ApiBillingOpsTenantIdEventsRouteImport } from './routes/api/billing-ops/$tenantId/events'
 import { Route as ApiBillingOpsTenantIdCreditsRouteImport } from './routes/api/billing-ops/$tenantId/credits'
+import { Route as ApiBackupSchedulerTickRouteImport } from './routes/api/backup/scheduler.tick'
 import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
 import { Route as ApiAnalyticsRetrievalOverviewRouteImport } from './routes/api/analytics/retrieval/overview'
 import { Route as ApiAnalyticsRetrievalHealthCheckRouteImport } from './routes/api/analytics/retrieval/health-check'
@@ -213,6 +218,7 @@ import { Route as ApiDataDepartmentDeptIdInsightsRouteImport } from './routes/ap
 import { Route as ApiClusterWorkersWorkerIdHeartbeatRouteImport } from './routes/api/cluster/workers/$workerId/heartbeat'
 import { Route as ApiClusterWorkersWorkerIdClaimRouteImport } from './routes/api/cluster/workers/$workerId/claim'
 import { Route as ApiClusterTasksTaskIdCompleteRouteImport } from './routes/api/cluster/tasks/$taskId/complete'
+import { Route as ApiBackupJobsIdExecuteRouteImport } from './routes/api/backup/jobs.$id.execute'
 import { Route as ApiApikeysTenantIdKeyIdUsageRouteImport } from './routes/api/apikeys/$tenantId/$keyId/usage'
 import { Route as ApiApikeysTenantIdKeyIdRotateRouteImport } from './routes/api/apikeys/$tenantId/$keyId/rotate'
 import { Route as ApiApikeysTenantIdKeyIdRevokeRouteImport } from './routes/api/apikeys/$tenantId/$keyId/revoke'
@@ -470,6 +476,16 @@ const ApiCacheStatsRoute = ApiCacheStatsRouteImport.update({
   path: '/api/cache/stats',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiCachePurgeRoute = ApiCachePurgeRouteImport.update({
+  id: '/api/cache/purge',
+  path: '/api/cache/purge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCacheInvalidateRoute = ApiCacheInvalidateRouteImport.update({
+  id: '/api/cache/invalidate',
+  path: '/api/cache/invalidate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiBudgetSplatRoute = ApiBudgetSplatRouteImport.update({
   id: '/api/budget/$',
   path: '/api/budget/$',
@@ -478,6 +494,16 @@ const ApiBudgetSplatRoute = ApiBudgetSplatRouteImport.update({
 const ApiBillingPlansRoute = ApiBillingPlansRouteImport.update({
   id: '/api/billing/plans',
   path: '/api/billing/plans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBackupRestoreRoute = ApiBackupRestoreRouteImport.update({
+  id: '/api/backup/restore',
+  path: '/api/backup/restore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBackupJobsRoute = ApiBackupJobsRouteImport.update({
+  id: '/api/backup/jobs',
+  path: '/api/backup/jobs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiApprovalsSplatRoute = ApiApprovalsSplatRouteImport.update({
@@ -1030,6 +1056,11 @@ const ApiBillingOpsTenantIdCreditsRoute =
     path: '/api/billing-ops/$tenantId/credits',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiBackupSchedulerTickRoute = ApiBackupSchedulerTickRouteImport.update({
+  id: '/api/backup/scheduler/tick',
+  path: '/api/backup/scheduler/tick',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAnalyticsToolsOverviewRoute =
   ApiAnalyticsToolsOverviewRouteImport.update({
     id: '/api/analytics/tools/overview',
@@ -1370,6 +1401,11 @@ const ApiClusterTasksTaskIdCompleteRoute =
     path: '/api/cluster/tasks/$taskId/complete',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiBackupJobsIdExecuteRoute = ApiBackupJobsIdExecuteRouteImport.update({
+  id: '/$id/execute',
+  path: '/$id/execute',
+  getParentRoute: () => ApiBackupJobsRoute,
+} as any)
 const ApiApikeysTenantIdKeyIdUsageRoute =
   ApiApikeysTenantIdKeyIdUsageRouteImport.update({
     id: '/api/apikeys/$tenantId/$keyId/usage',
@@ -1483,8 +1519,12 @@ export interface FileRoutesByFullPath {
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
+  '/api/backup/jobs': typeof ApiBackupJobsRouteWithChildren
+  '/api/backup/restore': typeof ApiBackupRestoreRoute
   '/api/billing/plans': typeof ApiBillingPlansRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
+  '/api/cache/invalidate': typeof ApiCacheInvalidateRoute
+  '/api/cache/purge': typeof ApiCachePurgeRoute
   '/api/cache/stats': typeof ApiCacheStatsRoute
   '/api/cluster/metrics': typeof ApiClusterMetricsRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
@@ -1529,6 +1569,7 @@ export interface FileRoutesByFullPath {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/backup/scheduler/tick': typeof ApiBackupSchedulerTickRoute
   '/api/billing-ops/$tenantId/credits': typeof ApiBillingOpsTenantIdCreditsRoute
   '/api/billing-ops/$tenantId/events': typeof ApiBillingOpsTenantIdEventsRoute
   '/api/billing-ops/$tenantId/payments': typeof ApiBillingOpsTenantIdPaymentsRoute
@@ -1633,6 +1674,7 @@ export interface FileRoutesByFullPath {
   '/api/apikeys/$tenantId/$keyId/revoke': typeof ApiApikeysTenantIdKeyIdRevokeRoute
   '/api/apikeys/$tenantId/$keyId/rotate': typeof ApiApikeysTenantIdKeyIdRotateRoute
   '/api/apikeys/$tenantId/$keyId/usage': typeof ApiApikeysTenantIdKeyIdUsageRoute
+  '/api/backup/jobs/$id/execute': typeof ApiBackupJobsIdExecuteRoute
   '/api/cluster/tasks/$taskId/complete': typeof ApiClusterTasksTaskIdCompleteRoute
   '/api/cluster/workers/$workerId/claim': typeof ApiClusterWorkersWorkerIdClaimRoute
   '/api/cluster/workers/$workerId/heartbeat': typeof ApiClusterWorkersWorkerIdHeartbeatRoute
@@ -1705,8 +1747,12 @@ export interface FileRoutesByTo {
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
+  '/api/backup/jobs': typeof ApiBackupJobsRouteWithChildren
+  '/api/backup/restore': typeof ApiBackupRestoreRoute
   '/api/billing/plans': typeof ApiBillingPlansRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
+  '/api/cache/invalidate': typeof ApiCacheInvalidateRoute
+  '/api/cache/purge': typeof ApiCachePurgeRoute
   '/api/cache/stats': typeof ApiCacheStatsRoute
   '/api/cluster/metrics': typeof ApiClusterMetricsRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
@@ -1751,6 +1797,7 @@ export interface FileRoutesByTo {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/backup/scheduler/tick': typeof ApiBackupSchedulerTickRoute
   '/api/billing-ops/$tenantId/credits': typeof ApiBillingOpsTenantIdCreditsRoute
   '/api/billing-ops/$tenantId/events': typeof ApiBillingOpsTenantIdEventsRoute
   '/api/billing-ops/$tenantId/payments': typeof ApiBillingOpsTenantIdPaymentsRoute
@@ -1855,6 +1902,7 @@ export interface FileRoutesByTo {
   '/api/apikeys/$tenantId/$keyId/revoke': typeof ApiApikeysTenantIdKeyIdRevokeRoute
   '/api/apikeys/$tenantId/$keyId/rotate': typeof ApiApikeysTenantIdKeyIdRotateRoute
   '/api/apikeys/$tenantId/$keyId/usage': typeof ApiApikeysTenantIdKeyIdUsageRoute
+  '/api/backup/jobs/$id/execute': typeof ApiBackupJobsIdExecuteRoute
   '/api/cluster/tasks/$taskId/complete': typeof ApiClusterTasksTaskIdCompleteRoute
   '/api/cluster/workers/$workerId/claim': typeof ApiClusterWorkersWorkerIdClaimRoute
   '/api/cluster/workers/$workerId/heartbeat': typeof ApiClusterWorkersWorkerIdHeartbeatRoute
@@ -1928,8 +1976,12 @@ export interface FileRoutesById {
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
+  '/api/backup/jobs': typeof ApiBackupJobsRouteWithChildren
+  '/api/backup/restore': typeof ApiBackupRestoreRoute
   '/api/billing/plans': typeof ApiBillingPlansRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
+  '/api/cache/invalidate': typeof ApiCacheInvalidateRoute
+  '/api/cache/purge': typeof ApiCachePurgeRoute
   '/api/cache/stats': typeof ApiCacheStatsRoute
   '/api/cluster/metrics': typeof ApiClusterMetricsRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
@@ -1974,6 +2026,7 @@ export interface FileRoutesById {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/backup/scheduler/tick': typeof ApiBackupSchedulerTickRoute
   '/api/billing-ops/$tenantId/credits': typeof ApiBillingOpsTenantIdCreditsRoute
   '/api/billing-ops/$tenantId/events': typeof ApiBillingOpsTenantIdEventsRoute
   '/api/billing-ops/$tenantId/payments': typeof ApiBillingOpsTenantIdPaymentsRoute
@@ -2078,6 +2131,7 @@ export interface FileRoutesById {
   '/api/apikeys/$tenantId/$keyId/revoke': typeof ApiApikeysTenantIdKeyIdRevokeRoute
   '/api/apikeys/$tenantId/$keyId/rotate': typeof ApiApikeysTenantIdKeyIdRotateRoute
   '/api/apikeys/$tenantId/$keyId/usage': typeof ApiApikeysTenantIdKeyIdUsageRoute
+  '/api/backup/jobs/$id/execute': typeof ApiBackupJobsIdExecuteRoute
   '/api/cluster/tasks/$taskId/complete': typeof ApiClusterTasksTaskIdCompleteRoute
   '/api/cluster/workers/$workerId/claim': typeof ApiClusterWorkersWorkerIdClaimRoute
   '/api/cluster/workers/$workerId/heartbeat': typeof ApiClusterWorkersWorkerIdHeartbeatRoute
@@ -2152,8 +2206,12 @@ export interface FileRouteTypes {
     | '/api/infrastructure/discovery'
     | '/api/advanced-roles/templates'
     | '/api/approvals/$'
+    | '/api/backup/jobs'
+    | '/api/backup/restore'
     | '/api/billing/plans'
     | '/api/budget/$'
+    | '/api/cache/invalidate'
+    | '/api/cache/purge'
     | '/api/cache/stats'
     | '/api/cluster/metrics'
     | '/api/collaboration/initiate'
@@ -2198,6 +2256,7 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/backup/scheduler/tick'
     | '/api/billing-ops/$tenantId/credits'
     | '/api/billing-ops/$tenantId/events'
     | '/api/billing-ops/$tenantId/payments'
@@ -2302,6 +2361,7 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/revoke'
     | '/api/apikeys/$tenantId/$keyId/rotate'
     | '/api/apikeys/$tenantId/$keyId/usage'
+    | '/api/backup/jobs/$id/execute'
     | '/api/cluster/tasks/$taskId/complete'
     | '/api/cluster/workers/$workerId/claim'
     | '/api/cluster/workers/$workerId/heartbeat'
@@ -2374,8 +2434,12 @@ export interface FileRouteTypes {
     | '/api/infrastructure/discovery'
     | '/api/advanced-roles/templates'
     | '/api/approvals/$'
+    | '/api/backup/jobs'
+    | '/api/backup/restore'
     | '/api/billing/plans'
     | '/api/budget/$'
+    | '/api/cache/invalidate'
+    | '/api/cache/purge'
     | '/api/cache/stats'
     | '/api/cluster/metrics'
     | '/api/collaboration/initiate'
@@ -2420,6 +2484,7 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/backup/scheduler/tick'
     | '/api/billing-ops/$tenantId/credits'
     | '/api/billing-ops/$tenantId/events'
     | '/api/billing-ops/$tenantId/payments'
@@ -2524,6 +2589,7 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/revoke'
     | '/api/apikeys/$tenantId/$keyId/rotate'
     | '/api/apikeys/$tenantId/$keyId/usage'
+    | '/api/backup/jobs/$id/execute'
     | '/api/cluster/tasks/$taskId/complete'
     | '/api/cluster/workers/$workerId/claim'
     | '/api/cluster/workers/$workerId/heartbeat'
@@ -2596,8 +2662,12 @@ export interface FileRouteTypes {
     | '/api/infrastructure/discovery'
     | '/api/advanced-roles/templates'
     | '/api/approvals/$'
+    | '/api/backup/jobs'
+    | '/api/backup/restore'
     | '/api/billing/plans'
     | '/api/budget/$'
+    | '/api/cache/invalidate'
+    | '/api/cache/purge'
     | '/api/cache/stats'
     | '/api/cluster/metrics'
     | '/api/collaboration/initiate'
@@ -2642,6 +2712,7 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/backup/scheduler/tick'
     | '/api/billing-ops/$tenantId/credits'
     | '/api/billing-ops/$tenantId/events'
     | '/api/billing-ops/$tenantId/payments'
@@ -2746,6 +2817,7 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/revoke'
     | '/api/apikeys/$tenantId/$keyId/rotate'
     | '/api/apikeys/$tenantId/$keyId/usage'
+    | '/api/backup/jobs/$id/execute'
     | '/api/cluster/tasks/$taskId/complete'
     | '/api/cluster/workers/$workerId/claim'
     | '/api/cluster/workers/$workerId/heartbeat'
@@ -2819,8 +2891,12 @@ export interface RootRouteChildren {
   ApiInfrastructureDiscoveryRouteRoute: typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   ApiAdvancedRolesTemplatesRoute: typeof ApiAdvancedRolesTemplatesRoute
   ApiApprovalsSplatRoute: typeof ApiApprovalsSplatRoute
+  ApiBackupJobsRoute: typeof ApiBackupJobsRouteWithChildren
+  ApiBackupRestoreRoute: typeof ApiBackupRestoreRoute
   ApiBillingPlansRoute: typeof ApiBillingPlansRoute
   ApiBudgetSplatRoute: typeof ApiBudgetSplatRoute
+  ApiCacheInvalidateRoute: typeof ApiCacheInvalidateRoute
+  ApiCachePurgeRoute: typeof ApiCachePurgeRoute
   ApiCacheStatsRoute: typeof ApiCacheStatsRoute
   ApiClusterMetricsRoute: typeof ApiClusterMetricsRoute
   ApiCollaborationInitiateRoute: typeof ApiCollaborationInitiateRoute
@@ -2865,6 +2941,7 @@ export interface RootRouteChildren {
   ApiAnalyticsRetrievalHealthCheckRoute: typeof ApiAnalyticsRetrievalHealthCheckRoute
   ApiAnalyticsRetrievalOverviewRoute: typeof ApiAnalyticsRetrievalOverviewRoute
   ApiAnalyticsToolsOverviewRoute: typeof ApiAnalyticsToolsOverviewRoute
+  ApiBackupSchedulerTickRoute: typeof ApiBackupSchedulerTickRoute
   ApiBillingOpsTenantIdCreditsRoute: typeof ApiBillingOpsTenantIdCreditsRoute
   ApiBillingOpsTenantIdEventsRoute: typeof ApiBillingOpsTenantIdEventsRoute
   ApiBillingOpsTenantIdPaymentsRoute: typeof ApiBillingOpsTenantIdPaymentsRoute
@@ -3339,6 +3416,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCacheStatsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/cache/purge': {
+      id: '/api/cache/purge'
+      path: '/api/cache/purge'
+      fullPath: '/api/cache/purge'
+      preLoaderRoute: typeof ApiCachePurgeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cache/invalidate': {
+      id: '/api/cache/invalidate'
+      path: '/api/cache/invalidate'
+      fullPath: '/api/cache/invalidate'
+      preLoaderRoute: typeof ApiCacheInvalidateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/budget/$': {
       id: '/api/budget/$'
       path: '/api/budget/$'
@@ -3351,6 +3442,20 @@ declare module '@tanstack/react-router' {
       path: '/api/billing/plans'
       fullPath: '/api/billing/plans'
       preLoaderRoute: typeof ApiBillingPlansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/backup/restore': {
+      id: '/api/backup/restore'
+      path: '/api/backup/restore'
+      fullPath: '/api/backup/restore'
+      preLoaderRoute: typeof ApiBackupRestoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/backup/jobs': {
+      id: '/api/backup/jobs'
+      path: '/api/backup/jobs'
+      fullPath: '/api/backup/jobs'
+      preLoaderRoute: typeof ApiBackupJobsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/approvals/$': {
@@ -4039,6 +4144,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiBillingOpsTenantIdCreditsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/backup/scheduler/tick': {
+      id: '/api/backup/scheduler/tick'
+      path: '/api/backup/scheduler/tick'
+      fullPath: '/api/backup/scheduler/tick'
+      preLoaderRoute: typeof ApiBackupSchedulerTickRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/analytics/tools/overview': {
       id: '/api/analytics/tools/overview'
       path: '/api/analytics/tools/overview'
@@ -4438,6 +4550,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiClusterTasksTaskIdCompleteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/backup/jobs/$id/execute': {
+      id: '/api/backup/jobs/$id/execute'
+      path: '/$id/execute'
+      fullPath: '/api/backup/jobs/$id/execute'
+      preLoaderRoute: typeof ApiBackupJobsIdExecuteRouteImport
+      parentRoute: typeof ApiBackupJobsRoute
+    }
     '/api/apikeys/$tenantId/$keyId/usage': {
       id: '/api/apikeys/$tenantId/$keyId/usage'
       path: '/api/apikeys/$tenantId/$keyId/usage'
@@ -4570,6 +4689,18 @@ const ApiInfrastructureDiscoveryRouteRouteWithChildren =
   ApiInfrastructureDiscoveryRouteRoute._addFileChildren(
     ApiInfrastructureDiscoveryRouteRouteChildren,
   )
+
+interface ApiBackupJobsRouteChildren {
+  ApiBackupJobsIdExecuteRoute: typeof ApiBackupJobsIdExecuteRoute
+}
+
+const ApiBackupJobsRouteChildren: ApiBackupJobsRouteChildren = {
+  ApiBackupJobsIdExecuteRoute: ApiBackupJobsIdExecuteRoute,
+}
+
+const ApiBackupJobsRouteWithChildren = ApiBackupJobsRoute._addFileChildren(
+  ApiBackupJobsRouteChildren,
+)
 
 interface ApiGpuAllocationsRouteChildren {
   ApiGpuAllocationsIdReleaseRoute: typeof ApiGpuAllocationsIdReleaseRoute
@@ -4735,8 +4866,12 @@ const rootRouteChildren: RootRouteChildren = {
     ApiInfrastructureDiscoveryRouteRouteWithChildren,
   ApiAdvancedRolesTemplatesRoute: ApiAdvancedRolesTemplatesRoute,
   ApiApprovalsSplatRoute: ApiApprovalsSplatRoute,
+  ApiBackupJobsRoute: ApiBackupJobsRouteWithChildren,
+  ApiBackupRestoreRoute: ApiBackupRestoreRoute,
   ApiBillingPlansRoute: ApiBillingPlansRoute,
   ApiBudgetSplatRoute: ApiBudgetSplatRoute,
+  ApiCacheInvalidateRoute: ApiCacheInvalidateRoute,
+  ApiCachePurgeRoute: ApiCachePurgeRoute,
   ApiCacheStatsRoute: ApiCacheStatsRoute,
   ApiClusterMetricsRoute: ApiClusterMetricsRoute,
   ApiCollaborationInitiateRoute: ApiCollaborationInitiateRoute,
@@ -4785,6 +4920,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAnalyticsRetrievalHealthCheckRoute: ApiAnalyticsRetrievalHealthCheckRoute,
   ApiAnalyticsRetrievalOverviewRoute: ApiAnalyticsRetrievalOverviewRoute,
   ApiAnalyticsToolsOverviewRoute: ApiAnalyticsToolsOverviewRoute,
+  ApiBackupSchedulerTickRoute: ApiBackupSchedulerTickRoute,
   ApiBillingOpsTenantIdCreditsRoute: ApiBillingOpsTenantIdCreditsRoute,
   ApiBillingOpsTenantIdEventsRoute: ApiBillingOpsTenantIdEventsRoute,
   ApiBillingOpsTenantIdPaymentsRoute: ApiBillingOpsTenantIdPaymentsRoute,
