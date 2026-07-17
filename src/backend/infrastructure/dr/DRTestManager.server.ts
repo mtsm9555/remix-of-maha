@@ -70,9 +70,8 @@ export class DRTestManager {
       .eq("id", t.plan_id)
       .single();
     if (!plan) throw new Error("Failover plan not found");
-    const steps = ([...((plan as Record<string, unknown>).steps as FailoverStep[]) ?? []]).sort(
-      (a, b) => a.order - b.order,
-    );
+    const planSteps = ((plan as Record<string, unknown>).steps as FailoverStep[] | undefined) ?? [];
+    const steps = [...planSteps].sort((a, b) => a.order - b.order);
 
     for (const step of steps) {
       const stepStart = Date.now();
@@ -123,7 +122,7 @@ export class DRTestManager {
       .select()
       .single();
 
-    return this.rowToTest(updated as Record<string, unknown>);
+    return this.rowToTest((updated ?? {}) as Record<string, unknown>);
   }
 
   private static generateRecommendations(
