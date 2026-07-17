@@ -30,6 +30,7 @@ import { Route as ApiPrioritizationIncidentRouteImport } from './routes/api/prio
 import { Route as ApiPoliciesSplatRouteImport } from './routes/api/policies/$'
 import { Route as ApiManagerSplatRouteImport } from './routes/api/manager/$'
 import { Route as ApiGovernanceLegalHoldRouteImport } from './routes/api/governance/legal-hold'
+import { Route as ApiGovernanceAuditLogsRouteImport } from './routes/api/governance/audit-logs'
 import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
 import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
 import { Route as ApiCollaborationSessionsRouteImport } from './routes/api/collaboration/sessions'
@@ -243,6 +244,11 @@ const ApiManagerSplatRoute = ApiManagerSplatRouteImport.update({
 const ApiGovernanceLegalHoldRoute = ApiGovernanceLegalHoldRouteImport.update({
   id: '/api/governance/legal-hold',
   path: '/api/governance/legal-hold',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGovernanceAuditLogsRoute = ApiGovernanceAuditLogsRouteImport.update({
+  id: '/api/governance/audit-logs',
+  path: '/api/governance/audit-logs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiGoalsSplatRoute = ApiGoalsSplatRouteImport.update({
@@ -886,6 +892,7 @@ export interface FileRoutesByFullPath {
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
+  '/api/governance/audit-logs': typeof ApiGovernanceAuditLogsRoute
   '/api/governance/legal-hold': typeof ApiGovernanceLegalHoldRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/policies/$': typeof ApiPoliciesSplatRoute
@@ -1016,6 +1023,7 @@ export interface FileRoutesByTo {
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
+  '/api/governance/audit-logs': typeof ApiGovernanceAuditLogsRoute
   '/api/governance/legal-hold': typeof ApiGovernanceLegalHoldRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/policies/$': typeof ApiPoliciesSplatRoute
@@ -1147,6 +1155,7 @@ export interface FileRoutesById {
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
   '/api/goals/$': typeof ApiGoalsSplatRoute
+  '/api/governance/audit-logs': typeof ApiGovernanceAuditLogsRoute
   '/api/governance/legal-hold': typeof ApiGovernanceLegalHoldRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/policies/$': typeof ApiPoliciesSplatRoute
@@ -1279,6 +1288,7 @@ export interface FileRouteTypes {
     | '/api/collaboration/sessions'
     | '/api/departments/$'
     | '/api/goals/$'
+    | '/api/governance/audit-logs'
     | '/api/governance/legal-hold'
     | '/api/manager/$'
     | '/api/policies/$'
@@ -1409,6 +1419,7 @@ export interface FileRouteTypes {
     | '/api/collaboration/sessions'
     | '/api/departments/$'
     | '/api/goals/$'
+    | '/api/governance/audit-logs'
     | '/api/governance/legal-hold'
     | '/api/manager/$'
     | '/api/policies/$'
@@ -1539,6 +1550,7 @@ export interface FileRouteTypes {
     | '/api/collaboration/sessions'
     | '/api/departments/$'
     | '/api/goals/$'
+    | '/api/governance/audit-logs'
     | '/api/governance/legal-hold'
     | '/api/manager/$'
     | '/api/policies/$'
@@ -1670,6 +1682,7 @@ export interface RootRouteChildren {
   ApiCollaborationSessionsRoute: typeof ApiCollaborationSessionsRoute
   ApiDepartmentsSplatRoute: typeof ApiDepartmentsSplatRoute
   ApiGoalsSplatRoute: typeof ApiGoalsSplatRoute
+  ApiGovernanceAuditLogsRoute: typeof ApiGovernanceAuditLogsRoute
   ApiGovernanceLegalHoldRoute: typeof ApiGovernanceLegalHoldRoute
   ApiManagerSplatRoute: typeof ApiManagerSplatRoute
   ApiPoliciesSplatRoute: typeof ApiPoliciesSplatRoute
@@ -1924,6 +1937,13 @@ declare module '@tanstack/react-router' {
       path: '/api/governance/legal-hold'
       fullPath: '/api/governance/legal-hold'
       preLoaderRoute: typeof ApiGovernanceLegalHoldRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/governance/audit-logs': {
+      id: '/api/governance/audit-logs'
+      path: '/api/governance/audit-logs'
+      fullPath: '/api/governance/audit-logs'
+      preLoaderRoute: typeof ApiGovernanceAuditLogsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/goals/$': {
@@ -2747,6 +2767,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiCollaborationSessionsRoute: ApiCollaborationSessionsRoute,
   ApiDepartmentsSplatRoute: ApiDepartmentsSplatRoute,
   ApiGoalsSplatRoute: ApiGoalsSplatRoute,
+  ApiGovernanceAuditLogsRoute: ApiGovernanceAuditLogsRoute,
   ApiGovernanceLegalHoldRoute: ApiGovernanceLegalHoldRoute,
   ApiManagerSplatRoute: ApiManagerSplatRoute,
   ApiPoliciesSplatRoute: ApiPoliciesSplatRoute,
