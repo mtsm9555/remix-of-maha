@@ -34,6 +34,15 @@ import { Route as ApiQueueSeedDefaultsRouteImport } from './routes/api/queue/see
 import { Route as ApiQueueQueuesRouteImport } from './routes/api/queue/queues'
 import { Route as ApiPrioritizationIncidentRouteImport } from './routes/api/prioritization/incident'
 import { Route as ApiPoliciesSplatRouteImport } from './routes/api/policies/$'
+import { Route as ApiModelsTestRoutingRouteImport } from './routes/api/models/test-routing'
+import { Route as ApiModelsSeedDefaultsRouteImport } from './routes/api/models/seed-defaults'
+import { Route as ApiModelsRoutingRulesRouteImport } from './routes/api/models/routing-rules'
+import { Route as ApiModelsResetCircuitBreakerRouteImport } from './routes/api/models/reset-circuit-breaker'
+import { Route as ApiModelsOptimizationRouteImport } from './routes/api/models/optimization'
+import { Route as ApiModelsModelsRouteImport } from './routes/api/models/models'
+import { Route as ApiModelsFallbackStatsRouteImport } from './routes/api/models/fallback-stats'
+import { Route as ApiModelsCostsByTaskRouteImport } from './routes/api/models/costs-by-task'
+import { Route as ApiModelsCostsRouteImport } from './routes/api/models/costs'
 import { Route as ApiManagerSplatRouteImport } from './routes/api/manager/$'
 import { Route as ApiGovernanceLegalHoldRouteImport } from './routes/api/governance/legal-hold'
 import { Route as ApiGovernanceAuditLogsRouteImport } from './routes/api/governance/audit-logs'
@@ -339,6 +348,52 @@ const ApiPrioritizationIncidentRoute =
 const ApiPoliciesSplatRoute = ApiPoliciesSplatRouteImport.update({
   id: '/api/policies/$',
   path: '/api/policies/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiModelsTestRoutingRoute = ApiModelsTestRoutingRouteImport.update({
+  id: '/api/models/test-routing',
+  path: '/api/models/test-routing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiModelsSeedDefaultsRoute = ApiModelsSeedDefaultsRouteImport.update({
+  id: '/api/models/seed-defaults',
+  path: '/api/models/seed-defaults',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiModelsRoutingRulesRoute = ApiModelsRoutingRulesRouteImport.update({
+  id: '/api/models/routing-rules',
+  path: '/api/models/routing-rules',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiModelsResetCircuitBreakerRoute =
+  ApiModelsResetCircuitBreakerRouteImport.update({
+    id: '/api/models/reset-circuit-breaker',
+    path: '/api/models/reset-circuit-breaker',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiModelsOptimizationRoute = ApiModelsOptimizationRouteImport.update({
+  id: '/api/models/optimization',
+  path: '/api/models/optimization',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiModelsModelsRoute = ApiModelsModelsRouteImport.update({
+  id: '/api/models/models',
+  path: '/api/models/models',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiModelsFallbackStatsRoute = ApiModelsFallbackStatsRouteImport.update({
+  id: '/api/models/fallback-stats',
+  path: '/api/models/fallback-stats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiModelsCostsByTaskRoute = ApiModelsCostsByTaskRouteImport.update({
+  id: '/api/models/costs-by-task',
+  path: '/api/models/costs-by-task',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiModelsCostsRoute = ApiModelsCostsRouteImport.update({
+  id: '/api/models/costs',
+  path: '/api/models/costs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiManagerSplatRoute = ApiManagerSplatRouteImport.update({
@@ -1395,6 +1450,15 @@ export interface FileRoutesByFullPath {
   '/api/governance/audit-logs': typeof ApiGovernanceAuditLogsRoute
   '/api/governance/legal-hold': typeof ApiGovernanceLegalHoldRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
+  '/api/models/costs': typeof ApiModelsCostsRoute
+  '/api/models/costs-by-task': typeof ApiModelsCostsByTaskRoute
+  '/api/models/fallback-stats': typeof ApiModelsFallbackStatsRoute
+  '/api/models/models': typeof ApiModelsModelsRoute
+  '/api/models/optimization': typeof ApiModelsOptimizationRoute
+  '/api/models/reset-circuit-breaker': typeof ApiModelsResetCircuitBreakerRoute
+  '/api/models/routing-rules': typeof ApiModelsRoutingRulesRoute
+  '/api/models/seed-defaults': typeof ApiModelsSeedDefaultsRoute
+  '/api/models/test-routing': typeof ApiModelsTestRoutingRoute
   '/api/policies/$': typeof ApiPoliciesSplatRoute
   '/api/prioritization/incident': typeof ApiPrioritizationIncidentRoute
   '/api/queue/queues': typeof ApiQueueQueuesRouteWithChildren
@@ -1601,6 +1665,15 @@ export interface FileRoutesByTo {
   '/api/governance/audit-logs': typeof ApiGovernanceAuditLogsRoute
   '/api/governance/legal-hold': typeof ApiGovernanceLegalHoldRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
+  '/api/models/costs': typeof ApiModelsCostsRoute
+  '/api/models/costs-by-task': typeof ApiModelsCostsByTaskRoute
+  '/api/models/fallback-stats': typeof ApiModelsFallbackStatsRoute
+  '/api/models/models': typeof ApiModelsModelsRoute
+  '/api/models/optimization': typeof ApiModelsOptimizationRoute
+  '/api/models/reset-circuit-breaker': typeof ApiModelsResetCircuitBreakerRoute
+  '/api/models/routing-rules': typeof ApiModelsRoutingRulesRoute
+  '/api/models/seed-defaults': typeof ApiModelsSeedDefaultsRoute
+  '/api/models/test-routing': typeof ApiModelsTestRoutingRoute
   '/api/policies/$': typeof ApiPoliciesSplatRoute
   '/api/prioritization/incident': typeof ApiPrioritizationIncidentRoute
   '/api/queue/queues': typeof ApiQueueQueuesRouteWithChildren
@@ -1808,6 +1881,15 @@ export interface FileRoutesById {
   '/api/governance/audit-logs': typeof ApiGovernanceAuditLogsRoute
   '/api/governance/legal-hold': typeof ApiGovernanceLegalHoldRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
+  '/api/models/costs': typeof ApiModelsCostsRoute
+  '/api/models/costs-by-task': typeof ApiModelsCostsByTaskRoute
+  '/api/models/fallback-stats': typeof ApiModelsFallbackStatsRoute
+  '/api/models/models': typeof ApiModelsModelsRoute
+  '/api/models/optimization': typeof ApiModelsOptimizationRoute
+  '/api/models/reset-circuit-breaker': typeof ApiModelsResetCircuitBreakerRoute
+  '/api/models/routing-rules': typeof ApiModelsRoutingRulesRoute
+  '/api/models/seed-defaults': typeof ApiModelsSeedDefaultsRoute
+  '/api/models/test-routing': typeof ApiModelsTestRoutingRoute
   '/api/policies/$': typeof ApiPoliciesSplatRoute
   '/api/prioritization/incident': typeof ApiPrioritizationIncidentRoute
   '/api/queue/queues': typeof ApiQueueQueuesRouteWithChildren
@@ -2016,6 +2098,15 @@ export interface FileRouteTypes {
     | '/api/governance/audit-logs'
     | '/api/governance/legal-hold'
     | '/api/manager/$'
+    | '/api/models/costs'
+    | '/api/models/costs-by-task'
+    | '/api/models/fallback-stats'
+    | '/api/models/models'
+    | '/api/models/optimization'
+    | '/api/models/reset-circuit-breaker'
+    | '/api/models/routing-rules'
+    | '/api/models/seed-defaults'
+    | '/api/models/test-routing'
     | '/api/policies/$'
     | '/api/prioritization/incident'
     | '/api/queue/queues'
@@ -2222,6 +2313,15 @@ export interface FileRouteTypes {
     | '/api/governance/audit-logs'
     | '/api/governance/legal-hold'
     | '/api/manager/$'
+    | '/api/models/costs'
+    | '/api/models/costs-by-task'
+    | '/api/models/fallback-stats'
+    | '/api/models/models'
+    | '/api/models/optimization'
+    | '/api/models/reset-circuit-breaker'
+    | '/api/models/routing-rules'
+    | '/api/models/seed-defaults'
+    | '/api/models/test-routing'
     | '/api/policies/$'
     | '/api/prioritization/incident'
     | '/api/queue/queues'
@@ -2428,6 +2528,15 @@ export interface FileRouteTypes {
     | '/api/governance/audit-logs'
     | '/api/governance/legal-hold'
     | '/api/manager/$'
+    | '/api/models/costs'
+    | '/api/models/costs-by-task'
+    | '/api/models/fallback-stats'
+    | '/api/models/models'
+    | '/api/models/optimization'
+    | '/api/models/reset-circuit-breaker'
+    | '/api/models/routing-rules'
+    | '/api/models/seed-defaults'
+    | '/api/models/test-routing'
     | '/api/policies/$'
     | '/api/prioritization/incident'
     | '/api/queue/queues'
@@ -2635,6 +2744,15 @@ export interface RootRouteChildren {
   ApiGovernanceAuditLogsRoute: typeof ApiGovernanceAuditLogsRoute
   ApiGovernanceLegalHoldRoute: typeof ApiGovernanceLegalHoldRoute
   ApiManagerSplatRoute: typeof ApiManagerSplatRoute
+  ApiModelsCostsRoute: typeof ApiModelsCostsRoute
+  ApiModelsCostsByTaskRoute: typeof ApiModelsCostsByTaskRoute
+  ApiModelsFallbackStatsRoute: typeof ApiModelsFallbackStatsRoute
+  ApiModelsModelsRoute: typeof ApiModelsModelsRoute
+  ApiModelsOptimizationRoute: typeof ApiModelsOptimizationRoute
+  ApiModelsResetCircuitBreakerRoute: typeof ApiModelsResetCircuitBreakerRoute
+  ApiModelsRoutingRulesRoute: typeof ApiModelsRoutingRulesRoute
+  ApiModelsSeedDefaultsRoute: typeof ApiModelsSeedDefaultsRoute
+  ApiModelsTestRoutingRoute: typeof ApiModelsTestRoutingRoute
   ApiPoliciesSplatRoute: typeof ApiPoliciesSplatRoute
   ApiPrioritizationIncidentRoute: typeof ApiPrioritizationIncidentRoute
   ApiQueueQueuesRoute: typeof ApiQueueQueuesRouteWithChildren
@@ -2975,6 +3093,69 @@ declare module '@tanstack/react-router' {
       path: '/api/policies/$'
       fullPath: '/api/policies/$'
       preLoaderRoute: typeof ApiPoliciesSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/models/test-routing': {
+      id: '/api/models/test-routing'
+      path: '/api/models/test-routing'
+      fullPath: '/api/models/test-routing'
+      preLoaderRoute: typeof ApiModelsTestRoutingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/models/seed-defaults': {
+      id: '/api/models/seed-defaults'
+      path: '/api/models/seed-defaults'
+      fullPath: '/api/models/seed-defaults'
+      preLoaderRoute: typeof ApiModelsSeedDefaultsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/models/routing-rules': {
+      id: '/api/models/routing-rules'
+      path: '/api/models/routing-rules'
+      fullPath: '/api/models/routing-rules'
+      preLoaderRoute: typeof ApiModelsRoutingRulesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/models/reset-circuit-breaker': {
+      id: '/api/models/reset-circuit-breaker'
+      path: '/api/models/reset-circuit-breaker'
+      fullPath: '/api/models/reset-circuit-breaker'
+      preLoaderRoute: typeof ApiModelsResetCircuitBreakerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/models/optimization': {
+      id: '/api/models/optimization'
+      path: '/api/models/optimization'
+      fullPath: '/api/models/optimization'
+      preLoaderRoute: typeof ApiModelsOptimizationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/models/models': {
+      id: '/api/models/models'
+      path: '/api/models/models'
+      fullPath: '/api/models/models'
+      preLoaderRoute: typeof ApiModelsModelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/models/fallback-stats': {
+      id: '/api/models/fallback-stats'
+      path: '/api/models/fallback-stats'
+      fullPath: '/api/models/fallback-stats'
+      preLoaderRoute: typeof ApiModelsFallbackStatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/models/costs-by-task': {
+      id: '/api/models/costs-by-task'
+      path: '/api/models/costs-by-task'
+      fullPath: '/api/models/costs-by-task'
+      preLoaderRoute: typeof ApiModelsCostsByTaskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/models/costs': {
+      id: '/api/models/costs'
+      path: '/api/models/costs'
+      fullPath: '/api/models/costs'
+      preLoaderRoute: typeof ApiModelsCostsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/manager/$': {
@@ -4402,6 +4583,15 @@ const rootRouteChildren: RootRouteChildren = {
   ApiGovernanceAuditLogsRoute: ApiGovernanceAuditLogsRoute,
   ApiGovernanceLegalHoldRoute: ApiGovernanceLegalHoldRoute,
   ApiManagerSplatRoute: ApiManagerSplatRoute,
+  ApiModelsCostsRoute: ApiModelsCostsRoute,
+  ApiModelsCostsByTaskRoute: ApiModelsCostsByTaskRoute,
+  ApiModelsFallbackStatsRoute: ApiModelsFallbackStatsRoute,
+  ApiModelsModelsRoute: ApiModelsModelsRoute,
+  ApiModelsOptimizationRoute: ApiModelsOptimizationRoute,
+  ApiModelsResetCircuitBreakerRoute: ApiModelsResetCircuitBreakerRoute,
+  ApiModelsRoutingRulesRoute: ApiModelsRoutingRulesRoute,
+  ApiModelsSeedDefaultsRoute: ApiModelsSeedDefaultsRoute,
+  ApiModelsTestRoutingRoute: ApiModelsTestRoutingRoute,
   ApiPoliciesSplatRoute: ApiPoliciesSplatRoute,
   ApiPrioritizationIncidentRoute: ApiPrioritizationIncidentRoute,
   ApiQueueQueuesRoute: ApiQueueQueuesRouteWithChildren,
