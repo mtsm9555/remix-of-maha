@@ -187,9 +187,9 @@ export class MeetingIntelligenceEngine {
       segments: (data.segments as any) || [],
       wordCount: data.word_count || 0, speakerCount: data.speaker_count || 0,
       language: data.language || 'en', confidence: data.confidence || 0,
-      processedAt: data.processed_at ? new Date(data.processed_at) : undefined,
+      processedAt: data.processed_at ? new Date(data.processed_at as string) : undefined,
       processingTimeMs: data.processing_time_ms ?? undefined,
-      createdAt: new Date(data.created_at),
+      createdAt: new Date(data.created_at as string),
     };
   }
 
