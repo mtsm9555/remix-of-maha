@@ -82,6 +82,7 @@ import { Route as ApiInfrastructureCapabilitiesAgentIdRouteImport } from './rout
 import { Route as ApiFinanceCostsTopToolsRouteImport } from './routes/api/finance/costs/top-tools'
 import { Route as ApiFinanceCostsPricingRouteImport } from './routes/api/finance/costs/pricing'
 import { Route as ApiFinanceCostsDepartmentsRouteImport } from './routes/api/finance/costs/departments'
+import { Route as ApiDataVersionsRollbackRouteImport } from './routes/api/data/versions/rollback'
 import { Route as ApiDataVersionsDiffRouteImport } from './routes/api/data/versions/diff'
 import { Route as ApiDataVersionsVersionIdRouteImport } from './routes/api/data/versions/$versionId'
 import { Route as ApiDataUserProfileRouteImport } from './routes/api/data/user/profile'
@@ -541,6 +542,11 @@ const ApiFinanceCostsDepartmentsRoute =
     path: '/api/finance/costs/departments',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiDataVersionsRollbackRoute = ApiDataVersionsRollbackRouteImport.update({
+  id: '/api/data/versions/rollback',
+  path: '/api/data/versions/rollback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiDataVersionsDiffRoute = ApiDataVersionsDiffRouteImport.update({
   id: '/api/data/versions/diff',
   path: '/api/data/versions/diff',
@@ -884,6 +890,7 @@ export interface FileRoutesByFullPath {
   '/api/data/user/profile': typeof ApiDataUserProfileRoute
   '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
+  '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -1010,6 +1017,7 @@ export interface FileRoutesByTo {
   '/api/data/user/profile': typeof ApiDataUserProfileRoute
   '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
+  '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -1137,6 +1145,7 @@ export interface FileRoutesById {
   '/api/data/user/profile': typeof ApiDataUserProfileRoute
   '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
+  '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -1265,6 +1274,7 @@ export interface FileRouteTypes {
     | '/api/data/user/profile'
     | '/api/data/versions/$versionId'
     | '/api/data/versions/diff'
+    | '/api/data/versions/rollback'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -1391,6 +1401,7 @@ export interface FileRouteTypes {
     | '/api/data/user/profile'
     | '/api/data/versions/$versionId'
     | '/api/data/versions/diff'
+    | '/api/data/versions/rollback'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -1517,6 +1528,7 @@ export interface FileRouteTypes {
     | '/api/data/user/profile'
     | '/api/data/versions/$versionId'
     | '/api/data/versions/diff'
+    | '/api/data/versions/rollback'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -1644,6 +1656,7 @@ export interface RootRouteChildren {
   ApiDataUserProfileRoute: typeof ApiDataUserProfileRoute
   ApiDataVersionsVersionIdRoute: typeof ApiDataVersionsVersionIdRoute
   ApiDataVersionsDiffRoute: typeof ApiDataVersionsDiffRoute
+  ApiDataVersionsRollbackRoute: typeof ApiDataVersionsRollbackRoute
   ApiFinanceCostsDepartmentsRoute: typeof ApiFinanceCostsDepartmentsRoute
   ApiFinanceCostsPricingRoute: typeof ApiFinanceCostsPricingRoute
   ApiFinanceCostsTopToolsRoute: typeof ApiFinanceCostsTopToolsRoute
@@ -2237,6 +2250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiFinanceCostsDepartmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/data/versions/rollback': {
+      id: '/api/data/versions/rollback'
+      path: '/api/data/versions/rollback'
+      fullPath: '/api/data/versions/rollback'
+      preLoaderRoute: typeof ApiDataVersionsRollbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/data/versions/diff': {
       id: '/api/data/versions/diff'
       path: '/api/data/versions/diff'
@@ -2692,6 +2712,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiDataUserProfileRoute: ApiDataUserProfileRoute,
   ApiDataVersionsVersionIdRoute: ApiDataVersionsVersionIdRoute,
   ApiDataVersionsDiffRoute: ApiDataVersionsDiffRoute,
+  ApiDataVersionsRollbackRoute: ApiDataVersionsRollbackRoute,
   ApiFinanceCostsDepartmentsRoute: ApiFinanceCostsDepartmentsRoute,
   ApiFinanceCostsPricingRoute: ApiFinanceCostsPricingRoute,
   ApiFinanceCostsTopToolsRoute: ApiFinanceCostsTopToolsRoute,
