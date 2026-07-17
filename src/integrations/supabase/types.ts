@@ -9058,6 +9058,208 @@ export type Database = {
           },
         ]
       }
+      plugin_configs: {
+        Row: {
+          created_at: string
+          installed_at: string
+          is_active: boolean
+          last_activated_at: string | null
+          last_deactivated_at: string | null
+          plugin_id: string
+          settings: Json
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          installed_at?: string
+          is_active?: boolean
+          last_activated_at?: string | null
+          last_deactivated_at?: string | null
+          plugin_id: string
+          settings?: Json
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          installed_at?: string
+          is_active?: boolean
+          last_activated_at?: string | null
+          last_deactivated_at?: string | null
+          plugin_id?: string
+          settings?: Json
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plugin_configs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      plugin_logs: {
+        Row: {
+          created_at: string
+          id: string
+          level: string
+          message: string
+          metadata: Json
+          plugin_id: string
+          tenant_id: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          level: string
+          message: string
+          metadata?: Json
+          plugin_id: string
+          tenant_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          level?: string
+          message?: string
+          metadata?: Json
+          plugin_id?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plugin_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      plugin_storage: {
+        Row: {
+          created_at: string
+          key: string
+          plugin_id: string
+          tenant_id: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          created_at?: string
+          key: string
+          plugin_id: string
+          tenant_id: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          created_at?: string
+          key?: string
+          plugin_id?: string
+          tenant_id?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plugin_storage_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      plugin_tools: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          is_active: boolean
+          name: string
+          parameters: Json
+          plugin_id: string
+          tenant_id: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id: string
+          is_active?: boolean
+          name: string
+          parameters: Json
+          plugin_id: string
+          tenant_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          parameters?: Json
+          plugin_id?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plugin_tools_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      plugin_webhooks: {
+        Row: {
+          created_at: string
+          endpoint: string
+          events: string[]
+          id: string
+          is_active: boolean
+          last_triggered_at: string | null
+          plugin_id: string
+          secret: string
+          tenant_id: string
+        }
+        Insert: {
+          created_at?: string
+          endpoint: string
+          events?: string[]
+          id: string
+          is_active?: boolean
+          last_triggered_at?: string | null
+          plugin_id: string
+          secret: string
+          tenant_id: string
+        }
+        Update: {
+          created_at?: string
+          endpoint?: string
+          events?: string[]
+          id?: string
+          is_active?: boolean
+          last_triggered_at?: string | null
+          plugin_id?: string
+          secret?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plugin_webhooks_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       pm_milestones: {
         Row: {
           completed_at: string | null
