@@ -56,6 +56,11 @@ import { Route as ApiToolsMarketplaceUninstallRouteImport } from './routes/api/t
 import { Route as ApiToolsMarketplaceInstalledRouteImport } from './routes/api/tools/marketplace/installed'
 import { Route as ApiToolsMarketplaceInstallRouteImport } from './routes/api/tools/marketplace/install'
 import { Route as ApiTenantsIdSuspendRouteImport } from './routes/api/tenants/$id/suspend'
+import { Route as ApiTeamsTenantIdTreeRouteImport } from './routes/api/teams/$tenantId/tree'
+import { Route as ApiTeamsTenantIdCreateRouteImport } from './routes/api/teams/$tenantId/create'
+import { Route as ApiTeamsTeamIdChannelsRouteImport } from './routes/api/teams/$teamId/channels'
+import { Route as ApiTeamsTeamIdBudgetRouteImport } from './routes/api/teams/$teamId/budget'
+import { Route as ApiTeamsTeamIdAnalyticsRouteImport } from './routes/api/teams/$teamId/analytics'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
 import { Route as ApiOrgInvitesAcceptRouteImport } from './routes/api/org/invites/accept'
@@ -114,6 +119,7 @@ import { Route as ApiAnalyticsRetrievalEvaluateRouteImport } from './routes/api/
 import { Route as ApiToolsVersioningToolNameVersionsRouteImport } from './routes/api/tools/versioning/$toolName/versions'
 import { Route as ApiToolsVersioningToolNameRollbackRouteImport } from './routes/api/tools/versioning/$toolName/rollback'
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
+import { Route as ApiTeamsChannelsChannelIdMessagesRouteImport } from './routes/api/teams/channels/$channelId/messages'
 import { Route as ApiPublicToolsVersioningSweepRouteImport } from './routes/api/public/tools/versioning/sweep'
 import { Route as ApiPublicToolsVersioningHealthCheckRouteImport } from './routes/api/public/tools/versioning/health-check'
 import { Route as ApiPublicFinanceCostsRollupRouteImport } from './routes/api/public/finance/costs/rollup'
@@ -395,6 +401,31 @@ const ApiToolsMarketplaceInstallRoute =
 const ApiTenantsIdSuspendRoute = ApiTenantsIdSuspendRouteImport.update({
   id: '/api/tenants/$id/suspend',
   path: '/api/tenants/$id/suspend',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTeamsTenantIdTreeRoute = ApiTeamsTenantIdTreeRouteImport.update({
+  id: '/api/teams/$tenantId/tree',
+  path: '/api/teams/$tenantId/tree',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTeamsTenantIdCreateRoute = ApiTeamsTenantIdCreateRouteImport.update({
+  id: '/api/teams/$tenantId/create',
+  path: '/api/teams/$tenantId/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTeamsTeamIdChannelsRoute = ApiTeamsTeamIdChannelsRouteImport.update({
+  id: '/api/teams/$teamId/channels',
+  path: '/api/teams/$teamId/channels',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTeamsTeamIdBudgetRoute = ApiTeamsTeamIdBudgetRouteImport.update({
+  id: '/api/teams/$teamId/budget',
+  path: '/api/teams/$teamId/budget',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTeamsTeamIdAnalyticsRoute = ApiTeamsTeamIdAnalyticsRouteImport.update({
+  id: '/api/teams/$teamId/analytics',
+  path: '/api/teams/$teamId/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPrioritizationQueuePlanIdRoute =
@@ -729,6 +760,12 @@ const ApiToolsMcpDisconnectServerIdRoute =
     path: '/api/tools/mcp/disconnect/$serverId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiTeamsChannelsChannelIdMessagesRoute =
+  ApiTeamsChannelsChannelIdMessagesRouteImport.update({
+    id: '/api/teams/channels/$channelId/messages',
+    path: '/api/teams/channels/$channelId/messages',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicToolsVersioningSweepRoute =
   ApiPublicToolsVersioningSweepRouteImport.update({
     id: '/api/public/tools/versioning/sweep',
@@ -1020,6 +1057,11 @@ export interface FileRoutesByFullPath {
   '/api/org/invites/accept': typeof ApiOrgInvitesAcceptRoute
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
+  '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
+  '/api/teams/$teamId/channels': typeof ApiTeamsTeamIdChannelsRoute
+  '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
+  '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
@@ -1066,6 +1108,7 @@ export interface FileRoutesByFullPath {
   '/api/public/finance/costs/rollup': typeof ApiPublicFinanceCostsRollupRoute
   '/api/public/tools/versioning/health-check': typeof ApiPublicToolsVersioningHealthCheckRoute
   '/api/public/tools/versioning/sweep': typeof ApiPublicToolsVersioningSweepRoute
+  '/api/teams/channels/$channelId/messages': typeof ApiTeamsChannelsChannelIdMessagesRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
@@ -1161,6 +1204,11 @@ export interface FileRoutesByTo {
   '/api/org/invites/accept': typeof ApiOrgInvitesAcceptRoute
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
+  '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
+  '/api/teams/$teamId/channels': typeof ApiTeamsTeamIdChannelsRoute
+  '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
+  '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
@@ -1207,6 +1255,7 @@ export interface FileRoutesByTo {
   '/api/public/finance/costs/rollup': typeof ApiPublicFinanceCostsRollupRoute
   '/api/public/tools/versioning/health-check': typeof ApiPublicToolsVersioningHealthCheckRoute
   '/api/public/tools/versioning/sweep': typeof ApiPublicToolsVersioningSweepRoute
+  '/api/teams/channels/$channelId/messages': typeof ApiTeamsChannelsChannelIdMessagesRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
@@ -1303,6 +1352,11 @@ export interface FileRoutesById {
   '/api/org/invites/accept': typeof ApiOrgInvitesAcceptRoute
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
+  '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
+  '/api/teams/$teamId/channels': typeof ApiTeamsTeamIdChannelsRoute
+  '/api/teams/$tenantId/create': typeof ApiTeamsTenantIdCreateRoute
+  '/api/teams/$tenantId/tree': typeof ApiTeamsTenantIdTreeRoute
   '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
@@ -1349,6 +1403,7 @@ export interface FileRoutesById {
   '/api/public/finance/costs/rollup': typeof ApiPublicFinanceCostsRollupRoute
   '/api/public/tools/versioning/health-check': typeof ApiPublicToolsVersioningHealthCheckRoute
   '/api/public/tools/versioning/sweep': typeof ApiPublicToolsVersioningSweepRoute
+  '/api/teams/channels/$channelId/messages': typeof ApiTeamsChannelsChannelIdMessagesRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
@@ -1446,6 +1501,11 @@ export interface FileRouteTypes {
     | '/api/org/invites/accept'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/teams/$teamId/analytics'
+    | '/api/teams/$teamId/budget'
+    | '/api/teams/$teamId/channels'
+    | '/api/teams/$tenantId/create'
+    | '/api/teams/$tenantId/tree'
     | '/api/tenants/$id/suspend'
     | '/api/tools/marketplace/install'
     | '/api/tools/marketplace/installed'
@@ -1492,6 +1552,7 @@ export interface FileRouteTypes {
     | '/api/public/finance/costs/rollup'
     | '/api/public/tools/versioning/health-check'
     | '/api/public/tools/versioning/sweep'
+    | '/api/teams/channels/$channelId/messages'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
@@ -1587,6 +1648,11 @@ export interface FileRouteTypes {
     | '/api/org/invites/accept'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/teams/$teamId/analytics'
+    | '/api/teams/$teamId/budget'
+    | '/api/teams/$teamId/channels'
+    | '/api/teams/$tenantId/create'
+    | '/api/teams/$tenantId/tree'
     | '/api/tenants/$id/suspend'
     | '/api/tools/marketplace/install'
     | '/api/tools/marketplace/installed'
@@ -1633,6 +1699,7 @@ export interface FileRouteTypes {
     | '/api/public/finance/costs/rollup'
     | '/api/public/tools/versioning/health-check'
     | '/api/public/tools/versioning/sweep'
+    | '/api/teams/channels/$channelId/messages'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
@@ -1728,6 +1795,11 @@ export interface FileRouteTypes {
     | '/api/org/invites/accept'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/teams/$teamId/analytics'
+    | '/api/teams/$teamId/budget'
+    | '/api/teams/$teamId/channels'
+    | '/api/teams/$tenantId/create'
+    | '/api/teams/$tenantId/tree'
     | '/api/tenants/$id/suspend'
     | '/api/tools/marketplace/install'
     | '/api/tools/marketplace/installed'
@@ -1774,6 +1846,7 @@ export interface FileRouteTypes {
     | '/api/public/finance/costs/rollup'
     | '/api/public/tools/versioning/health-check'
     | '/api/public/tools/versioning/sweep'
+    | '/api/teams/channels/$channelId/messages'
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
@@ -1869,6 +1942,11 @@ export interface RootRouteChildren {
   ApiOrgInvitesAcceptRoute: typeof ApiOrgInvitesAcceptRoute
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
+  ApiTeamsTeamIdAnalyticsRoute: typeof ApiTeamsTeamIdAnalyticsRoute
+  ApiTeamsTeamIdBudgetRoute: typeof ApiTeamsTeamIdBudgetRoute
+  ApiTeamsTeamIdChannelsRoute: typeof ApiTeamsTeamIdChannelsRoute
+  ApiTeamsTenantIdCreateRoute: typeof ApiTeamsTenantIdCreateRoute
+  ApiTeamsTenantIdTreeRoute: typeof ApiTeamsTenantIdTreeRoute
   ApiTenantsIdSuspendRoute: typeof ApiTenantsIdSuspendRoute
   ApiToolsMarketplaceInstallRoute: typeof ApiToolsMarketplaceInstallRoute
   ApiToolsMarketplaceInstalledRoute: typeof ApiToolsMarketplaceInstalledRoute
@@ -1912,6 +1990,7 @@ export interface RootRouteChildren {
   ApiPublicFinanceCostsRollupRoute: typeof ApiPublicFinanceCostsRollupRoute
   ApiPublicToolsVersioningHealthCheckRoute: typeof ApiPublicToolsVersioningHealthCheckRoute
   ApiPublicToolsVersioningSweepRoute: typeof ApiPublicToolsVersioningSweepRoute
+  ApiTeamsChannelsChannelIdMessagesRoute: typeof ApiTeamsChannelsChannelIdMessagesRoute
   ApiToolsMcpDisconnectServerIdRoute: typeof ApiToolsMcpDisconnectServerIdRoute
   ApiToolsVersioningToolNameRollbackRoute: typeof ApiToolsVersioningToolNameRollbackRoute
   ApiToolsVersioningToolNameVersionsRoute: typeof ApiToolsVersioningToolNameVersionsRoute
@@ -2251,6 +2330,41 @@ declare module '@tanstack/react-router' {
       path: '/api/tenants/$id/suspend'
       fullPath: '/api/tenants/$id/suspend'
       preLoaderRoute: typeof ApiTenantsIdSuspendRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/teams/$tenantId/tree': {
+      id: '/api/teams/$tenantId/tree'
+      path: '/api/teams/$tenantId/tree'
+      fullPath: '/api/teams/$tenantId/tree'
+      preLoaderRoute: typeof ApiTeamsTenantIdTreeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/teams/$tenantId/create': {
+      id: '/api/teams/$tenantId/create'
+      path: '/api/teams/$tenantId/create'
+      fullPath: '/api/teams/$tenantId/create'
+      preLoaderRoute: typeof ApiTeamsTenantIdCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/teams/$teamId/channels': {
+      id: '/api/teams/$teamId/channels'
+      path: '/api/teams/$teamId/channels'
+      fullPath: '/api/teams/$teamId/channels'
+      preLoaderRoute: typeof ApiTeamsTeamIdChannelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/teams/$teamId/budget': {
+      id: '/api/teams/$teamId/budget'
+      path: '/api/teams/$teamId/budget'
+      fullPath: '/api/teams/$teamId/budget'
+      preLoaderRoute: typeof ApiTeamsTeamIdBudgetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/teams/$teamId/analytics': {
+      id: '/api/teams/$teamId/analytics'
+      path: '/api/teams/$teamId/analytics'
+      fullPath: '/api/teams/$teamId/analytics'
+      preLoaderRoute: typeof ApiTeamsTeamIdAnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/prioritization/queue/$planId': {
@@ -2659,6 +2773,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiToolsMcpDisconnectServerIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/teams/channels/$channelId/messages': {
+      id: '/api/teams/channels/$channelId/messages'
+      path: '/api/teams/channels/$channelId/messages'
+      fullPath: '/api/teams/channels/$channelId/messages'
+      preLoaderRoute: typeof ApiTeamsChannelsChannelIdMessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/tools/versioning/sweep': {
       id: '/api/public/tools/versioning/sweep'
       path: '/api/public/tools/versioning/sweep'
@@ -3048,6 +3169,11 @@ const rootRouteChildren: RootRouteChildren = {
   ApiOrgInvitesAcceptRoute: ApiOrgInvitesAcceptRoute,
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
   ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
+  ApiTeamsTeamIdAnalyticsRoute: ApiTeamsTeamIdAnalyticsRoute,
+  ApiTeamsTeamIdBudgetRoute: ApiTeamsTeamIdBudgetRoute,
+  ApiTeamsTeamIdChannelsRoute: ApiTeamsTeamIdChannelsRoute,
+  ApiTeamsTenantIdCreateRoute: ApiTeamsTenantIdCreateRoute,
+  ApiTeamsTenantIdTreeRoute: ApiTeamsTenantIdTreeRoute,
   ApiTenantsIdSuspendRoute: ApiTenantsIdSuspendRoute,
   ApiToolsMarketplaceInstallRoute: ApiToolsMarketplaceInstallRoute,
   ApiToolsMarketplaceInstalledRoute: ApiToolsMarketplaceInstalledRoute,
@@ -3100,6 +3226,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicToolsVersioningHealthCheckRoute:
     ApiPublicToolsVersioningHealthCheckRoute,
   ApiPublicToolsVersioningSweepRoute: ApiPublicToolsVersioningSweepRoute,
+  ApiTeamsChannelsChannelIdMessagesRoute:
+    ApiTeamsChannelsChannelIdMessagesRoute,
   ApiToolsMcpDisconnectServerIdRoute: ApiToolsMcpDisconnectServerIdRoute,
   ApiToolsVersioningToolNameRollbackRoute:
     ApiToolsVersioningToolNameRollbackRoute,
