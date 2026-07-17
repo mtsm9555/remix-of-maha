@@ -193,7 +193,7 @@ export class ExecutiveMetricsEngine {
         unit: k.unit,
         format: k.format,
         period: k.period,
-        historical_data: k.historicalData,
+        historical_data: k.historicalData as any,
       }))
     );
     return kpis;
