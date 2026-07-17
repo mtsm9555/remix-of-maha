@@ -5378,6 +5378,415 @@ export type Database = {
         }
         Relationships: []
       }
+      executive_briefings: {
+        Row: {
+          created_at: string | null
+          critical_issues: string[] | null
+          dashboard_id: string
+          delivered_at: string | null
+          delivered_to: string[] | null
+          executive_summary: string
+          feedback: string | null
+          financial_snapshot: Json | null
+          frequency: string
+          generated_at: string
+          id: string
+          key_highlights: string[] | null
+          kpi_snapshot: Json | null
+          period: string
+          reviewed_by: string | null
+          strategic_recommendations: string[] | null
+          tenant_id: string
+          title: string
+          top_insights: Json | null
+          top_opportunities: Json | null
+          top_risks: Json | null
+        }
+        Insert: {
+          created_at?: string | null
+          critical_issues?: string[] | null
+          dashboard_id: string
+          delivered_at?: string | null
+          delivered_to?: string[] | null
+          executive_summary: string
+          feedback?: string | null
+          financial_snapshot?: Json | null
+          frequency: string
+          generated_at: string
+          id: string
+          key_highlights?: string[] | null
+          kpi_snapshot?: Json | null
+          period: string
+          reviewed_by?: string | null
+          strategic_recommendations?: string[] | null
+          tenant_id: string
+          title: string
+          top_insights?: Json | null
+          top_opportunities?: Json | null
+          top_risks?: Json | null
+        }
+        Update: {
+          created_at?: string | null
+          critical_issues?: string[] | null
+          dashboard_id?: string
+          delivered_at?: string | null
+          delivered_to?: string[] | null
+          executive_summary?: string
+          feedback?: string | null
+          financial_snapshot?: Json | null
+          frequency?: string
+          generated_at?: string
+          id?: string
+          key_highlights?: string[] | null
+          kpi_snapshot?: Json | null
+          period?: string
+          reviewed_by?: string | null
+          strategic_recommendations?: string[] | null
+          tenant_id?: string
+          title?: string
+          top_insights?: Json | null
+          top_opportunities?: Json | null
+          top_risks?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "executive_briefings_dashboard_id_fkey"
+            columns: ["dashboard_id"]
+            isOneToOne: false
+            referencedRelation: "executive_dashboards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "executive_briefings_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      executive_dashboards: {
+        Row: {
+          briefing_frequency: string
+          created_at: string | null
+          financial_health: Json | null
+          growth_metrics: Json | null
+          id: string
+          insights: Json | null
+          is_default: boolean | null
+          last_briefing_at: string | null
+          market_metrics: Json | null
+          name: string
+          next_briefing_at: string | null
+          okrs: Json | null
+          operational_metrics: Json | null
+          opportunities: Json | null
+          owner_id: string
+          risks: Json | null
+          role: string
+          shared_with: string[] | null
+          tenant_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          briefing_frequency?: string
+          created_at?: string | null
+          financial_health?: Json | null
+          growth_metrics?: Json | null
+          id: string
+          insights?: Json | null
+          is_default?: boolean | null
+          last_briefing_at?: string | null
+          market_metrics?: Json | null
+          name: string
+          next_briefing_at?: string | null
+          okrs?: Json | null
+          operational_metrics?: Json | null
+          opportunities?: Json | null
+          owner_id: string
+          risks?: Json | null
+          role: string
+          shared_with?: string[] | null
+          tenant_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          briefing_frequency?: string
+          created_at?: string | null
+          financial_health?: Json | null
+          growth_metrics?: Json | null
+          id?: string
+          insights?: Json | null
+          is_default?: boolean | null
+          last_briefing_at?: string | null
+          market_metrics?: Json | null
+          name?: string
+          next_briefing_at?: string | null
+          okrs?: Json | null
+          operational_metrics?: Json | null
+          opportunities?: Json | null
+          owner_id?: string
+          risks?: Json | null
+          role?: string
+          shared_with?: string[] | null
+          tenant_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "executive_dashboards_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      executive_insights: {
+        Row: {
+          confidence: number
+          created_at: string | null
+          dashboard_id: string
+          description: string
+          id: string
+          impact_level: string
+          priority: string
+          recommended_action: string | null
+          related_kpis: string[] | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          supporting_data: Json | null
+          title: string
+          type: string
+        }
+        Insert: {
+          confidence: number
+          created_at?: string | null
+          dashboard_id: string
+          description: string
+          id: string
+          impact_level: string
+          priority: string
+          recommended_action?: string | null
+          related_kpis?: string[] | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          supporting_data?: Json | null
+          title: string
+          type: string
+        }
+        Update: {
+          confidence?: number
+          created_at?: string | null
+          dashboard_id?: string
+          description?: string
+          id?: string
+          impact_level?: string
+          priority?: string
+          recommended_action?: string | null
+          related_kpis?: string[] | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          supporting_data?: Json | null
+          title?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "executive_insights_dashboard_id_fkey"
+            columns: ["dashboard_id"]
+            isOneToOne: false
+            referencedRelation: "executive_dashboards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      executive_kpis: {
+        Row: {
+          alert_thresholds: Json | null
+          category: string
+          change_percent: number
+          created_at: string | null
+          current_value: number
+          dashboard_id: string
+          description: string
+          format: string
+          historical_data: Json | null
+          id: string
+          name: string
+          period: string
+          previous_value: number | null
+          status: string
+          target_value: number
+          trend: string
+          unit: string
+          updated_at: string | null
+        }
+        Insert: {
+          alert_thresholds?: Json | null
+          category: string
+          change_percent: number
+          created_at?: string | null
+          current_value: number
+          dashboard_id: string
+          description: string
+          format: string
+          historical_data?: Json | null
+          id: string
+          name: string
+          period: string
+          previous_value?: number | null
+          status: string
+          target_value: number
+          trend: string
+          unit: string
+          updated_at?: string | null
+        }
+        Update: {
+          alert_thresholds?: Json | null
+          category?: string
+          change_percent?: number
+          created_at?: string | null
+          current_value?: number
+          dashboard_id?: string
+          description?: string
+          format?: string
+          historical_data?: Json | null
+          id?: string
+          name?: string
+          period?: string
+          previous_value?: number | null
+          status?: string
+          target_value?: number
+          trend?: string
+          unit?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "executive_kpis_dashboard_id_fkey"
+            columns: ["dashboard_id"]
+            isOneToOne: false
+            referencedRelation: "executive_dashboards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      executive_opportunities: {
+        Row: {
+          category: string
+          created_at: string | null
+          dashboard_id: string
+          description: string
+          estimated_value: number | null
+          id: string
+          investment_required: number | null
+          probability: number | null
+          resources_needed: string[] | null
+          status: string
+          time_horizon: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          dashboard_id: string
+          description: string
+          estimated_value?: number | null
+          id: string
+          investment_required?: number | null
+          probability?: number | null
+          resources_needed?: string[] | null
+          status?: string
+          time_horizon: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          dashboard_id?: string
+          description?: string
+          estimated_value?: number | null
+          id?: string
+          investment_required?: number | null
+          probability?: number | null
+          resources_needed?: string[] | null
+          status?: string
+          time_horizon?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "executive_opportunities_dashboard_id_fkey"
+            columns: ["dashboard_id"]
+            isOneToOne: false
+            referencedRelation: "executive_dashboards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      executive_risks: {
+        Row: {
+          category: string
+          created_at: string | null
+          dashboard_id: string
+          description: string
+          id: string
+          impact: string
+          mitigation_plan: string | null
+          owner: string | null
+          probability: string
+          risk_score: number
+          status: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          dashboard_id: string
+          description: string
+          id: string
+          impact: string
+          mitigation_plan?: string | null
+          owner?: string | null
+          probability: string
+          risk_score: number
+          status?: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          dashboard_id?: string
+          description?: string
+          id?: string
+          impact?: string
+          mitigation_plan?: string | null
+          owner?: string | null
+          probability?: string
+          risk_score?: number
+          status?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "executive_risks_dashboard_id_fkey"
+            columns: ["dashboard_id"]
+            isOneToOne: false
+            referencedRelation: "executive_dashboards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       failover_events: {
         Row: {
           actual_rpo_seconds: number | null
