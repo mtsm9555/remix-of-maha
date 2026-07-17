@@ -81,7 +81,7 @@ export class MeetingManager {
       is_virtual: data.isVirtual ?? !!data.meetingUrl,
       organizer_id: organizerId,
       participant_ids: data.participantIds || [organizerId],
-      external_participants: data.externalParticipants || [],
+      external_participants: (data.externalParticipants || []) as any,
       project_id: data.projectId,
       deal_id: data.dealId,
       contact_id: data.contactId,
@@ -120,7 +120,10 @@ export class MeetingManager {
 
   static async cancelMeeting(meetingId: string, tenantId: string, reason?: string): Promise<void> {
     const { data: existing } = await db.from('meetings').select('metadata').eq('id', meetingId).eq('tenant_id', tenantId).single();
-    const metadata = { ...(existing?.metadata || {}), cancellationReason: reason || 'Not specified' };
+    const existingMeta = (existing?.metadata && typeof existing.metadata === 'object' && !Array.isArray(existing.metadata))
+      ? (existing.metadata as Record<string, any>)
+      : {};
+    const metadata = { ...existingMeta, cancellationReason: reason || 'Not specified' };
     await db.from('meetings').update({ status: 'cancelled', metadata }).eq('id', meetingId).eq('tenant_id', tenantId);
   }
 
