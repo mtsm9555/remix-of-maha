@@ -2176,6 +2176,450 @@ export type Database = {
         }
         Relationships: []
       }
+      gpu_allocation_requests: {
+        Row: {
+          created_at: string
+          estimated_duration_minutes: number
+          id: string
+          max_cost_per_hour_usd: number | null
+          max_latency_ms: number | null
+          metadata: Json
+          min_cuda_compute_capability: string | null
+          model_name: string | null
+          model_size_gb: number | null
+          preferred_gpu_model: string | null
+          priority: string
+          required_gpus: number
+          required_vram_gb: number
+          requires_mig: boolean
+          requires_multi_gpu: boolean
+          task_id: string
+          task_type: string
+          tenant_id: string
+          workspace_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          estimated_duration_minutes?: number
+          id: string
+          max_cost_per_hour_usd?: number | null
+          max_latency_ms?: number | null
+          metadata?: Json
+          min_cuda_compute_capability?: string | null
+          model_name?: string | null
+          model_size_gb?: number | null
+          preferred_gpu_model?: string | null
+          priority: string
+          required_gpus?: number
+          required_vram_gb: number
+          requires_mig?: boolean
+          requires_multi_gpu?: boolean
+          task_id: string
+          task_type: string
+          tenant_id: string
+          workspace_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          estimated_duration_minutes?: number
+          id?: string
+          max_cost_per_hour_usd?: number | null
+          max_latency_ms?: number | null
+          metadata?: Json
+          min_cuda_compute_capability?: string | null
+          model_name?: string | null
+          model_size_gb?: number | null
+          preferred_gpu_model?: string | null
+          priority?: string
+          required_gpus?: number
+          required_vram_gb?: number
+          requires_mig?: boolean
+          requires_multi_gpu?: boolean
+          task_id?: string
+          task_type?: string
+          tenant_id?: string
+          workspace_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gpu_allocation_requests_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      gpu_allocations: {
+        Row: {
+          actual_completion_at: string | null
+          allocated_at: string
+          average_temperature: number | null
+          average_utilization: number | null
+          cost_per_hour_usd: number
+          estimated_completion_at: string | null
+          gpu_ids: Json
+          id: string
+          metadata: Json
+          mig_instance_ids: Json | null
+          request_id: string
+          status: string
+          task_id: string
+          tenant_id: string
+          total_cost_usd: number | null
+          total_vram_gb: number
+        }
+        Insert: {
+          actual_completion_at?: string | null
+          allocated_at?: string
+          average_temperature?: number | null
+          average_utilization?: number | null
+          cost_per_hour_usd?: number
+          estimated_completion_at?: string | null
+          gpu_ids?: Json
+          id: string
+          metadata?: Json
+          mig_instance_ids?: Json | null
+          request_id: string
+          status: string
+          task_id: string
+          tenant_id: string
+          total_cost_usd?: number | null
+          total_vram_gb: number
+        }
+        Update: {
+          actual_completion_at?: string | null
+          allocated_at?: string
+          average_temperature?: number | null
+          average_utilization?: number | null
+          cost_per_hour_usd?: number
+          estimated_completion_at?: string | null
+          gpu_ids?: Json
+          id?: string
+          metadata?: Json
+          mig_instance_ids?: Json | null
+          request_id?: string
+          status?: string
+          task_id?: string
+          tenant_id?: string
+          total_cost_usd?: number | null
+          total_vram_gb?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gpu_allocations_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      gpu_cost_records: {
+        Row: {
+          allocation_id: string
+          cost_per_hour_usd: number
+          duration_hours: number
+          gpu_id: string
+          id: string
+          instance_type: string
+          tenant_id: string
+          timestamp: string
+          total_cost_usd: number
+          utilization_percent: number
+        }
+        Insert: {
+          allocation_id: string
+          cost_per_hour_usd?: number
+          duration_hours?: number
+          gpu_id: string
+          id: string
+          instance_type: string
+          tenant_id: string
+          timestamp?: string
+          total_cost_usd?: number
+          utilization_percent?: number
+        }
+        Update: {
+          allocation_id?: string
+          cost_per_hour_usd?: number
+          duration_hours?: number
+          gpu_id?: string
+          id?: string
+          instance_type?: string
+          tenant_id?: string
+          timestamp?: string
+          total_cost_usd?: number
+          utilization_percent?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gpu_cost_records_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      gpu_hardware: {
+        Row: {
+          allocated_to_task_id: string | null
+          created_at: string
+          cuda_compute_capability: string
+          cuda_cores: number
+          cuda_version: string
+          current_allocation_id: string | null
+          driver_version: string
+          error_count: number
+          id: string
+          last_error_at: string | null
+          last_health_check_at: string
+          location: string
+          memory_bandwidth_gb_ps: number
+          memory_free_gb: number
+          memory_used_gb: number
+          mig_instances: Json
+          model: string
+          node_id: string
+          pci_bus_id: string
+          power_usage_watts: number
+          state: string
+          supports_bf16: boolean
+          supports_fp8: boolean
+          supports_mig: boolean
+          tdp_watts: number
+          temperature_celsius: number
+          tensor_cores: number
+          updated_at: string
+          utilization_percent: number
+          uuid: string
+          vendor: string
+          vram_gb: number
+        }
+        Insert: {
+          allocated_to_task_id?: string | null
+          created_at?: string
+          cuda_compute_capability?: string
+          cuda_cores?: number
+          cuda_version?: string
+          current_allocation_id?: string | null
+          driver_version?: string
+          error_count?: number
+          id: string
+          last_error_at?: string | null
+          last_health_check_at?: string
+          location?: string
+          memory_bandwidth_gb_ps?: number
+          memory_free_gb?: number
+          memory_used_gb?: number
+          mig_instances?: Json
+          model: string
+          node_id: string
+          pci_bus_id?: string
+          power_usage_watts?: number
+          state: string
+          supports_bf16?: boolean
+          supports_fp8?: boolean
+          supports_mig?: boolean
+          tdp_watts?: number
+          temperature_celsius?: number
+          tensor_cores?: number
+          updated_at?: string
+          utilization_percent?: number
+          uuid: string
+          vendor: string
+          vram_gb: number
+        }
+        Update: {
+          allocated_to_task_id?: string | null
+          created_at?: string
+          cuda_compute_capability?: string
+          cuda_cores?: number
+          cuda_version?: string
+          current_allocation_id?: string | null
+          driver_version?: string
+          error_count?: number
+          id?: string
+          last_error_at?: string | null
+          last_health_check_at?: string
+          location?: string
+          memory_bandwidth_gb_ps?: number
+          memory_free_gb?: number
+          memory_used_gb?: number
+          mig_instances?: Json
+          model?: string
+          node_id?: string
+          pci_bus_id?: string
+          power_usage_watts?: number
+          state?: string
+          supports_bf16?: boolean
+          supports_fp8?: boolean
+          supports_mig?: boolean
+          tdp_watts?: number
+          temperature_celsius?: number
+          tensor_cores?: number
+          updated_at?: string
+          utilization_percent?: number
+          uuid?: string
+          vendor?: string
+          vram_gb?: number
+        }
+        Relationships: []
+      }
+      gpu_health_metrics: {
+        Row: {
+          alerts: Json
+          clock_speed_mhz: number
+          ecc_errors: number
+          fan_speed_percent: number
+          gpu_id: string
+          health_score: number
+          id: number
+          memory_free_gb: number
+          memory_used_gb: number
+          power_throttling: boolean
+          power_usage_watts: number
+          temperature_celsius: number
+          thermal_throttling: boolean
+          timestamp: string
+          utilization_percent: number
+          xid_errors: number
+        }
+        Insert: {
+          alerts?: Json
+          clock_speed_mhz?: number
+          ecc_errors?: number
+          fan_speed_percent?: number
+          gpu_id: string
+          health_score?: number
+          id?: number
+          memory_free_gb?: number
+          memory_used_gb?: number
+          power_throttling?: boolean
+          power_usage_watts?: number
+          temperature_celsius?: number
+          thermal_throttling?: boolean
+          timestamp?: string
+          utilization_percent?: number
+          xid_errors?: number
+        }
+        Update: {
+          alerts?: Json
+          clock_speed_mhz?: number
+          ecc_errors?: number
+          fan_speed_percent?: number
+          gpu_id?: string
+          health_score?: number
+          id?: number
+          memory_free_gb?: number
+          memory_used_gb?: number
+          power_throttling?: boolean
+          power_usage_watts?: number
+          temperature_celsius?: number
+          thermal_throttling?: boolean
+          timestamp?: string
+          utilization_percent?: number
+          xid_errors?: number
+        }
+        Relationships: []
+      }
+      gpu_queue: {
+        Row: {
+          estimated_wait_time_minutes: number
+          id: string
+          priority: string
+          queued_at: string
+          request_id: string
+          required_gpus: number
+          required_vram_gb: number
+          score: number
+          status: string
+        }
+        Insert: {
+          estimated_wait_time_minutes?: number
+          id: string
+          priority: string
+          queued_at?: string
+          request_id: string
+          required_gpus: number
+          required_vram_gb: number
+          score?: number
+          status: string
+        }
+        Update: {
+          estimated_wait_time_minutes?: number
+          id?: string
+          priority?: string
+          queued_at?: string
+          request_id?: string
+          required_gpus?: number
+          required_vram_gb?: number
+          score?: number
+          status?: string
+        }
+        Relationships: []
+      }
+      gpu_scheduling_policies: {
+        Row: {
+          allocation_strategy: string
+          created_at: string
+          description: string | null
+          enable_automatic_failover: boolean
+          enable_gpu_sharing: boolean
+          enable_mig: boolean
+          id: string
+          is_active: boolean
+          max_power_usage_percent: number
+          max_spot_price_multiplier: number
+          max_temperature_celsius: number
+          max_utilization_threshold: number
+          name: string
+          prefer_spot_instances: boolean
+          priority_weights: Json
+          reserved_instance_utilization_target: number
+          updated_at: string
+        }
+        Insert: {
+          allocation_strategy: string
+          created_at?: string
+          description?: string | null
+          enable_automatic_failover?: boolean
+          enable_gpu_sharing?: boolean
+          enable_mig?: boolean
+          id: string
+          is_active?: boolean
+          max_power_usage_percent?: number
+          max_spot_price_multiplier?: number
+          max_temperature_celsius?: number
+          max_utilization_threshold?: number
+          name: string
+          prefer_spot_instances?: boolean
+          priority_weights?: Json
+          reserved_instance_utilization_target?: number
+          updated_at?: string
+        }
+        Update: {
+          allocation_strategy?: string
+          created_at?: string
+          description?: string | null
+          enable_automatic_failover?: boolean
+          enable_gpu_sharing?: boolean
+          enable_mig?: boolean
+          id?: string
+          is_active?: boolean
+          max_power_usage_percent?: number
+          max_spot_price_multiplier?: number
+          max_temperature_celsius?: number
+          max_utilization_threshold?: number
+          name?: string
+          prefer_spot_instances?: boolean
+          priority_weights?: Json
+          reserved_instance_utilization_target?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       graph_edges: {
         Row: {
           created_at: string
