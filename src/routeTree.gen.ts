@@ -88,6 +88,9 @@ import { Route as ApiAdvancedRolesTenantIdIndexRouteImport } from './routes/api/
 import { Route as ApiWorkspacesWorkspaceIdMembersRouteImport } from './routes/api/workspaces/$workspaceId/members'
 import { Route as ApiWorkspacesWorkspaceIdCrossAccessRouteImport } from './routes/api/workspaces/$workspaceId/cross-access'
 import { Route as ApiWorkspacesWorkspaceIdBudgetRouteImport } from './routes/api/workspaces/$workspaceId/budget'
+import { Route as ApiVaultRotateTickRouteImport } from './routes/api/vault/rotate.tick'
+import { Route as ApiVaultTenantIdSecretsRouteImport } from './routes/api/vault/$tenantId/secrets'
+import { Route as ApiVaultTenantIdAccessRequestsRouteImport } from './routes/api/vault/$tenantId/access-requests'
 import { Route as ApiToolsVersioningPinRouteImport } from './routes/api/tools/versioning/pin'
 import { Route as ApiToolsPoliciesTestRouteImport } from './routes/api/tools/policies/test'
 import { Route as ApiToolsPoliciesLogsRouteImport } from './routes/api/tools/policies/logs'
@@ -242,6 +245,10 @@ import { Route as ApiAnalyticsToolsToolNameRpmRouteImport } from './routes/api/a
 import { Route as ApiAnalyticsToolsToolNameHistoryRouteImport } from './routes/api/analytics/tools/$toolName/history'
 import { Route as ApiAnalyticsToolsToolNameErrorsRouteImport } from './routes/api/analytics/tools/$toolName/errors'
 import { Route as ApiAdvancedRolesTenantIdJitElevationIdRouteImport } from './routes/api/advanced-roles/$tenantId/jit/$elevationId'
+import { Route as ApiVaultTenantIdSecretsSecretIdRotateRouteImport } from './routes/api/vault/$tenantId/secrets.$secretId.rotate'
+import { Route as ApiVaultTenantIdSecretsSecretIdRevokeRouteImport } from './routes/api/vault/$tenantId/secrets.$secretId.revoke'
+import { Route as ApiVaultTenantIdSecretsSecretIdRevealRouteImport } from './routes/api/vault/$tenantId/secrets.$secretId.reveal'
+import { Route as ApiVaultTenantIdAccessRequestsRequestIdDecideRouteImport } from './routes/api/vault/$tenantId/access-requests.$requestId.decide'
 import { Route as ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport } from './routes/api/infrastructure/budget/topups/$requestId.approve'
 import { Route as ApiDataVersionsHistoryEntityTypeEntityIdRouteImport } from './routes/api/data/versions/history/$entityType/$entityId'
 import { Route as ApiDataVersionsCurrentEntityTypeEntityIdRouteImport } from './routes/api/data/versions/current/$entityType/$entityId'
@@ -661,6 +668,22 @@ const ApiWorkspacesWorkspaceIdBudgetRoute =
   ApiWorkspacesWorkspaceIdBudgetRouteImport.update({
     id: '/api/workspaces/$workspaceId/budget',
     path: '/api/workspaces/$workspaceId/budget',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiVaultRotateTickRoute = ApiVaultRotateTickRouteImport.update({
+  id: '/api/vault/rotate/tick',
+  path: '/api/vault/rotate/tick',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiVaultTenantIdSecretsRoute = ApiVaultTenantIdSecretsRouteImport.update({
+  id: '/api/vault/$tenantId/secrets',
+  path: '/api/vault/$tenantId/secrets',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiVaultTenantIdAccessRequestsRoute =
+  ApiVaultTenantIdAccessRequestsRouteImport.update({
+    id: '/api/vault/$tenantId/access-requests',
+    path: '/api/vault/$tenantId/access-requests',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiToolsVersioningPinRoute = ApiToolsVersioningPinRouteImport.update({
@@ -1545,6 +1568,30 @@ const ApiAdvancedRolesTenantIdJitElevationIdRoute =
     path: '/$elevationId',
     getParentRoute: () => ApiAdvancedRolesTenantIdJitRoute,
   } as any)
+const ApiVaultTenantIdSecretsSecretIdRotateRoute =
+  ApiVaultTenantIdSecretsSecretIdRotateRouteImport.update({
+    id: '/$secretId/rotate',
+    path: '/$secretId/rotate',
+    getParentRoute: () => ApiVaultTenantIdSecretsRoute,
+  } as any)
+const ApiVaultTenantIdSecretsSecretIdRevokeRoute =
+  ApiVaultTenantIdSecretsSecretIdRevokeRouteImport.update({
+    id: '/$secretId/revoke',
+    path: '/$secretId/revoke',
+    getParentRoute: () => ApiVaultTenantIdSecretsRoute,
+  } as any)
+const ApiVaultTenantIdSecretsSecretIdRevealRoute =
+  ApiVaultTenantIdSecretsSecretIdRevealRouteImport.update({
+    id: '/$secretId/reveal',
+    path: '/$secretId/reveal',
+    getParentRoute: () => ApiVaultTenantIdSecretsRoute,
+  } as any)
+const ApiVaultTenantIdAccessRequestsRequestIdDecideRoute =
+  ApiVaultTenantIdAccessRequestsRequestIdDecideRouteImport.update({
+    id: '/$requestId/decide',
+    path: '/$requestId/decide',
+    getParentRoute: () => ApiVaultTenantIdAccessRequestsRoute,
+  } as any)
 const ApiInfrastructureBudgetTopupsRequestIdApproveRoute =
   ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport.update({
     id: '/api/infrastructure/budget/topups/$requestId/approve',
@@ -1746,6 +1793,9 @@ export interface FileRoutesByFullPath {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/vault/$tenantId/access-requests': typeof ApiVaultTenantIdAccessRequestsRouteWithChildren
+  '/api/vault/$tenantId/secrets': typeof ApiVaultTenantIdSecretsRouteWithChildren
+  '/api/vault/rotate/tick': typeof ApiVaultRotateTickRoute
   '/api/workspaces/$workspaceId/budget': typeof ApiWorkspacesWorkspaceIdBudgetRoute
   '/api/workspaces/$workspaceId/cross-access': typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
   '/api/workspaces/$workspaceId/members': typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
@@ -1829,6 +1879,10 @@ export interface FileRoutesByFullPath {
   '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
   '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  '/api/vault/$tenantId/access-requests/$requestId/decide': typeof ApiVaultTenantIdAccessRequestsRequestIdDecideRoute
+  '/api/vault/$tenantId/secrets/$secretId/reveal': typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
+  '/api/vault/$tenantId/secrets/$secretId/revoke': typeof ApiVaultTenantIdSecretsSecretIdRevokeRoute
+  '/api/vault/$tenantId/secrets/$secretId/rotate': typeof ApiVaultTenantIdSecretsSecretIdRotateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -1988,6 +2042,9 @@ export interface FileRoutesByTo {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/vault/$tenantId/access-requests': typeof ApiVaultTenantIdAccessRequestsRouteWithChildren
+  '/api/vault/$tenantId/secrets': typeof ApiVaultTenantIdSecretsRouteWithChildren
+  '/api/vault/rotate/tick': typeof ApiVaultRotateTickRoute
   '/api/workspaces/$workspaceId/budget': typeof ApiWorkspacesWorkspaceIdBudgetRoute
   '/api/workspaces/$workspaceId/cross-access': typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
   '/api/workspaces/$workspaceId/members': typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
@@ -2071,6 +2128,10 @@ export interface FileRoutesByTo {
   '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
   '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  '/api/vault/$tenantId/access-requests/$requestId/decide': typeof ApiVaultTenantIdAccessRequestsRequestIdDecideRoute
+  '/api/vault/$tenantId/secrets/$secretId/reveal': typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
+  '/api/vault/$tenantId/secrets/$secretId/revoke': typeof ApiVaultTenantIdSecretsSecretIdRevokeRoute
+  '/api/vault/$tenantId/secrets/$secretId/rotate': typeof ApiVaultTenantIdSecretsSecretIdRotateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -2231,6 +2292,9 @@ export interface FileRoutesById {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/vault/$tenantId/access-requests': typeof ApiVaultTenantIdAccessRequestsRouteWithChildren
+  '/api/vault/$tenantId/secrets': typeof ApiVaultTenantIdSecretsRouteWithChildren
+  '/api/vault/rotate/tick': typeof ApiVaultRotateTickRoute
   '/api/workspaces/$workspaceId/budget': typeof ApiWorkspacesWorkspaceIdBudgetRoute
   '/api/workspaces/$workspaceId/cross-access': typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
   '/api/workspaces/$workspaceId/members': typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
@@ -2314,6 +2378,10 @@ export interface FileRoutesById {
   '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
   '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  '/api/vault/$tenantId/access-requests/$requestId/decide': typeof ApiVaultTenantIdAccessRequestsRequestIdDecideRoute
+  '/api/vault/$tenantId/secrets/$secretId/reveal': typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
+  '/api/vault/$tenantId/secrets/$secretId/revoke': typeof ApiVaultTenantIdSecretsSecretIdRevokeRoute
+  '/api/vault/$tenantId/secrets/$secretId/rotate': typeof ApiVaultTenantIdSecretsSecretIdRotateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -2475,6 +2543,9 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/vault/$tenantId/access-requests'
+    | '/api/vault/$tenantId/secrets'
+    | '/api/vault/rotate/tick'
     | '/api/workspaces/$workspaceId/budget'
     | '/api/workspaces/$workspaceId/cross-access'
     | '/api/workspaces/$workspaceId/members'
@@ -2558,6 +2629,10 @@ export interface FileRouteTypes {
     | '/api/data/versions/current/$entityType/$entityId'
     | '/api/data/versions/history/$entityType/$entityId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
+    | '/api/vault/$tenantId/access-requests/$requestId/decide'
+    | '/api/vault/$tenantId/secrets/$secretId/reveal'
+    | '/api/vault/$tenantId/secrets/$secretId/revoke'
+    | '/api/vault/$tenantId/secrets/$secretId/rotate'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -2717,6 +2792,9 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/vault/$tenantId/access-requests'
+    | '/api/vault/$tenantId/secrets'
+    | '/api/vault/rotate/tick'
     | '/api/workspaces/$workspaceId/budget'
     | '/api/workspaces/$workspaceId/cross-access'
     | '/api/workspaces/$workspaceId/members'
@@ -2800,6 +2878,10 @@ export interface FileRouteTypes {
     | '/api/data/versions/current/$entityType/$entityId'
     | '/api/data/versions/history/$entityType/$entityId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
+    | '/api/vault/$tenantId/access-requests/$requestId/decide'
+    | '/api/vault/$tenantId/secrets/$secretId/reveal'
+    | '/api/vault/$tenantId/secrets/$secretId/revoke'
+    | '/api/vault/$tenantId/secrets/$secretId/rotate'
   id:
     | '__root__'
     | '/'
@@ -2959,6 +3041,9 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/vault/$tenantId/access-requests'
+    | '/api/vault/$tenantId/secrets'
+    | '/api/vault/rotate/tick'
     | '/api/workspaces/$workspaceId/budget'
     | '/api/workspaces/$workspaceId/cross-access'
     | '/api/workspaces/$workspaceId/members'
@@ -3042,6 +3127,10 @@ export interface FileRouteTypes {
     | '/api/data/versions/current/$entityType/$entityId'
     | '/api/data/versions/history/$entityType/$entityId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
+    | '/api/vault/$tenantId/access-requests/$requestId/decide'
+    | '/api/vault/$tenantId/secrets/$secretId/reveal'
+    | '/api/vault/$tenantId/secrets/$secretId/revoke'
+    | '/api/vault/$tenantId/secrets/$secretId/rotate'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -3198,6 +3287,9 @@ export interface RootRouteChildren {
   ApiToolsPoliciesLogsRoute: typeof ApiToolsPoliciesLogsRoute
   ApiToolsPoliciesTestRoute: typeof ApiToolsPoliciesTestRoute
   ApiToolsVersioningPinRoute: typeof ApiToolsVersioningPinRoute
+  ApiVaultTenantIdAccessRequestsRoute: typeof ApiVaultTenantIdAccessRequestsRouteWithChildren
+  ApiVaultTenantIdSecretsRoute: typeof ApiVaultTenantIdSecretsRouteWithChildren
+  ApiVaultRotateTickRoute: typeof ApiVaultRotateTickRoute
   ApiWorkspacesWorkspaceIdBudgetRoute: typeof ApiWorkspacesWorkspaceIdBudgetRoute
   ApiWorkspacesWorkspaceIdCrossAccessRoute: typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
   ApiWorkspacesWorkspaceIdMembersRoute: typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
@@ -3818,6 +3910,27 @@ declare module '@tanstack/react-router' {
       path: '/api/workspaces/$workspaceId/budget'
       fullPath: '/api/workspaces/$workspaceId/budget'
       preLoaderRoute: typeof ApiWorkspacesWorkspaceIdBudgetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/vault/rotate/tick': {
+      id: '/api/vault/rotate/tick'
+      path: '/api/vault/rotate/tick'
+      fullPath: '/api/vault/rotate/tick'
+      preLoaderRoute: typeof ApiVaultRotateTickRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/vault/$tenantId/secrets': {
+      id: '/api/vault/$tenantId/secrets'
+      path: '/api/vault/$tenantId/secrets'
+      fullPath: '/api/vault/$tenantId/secrets'
+      preLoaderRoute: typeof ApiVaultTenantIdSecretsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/vault/$tenantId/access-requests': {
+      id: '/api/vault/$tenantId/access-requests'
+      path: '/api/vault/$tenantId/access-requests'
+      fullPath: '/api/vault/$tenantId/access-requests'
+      preLoaderRoute: typeof ApiVaultTenantIdAccessRequestsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/tools/versioning/pin': {
@@ -4898,6 +5011,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAdvancedRolesTenantIdJitElevationIdRouteImport
       parentRoute: typeof ApiAdvancedRolesTenantIdJitRoute
     }
+    '/api/vault/$tenantId/secrets/$secretId/rotate': {
+      id: '/api/vault/$tenantId/secrets/$secretId/rotate'
+      path: '/$secretId/rotate'
+      fullPath: '/api/vault/$tenantId/secrets/$secretId/rotate'
+      preLoaderRoute: typeof ApiVaultTenantIdSecretsSecretIdRotateRouteImport
+      parentRoute: typeof ApiVaultTenantIdSecretsRoute
+    }
+    '/api/vault/$tenantId/secrets/$secretId/revoke': {
+      id: '/api/vault/$tenantId/secrets/$secretId/revoke'
+      path: '/$secretId/revoke'
+      fullPath: '/api/vault/$tenantId/secrets/$secretId/revoke'
+      preLoaderRoute: typeof ApiVaultTenantIdSecretsSecretIdRevokeRouteImport
+      parentRoute: typeof ApiVaultTenantIdSecretsRoute
+    }
+    '/api/vault/$tenantId/secrets/$secretId/reveal': {
+      id: '/api/vault/$tenantId/secrets/$secretId/reveal'
+      path: '/$secretId/reveal'
+      fullPath: '/api/vault/$tenantId/secrets/$secretId/reveal'
+      preLoaderRoute: typeof ApiVaultTenantIdSecretsSecretIdRevealRouteImport
+      parentRoute: typeof ApiVaultTenantIdSecretsRoute
+    }
+    '/api/vault/$tenantId/access-requests/$requestId/decide': {
+      id: '/api/vault/$tenantId/access-requests/$requestId/decide'
+      path: '/$requestId/decide'
+      fullPath: '/api/vault/$tenantId/access-requests/$requestId/decide'
+      preLoaderRoute: typeof ApiVaultTenantIdAccessRequestsRequestIdDecideRouteImport
+      parentRoute: typeof ApiVaultTenantIdAccessRequestsRoute
+    }
     '/api/infrastructure/budget/topups/$requestId/approve': {
       id: '/api/infrastructure/budget/topups/$requestId/approve'
       path: '/api/infrastructure/budget/topups/$requestId/approve'
@@ -5147,6 +5288,42 @@ const ApiIntelligenceReflectionMetricsRouteWithChildren =
     ApiIntelligenceReflectionMetricsRouteChildren,
   )
 
+interface ApiVaultTenantIdAccessRequestsRouteChildren {
+  ApiVaultTenantIdAccessRequestsRequestIdDecideRoute: typeof ApiVaultTenantIdAccessRequestsRequestIdDecideRoute
+}
+
+const ApiVaultTenantIdAccessRequestsRouteChildren: ApiVaultTenantIdAccessRequestsRouteChildren =
+  {
+    ApiVaultTenantIdAccessRequestsRequestIdDecideRoute:
+      ApiVaultTenantIdAccessRequestsRequestIdDecideRoute,
+  }
+
+const ApiVaultTenantIdAccessRequestsRouteWithChildren =
+  ApiVaultTenantIdAccessRequestsRoute._addFileChildren(
+    ApiVaultTenantIdAccessRequestsRouteChildren,
+  )
+
+interface ApiVaultTenantIdSecretsRouteChildren {
+  ApiVaultTenantIdSecretsSecretIdRevealRoute: typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
+  ApiVaultTenantIdSecretsSecretIdRevokeRoute: typeof ApiVaultTenantIdSecretsSecretIdRevokeRoute
+  ApiVaultTenantIdSecretsSecretIdRotateRoute: typeof ApiVaultTenantIdSecretsSecretIdRotateRoute
+}
+
+const ApiVaultTenantIdSecretsRouteChildren: ApiVaultTenantIdSecretsRouteChildren =
+  {
+    ApiVaultTenantIdSecretsSecretIdRevealRoute:
+      ApiVaultTenantIdSecretsSecretIdRevealRoute,
+    ApiVaultTenantIdSecretsSecretIdRevokeRoute:
+      ApiVaultTenantIdSecretsSecretIdRevokeRoute,
+    ApiVaultTenantIdSecretsSecretIdRotateRoute:
+      ApiVaultTenantIdSecretsSecretIdRotateRoute,
+  }
+
+const ApiVaultTenantIdSecretsRouteWithChildren =
+  ApiVaultTenantIdSecretsRoute._addFileChildren(
+    ApiVaultTenantIdSecretsRouteChildren,
+  )
+
 interface ApiWorkspacesWorkspaceIdMembersRouteChildren {
   ApiWorkspacesWorkspaceIdMembersUserIdRoute: typeof ApiWorkspacesWorkspaceIdMembersUserIdRoute
 }
@@ -5334,6 +5511,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiToolsPoliciesLogsRoute: ApiToolsPoliciesLogsRoute,
   ApiToolsPoliciesTestRoute: ApiToolsPoliciesTestRoute,
   ApiToolsVersioningPinRoute: ApiToolsVersioningPinRoute,
+  ApiVaultTenantIdAccessRequestsRoute:
+    ApiVaultTenantIdAccessRequestsRouteWithChildren,
+  ApiVaultTenantIdSecretsRoute: ApiVaultTenantIdSecretsRouteWithChildren,
+  ApiVaultRotateTickRoute: ApiVaultRotateTickRoute,
   ApiWorkspacesWorkspaceIdBudgetRoute: ApiWorkspacesWorkspaceIdBudgetRoute,
   ApiWorkspacesWorkspaceIdCrossAccessRoute:
     ApiWorkspacesWorkspaceIdCrossAccessRoute,
