@@ -8,6 +8,7 @@ console.log(`Starting ${config.appName} v${config.version}`);
 export { config };
 export * from "./types";
 export * from "./lifecycle/lifecycleManager";
+export * from "./lifecycle/taskStateManager";
 export * from "./agents/agent";
 export * from "./memory/memory";
 export * from "./permissions/permissions";
