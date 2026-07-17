@@ -145,7 +145,7 @@ export class AdvancedApiKeyManager {
       .select("*").eq("id", apiKeyId).eq("tenant_id", tenantId).single();
     if (!oldKey) throw new Error("API key not found");
 
-    const created = await this.createApiKey(tenantId, `${oldKey.name} (Rotated)`, oldKey.scopes ?? [], {
+    const created = await this.createApiKey(tenantId, `${oldKey.name} (Rotated)`, (oldKey.scopes ?? []) as ApiKeyScope[], {
       description: oldKey.description ?? undefined,
       allowedEndpoints: oldKey.allowed_endpoints ?? undefined,
       allowedDepartments: oldKey.allowed_departments ?? undefined,
@@ -197,7 +197,7 @@ export class AdvancedApiKeyManager {
     const filtered: Record<string, any> = {};
     for (const k of allowed) if (updates[k] !== undefined) filtered[k] = updates[k];
     filtered.updated_at = new Date().toISOString();
-    await supabaseAdmin.from("api_keys").update(filtered).eq("id", apiKeyId).eq("tenant_id", tenantId);
+    await supabaseAdmin.from("api_keys").update(filtered as any).eq("id", apiKeyId).eq("tenant_id", tenantId);
     await this.logAuditEvent(apiKeyId, tenantId, "updated", performedBy, { updatedFields: Object.keys(filtered) });
   }
 
