@@ -106,7 +106,7 @@ export class SubscriptionManager {
       current_period_end: currentPeriodEnd.toISOString(),
       trial_start: trialStart?.toISOString() ?? null,
       trial_end: trialEnd?.toISOString() ?? null,
-      usage: EMPTY_USAGE,
+      usage: EMPTY_USAGE as any,
     }, { onConflict: "tenant_id" }).select("*").single();
     if (error) throw error;
     return mapSub(data);
@@ -164,7 +164,7 @@ export class SubscriptionManager {
     const sub = await this.getActiveSubscription(tenantId);
     if (!sub) return;
     await supabaseAdmin.from("subscriptions").update({
-      usage: { ...sub.usage, ...updates },
+      usage: { ...sub.usage, ...updates } as any,
     }).eq("id", sub.id);
   }
 }
