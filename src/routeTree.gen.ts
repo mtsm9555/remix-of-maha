@@ -36,6 +36,7 @@ import { Route as ApiGoalsSplatRouteImport } from './routes/api/goals/$'
 import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/departments/$'
 import { Route as ApiCollaborationSessionsRouteImport } from './routes/api/collaboration/sessions'
 import { Route as ApiCollaborationInitiateRouteImport } from './routes/api/collaboration/initiate'
+import { Route as ApiClusterMetricsRouteImport } from './routes/api/cluster/metrics'
 import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiBillingPlansRouteImport } from './routes/api/billing/plans'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
@@ -50,6 +51,8 @@ import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/ap
 import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
 import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/infrastructure/fleet/index'
 import { Route as ApiGovernanceDsarIndexRouteImport } from './routes/api/governance/dsar/index'
+import { Route as ApiClusterWorkersIndexRouteImport } from './routes/api/cluster/workers/index'
+import { Route as ApiClusterTasksIndexRouteImport } from './routes/api/cluster/tasks/index'
 import { Route as ApiApikeysTenantIdIndexRouteImport } from './routes/api/apikeys/$tenantId/index'
 import { Route as ApiAdvancedRolesTenantIdIndexRouteImport } from './routes/api/advanced-roles/$tenantId/index'
 import { Route as ApiWorkspacesWorkspaceIdMembersRouteImport } from './routes/api/workspaces/$workspaceId/members'
@@ -140,6 +143,8 @@ import { Route as ApiAdvancedRolesTenantIdJitRouteImport } from './routes/api/ad
 import { Route as ApiAdvancedRolesTenantIdHierarchyRouteImport } from './routes/api/advanced-roles/$tenantId/hierarchy'
 import { Route as ApiAdvancedRolesTenantIdFromTemplateRouteImport } from './routes/api/advanced-roles/$tenantId/from-template'
 import { Route as ApiAdvancedRolesTenantIdRoleIdRouteImport } from './routes/api/advanced-roles/$tenantId/$roleId'
+import { Route as ApiClusterWorkersWorkerIdIndexRouteImport } from './routes/api/cluster/workers/$workerId/index'
+import { Route as ApiClusterTasksTaskIdIndexRouteImport } from './routes/api/cluster/tasks/$taskId/index'
 import { Route as ApiApikeysTenantIdKeyIdIndexRouteImport } from './routes/api/apikeys/$tenantId/$keyId/index'
 import { Route as ApiWorkspacesWorkspaceIdMembersUserIdRouteImport } from './routes/api/workspaces/$workspaceId/members/$userId'
 import { Route as ApiToolsVersioningToolNameVersionsRouteImport } from './routes/api/tools/versioning/$toolName/versions'
@@ -172,6 +177,9 @@ import { Route as ApiDataProjectProjectIdContextRouteImport } from './routes/api
 import { Route as ApiDataDepartmentDeptIdSynthesizeProjectRouteImport } from './routes/api/data/department/$deptId/synthesize-project'
 import { Route as ApiDataDepartmentDeptIdSearchRouteImport } from './routes/api/data/department/$deptId/search'
 import { Route as ApiDataDepartmentDeptIdInsightsRouteImport } from './routes/api/data/department/$deptId/insights'
+import { Route as ApiClusterWorkersWorkerIdHeartbeatRouteImport } from './routes/api/cluster/workers/$workerId/heartbeat'
+import { Route as ApiClusterWorkersWorkerIdClaimRouteImport } from './routes/api/cluster/workers/$workerId/claim'
+import { Route as ApiClusterTasksTaskIdCompleteRouteImport } from './routes/api/cluster/tasks/$taskId/complete'
 import { Route as ApiApikeysTenantIdKeyIdUsageRouteImport } from './routes/api/apikeys/$tenantId/$keyId/usage'
 import { Route as ApiApikeysTenantIdKeyIdRotateRouteImport } from './routes/api/apikeys/$tenantId/$keyId/rotate'
 import { Route as ApiApikeysTenantIdKeyIdRevokeRouteImport } from './routes/api/apikeys/$tenantId/$keyId/revoke'
@@ -328,6 +336,11 @@ const ApiCollaborationInitiateRoute =
     path: '/api/collaboration/initiate',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiClusterMetricsRoute = ApiClusterMetricsRouteImport.update({
+  id: '/api/cluster/metrics',
+  path: '/api/cluster/metrics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiBudgetSplatRoute = ApiBudgetSplatRouteImport.update({
   id: '/api/budget/$',
   path: '/api/budget/$',
@@ -405,6 +418,16 @@ const ApiInfrastructureFleetIndexRoute =
 const ApiGovernanceDsarIndexRoute = ApiGovernanceDsarIndexRouteImport.update({
   id: '/api/governance/dsar/',
   path: '/api/governance/dsar/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiClusterWorkersIndexRoute = ApiClusterWorkersIndexRouteImport.update({
+  id: '/api/cluster/workers/',
+  path: '/api/cluster/workers/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiClusterTasksIndexRoute = ApiClusterTasksIndexRouteImport.update({
+  id: '/api/cluster/tasks/',
+  path: '/api/cluster/tasks/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiApikeysTenantIdIndexRoute = ApiApikeysTenantIdIndexRouteImport.update({
@@ -916,6 +939,18 @@ const ApiAdvancedRolesTenantIdRoleIdRoute =
     path: '/api/advanced-roles/$tenantId/$roleId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiClusterWorkersWorkerIdIndexRoute =
+  ApiClusterWorkersWorkerIdIndexRouteImport.update({
+    id: '/api/cluster/workers/$workerId/',
+    path: '/api/cluster/workers/$workerId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiClusterTasksTaskIdIndexRoute =
+  ApiClusterTasksTaskIdIndexRouteImport.update({
+    id: '/api/cluster/tasks/$taskId/',
+    path: '/api/cluster/tasks/$taskId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiApikeysTenantIdKeyIdIndexRoute =
   ApiApikeysTenantIdKeyIdIndexRouteImport.update({
     id: '/api/apikeys/$tenantId/$keyId/',
@@ -1108,6 +1143,24 @@ const ApiDataDepartmentDeptIdInsightsRoute =
     path: '/api/data/department/$deptId/insights',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiClusterWorkersWorkerIdHeartbeatRoute =
+  ApiClusterWorkersWorkerIdHeartbeatRouteImport.update({
+    id: '/api/cluster/workers/$workerId/heartbeat',
+    path: '/api/cluster/workers/$workerId/heartbeat',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiClusterWorkersWorkerIdClaimRoute =
+  ApiClusterWorkersWorkerIdClaimRouteImport.update({
+    id: '/api/cluster/workers/$workerId/claim',
+    path: '/api/cluster/workers/$workerId/claim',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiClusterTasksTaskIdCompleteRoute =
+  ApiClusterTasksTaskIdCompleteRouteImport.update({
+    id: '/api/cluster/tasks/$taskId/complete',
+    path: '/api/cluster/tasks/$taskId/complete',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiApikeysTenantIdKeyIdUsageRoute =
   ApiApikeysTenantIdKeyIdUsageRouteImport.update({
     id: '/api/apikeys/$tenantId/$keyId/usage',
@@ -1223,6 +1276,7 @@ export interface FileRoutesByFullPath {
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/billing/plans': typeof ApiBillingPlansRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
+  '/api/cluster/metrics': typeof ApiClusterMetricsRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
@@ -1328,6 +1382,8 @@ export interface FileRoutesByFullPath {
   '/api/workspaces/$workspaceId/members': typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
   '/api/advanced-roles/$tenantId/': typeof ApiAdvancedRolesTenantIdIndexRoute
   '/api/apikeys/$tenantId/': typeof ApiApikeysTenantIdIndexRoute
+  '/api/cluster/tasks/': typeof ApiClusterTasksIndexRoute
+  '/api/cluster/workers/': typeof ApiClusterWorkersIndexRoute
   '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
@@ -1346,6 +1402,9 @@ export interface FileRoutesByFullPath {
   '/api/apikeys/$tenantId/$keyId/revoke': typeof ApiApikeysTenantIdKeyIdRevokeRoute
   '/api/apikeys/$tenantId/$keyId/rotate': typeof ApiApikeysTenantIdKeyIdRotateRoute
   '/api/apikeys/$tenantId/$keyId/usage': typeof ApiApikeysTenantIdKeyIdUsageRoute
+  '/api/cluster/tasks/$taskId/complete': typeof ApiClusterTasksTaskIdCompleteRoute
+  '/api/cluster/workers/$workerId/claim': typeof ApiClusterWorkersWorkerIdClaimRoute
+  '/api/cluster/workers/$workerId/heartbeat': typeof ApiClusterWorkersWorkerIdHeartbeatRoute
   '/api/data/department/$deptId/insights': typeof ApiDataDepartmentDeptIdInsightsRoute
   '/api/data/department/$deptId/search': typeof ApiDataDepartmentDeptIdSearchRoute
   '/api/data/department/$deptId/synthesize-project': typeof ApiDataDepartmentDeptIdSynthesizeProjectRoute
@@ -1378,6 +1437,8 @@ export interface FileRoutesByFullPath {
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
   '/api/workspaces/$workspaceId/members/$userId': typeof ApiWorkspacesWorkspaceIdMembersUserIdRoute
   '/api/apikeys/$tenantId/$keyId/': typeof ApiApikeysTenantIdKeyIdIndexRoute
+  '/api/cluster/tasks/$taskId/': typeof ApiClusterTasksTaskIdIndexRoute
+  '/api/cluster/workers/$workerId/': typeof ApiClusterWorkersWorkerIdIndexRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
@@ -1404,6 +1465,7 @@ export interface FileRoutesByTo {
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/billing/plans': typeof ApiBillingPlansRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
+  '/api/cluster/metrics': typeof ApiClusterMetricsRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
@@ -1509,6 +1571,8 @@ export interface FileRoutesByTo {
   '/api/workspaces/$workspaceId/members': typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
   '/api/advanced-roles/$tenantId': typeof ApiAdvancedRolesTenantIdIndexRoute
   '/api/apikeys/$tenantId': typeof ApiApikeysTenantIdIndexRoute
+  '/api/cluster/tasks': typeof ApiClusterTasksIndexRoute
+  '/api/cluster/workers': typeof ApiClusterWorkersIndexRoute
   '/api/governance/dsar': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
@@ -1527,6 +1591,9 @@ export interface FileRoutesByTo {
   '/api/apikeys/$tenantId/$keyId/revoke': typeof ApiApikeysTenantIdKeyIdRevokeRoute
   '/api/apikeys/$tenantId/$keyId/rotate': typeof ApiApikeysTenantIdKeyIdRotateRoute
   '/api/apikeys/$tenantId/$keyId/usage': typeof ApiApikeysTenantIdKeyIdUsageRoute
+  '/api/cluster/tasks/$taskId/complete': typeof ApiClusterTasksTaskIdCompleteRoute
+  '/api/cluster/workers/$workerId/claim': typeof ApiClusterWorkersWorkerIdClaimRoute
+  '/api/cluster/workers/$workerId/heartbeat': typeof ApiClusterWorkersWorkerIdHeartbeatRoute
   '/api/data/department/$deptId/insights': typeof ApiDataDepartmentDeptIdInsightsRoute
   '/api/data/department/$deptId/search': typeof ApiDataDepartmentDeptIdSearchRoute
   '/api/data/department/$deptId/synthesize-project': typeof ApiDataDepartmentDeptIdSynthesizeProjectRoute
@@ -1559,6 +1626,8 @@ export interface FileRoutesByTo {
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
   '/api/workspaces/$workspaceId/members/$userId': typeof ApiWorkspacesWorkspaceIdMembersUserIdRoute
   '/api/apikeys/$tenantId/$keyId': typeof ApiApikeysTenantIdKeyIdIndexRoute
+  '/api/cluster/tasks/$taskId': typeof ApiClusterTasksTaskIdIndexRoute
+  '/api/cluster/workers/$workerId': typeof ApiClusterWorkersWorkerIdIndexRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
@@ -1586,6 +1655,7 @@ export interface FileRoutesById {
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/billing/plans': typeof ApiBillingPlansRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
+  '/api/cluster/metrics': typeof ApiClusterMetricsRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
   '/api/departments/$': typeof ApiDepartmentsSplatRoute
@@ -1691,6 +1761,8 @@ export interface FileRoutesById {
   '/api/workspaces/$workspaceId/members': typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
   '/api/advanced-roles/$tenantId/': typeof ApiAdvancedRolesTenantIdIndexRoute
   '/api/apikeys/$tenantId/': typeof ApiApikeysTenantIdIndexRoute
+  '/api/cluster/tasks/': typeof ApiClusterTasksIndexRoute
+  '/api/cluster/workers/': typeof ApiClusterWorkersIndexRoute
   '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
@@ -1709,6 +1781,9 @@ export interface FileRoutesById {
   '/api/apikeys/$tenantId/$keyId/revoke': typeof ApiApikeysTenantIdKeyIdRevokeRoute
   '/api/apikeys/$tenantId/$keyId/rotate': typeof ApiApikeysTenantIdKeyIdRotateRoute
   '/api/apikeys/$tenantId/$keyId/usage': typeof ApiApikeysTenantIdKeyIdUsageRoute
+  '/api/cluster/tasks/$taskId/complete': typeof ApiClusterTasksTaskIdCompleteRoute
+  '/api/cluster/workers/$workerId/claim': typeof ApiClusterWorkersWorkerIdClaimRoute
+  '/api/cluster/workers/$workerId/heartbeat': typeof ApiClusterWorkersWorkerIdHeartbeatRoute
   '/api/data/department/$deptId/insights': typeof ApiDataDepartmentDeptIdInsightsRoute
   '/api/data/department/$deptId/search': typeof ApiDataDepartmentDeptIdSearchRoute
   '/api/data/department/$deptId/synthesize-project': typeof ApiDataDepartmentDeptIdSynthesizeProjectRoute
@@ -1741,6 +1816,8 @@ export interface FileRoutesById {
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
   '/api/workspaces/$workspaceId/members/$userId': typeof ApiWorkspacesWorkspaceIdMembersUserIdRoute
   '/api/apikeys/$tenantId/$keyId/': typeof ApiApikeysTenantIdKeyIdIndexRoute
+  '/api/cluster/tasks/$taskId/': typeof ApiClusterTasksTaskIdIndexRoute
+  '/api/cluster/workers/$workerId/': typeof ApiClusterWorkersWorkerIdIndexRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
@@ -1769,6 +1846,7 @@ export interface FileRouteTypes {
     | '/api/approvals/$'
     | '/api/billing/plans'
     | '/api/budget/$'
+    | '/api/cluster/metrics'
     | '/api/collaboration/initiate'
     | '/api/collaboration/sessions'
     | '/api/departments/$'
@@ -1874,6 +1952,8 @@ export interface FileRouteTypes {
     | '/api/workspaces/$workspaceId/members'
     | '/api/advanced-roles/$tenantId/'
     | '/api/apikeys/$tenantId/'
+    | '/api/cluster/tasks/'
+    | '/api/cluster/workers/'
     | '/api/governance/dsar/'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
@@ -1892,6 +1972,9 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/revoke'
     | '/api/apikeys/$tenantId/$keyId/rotate'
     | '/api/apikeys/$tenantId/$keyId/usage'
+    | '/api/cluster/tasks/$taskId/complete'
+    | '/api/cluster/workers/$workerId/claim'
+    | '/api/cluster/workers/$workerId/heartbeat'
     | '/api/data/department/$deptId/insights'
     | '/api/data/department/$deptId/search'
     | '/api/data/department/$deptId/synthesize-project'
@@ -1924,6 +2007,8 @@ export interface FileRouteTypes {
     | '/api/tools/versioning/$toolName/versions'
     | '/api/workspaces/$workspaceId/members/$userId'
     | '/api/apikeys/$tenantId/$keyId/'
+    | '/api/cluster/tasks/$taskId/'
+    | '/api/cluster/workers/$workerId/'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
     | '/api/data/shared/promotions/$promotionId/approve'
@@ -1950,6 +2035,7 @@ export interface FileRouteTypes {
     | '/api/approvals/$'
     | '/api/billing/plans'
     | '/api/budget/$'
+    | '/api/cluster/metrics'
     | '/api/collaboration/initiate'
     | '/api/collaboration/sessions'
     | '/api/departments/$'
@@ -2055,6 +2141,8 @@ export interface FileRouteTypes {
     | '/api/workspaces/$workspaceId/members'
     | '/api/advanced-roles/$tenantId'
     | '/api/apikeys/$tenantId'
+    | '/api/cluster/tasks'
+    | '/api/cluster/workers'
     | '/api/governance/dsar'
     | '/api/infrastructure/fleet'
     | '/api/infrastructure/registry'
@@ -2073,6 +2161,9 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/revoke'
     | '/api/apikeys/$tenantId/$keyId/rotate'
     | '/api/apikeys/$tenantId/$keyId/usage'
+    | '/api/cluster/tasks/$taskId/complete'
+    | '/api/cluster/workers/$workerId/claim'
+    | '/api/cluster/workers/$workerId/heartbeat'
     | '/api/data/department/$deptId/insights'
     | '/api/data/department/$deptId/search'
     | '/api/data/department/$deptId/synthesize-project'
@@ -2105,6 +2196,8 @@ export interface FileRouteTypes {
     | '/api/tools/versioning/$toolName/versions'
     | '/api/workspaces/$workspaceId/members/$userId'
     | '/api/apikeys/$tenantId/$keyId'
+    | '/api/cluster/tasks/$taskId'
+    | '/api/cluster/workers/$workerId'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
     | '/api/data/shared/promotions/$promotionId/approve'
@@ -2131,6 +2224,7 @@ export interface FileRouteTypes {
     | '/api/approvals/$'
     | '/api/billing/plans'
     | '/api/budget/$'
+    | '/api/cluster/metrics'
     | '/api/collaboration/initiate'
     | '/api/collaboration/sessions'
     | '/api/departments/$'
@@ -2236,6 +2330,8 @@ export interface FileRouteTypes {
     | '/api/workspaces/$workspaceId/members'
     | '/api/advanced-roles/$tenantId/'
     | '/api/apikeys/$tenantId/'
+    | '/api/cluster/tasks/'
+    | '/api/cluster/workers/'
     | '/api/governance/dsar/'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
@@ -2254,6 +2350,9 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/$keyId/revoke'
     | '/api/apikeys/$tenantId/$keyId/rotate'
     | '/api/apikeys/$tenantId/$keyId/usage'
+    | '/api/cluster/tasks/$taskId/complete'
+    | '/api/cluster/workers/$workerId/claim'
+    | '/api/cluster/workers/$workerId/heartbeat'
     | '/api/data/department/$deptId/insights'
     | '/api/data/department/$deptId/search'
     | '/api/data/department/$deptId/synthesize-project'
@@ -2286,6 +2385,8 @@ export interface FileRouteTypes {
     | '/api/tools/versioning/$toolName/versions'
     | '/api/workspaces/$workspaceId/members/$userId'
     | '/api/apikeys/$tenantId/$keyId/'
+    | '/api/cluster/tasks/$taskId/'
+    | '/api/cluster/workers/$workerId/'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
     | '/api/data/shared/promotions/$promotionId/approve'
@@ -2313,6 +2414,7 @@ export interface RootRouteChildren {
   ApiApprovalsSplatRoute: typeof ApiApprovalsSplatRoute
   ApiBillingPlansRoute: typeof ApiBillingPlansRoute
   ApiBudgetSplatRoute: typeof ApiBudgetSplatRoute
+  ApiClusterMetricsRoute: typeof ApiClusterMetricsRoute
   ApiCollaborationInitiateRoute: typeof ApiCollaborationInitiateRoute
   ApiCollaborationSessionsRoute: typeof ApiCollaborationSessionsRoute
   ApiDepartmentsSplatRoute: typeof ApiDepartmentsSplatRoute
@@ -2417,6 +2519,8 @@ export interface RootRouteChildren {
   ApiWorkspacesWorkspaceIdMembersRoute: typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
   ApiAdvancedRolesTenantIdIndexRoute: typeof ApiAdvancedRolesTenantIdIndexRoute
   ApiApikeysTenantIdIndexRoute: typeof ApiApikeysTenantIdIndexRoute
+  ApiClusterTasksIndexRoute: typeof ApiClusterTasksIndexRoute
+  ApiClusterWorkersIndexRoute: typeof ApiClusterWorkersIndexRoute
   ApiGovernanceDsarIndexRoute: typeof ApiGovernanceDsarIndexRoute
   ApiInfrastructureFleetIndexRoute: typeof ApiInfrastructureFleetIndexRoute
   ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
@@ -2434,6 +2538,9 @@ export interface RootRouteChildren {
   ApiApikeysTenantIdKeyIdRevokeRoute: typeof ApiApikeysTenantIdKeyIdRevokeRoute
   ApiApikeysTenantIdKeyIdRotateRoute: typeof ApiApikeysTenantIdKeyIdRotateRoute
   ApiApikeysTenantIdKeyIdUsageRoute: typeof ApiApikeysTenantIdKeyIdUsageRoute
+  ApiClusterTasksTaskIdCompleteRoute: typeof ApiClusterTasksTaskIdCompleteRoute
+  ApiClusterWorkersWorkerIdClaimRoute: typeof ApiClusterWorkersWorkerIdClaimRoute
+  ApiClusterWorkersWorkerIdHeartbeatRoute: typeof ApiClusterWorkersWorkerIdHeartbeatRoute
   ApiDataDepartmentDeptIdInsightsRoute: typeof ApiDataDepartmentDeptIdInsightsRoute
   ApiDataDepartmentDeptIdSearchRoute: typeof ApiDataDepartmentDeptIdSearchRoute
   ApiDataDepartmentDeptIdSynthesizeProjectRoute: typeof ApiDataDepartmentDeptIdSynthesizeProjectRoute
@@ -2462,6 +2569,8 @@ export interface RootRouteChildren {
   ApiToolsVersioningToolNameRollbackRoute: typeof ApiToolsVersioningToolNameRollbackRoute
   ApiToolsVersioningToolNameVersionsRoute: typeof ApiToolsVersioningToolNameVersionsRoute
   ApiApikeysTenantIdKeyIdIndexRoute: typeof ApiApikeysTenantIdKeyIdIndexRoute
+  ApiClusterTasksTaskIdIndexRoute: typeof ApiClusterTasksTaskIdIndexRoute
+  ApiClusterWorkersWorkerIdIndexRoute: typeof ApiClusterWorkersWorkerIdIndexRoute
   ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute: typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute: typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   ApiDataSharedPromotionsPromotionIdApproveRoute: typeof ApiDataSharedPromotionsPromotionIdApproveRoute
@@ -2662,6 +2771,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCollaborationInitiateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/cluster/metrics': {
+      id: '/api/cluster/metrics'
+      path: '/api/cluster/metrics'
+      fullPath: '/api/cluster/metrics'
+      preLoaderRoute: typeof ApiClusterMetricsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/budget/$': {
       id: '/api/budget/$'
       path: '/api/budget/$'
@@ -2758,6 +2874,20 @@ declare module '@tanstack/react-router' {
       path: '/api/governance/dsar'
       fullPath: '/api/governance/dsar/'
       preLoaderRoute: typeof ApiGovernanceDsarIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cluster/workers/': {
+      id: '/api/cluster/workers/'
+      path: '/api/cluster/workers'
+      fullPath: '/api/cluster/workers/'
+      preLoaderRoute: typeof ApiClusterWorkersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cluster/tasks/': {
+      id: '/api/cluster/tasks/'
+      path: '/api/cluster/tasks'
+      fullPath: '/api/cluster/tasks/'
+      preLoaderRoute: typeof ApiClusterTasksIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/apikeys/$tenantId/': {
@@ -3390,6 +3520,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAdvancedRolesTenantIdRoleIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/cluster/workers/$workerId/': {
+      id: '/api/cluster/workers/$workerId/'
+      path: '/api/cluster/workers/$workerId'
+      fullPath: '/api/cluster/workers/$workerId/'
+      preLoaderRoute: typeof ApiClusterWorkersWorkerIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cluster/tasks/$taskId/': {
+      id: '/api/cluster/tasks/$taskId/'
+      path: '/api/cluster/tasks/$taskId'
+      fullPath: '/api/cluster/tasks/$taskId/'
+      preLoaderRoute: typeof ApiClusterTasksTaskIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/apikeys/$tenantId/$keyId/': {
       id: '/api/apikeys/$tenantId/$keyId/'
       path: '/api/apikeys/$tenantId/$keyId'
@@ -3614,6 +3758,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDataDepartmentDeptIdInsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/cluster/workers/$workerId/heartbeat': {
+      id: '/api/cluster/workers/$workerId/heartbeat'
+      path: '/api/cluster/workers/$workerId/heartbeat'
+      fullPath: '/api/cluster/workers/$workerId/heartbeat'
+      preLoaderRoute: typeof ApiClusterWorkersWorkerIdHeartbeatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cluster/workers/$workerId/claim': {
+      id: '/api/cluster/workers/$workerId/claim'
+      path: '/api/cluster/workers/$workerId/claim'
+      fullPath: '/api/cluster/workers/$workerId/claim'
+      preLoaderRoute: typeof ApiClusterWorkersWorkerIdClaimRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cluster/tasks/$taskId/complete': {
+      id: '/api/cluster/tasks/$taskId/complete'
+      path: '/api/cluster/tasks/$taskId/complete'
+      fullPath: '/api/cluster/tasks/$taskId/complete'
+      preLoaderRoute: typeof ApiClusterTasksTaskIdCompleteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/apikeys/$tenantId/$keyId/usage': {
       id: '/api/apikeys/$tenantId/$keyId/usage'
       path: '/api/apikeys/$tenantId/$keyId/usage'
@@ -3826,6 +3991,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiApprovalsSplatRoute: ApiApprovalsSplatRoute,
   ApiBillingPlansRoute: ApiBillingPlansRoute,
   ApiBudgetSplatRoute: ApiBudgetSplatRoute,
+  ApiClusterMetricsRoute: ApiClusterMetricsRoute,
   ApiCollaborationInitiateRoute: ApiCollaborationInitiateRoute,
   ApiCollaborationSessionsRoute: ApiCollaborationSessionsRoute,
   ApiDepartmentsSplatRoute: ApiDepartmentsSplatRoute,
@@ -3949,6 +4115,8 @@ const rootRouteChildren: RootRouteChildren = {
     ApiWorkspacesWorkspaceIdMembersRouteWithChildren,
   ApiAdvancedRolesTenantIdIndexRoute: ApiAdvancedRolesTenantIdIndexRoute,
   ApiApikeysTenantIdIndexRoute: ApiApikeysTenantIdIndexRoute,
+  ApiClusterTasksIndexRoute: ApiClusterTasksIndexRoute,
+  ApiClusterWorkersIndexRoute: ApiClusterWorkersIndexRoute,
   ApiGovernanceDsarIndexRoute: ApiGovernanceDsarIndexRoute,
   ApiInfrastructureFleetIndexRoute: ApiInfrastructureFleetIndexRoute,
   ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,
@@ -3966,6 +4134,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiApikeysTenantIdKeyIdRevokeRoute: ApiApikeysTenantIdKeyIdRevokeRoute,
   ApiApikeysTenantIdKeyIdRotateRoute: ApiApikeysTenantIdKeyIdRotateRoute,
   ApiApikeysTenantIdKeyIdUsageRoute: ApiApikeysTenantIdKeyIdUsageRoute,
+  ApiClusterTasksTaskIdCompleteRoute: ApiClusterTasksTaskIdCompleteRoute,
+  ApiClusterWorkersWorkerIdClaimRoute: ApiClusterWorkersWorkerIdClaimRoute,
+  ApiClusterWorkersWorkerIdHeartbeatRoute:
+    ApiClusterWorkersWorkerIdHeartbeatRoute,
   ApiDataDepartmentDeptIdInsightsRoute: ApiDataDepartmentDeptIdInsightsRoute,
   ApiDataDepartmentDeptIdSearchRoute: ApiDataDepartmentDeptIdSearchRoute,
   ApiDataDepartmentDeptIdSynthesizeProjectRoute:
@@ -4006,6 +4178,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiToolsVersioningToolNameVersionsRoute:
     ApiToolsVersioningToolNameVersionsRoute,
   ApiApikeysTenantIdKeyIdIndexRoute: ApiApikeysTenantIdKeyIdIndexRoute,
+  ApiClusterTasksTaskIdIndexRoute: ApiClusterTasksTaskIdIndexRoute,
+  ApiClusterWorkersWorkerIdIndexRoute: ApiClusterWorkersWorkerIdIndexRoute,
   ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute:
     ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute,
   ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute:
