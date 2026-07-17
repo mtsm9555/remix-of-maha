@@ -790,6 +790,93 @@ export type Database = {
         }
         Relationships: []
       }
+      ai_models: {
+        Row: {
+          average_latency_ms: number
+          capabilities: string[]
+          cost_per_input_token_usd: number
+          cost_per_output_token_usd: number
+          cost_per_request_usd: number | null
+          created_at: string | null
+          current_load: number
+          deprecated_at: string | null
+          display_name: string
+          id: string
+          is_active: boolean | null
+          is_available: boolean | null
+          max_context_tokens: number
+          max_output_tokens: number
+          metadata: Json | null
+          model_name: string
+          p95_latency_ms: number
+          provider: string
+          rate_limit_per_minute: number
+          released_at: string
+          supports_function_calling: boolean | null
+          supports_streaming: boolean | null
+          supports_vision: boolean | null
+          throughput_tokens_per_second: number
+          updated_at: string | null
+          version: string
+        }
+        Insert: {
+          average_latency_ms?: number
+          capabilities?: string[]
+          cost_per_input_token_usd?: number
+          cost_per_output_token_usd?: number
+          cost_per_request_usd?: number | null
+          created_at?: string | null
+          current_load?: number
+          deprecated_at?: string | null
+          display_name: string
+          id: string
+          is_active?: boolean | null
+          is_available?: boolean | null
+          max_context_tokens: number
+          max_output_tokens: number
+          metadata?: Json | null
+          model_name: string
+          p95_latency_ms?: number
+          provider: string
+          rate_limit_per_minute?: number
+          released_at?: string
+          supports_function_calling?: boolean | null
+          supports_streaming?: boolean | null
+          supports_vision?: boolean | null
+          throughput_tokens_per_second?: number
+          updated_at?: string | null
+          version: string
+        }
+        Update: {
+          average_latency_ms?: number
+          capabilities?: string[]
+          cost_per_input_token_usd?: number
+          cost_per_output_token_usd?: number
+          cost_per_request_usd?: number | null
+          created_at?: string | null
+          current_load?: number
+          deprecated_at?: string | null
+          display_name?: string
+          id?: string
+          is_active?: boolean | null
+          is_available?: boolean | null
+          max_context_tokens?: number
+          max_output_tokens?: number
+          metadata?: Json | null
+          model_name?: string
+          p95_latency_ms?: number
+          provider?: string
+          rate_limit_per_minute?: number
+          released_at?: string
+          supports_function_calling?: boolean | null
+          supports_streaming?: boolean | null
+          supports_vision?: boolean | null
+          throughput_tokens_per_second?: number
+          updated_at?: string | null
+          version?: string
+        }
+        Relationships: []
+      }
       api_key_audit_logs: {
         Row: {
           action: string
@@ -2737,6 +2824,259 @@ export type Database = {
           timestamp?: string
         }
         Relationships: []
+      }
+      model_cost_records: {
+        Row: {
+          id: string
+          input_cost_usd: number
+          input_tokens: number
+          latency_ms: number
+          model_id: string
+          output_cost_usd: number
+          output_tokens: number
+          request_id: string
+          success: boolean
+          tenant_id: string
+          timestamp: string
+          total_cost_usd: number
+          total_tokens: number
+        }
+        Insert: {
+          id: string
+          input_cost_usd: number
+          input_tokens: number
+          latency_ms: number
+          model_id: string
+          output_cost_usd: number
+          output_tokens: number
+          request_id: string
+          success: boolean
+          tenant_id: string
+          timestamp?: string
+          total_cost_usd: number
+          total_tokens: number
+        }
+        Update: {
+          id?: string
+          input_cost_usd?: number
+          input_tokens?: number
+          latency_ms?: number
+          model_id?: string
+          output_cost_usd?: number
+          output_tokens?: number
+          request_id?: string
+          success?: boolean
+          tenant_id?: string
+          timestamp?: string
+          total_cost_usd?: number
+          total_tokens?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "model_cost_records_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "ai_models"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "model_cost_records_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      model_fallback_events: {
+        Row: {
+          fallback_model_id: string
+          id: string
+          original_model_id: string
+          reason: string
+          request_id: string
+          resolved_at: string | null
+          success: boolean
+          triggered_at: string
+        }
+        Insert: {
+          fallback_model_id: string
+          id: string
+          original_model_id: string
+          reason: string
+          request_id: string
+          resolved_at?: string | null
+          success: boolean
+          triggered_at?: string
+        }
+        Update: {
+          fallback_model_id?: string
+          id?: string
+          original_model_id?: string
+          reason?: string
+          request_id?: string
+          resolved_at?: string | null
+          success?: boolean
+          triggered_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "model_fallback_events_fallback_model_id_fkey"
+            columns: ["fallback_model_id"]
+            isOneToOne: false
+            referencedRelation: "ai_models"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "model_fallback_events_original_model_id_fkey"
+            columns: ["original_model_id"]
+            isOneToOne: false
+            referencedRelation: "ai_models"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      model_routing_decisions: {
+        Row: {
+          estimated_cost_usd: number
+          estimated_latency_ms: number
+          id: string
+          processing_time_ms: number
+          reasoning: string
+          routing_rule_id: string | null
+          score: number
+          selected_model_id: string
+          strategy: string
+          task_complexity: string | null
+          task_type: string
+          tenant_id: string
+          timestamp: string
+        }
+        Insert: {
+          estimated_cost_usd: number
+          estimated_latency_ms: number
+          id: string
+          processing_time_ms: number
+          reasoning: string
+          routing_rule_id?: string | null
+          score: number
+          selected_model_id: string
+          strategy: string
+          task_complexity?: string | null
+          task_type: string
+          tenant_id: string
+          timestamp?: string
+        }
+        Update: {
+          estimated_cost_usd?: number
+          estimated_latency_ms?: number
+          id?: string
+          processing_time_ms?: number
+          reasoning?: string
+          routing_rule_id?: string | null
+          score?: number
+          selected_model_id?: string
+          strategy?: string
+          task_complexity?: string | null
+          task_type?: string
+          tenant_id?: string
+          timestamp?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "model_routing_decisions_routing_rule_id_fkey"
+            columns: ["routing_rule_id"]
+            isOneToOne: false
+            referencedRelation: "model_routing_rules"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "model_routing_decisions_selected_model_id_fkey"
+            columns: ["selected_model_id"]
+            isOneToOne: false
+            referencedRelation: "ai_models"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "model_routing_decisions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      model_routing_rules: {
+        Row: {
+          conditions: Json
+          created_at: string | null
+          description: string | null
+          fallback_model_ids: string[] | null
+          fallback_strategy: string
+          id: string
+          is_active: boolean | null
+          logic: string
+          max_cost_per_request_usd: number | null
+          max_latency_ms: number | null
+          min_confidence_score: number | null
+          name: string
+          primary_model_id: string
+          priority: number
+          tenant_id: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          conditions?: Json
+          created_at?: string | null
+          description?: string | null
+          fallback_model_ids?: string[] | null
+          fallback_strategy?: string
+          id: string
+          is_active?: boolean | null
+          logic?: string
+          max_cost_per_request_usd?: number | null
+          max_latency_ms?: number | null
+          min_confidence_score?: number | null
+          name: string
+          primary_model_id: string
+          priority?: number
+          tenant_id?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          conditions?: Json
+          created_at?: string | null
+          description?: string | null
+          fallback_model_ids?: string[] | null
+          fallback_strategy?: string
+          id?: string
+          is_active?: boolean | null
+          logic?: string
+          max_cost_per_request_usd?: number | null
+          max_latency_ms?: number | null
+          min_confidence_score?: number | null
+          name?: string
+          primary_model_id?: string
+          priority?: number
+          tenant_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "model_routing_rules_primary_model_id_fkey"
+            columns: ["primary_model_id"]
+            isOneToOne: false
+            referencedRelation: "ai_models"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "model_routing_rules_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       orchestrated_tasks: {
         Row: {
