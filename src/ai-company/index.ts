@@ -1,0 +1,16 @@
+import { defaultConfig } from "./config";
+import type { AppConfig } from "./types";
+
+const config: AppConfig = defaultConfig;
+
+console.log(`Starting ${config.appName} v${config.version}`);
+
+export { config };
+export * from "./types";
+export * from "./lifecycle/lifecycleManager";
+export * from "./agents/agent";
+export * from "./memory/memory";
+export * from "./permissions/permissions";
+export * from "./review/review";
+export * from "./recovery/recovery";
+export * from "./audit/audit";
