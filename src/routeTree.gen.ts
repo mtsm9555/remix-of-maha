@@ -88,6 +88,7 @@ import { Route as ApiAdvancedRolesTenantIdIndexRouteImport } from './routes/api/
 import { Route as ApiWorkspacesWorkspaceIdMembersRouteImport } from './routes/api/workspaces/$workspaceId/members'
 import { Route as ApiWorkspacesWorkspaceIdCrossAccessRouteImport } from './routes/api/workspaces/$workspaceId/cross-access'
 import { Route as ApiWorkspacesWorkspaceIdBudgetRouteImport } from './routes/api/workspaces/$workspaceId/budget'
+import { Route as ApiVaultTenantIdSecretsRouteImport } from './routes/api/vault/$tenantId/secrets'
 import { Route as ApiToolsVersioningPinRouteImport } from './routes/api/tools/versioning/pin'
 import { Route as ApiToolsPoliciesTestRouteImport } from './routes/api/tools/policies/test'
 import { Route as ApiToolsPoliciesLogsRouteImport } from './routes/api/tools/policies/logs'
@@ -663,6 +664,11 @@ const ApiWorkspacesWorkspaceIdBudgetRoute =
     path: '/api/workspaces/$workspaceId/budget',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiVaultTenantIdSecretsRoute = ApiVaultTenantIdSecretsRouteImport.update({
+  id: '/api/vault/$tenantId/secrets',
+  path: '/api/vault/$tenantId/secrets',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiToolsVersioningPinRoute = ApiToolsVersioningPinRouteImport.update({
   id: '/api/tools/versioning/pin',
   path: '/api/tools/versioning/pin',
@@ -1746,6 +1752,7 @@ export interface FileRoutesByFullPath {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/vault/$tenantId/secrets': typeof ApiVaultTenantIdSecretsRoute
   '/api/workspaces/$workspaceId/budget': typeof ApiWorkspacesWorkspaceIdBudgetRoute
   '/api/workspaces/$workspaceId/cross-access': typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
   '/api/workspaces/$workspaceId/members': typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
@@ -1988,6 +1995,7 @@ export interface FileRoutesByTo {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/vault/$tenantId/secrets': typeof ApiVaultTenantIdSecretsRoute
   '/api/workspaces/$workspaceId/budget': typeof ApiWorkspacesWorkspaceIdBudgetRoute
   '/api/workspaces/$workspaceId/cross-access': typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
   '/api/workspaces/$workspaceId/members': typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
@@ -2231,6 +2239,7 @@ export interface FileRoutesById {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/vault/$tenantId/secrets': typeof ApiVaultTenantIdSecretsRoute
   '/api/workspaces/$workspaceId/budget': typeof ApiWorkspacesWorkspaceIdBudgetRoute
   '/api/workspaces/$workspaceId/cross-access': typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
   '/api/workspaces/$workspaceId/members': typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
@@ -2475,6 +2484,7 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/vault/$tenantId/secrets'
     | '/api/workspaces/$workspaceId/budget'
     | '/api/workspaces/$workspaceId/cross-access'
     | '/api/workspaces/$workspaceId/members'
@@ -2717,6 +2727,7 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/vault/$tenantId/secrets'
     | '/api/workspaces/$workspaceId/budget'
     | '/api/workspaces/$workspaceId/cross-access'
     | '/api/workspaces/$workspaceId/members'
@@ -2959,6 +2970,7 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/vault/$tenantId/secrets'
     | '/api/workspaces/$workspaceId/budget'
     | '/api/workspaces/$workspaceId/cross-access'
     | '/api/workspaces/$workspaceId/members'
@@ -3198,6 +3210,7 @@ export interface RootRouteChildren {
   ApiToolsPoliciesLogsRoute: typeof ApiToolsPoliciesLogsRoute
   ApiToolsPoliciesTestRoute: typeof ApiToolsPoliciesTestRoute
   ApiToolsVersioningPinRoute: typeof ApiToolsVersioningPinRoute
+  ApiVaultTenantIdSecretsRoute: typeof ApiVaultTenantIdSecretsRoute
   ApiWorkspacesWorkspaceIdBudgetRoute: typeof ApiWorkspacesWorkspaceIdBudgetRoute
   ApiWorkspacesWorkspaceIdCrossAccessRoute: typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
   ApiWorkspacesWorkspaceIdMembersRoute: typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
@@ -3818,6 +3831,13 @@ declare module '@tanstack/react-router' {
       path: '/api/workspaces/$workspaceId/budget'
       fullPath: '/api/workspaces/$workspaceId/budget'
       preLoaderRoute: typeof ApiWorkspacesWorkspaceIdBudgetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/vault/$tenantId/secrets': {
+      id: '/api/vault/$tenantId/secrets'
+      path: '/api/vault/$tenantId/secrets'
+      fullPath: '/api/vault/$tenantId/secrets'
+      preLoaderRoute: typeof ApiVaultTenantIdSecretsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/tools/versioning/pin': {
@@ -5334,6 +5354,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiToolsPoliciesLogsRoute: ApiToolsPoliciesLogsRoute,
   ApiToolsPoliciesTestRoute: ApiToolsPoliciesTestRoute,
   ApiToolsVersioningPinRoute: ApiToolsVersioningPinRoute,
+  ApiVaultTenantIdSecretsRoute: ApiVaultTenantIdSecretsRoute,
   ApiWorkspacesWorkspaceIdBudgetRoute: ApiWorkspacesWorkspaceIdBudgetRoute,
   ApiWorkspacesWorkspaceIdCrossAccessRoute:
     ApiWorkspacesWorkspaceIdCrossAccessRoute,
