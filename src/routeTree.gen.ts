@@ -102,6 +102,9 @@ import { Route as ApiInfrastructureDiscoveryReputationAgentIdRouteImport } from 
 import { Route as ApiInfrastructureBudgetWalletInstanceIdRouteImport } from './routes/api/infrastructure/budget/wallet.$instanceId'
 import { Route as ApiInfrastructureBudgetTopupsPendingRouteImport } from './routes/api/infrastructure/budget/topups/pending'
 import { Route as ApiInfrastructureBudgetLedgerInstanceIdRouteImport } from './routes/api/infrastructure/budget/ledger.$instanceId'
+import { Route as ApiDataProjectProjectIdSearchRouteImport } from './routes/api/data/project/$projectId/search'
+import { Route as ApiDataProjectProjectIdMemoryRouteImport } from './routes/api/data/project/$projectId/memory'
+import { Route as ApiDataProjectProjectIdContextRouteImport } from './routes/api/data/project/$projectId/context'
 import { Route as ApiAnalyticsToolsToolNameRpmRouteImport } from './routes/api/analytics/tools/$toolName/rpm'
 import { Route as ApiAnalyticsToolsToolNameHistoryRouteImport } from './routes/api/analytics/tools/$toolName/history'
 import { Route as ApiAnalyticsToolsToolNameErrorsRouteImport } from './routes/api/analytics/tools/$toolName/errors'
@@ -634,6 +637,24 @@ const ApiInfrastructureBudgetLedgerInstanceIdRoute =
     path: '/api/infrastructure/budget/ledger/$instanceId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiDataProjectProjectIdSearchRoute =
+  ApiDataProjectProjectIdSearchRouteImport.update({
+    id: '/api/data/project/$projectId/search',
+    path: '/api/data/project/$projectId/search',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiDataProjectProjectIdMemoryRoute =
+  ApiDataProjectProjectIdMemoryRouteImport.update({
+    id: '/api/data/project/$projectId/memory',
+    path: '/api/data/project/$projectId/memory',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiDataProjectProjectIdContextRoute =
+  ApiDataProjectProjectIdContextRouteImport.update({
+    id: '/api/data/project/$projectId/context',
+    path: '/api/data/project/$projectId/context',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiAnalyticsToolsToolNameRpmRoute =
   ApiAnalyticsToolsToolNameRpmRouteImport.update({
     id: '/api/analytics/tools/$toolName/rpm',
@@ -739,6 +760,9 @@ export interface FileRoutesByFullPath {
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
+  '/api/data/project/$projectId/context': typeof ApiDataProjectProjectIdContextRoute
+  '/api/data/project/$projectId/memory': typeof ApiDataProjectProjectIdMemoryRoute
+  '/api/data/project/$projectId/search': typeof ApiDataProjectProjectIdSearchRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -838,6 +862,9 @@ export interface FileRoutesByTo {
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
+  '/api/data/project/$projectId/context': typeof ApiDataProjectProjectIdContextRoute
+  '/api/data/project/$projectId/memory': typeof ApiDataProjectProjectIdMemoryRoute
+  '/api/data/project/$projectId/search': typeof ApiDataProjectProjectIdSearchRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -938,6 +965,9 @@ export interface FileRoutesById {
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
+  '/api/data/project/$projectId/context': typeof ApiDataProjectProjectIdContextRoute
+  '/api/data/project/$projectId/memory': typeof ApiDataProjectProjectIdMemoryRoute
+  '/api/data/project/$projectId/search': typeof ApiDataProjectProjectIdSearchRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -1039,6 +1069,9 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
+    | '/api/data/project/$projectId/context'
+    | '/api/data/project/$projectId/memory'
+    | '/api/data/project/$projectId/search'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -1138,6 +1171,9 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
+    | '/api/data/project/$projectId/context'
+    | '/api/data/project/$projectId/memory'
+    | '/api/data/project/$projectId/search'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -1237,6 +1273,9 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
+    | '/api/data/project/$projectId/context'
+    | '/api/data/project/$projectId/memory'
+    | '/api/data/project/$projectId/search'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -1336,6 +1375,9 @@ export interface RootRouteChildren {
   ApiAnalyticsToolsToolNameErrorsRoute: typeof ApiAnalyticsToolsToolNameErrorsRoute
   ApiAnalyticsToolsToolNameHistoryRoute: typeof ApiAnalyticsToolsToolNameHistoryRoute
   ApiAnalyticsToolsToolNameRpmRoute: typeof ApiAnalyticsToolsToolNameRpmRoute
+  ApiDataProjectProjectIdContextRoute: typeof ApiDataProjectProjectIdContextRoute
+  ApiDataProjectProjectIdMemoryRoute: typeof ApiDataProjectProjectIdMemoryRoute
+  ApiDataProjectProjectIdSearchRoute: typeof ApiDataProjectProjectIdSearchRoute
   ApiInfrastructureBudgetLedgerInstanceIdRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   ApiInfrastructureBudgetTopupsPendingRoute: typeof ApiInfrastructureBudgetTopupsPendingRoute
   ApiInfrastructureBudgetWalletInstanceIdRoute: typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -2006,6 +2048,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/data/project/$projectId/search': {
+      id: '/api/data/project/$projectId/search'
+      path: '/api/data/project/$projectId/search'
+      fullPath: '/api/data/project/$projectId/search'
+      preLoaderRoute: typeof ApiDataProjectProjectIdSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/data/project/$projectId/memory': {
+      id: '/api/data/project/$projectId/memory'
+      path: '/api/data/project/$projectId/memory'
+      fullPath: '/api/data/project/$projectId/memory'
+      preLoaderRoute: typeof ApiDataProjectProjectIdMemoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/data/project/$projectId/context': {
+      id: '/api/data/project/$projectId/context'
+      path: '/api/data/project/$projectId/context'
+      fullPath: '/api/data/project/$projectId/context'
+      preLoaderRoute: typeof ApiDataProjectProjectIdContextRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/analytics/tools/$toolName/rpm': {
       id: '/api/analytics/tools/$toolName/rpm'
       path: '/api/analytics/tools/$toolName/rpm'
@@ -2178,6 +2241,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAnalyticsToolsToolNameErrorsRoute: ApiAnalyticsToolsToolNameErrorsRoute,
   ApiAnalyticsToolsToolNameHistoryRoute: ApiAnalyticsToolsToolNameHistoryRoute,
   ApiAnalyticsToolsToolNameRpmRoute: ApiAnalyticsToolsToolNameRpmRoute,
+  ApiDataProjectProjectIdContextRoute: ApiDataProjectProjectIdContextRoute,
+  ApiDataProjectProjectIdMemoryRoute: ApiDataProjectProjectIdMemoryRoute,
+  ApiDataProjectProjectIdSearchRoute: ApiDataProjectProjectIdSearchRoute,
   ApiInfrastructureBudgetLedgerInstanceIdRoute:
     ApiInfrastructureBudgetLedgerInstanceIdRoute,
   ApiInfrastructureBudgetTopupsPendingRoute:

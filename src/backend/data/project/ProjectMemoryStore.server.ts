@@ -22,7 +22,7 @@ export class ProjectMemoryStore {
         type: record.type,
         content: record.content,
         embedding: embedding as unknown as string,
-        metadata: record.metadata ?? {},
+        metadata: (record.metadata ?? {}) as any,
       })
       .select("id, project_id, type, content, metadata, created_at, updated_at")
       .single();
