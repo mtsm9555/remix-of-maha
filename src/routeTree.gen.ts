@@ -198,6 +198,7 @@ import { Route as ApiComplianceTenantIdControlsRouteImport } from './routes/api/
 import { Route as ApiComplianceTenantIdConsentRouteImport } from './routes/api/compliance/$tenantId/consent'
 import { Route as ApiCollaborationSessionIdProposalRouteImport } from './routes/api/collaboration/$sessionId/proposal'
 import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './routes/api/collaboration/$sessionId/blackboard'
+import { Route as ApiCicdTenantIdRunsRouteImport } from './routes/api/cicd/$tenantId/runs'
 import { Route as ApiCicdTenantIdPipelinesRouteImport } from './routes/api/cicd/$tenantId/pipelines'
 import { Route as ApiBillingTenantIdUsageRouteImport } from './routes/api/billing/$tenantId/usage'
 import { Route as ApiBillingTenantIdSubscriptionRouteImport } from './routes/api/billing/$tenantId/subscription'
@@ -1367,6 +1368,11 @@ const ApiCollaborationSessionIdBlackboardRoute =
     path: '/api/collaboration/$sessionId/blackboard',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiCicdTenantIdRunsRoute = ApiCicdTenantIdRunsRouteImport.update({
+  id: '/api/cicd/$tenantId/runs',
+  path: '/api/cicd/$tenantId/runs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiCicdTenantIdPipelinesRoute =
   ApiCicdTenantIdPipelinesRouteImport.update({
     id: '/api/cicd/$tenantId/pipelines',
@@ -2284,6 +2290,7 @@ export interface FileRoutesByFullPath {
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
   '/api/cicd/$tenantId/pipelines': typeof ApiCicdTenantIdPipelinesRouteWithChildren
+  '/api/cicd/$tenantId/runs': typeof ApiCicdTenantIdRunsRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/compliance/$tenantId/consent': typeof ApiComplianceTenantIdConsentRoute
@@ -2614,6 +2621,7 @@ export interface FileRoutesByTo {
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
   '/api/cicd/$tenantId/pipelines': typeof ApiCicdTenantIdPipelinesRouteWithChildren
+  '/api/cicd/$tenantId/runs': typeof ApiCicdTenantIdRunsRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/compliance/$tenantId/consent': typeof ApiComplianceTenantIdConsentRoute
@@ -2945,6 +2953,7 @@ export interface FileRoutesById {
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
   '/api/cicd/$tenantId/pipelines': typeof ApiCicdTenantIdPipelinesRouteWithChildren
+  '/api/cicd/$tenantId/runs': typeof ApiCicdTenantIdRunsRoute
   '/api/collaboration/$sessionId/blackboard': typeof ApiCollaborationSessionIdBlackboardRoute
   '/api/collaboration/$sessionId/proposal': typeof ApiCollaborationSessionIdProposalRoute
   '/api/compliance/$tenantId/consent': typeof ApiComplianceTenantIdConsentRoute
@@ -3277,6 +3286,7 @@ export interface FileRouteTypes {
     | '/api/billing/$tenantId/subscription'
     | '/api/billing/$tenantId/usage'
     | '/api/cicd/$tenantId/pipelines'
+    | '/api/cicd/$tenantId/runs'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/compliance/$tenantId/consent'
@@ -3607,6 +3617,7 @@ export interface FileRouteTypes {
     | '/api/billing/$tenantId/subscription'
     | '/api/billing/$tenantId/usage'
     | '/api/cicd/$tenantId/pipelines'
+    | '/api/cicd/$tenantId/runs'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/compliance/$tenantId/consent'
@@ -3937,6 +3948,7 @@ export interface FileRouteTypes {
     | '/api/billing/$tenantId/subscription'
     | '/api/billing/$tenantId/usage'
     | '/api/cicd/$tenantId/pipelines'
+    | '/api/cicd/$tenantId/runs'
     | '/api/collaboration/$sessionId/blackboard'
     | '/api/collaboration/$sessionId/proposal'
     | '/api/compliance/$tenantId/consent'
@@ -4268,6 +4280,7 @@ export interface RootRouteChildren {
   ApiBillingTenantIdSubscriptionRoute: typeof ApiBillingTenantIdSubscriptionRoute
   ApiBillingTenantIdUsageRoute: typeof ApiBillingTenantIdUsageRoute
   ApiCicdTenantIdPipelinesRoute: typeof ApiCicdTenantIdPipelinesRouteWithChildren
+  ApiCicdTenantIdRunsRoute: typeof ApiCicdTenantIdRunsRoute
   ApiCollaborationSessionIdBlackboardRoute: typeof ApiCollaborationSessionIdBlackboardRoute
   ApiCollaborationSessionIdProposalRoute: typeof ApiCollaborationSessionIdProposalRoute
   ApiComplianceTenantIdConsentRoute: typeof ApiComplianceTenantIdConsentRoute
@@ -5774,6 +5787,13 @@ declare module '@tanstack/react-router' {
       path: '/api/collaboration/$sessionId/blackboard'
       fullPath: '/api/collaboration/$sessionId/blackboard'
       preLoaderRoute: typeof ApiCollaborationSessionIdBlackboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cicd/$tenantId/runs': {
+      id: '/api/cicd/$tenantId/runs'
+      path: '/api/cicd/$tenantId/runs'
+      fullPath: '/api/cicd/$tenantId/runs'
+      preLoaderRoute: typeof ApiCicdTenantIdRunsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/cicd/$tenantId/pipelines': {
@@ -7365,6 +7385,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiBillingTenantIdSubscriptionRoute: ApiBillingTenantIdSubscriptionRoute,
   ApiBillingTenantIdUsageRoute: ApiBillingTenantIdUsageRoute,
   ApiCicdTenantIdPipelinesRoute: ApiCicdTenantIdPipelinesRouteWithChildren,
+  ApiCicdTenantIdRunsRoute: ApiCicdTenantIdRunsRoute,
   ApiCollaborationSessionIdBlackboardRoute:
     ApiCollaborationSessionIdBlackboardRoute,
   ApiCollaborationSessionIdProposalRoute:
