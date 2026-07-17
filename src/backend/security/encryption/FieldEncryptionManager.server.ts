@@ -179,12 +179,12 @@ export class FieldEncryptionManager {
     return (data || []).map((f: any) => ({
       tableName: f.table_name,
       fieldName: f.field_name,
-      classification: f.classification,
+      classification: f.classification as DataClassification,
       encryptionKeyId: f.encryption_key_id,
-      algorithm: f.algorithm,
-      description: f.description,
-      requiresAudit: f.requires_audit,
-      isActive: f.is_active,
+      algorithm: f.algorithm as EncryptionAlgorithm,
+      description: f.description ?? undefined,
+      requiresAudit: f.requires_audit ?? true,
+      isActive: f.is_active ?? true,
       createdAt: new Date(f.created_at),
       updatedAt: new Date(f.updated_at),
     }));
