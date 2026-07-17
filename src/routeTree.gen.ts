@@ -201,6 +201,7 @@ import { Route as ApiCollaborationSessionIdBlackboardRouteImport } from './route
 import { Route as ApiCicdTenantIdRunsRouteImport } from './routes/api/cicd/$tenantId/runs'
 import { Route as ApiCicdTenantIdPipelinesRouteImport } from './routes/api/cicd/$tenantId/pipelines'
 import { Route as ApiCicdTenantIdEnvironmentsRouteImport } from './routes/api/cicd/$tenantId/environments'
+import { Route as ApiCicdTenantIdDeploymentsRouteImport } from './routes/api/cicd/$tenantId/deployments'
 import { Route as ApiBillingTenantIdUsageRouteImport } from './routes/api/billing/$tenantId/usage'
 import { Route as ApiBillingTenantIdSubscriptionRouteImport } from './routes/api/billing/$tenantId/subscription'
 import { Route as ApiBillingTenantIdSubscribeRouteImport } from './routes/api/billing/$tenantId/subscribe'
@@ -1386,6 +1387,12 @@ const ApiCicdTenantIdEnvironmentsRoute =
     path: '/api/cicd/$tenantId/environments',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiCicdTenantIdDeploymentsRoute =
+  ApiCicdTenantIdDeploymentsRouteImport.update({
+    id: '/api/cicd/$tenantId/deployments',
+    path: '/api/cicd/$tenantId/deployments',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiBillingTenantIdUsageRoute = ApiBillingTenantIdUsageRouteImport.update({
   id: '/api/billing/$tenantId/usage',
   path: '/api/billing/$tenantId/usage',
@@ -2296,6 +2303,7 @@ export interface FileRoutesByFullPath {
   '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
+  '/api/cicd/$tenantId/deployments': typeof ApiCicdTenantIdDeploymentsRoute
   '/api/cicd/$tenantId/environments': typeof ApiCicdTenantIdEnvironmentsRoute
   '/api/cicd/$tenantId/pipelines': typeof ApiCicdTenantIdPipelinesRouteWithChildren
   '/api/cicd/$tenantId/runs': typeof ApiCicdTenantIdRunsRoute
@@ -2628,6 +2636,7 @@ export interface FileRoutesByTo {
   '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
+  '/api/cicd/$tenantId/deployments': typeof ApiCicdTenantIdDeploymentsRoute
   '/api/cicd/$tenantId/environments': typeof ApiCicdTenantIdEnvironmentsRoute
   '/api/cicd/$tenantId/pipelines': typeof ApiCicdTenantIdPipelinesRouteWithChildren
   '/api/cicd/$tenantId/runs': typeof ApiCicdTenantIdRunsRoute
@@ -2961,6 +2970,7 @@ export interface FileRoutesById {
   '/api/billing/$tenantId/subscribe': typeof ApiBillingTenantIdSubscribeRoute
   '/api/billing/$tenantId/subscription': typeof ApiBillingTenantIdSubscriptionRoute
   '/api/billing/$tenantId/usage': typeof ApiBillingTenantIdUsageRoute
+  '/api/cicd/$tenantId/deployments': typeof ApiCicdTenantIdDeploymentsRoute
   '/api/cicd/$tenantId/environments': typeof ApiCicdTenantIdEnvironmentsRoute
   '/api/cicd/$tenantId/pipelines': typeof ApiCicdTenantIdPipelinesRouteWithChildren
   '/api/cicd/$tenantId/runs': typeof ApiCicdTenantIdRunsRoute
@@ -3295,6 +3305,7 @@ export interface FileRouteTypes {
     | '/api/billing/$tenantId/subscribe'
     | '/api/billing/$tenantId/subscription'
     | '/api/billing/$tenantId/usage'
+    | '/api/cicd/$tenantId/deployments'
     | '/api/cicd/$tenantId/environments'
     | '/api/cicd/$tenantId/pipelines'
     | '/api/cicd/$tenantId/runs'
@@ -3627,6 +3638,7 @@ export interface FileRouteTypes {
     | '/api/billing/$tenantId/subscribe'
     | '/api/billing/$tenantId/subscription'
     | '/api/billing/$tenantId/usage'
+    | '/api/cicd/$tenantId/deployments'
     | '/api/cicd/$tenantId/environments'
     | '/api/cicd/$tenantId/pipelines'
     | '/api/cicd/$tenantId/runs'
@@ -3959,6 +3971,7 @@ export interface FileRouteTypes {
     | '/api/billing/$tenantId/subscribe'
     | '/api/billing/$tenantId/subscription'
     | '/api/billing/$tenantId/usage'
+    | '/api/cicd/$tenantId/deployments'
     | '/api/cicd/$tenantId/environments'
     | '/api/cicd/$tenantId/pipelines'
     | '/api/cicd/$tenantId/runs'
@@ -4292,6 +4305,7 @@ export interface RootRouteChildren {
   ApiBillingTenantIdSubscribeRoute: typeof ApiBillingTenantIdSubscribeRoute
   ApiBillingTenantIdSubscriptionRoute: typeof ApiBillingTenantIdSubscriptionRoute
   ApiBillingTenantIdUsageRoute: typeof ApiBillingTenantIdUsageRoute
+  ApiCicdTenantIdDeploymentsRoute: typeof ApiCicdTenantIdDeploymentsRoute
   ApiCicdTenantIdEnvironmentsRoute: typeof ApiCicdTenantIdEnvironmentsRoute
   ApiCicdTenantIdPipelinesRoute: typeof ApiCicdTenantIdPipelinesRouteWithChildren
   ApiCicdTenantIdRunsRoute: typeof ApiCicdTenantIdRunsRoute
@@ -5822,6 +5836,13 @@ declare module '@tanstack/react-router' {
       path: '/api/cicd/$tenantId/environments'
       fullPath: '/api/cicd/$tenantId/environments'
       preLoaderRoute: typeof ApiCicdTenantIdEnvironmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cicd/$tenantId/deployments': {
+      id: '/api/cicd/$tenantId/deployments'
+      path: '/api/cicd/$tenantId/deployments'
+      fullPath: '/api/cicd/$tenantId/deployments'
+      preLoaderRoute: typeof ApiCicdTenantIdDeploymentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/billing/$tenantId/usage': {
@@ -7405,6 +7426,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiBillingTenantIdSubscribeRoute: ApiBillingTenantIdSubscribeRoute,
   ApiBillingTenantIdSubscriptionRoute: ApiBillingTenantIdSubscriptionRoute,
   ApiBillingTenantIdUsageRoute: ApiBillingTenantIdUsageRoute,
+  ApiCicdTenantIdDeploymentsRoute: ApiCicdTenantIdDeploymentsRoute,
   ApiCicdTenantIdEnvironmentsRoute: ApiCicdTenantIdEnvironmentsRoute,
   ApiCicdTenantIdPipelinesRoute: ApiCicdTenantIdPipelinesRouteWithChildren,
   ApiCicdTenantIdRunsRoute: ApiCicdTenantIdRunsRoute,
