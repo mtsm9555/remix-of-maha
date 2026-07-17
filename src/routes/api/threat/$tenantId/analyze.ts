@@ -10,7 +10,8 @@ export const Route = createFileRoute("/api/threat/$tenantId/analyze")({
           params.tenantId,
           body.entityId,
           body.entityType,
-          body.activity ?? {},
+          body.metrics ?? {},
+          body.context ?? {},
         );
         return Response.json({ anomalies });
       },
