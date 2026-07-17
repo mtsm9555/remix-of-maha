@@ -64,6 +64,7 @@ import { Route as ApiTeamsTenantIdCreateRouteImport } from './routes/api/teams/$
 import { Route as ApiTeamsTeamIdChannelsRouteImport } from './routes/api/teams/$teamId/channels'
 import { Route as ApiTeamsTeamIdBudgetRouteImport } from './routes/api/teams/$teamId/budget'
 import { Route as ApiTeamsTeamIdAnalyticsRouteImport } from './routes/api/teams/$teamId/analytics'
+import { Route as ApiPublicWebhooksStripeRouteImport } from './routes/api/public/webhooks/stripe'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
 import { Route as ApiOrgInvitesAcceptRouteImport } from './routes/api/org/invites/accept'
@@ -457,6 +458,11 @@ const ApiTeamsTeamIdBudgetRoute = ApiTeamsTeamIdBudgetRouteImport.update({
 const ApiTeamsTeamIdAnalyticsRoute = ApiTeamsTeamIdAnalyticsRouteImport.update({
   id: '/api/teams/$teamId/analytics',
   path: '/api/teams/$teamId/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicWebhooksStripeRoute = ApiPublicWebhooksStripeRouteImport.update({
+  id: '/api/public/webhooks/stripe',
+  path: '/api/public/webhooks/stripe',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPrioritizationQueuePlanIdRoute =
@@ -1165,6 +1171,7 @@ export interface FileRoutesByFullPath {
   '/api/org/invites/accept': typeof ApiOrgInvitesAcceptRoute
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
   '/api/teams/$teamId/channels': typeof ApiTeamsTeamIdChannelsRoute
@@ -1326,6 +1333,7 @@ export interface FileRoutesByTo {
   '/api/org/invites/accept': typeof ApiOrgInvitesAcceptRoute
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
   '/api/teams/$teamId/channels': typeof ApiTeamsTeamIdChannelsRoute
@@ -1488,6 +1496,7 @@ export interface FileRoutesById {
   '/api/org/invites/accept': typeof ApiOrgInvitesAcceptRoute
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/public/webhooks/stripe': typeof ApiPublicWebhooksStripeRoute
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
   '/api/teams/$teamId/channels': typeof ApiTeamsTeamIdChannelsRoute
@@ -1651,6 +1660,7 @@ export interface FileRouteTypes {
     | '/api/org/invites/accept'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/public/webhooks/stripe'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
     | '/api/teams/$teamId/channels'
@@ -1812,6 +1822,7 @@ export interface FileRouteTypes {
     | '/api/org/invites/accept'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/public/webhooks/stripe'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
     | '/api/teams/$teamId/channels'
@@ -1973,6 +1984,7 @@ export interface FileRouteTypes {
     | '/api/org/invites/accept'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/public/webhooks/stripe'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
     | '/api/teams/$teamId/channels'
@@ -2134,6 +2146,7 @@ export interface RootRouteChildren {
   ApiOrgInvitesAcceptRoute: typeof ApiOrgInvitesAcceptRoute
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
+  ApiPublicWebhooksStripeRoute: typeof ApiPublicWebhooksStripeRoute
   ApiTeamsTeamIdAnalyticsRoute: typeof ApiTeamsTeamIdAnalyticsRoute
   ApiTeamsTeamIdBudgetRoute: typeof ApiTeamsTeamIdBudgetRoute
   ApiTeamsTeamIdChannelsRoute: typeof ApiTeamsTeamIdChannelsRoute
@@ -2579,6 +2592,13 @@ declare module '@tanstack/react-router' {
       path: '/api/teams/$teamId/analytics'
       fullPath: '/api/teams/$teamId/analytics'
       preLoaderRoute: typeof ApiTeamsTeamIdAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/webhooks/stripe': {
+      id: '/api/public/webhooks/stripe'
+      path: '/api/public/webhooks/stripe'
+      fullPath: '/api/public/webhooks/stripe'
+      preLoaderRoute: typeof ApiPublicWebhooksStripeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/prioritization/queue/$planId': {
@@ -3490,6 +3510,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiOrgInvitesAcceptRoute: ApiOrgInvitesAcceptRoute,
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
   ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
+  ApiPublicWebhooksStripeRoute: ApiPublicWebhooksStripeRoute,
   ApiTeamsTeamIdAnalyticsRoute: ApiTeamsTeamIdAnalyticsRoute,
   ApiTeamsTeamIdBudgetRoute: ApiTeamsTeamIdBudgetRoute,
   ApiTeamsTeamIdChannelsRoute: ApiTeamsTeamIdChannelsRoute,
