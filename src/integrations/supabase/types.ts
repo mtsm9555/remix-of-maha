@@ -5725,6 +5725,483 @@ export type Database = {
         }
         Relationships: []
       }
+      kb_article_feedback: {
+        Row: {
+          article_id: string
+          comment: string | null
+          created_at: string
+          id: string
+          rating: number | null
+          tenant_id: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          article_id: string
+          comment?: string | null
+          created_at?: string
+          id: string
+          rating?: number | null
+          tenant_id: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          article_id?: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          rating?: number | null
+          tenant_id?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kb_article_feedback_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "kb_articles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "kb_article_feedback_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kb_article_versions: {
+        Row: {
+          article_id: string
+          change_summary: string | null
+          content: string
+          created_at: string
+          edited_at: string
+          edited_by: string
+          id: string
+          tenant_id: string
+          title: string
+          version: number
+        }
+        Insert: {
+          article_id: string
+          change_summary?: string | null
+          content: string
+          created_at?: string
+          edited_at: string
+          edited_by: string
+          id: string
+          tenant_id: string
+          title: string
+          version: number
+        }
+        Update: {
+          article_id?: string
+          change_summary?: string | null
+          content?: string
+          created_at?: string
+          edited_at?: string
+          edited_by?: string
+          id?: string
+          tenant_id?: string
+          title?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kb_article_versions_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "kb_articles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "kb_article_versions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kb_article_views: {
+        Row: {
+          article_id: string
+          id: string
+          referrer: string | null
+          scroll_depth: number | null
+          search_query: string | null
+          session_id: string | null
+          tenant_id: string
+          time_spent_seconds: number | null
+          user_id: string | null
+          viewed_at: string
+        }
+        Insert: {
+          article_id: string
+          id: string
+          referrer?: string | null
+          scroll_depth?: number | null
+          search_query?: string | null
+          session_id?: string | null
+          tenant_id: string
+          time_spent_seconds?: number | null
+          user_id?: string | null
+          viewed_at?: string
+        }
+        Update: {
+          article_id?: string
+          id?: string
+          referrer?: string | null
+          scroll_depth?: number | null
+          search_query?: string | null
+          session_id?: string | null
+          tenant_id?: string
+          time_spent_seconds?: number | null
+          user_id?: string | null
+          viewed_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kb_article_views_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "kb_articles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "kb_article_views_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kb_articles: {
+        Row: {
+          access_level: string
+          ai_generated: boolean | null
+          author_id: string
+          average_rating: number | null
+          category_id: string | null
+          content: string
+          content_type: string
+          created_at: string
+          embedding: string | null
+          excerpt: string | null
+          helpful_count: number | null
+          id: string
+          keywords: string[] | null
+          last_edited_by: string | null
+          meta_description: string | null
+          metadata: Json | null
+          not_helpful_count: number | null
+          previous_version_id: string | null
+          published_at: string | null
+          related_article_ids: string[] | null
+          reviewer_id: string | null
+          slug: string
+          status: string
+          tags: string[] | null
+          tenant_id: string
+          title: string
+          type: string
+          updated_at: string
+          version: number
+          view_count: number | null
+        }
+        Insert: {
+          access_level?: string
+          ai_generated?: boolean | null
+          author_id: string
+          average_rating?: number | null
+          category_id?: string | null
+          content: string
+          content_type?: string
+          created_at?: string
+          embedding?: string | null
+          excerpt?: string | null
+          helpful_count?: number | null
+          id: string
+          keywords?: string[] | null
+          last_edited_by?: string | null
+          meta_description?: string | null
+          metadata?: Json | null
+          not_helpful_count?: number | null
+          previous_version_id?: string | null
+          published_at?: string | null
+          related_article_ids?: string[] | null
+          reviewer_id?: string | null
+          slug: string
+          status: string
+          tags?: string[] | null
+          tenant_id: string
+          title: string
+          type: string
+          updated_at?: string
+          version?: number
+          view_count?: number | null
+        }
+        Update: {
+          access_level?: string
+          ai_generated?: boolean | null
+          author_id?: string
+          average_rating?: number | null
+          category_id?: string | null
+          content?: string
+          content_type?: string
+          created_at?: string
+          embedding?: string | null
+          excerpt?: string | null
+          helpful_count?: number | null
+          id?: string
+          keywords?: string[] | null
+          last_edited_by?: string | null
+          meta_description?: string | null
+          metadata?: Json | null
+          not_helpful_count?: number | null
+          previous_version_id?: string | null
+          published_at?: string | null
+          related_article_ids?: string[] | null
+          reviewer_id?: string | null
+          slug?: string
+          status?: string
+          tags?: string[] | null
+          tenant_id?: string
+          title?: string
+          type?: string
+          updated_at?: string
+          version?: number
+          view_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kb_articles_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "kb_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "kb_articles_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kb_categories: {
+        Row: {
+          access_level: string
+          allowed_roles: string[] | null
+          article_count: number | null
+          child_ids: string[] | null
+          color: string | null
+          created_at: string
+          description: string | null
+          icon: string | null
+          id: string
+          level: number | null
+          name: string
+          parent_id: string | null
+          path: string
+          slug: string
+          sort_order: number | null
+          tenant_id: string
+          updated_at: string
+          view_count: number | null
+        }
+        Insert: {
+          access_level?: string
+          allowed_roles?: string[] | null
+          article_count?: number | null
+          child_ids?: string[] | null
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id: string
+          level?: number | null
+          name: string
+          parent_id?: string | null
+          path: string
+          slug: string
+          sort_order?: number | null
+          tenant_id: string
+          updated_at?: string
+          view_count?: number | null
+        }
+        Update: {
+          access_level?: string
+          allowed_roles?: string[] | null
+          article_count?: number | null
+          child_ids?: string[] | null
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id?: string
+          level?: number | null
+          name?: string
+          parent_id?: string | null
+          path?: string
+          slug?: string
+          sort_order?: number | null
+          tenant_id?: string
+          updated_at?: string
+          view_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kb_categories_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "kb_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "kb_categories_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kb_knowledge_gaps: {
+        Row: {
+          assigned_to: string | null
+          category: string | null
+          created_at: string
+          description: string
+          id: string
+          related_articles: string[] | null
+          related_search_queries: string[] | null
+          request_count: number | null
+          source: string
+          status: string
+          tenant_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          category?: string | null
+          created_at?: string
+          description: string
+          id: string
+          related_articles?: string[] | null
+          related_search_queries?: string[] | null
+          request_count?: number | null
+          source: string
+          status: string
+          tenant_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          category?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          related_articles?: string[] | null
+          related_search_queries?: string[] | null
+          request_count?: number | null
+          source?: string
+          status?: string
+          tenant_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kb_knowledge_gaps_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kb_search_logs: {
+        Row: {
+          created_at: string
+          id: string
+          query: string
+          result_count: number
+          tenant_id: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          query: string
+          result_count: number
+          tenant_id: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          query?: string
+          result_count?: number
+          tenant_id?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kb_search_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kb_tags: {
+        Row: {
+          article_count: number | null
+          color: string | null
+          created_at: string
+          id: string
+          name: string
+          slug: string
+          tenant_id: string
+        }
+        Insert: {
+          article_count?: number | null
+          color?: string | null
+          created_at?: string
+          id: string
+          name: string
+          slug: string
+          tenant_id: string
+        }
+        Update: {
+          article_count?: number | null
+          color?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          slug?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kb_tags_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       key_rotation_events: {
         Row: {
           created_at: string
