@@ -4102,6 +4102,125 @@ export type Database = {
         }
         Relationships: []
       }
+      dashboard_views: {
+        Row: {
+          dashboard_id: string
+          filters: Json | null
+          id: string
+          session_duration_seconds: number | null
+          session_id: string | null
+          tenant_id: string
+          time_range: string | null
+          user_id: string
+          viewed_at: string
+        }
+        Insert: {
+          dashboard_id: string
+          filters?: Json | null
+          id: string
+          session_duration_seconds?: number | null
+          session_id?: string | null
+          tenant_id: string
+          time_range?: string | null
+          user_id: string
+          viewed_at?: string
+        }
+        Update: {
+          dashboard_id?: string
+          filters?: Json | null
+          id?: string
+          session_duration_seconds?: number | null
+          session_id?: string | null
+          tenant_id?: string
+          time_range?: string | null
+          user_id?: string
+          viewed_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dashboard_views_dashboard_id_fkey"
+            columns: ["dashboard_id"]
+            isOneToOne: false
+            referencedRelation: "dashboards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "dashboard_views_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      dashboards: {
+        Row: {
+          created_at: string
+          default_filters: Json | null
+          default_time_range: string
+          description: string | null
+          id: string
+          is_default: boolean | null
+          is_public: boolean | null
+          last_viewed_at: string | null
+          layout: Json
+          name: string
+          owner_id: string
+          shared_with: string[] | null
+          tenant_id: string
+          updated_at: string
+          view: string
+          view_count: number | null
+          widgets: Json | null
+        }
+        Insert: {
+          created_at?: string
+          default_filters?: Json | null
+          default_time_range?: string
+          description?: string | null
+          id: string
+          is_default?: boolean | null
+          is_public?: boolean | null
+          last_viewed_at?: string | null
+          layout?: Json
+          name: string
+          owner_id: string
+          shared_with?: string[] | null
+          tenant_id: string
+          updated_at?: string
+          view: string
+          view_count?: number | null
+          widgets?: Json | null
+        }
+        Update: {
+          created_at?: string
+          default_filters?: Json | null
+          default_time_range?: string
+          description?: string | null
+          id?: string
+          is_default?: boolean | null
+          is_public?: boolean | null
+          last_viewed_at?: string | null
+          layout?: Json
+          name?: string
+          owner_id?: string
+          shared_with?: string[] | null
+          tenant_id?: string
+          updated_at?: string
+          view?: string
+          view_count?: number | null
+          widgets?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dashboards_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       data_residency_policies: {
         Row: {
           alert_on_violation: boolean | null
