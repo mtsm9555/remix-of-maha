@@ -88,6 +88,7 @@ import { Route as ApiAdvancedRolesTenantIdIndexRouteImport } from './routes/api/
 import { Route as ApiWorkspacesWorkspaceIdMembersRouteImport } from './routes/api/workspaces/$workspaceId/members'
 import { Route as ApiWorkspacesWorkspaceIdCrossAccessRouteImport } from './routes/api/workspaces/$workspaceId/cross-access'
 import { Route as ApiWorkspacesWorkspaceIdBudgetRouteImport } from './routes/api/workspaces/$workspaceId/budget'
+import { Route as ApiVaultRotateTickRouteImport } from './routes/api/vault/rotate.tick'
 import { Route as ApiVaultTenantIdSecretsRouteImport } from './routes/api/vault/$tenantId/secrets'
 import { Route as ApiVaultTenantIdAccessRequestsRouteImport } from './routes/api/vault/$tenantId/access-requests'
 import { Route as ApiToolsVersioningPinRouteImport } from './routes/api/tools/versioning/pin'
@@ -669,6 +670,11 @@ const ApiWorkspacesWorkspaceIdBudgetRoute =
     path: '/api/workspaces/$workspaceId/budget',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiVaultRotateTickRoute = ApiVaultRotateTickRouteImport.update({
+  id: '/api/vault/rotate/tick',
+  path: '/api/vault/rotate/tick',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiVaultTenantIdSecretsRoute = ApiVaultTenantIdSecretsRouteImport.update({
   id: '/api/vault/$tenantId/secrets',
   path: '/api/vault/$tenantId/secrets',
@@ -1789,6 +1795,7 @@ export interface FileRoutesByFullPath {
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/vault/$tenantId/access-requests': typeof ApiVaultTenantIdAccessRequestsRouteWithChildren
   '/api/vault/$tenantId/secrets': typeof ApiVaultTenantIdSecretsRouteWithChildren
+  '/api/vault/rotate/tick': typeof ApiVaultRotateTickRoute
   '/api/workspaces/$workspaceId/budget': typeof ApiWorkspacesWorkspaceIdBudgetRoute
   '/api/workspaces/$workspaceId/cross-access': typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
   '/api/workspaces/$workspaceId/members': typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
@@ -2037,6 +2044,7 @@ export interface FileRoutesByTo {
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/vault/$tenantId/access-requests': typeof ApiVaultTenantIdAccessRequestsRouteWithChildren
   '/api/vault/$tenantId/secrets': typeof ApiVaultTenantIdSecretsRouteWithChildren
+  '/api/vault/rotate/tick': typeof ApiVaultRotateTickRoute
   '/api/workspaces/$workspaceId/budget': typeof ApiWorkspacesWorkspaceIdBudgetRoute
   '/api/workspaces/$workspaceId/cross-access': typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
   '/api/workspaces/$workspaceId/members': typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
@@ -2286,6 +2294,7 @@ export interface FileRoutesById {
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/vault/$tenantId/access-requests': typeof ApiVaultTenantIdAccessRequestsRouteWithChildren
   '/api/vault/$tenantId/secrets': typeof ApiVaultTenantIdSecretsRouteWithChildren
+  '/api/vault/rotate/tick': typeof ApiVaultRotateTickRoute
   '/api/workspaces/$workspaceId/budget': typeof ApiWorkspacesWorkspaceIdBudgetRoute
   '/api/workspaces/$workspaceId/cross-access': typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
   '/api/workspaces/$workspaceId/members': typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
@@ -2536,6 +2545,7 @@ export interface FileRouteTypes {
     | '/api/tools/versioning/pin'
     | '/api/vault/$tenantId/access-requests'
     | '/api/vault/$tenantId/secrets'
+    | '/api/vault/rotate/tick'
     | '/api/workspaces/$workspaceId/budget'
     | '/api/workspaces/$workspaceId/cross-access'
     | '/api/workspaces/$workspaceId/members'
@@ -2784,6 +2794,7 @@ export interface FileRouteTypes {
     | '/api/tools/versioning/pin'
     | '/api/vault/$tenantId/access-requests'
     | '/api/vault/$tenantId/secrets'
+    | '/api/vault/rotate/tick'
     | '/api/workspaces/$workspaceId/budget'
     | '/api/workspaces/$workspaceId/cross-access'
     | '/api/workspaces/$workspaceId/members'
@@ -3032,6 +3043,7 @@ export interface FileRouteTypes {
     | '/api/tools/versioning/pin'
     | '/api/vault/$tenantId/access-requests'
     | '/api/vault/$tenantId/secrets'
+    | '/api/vault/rotate/tick'
     | '/api/workspaces/$workspaceId/budget'
     | '/api/workspaces/$workspaceId/cross-access'
     | '/api/workspaces/$workspaceId/members'
@@ -3277,6 +3289,7 @@ export interface RootRouteChildren {
   ApiToolsVersioningPinRoute: typeof ApiToolsVersioningPinRoute
   ApiVaultTenantIdAccessRequestsRoute: typeof ApiVaultTenantIdAccessRequestsRouteWithChildren
   ApiVaultTenantIdSecretsRoute: typeof ApiVaultTenantIdSecretsRouteWithChildren
+  ApiVaultRotateTickRoute: typeof ApiVaultRotateTickRoute
   ApiWorkspacesWorkspaceIdBudgetRoute: typeof ApiWorkspacesWorkspaceIdBudgetRoute
   ApiWorkspacesWorkspaceIdCrossAccessRoute: typeof ApiWorkspacesWorkspaceIdCrossAccessRoute
   ApiWorkspacesWorkspaceIdMembersRoute: typeof ApiWorkspacesWorkspaceIdMembersRouteWithChildren
@@ -3897,6 +3910,13 @@ declare module '@tanstack/react-router' {
       path: '/api/workspaces/$workspaceId/budget'
       fullPath: '/api/workspaces/$workspaceId/budget'
       preLoaderRoute: typeof ApiWorkspacesWorkspaceIdBudgetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/vault/rotate/tick': {
+      id: '/api/vault/rotate/tick'
+      path: '/api/vault/rotate/tick'
+      fullPath: '/api/vault/rotate/tick'
+      preLoaderRoute: typeof ApiVaultRotateTickRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/vault/$tenantId/secrets': {
@@ -5494,6 +5514,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiVaultTenantIdAccessRequestsRoute:
     ApiVaultTenantIdAccessRequestsRouteWithChildren,
   ApiVaultTenantIdSecretsRoute: ApiVaultTenantIdSecretsRouteWithChildren,
+  ApiVaultRotateTickRoute: ApiVaultRotateTickRoute,
   ApiWorkspacesWorkspaceIdBudgetRoute: ApiWorkspacesWorkspaceIdBudgetRoute,
   ApiWorkspacesWorkspaceIdCrossAccessRoute:
     ApiWorkspacesWorkspaceIdCrossAccessRoute,
