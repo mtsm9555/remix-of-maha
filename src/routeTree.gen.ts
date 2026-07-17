@@ -81,6 +81,7 @@ import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/ap
 import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
 import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/infrastructure/fleet/index'
 import { Route as ApiGovernanceDsarIndexRouteImport } from './routes/api/governance/dsar/index'
+import { Route as ApiDocsTenantIdIndexRouteImport } from './routes/api/docs/$tenantId/index'
 import { Route as ApiClusterWorkersIndexRouteImport } from './routes/api/cluster/workers/index'
 import { Route as ApiClusterTasksIndexRouteImport } from './routes/api/cluster/tasks/index'
 import { Route as ApiApikeysTenantIdIndexRouteImport } from './routes/api/apikeys/$tenantId/index'
@@ -686,6 +687,11 @@ const ApiInfrastructureFleetIndexRoute =
 const ApiGovernanceDsarIndexRoute = ApiGovernanceDsarIndexRouteImport.update({
   id: '/api/governance/dsar/',
   path: '/api/governance/dsar/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDocsTenantIdIndexRoute = ApiDocsTenantIdIndexRouteImport.update({
+  id: '/api/docs/$tenantId/',
+  path: '/api/docs/$tenantId/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiClusterWorkersIndexRoute = ApiClusterWorkersIndexRouteImport.update({
@@ -2226,6 +2232,7 @@ export interface FileRoutesByFullPath {
   '/api/apikeys/$tenantId/': typeof ApiApikeysTenantIdIndexRoute
   '/api/cluster/tasks/': typeof ApiClusterTasksIndexRoute
   '/api/cluster/workers/': typeof ApiClusterWorkersIndexRoute
+  '/api/docs/$tenantId/': typeof ApiDocsTenantIdIndexRoute
   '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
@@ -2532,6 +2539,7 @@ export interface FileRoutesByTo {
   '/api/apikeys/$tenantId': typeof ApiApikeysTenantIdIndexRoute
   '/api/cluster/tasks': typeof ApiClusterTasksIndexRoute
   '/api/cluster/workers': typeof ApiClusterWorkersIndexRoute
+  '/api/docs/$tenantId': typeof ApiDocsTenantIdIndexRoute
   '/api/governance/dsar': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
@@ -2839,6 +2847,7 @@ export interface FileRoutesById {
   '/api/apikeys/$tenantId/': typeof ApiApikeysTenantIdIndexRoute
   '/api/cluster/tasks/': typeof ApiClusterTasksIndexRoute
   '/api/cluster/workers/': typeof ApiClusterWorkersIndexRoute
+  '/api/docs/$tenantId/': typeof ApiDocsTenantIdIndexRoute
   '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
@@ -3147,6 +3156,7 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/'
     | '/api/cluster/tasks/'
     | '/api/cluster/workers/'
+    | '/api/docs/$tenantId/'
     | '/api/governance/dsar/'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
@@ -3453,6 +3463,7 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId'
     | '/api/cluster/tasks'
     | '/api/cluster/workers'
+    | '/api/docs/$tenantId'
     | '/api/governance/dsar'
     | '/api/infrastructure/fleet'
     | '/api/infrastructure/registry'
@@ -3759,6 +3770,7 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/'
     | '/api/cluster/tasks/'
     | '/api/cluster/workers/'
+    | '/api/docs/$tenantId/'
     | '/api/governance/dsar/'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
@@ -4062,6 +4074,7 @@ export interface RootRouteChildren {
   ApiApikeysTenantIdIndexRoute: typeof ApiApikeysTenantIdIndexRoute
   ApiClusterTasksIndexRoute: typeof ApiClusterTasksIndexRoute
   ApiClusterWorkersIndexRoute: typeof ApiClusterWorkersIndexRoute
+  ApiDocsTenantIdIndexRoute: typeof ApiDocsTenantIdIndexRoute
   ApiGovernanceDsarIndexRoute: typeof ApiGovernanceDsarIndexRoute
   ApiInfrastructureFleetIndexRoute: typeof ApiInfrastructureFleetIndexRoute
   ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
@@ -4635,6 +4648,13 @@ declare module '@tanstack/react-router' {
       path: '/api/governance/dsar'
       fullPath: '/api/governance/dsar/'
       preLoaderRoute: typeof ApiGovernanceDsarIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/docs/$tenantId/': {
+      id: '/api/docs/$tenantId/'
+      path: '/api/docs/$tenantId'
+      fullPath: '/api/docs/$tenantId/'
+      preLoaderRoute: typeof ApiDocsTenantIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/cluster/workers/': {
@@ -6886,6 +6906,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiApikeysTenantIdIndexRoute: ApiApikeysTenantIdIndexRoute,
   ApiClusterTasksIndexRoute: ApiClusterTasksIndexRoute,
   ApiClusterWorkersIndexRoute: ApiClusterWorkersIndexRoute,
+  ApiDocsTenantIdIndexRoute: ApiDocsTenantIdIndexRoute,
   ApiGovernanceDsarIndexRoute: ApiGovernanceDsarIndexRoute,
   ApiInfrastructureFleetIndexRoute: ApiInfrastructureFleetIndexRoute,
   ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,
