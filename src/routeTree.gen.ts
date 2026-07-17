@@ -108,6 +108,7 @@ import { Route as ApiTeamsTeamIdBudgetRouteImport } from './routes/api/teams/$te
 import { Route as ApiTeamsTeamIdAnalyticsRouteImport } from './routes/api/teams/$teamId/analytics'
 import { Route as ApiSecurityMonitoringTenantIdMetricsRouteImport } from './routes/api/security-monitoring/$tenantId/metrics'
 import { Route as ApiSecurityMonitoringTenantIdEventsRouteImport } from './routes/api/security-monitoring/$tenantId/events'
+import { Route as ApiSecurityMonitoringTenantIdDashboardRouteImport } from './routes/api/security-monitoring/$tenantId/dashboard'
 import { Route as ApiScalingPoliciesPolicyIdRouteImport } from './routes/api/scaling/policies/$policyId'
 import { Route as ApiRbacRolesRoleIdRouteImport } from './routes/api/rbac/roles.$roleId'
 import { Route as ApiRbacPermissionsSeedRouteImport } from './routes/api/rbac/permissions.seed'
@@ -809,6 +810,12 @@ const ApiSecurityMonitoringTenantIdEventsRoute =
   ApiSecurityMonitoringTenantIdEventsRouteImport.update({
     id: '/api/security-monitoring/$tenantId/events',
     path: '/api/security-monitoring/$tenantId/events',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiSecurityMonitoringTenantIdDashboardRoute =
+  ApiSecurityMonitoringTenantIdDashboardRouteImport.update({
+    id: '/api/security-monitoring/$tenantId/dashboard',
+    path: '/api/security-monitoring/$tenantId/dashboard',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiScalingPoliciesPolicyIdRoute =
@@ -2033,6 +2040,7 @@ export interface FileRoutesByFullPath {
   '/api/rbac/permissions/seed': typeof ApiRbacPermissionsSeedRoute
   '/api/rbac/roles/$roleId': typeof ApiRbacRolesRoleIdRoute
   '/api/scaling/policies/$policyId': typeof ApiScalingPoliciesPolicyIdRouteWithChildren
+  '/api/security-monitoring/$tenantId/dashboard': typeof ApiSecurityMonitoringTenantIdDashboardRoute
   '/api/security-monitoring/$tenantId/events': typeof ApiSecurityMonitoringTenantIdEventsRoute
   '/api/security-monitoring/$tenantId/metrics': typeof ApiSecurityMonitoringTenantIdMetricsRoute
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
@@ -2317,6 +2325,7 @@ export interface FileRoutesByTo {
   '/api/rbac/permissions/seed': typeof ApiRbacPermissionsSeedRoute
   '/api/rbac/roles/$roleId': typeof ApiRbacRolesRoleIdRoute
   '/api/scaling/policies/$policyId': typeof ApiScalingPoliciesPolicyIdRouteWithChildren
+  '/api/security-monitoring/$tenantId/dashboard': typeof ApiSecurityMonitoringTenantIdDashboardRoute
   '/api/security-monitoring/$tenantId/events': typeof ApiSecurityMonitoringTenantIdEventsRoute
   '/api/security-monitoring/$tenantId/metrics': typeof ApiSecurityMonitoringTenantIdMetricsRoute
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
@@ -2602,6 +2611,7 @@ export interface FileRoutesById {
   '/api/rbac/permissions/seed': typeof ApiRbacPermissionsSeedRoute
   '/api/rbac/roles/$roleId': typeof ApiRbacRolesRoleIdRoute
   '/api/scaling/policies/$policyId': typeof ApiScalingPoliciesPolicyIdRouteWithChildren
+  '/api/security-monitoring/$tenantId/dashboard': typeof ApiSecurityMonitoringTenantIdDashboardRoute
   '/api/security-monitoring/$tenantId/events': typeof ApiSecurityMonitoringTenantIdEventsRoute
   '/api/security-monitoring/$tenantId/metrics': typeof ApiSecurityMonitoringTenantIdMetricsRoute
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
@@ -2888,6 +2898,7 @@ export interface FileRouteTypes {
     | '/api/rbac/permissions/seed'
     | '/api/rbac/roles/$roleId'
     | '/api/scaling/policies/$policyId'
+    | '/api/security-monitoring/$tenantId/dashboard'
     | '/api/security-monitoring/$tenantId/events'
     | '/api/security-monitoring/$tenantId/metrics'
     | '/api/teams/$teamId/analytics'
@@ -3172,6 +3183,7 @@ export interface FileRouteTypes {
     | '/api/rbac/permissions/seed'
     | '/api/rbac/roles/$roleId'
     | '/api/scaling/policies/$policyId'
+    | '/api/security-monitoring/$tenantId/dashboard'
     | '/api/security-monitoring/$tenantId/events'
     | '/api/security-monitoring/$tenantId/metrics'
     | '/api/teams/$teamId/analytics'
@@ -3456,6 +3468,7 @@ export interface FileRouteTypes {
     | '/api/rbac/permissions/seed'
     | '/api/rbac/roles/$roleId'
     | '/api/scaling/policies/$policyId'
+    | '/api/security-monitoring/$tenantId/dashboard'
     | '/api/security-monitoring/$tenantId/events'
     | '/api/security-monitoring/$tenantId/metrics'
     | '/api/teams/$teamId/analytics'
@@ -3737,6 +3750,7 @@ export interface RootRouteChildren {
   ApiRbacTenantIdRolesRoute: typeof ApiRbacTenantIdRolesRoute
   ApiRbacAssignmentsIdRoute: typeof ApiRbacAssignmentsIdRoute
   ApiRbacRolesRoleIdRoute: typeof ApiRbacRolesRoleIdRoute
+  ApiSecurityMonitoringTenantIdDashboardRoute: typeof ApiSecurityMonitoringTenantIdDashboardRoute
   ApiSecurityMonitoringTenantIdEventsRoute: typeof ApiSecurityMonitoringTenantIdEventsRoute
   ApiSecurityMonitoringTenantIdMetricsRoute: typeof ApiSecurityMonitoringTenantIdMetricsRoute
   ApiTeamsTeamIdAnalyticsRoute: typeof ApiTeamsTeamIdAnalyticsRoute
@@ -4522,6 +4536,13 @@ declare module '@tanstack/react-router' {
       path: '/api/security-monitoring/$tenantId/events'
       fullPath: '/api/security-monitoring/$tenantId/events'
       preLoaderRoute: typeof ApiSecurityMonitoringTenantIdEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/security-monitoring/$tenantId/dashboard': {
+      id: '/api/security-monitoring/$tenantId/dashboard'
+      path: '/api/security-monitoring/$tenantId/dashboard'
+      fullPath: '/api/security-monitoring/$tenantId/dashboard'
+      preLoaderRoute: typeof ApiSecurityMonitoringTenantIdDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/scaling/policies/$policyId': {
@@ -6351,6 +6372,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiRbacTenantIdRolesRoute: ApiRbacTenantIdRolesRoute,
   ApiRbacAssignmentsIdRoute: ApiRbacAssignmentsIdRoute,
   ApiRbacRolesRoleIdRoute: ApiRbacRolesRoleIdRoute,
+  ApiSecurityMonitoringTenantIdDashboardRoute:
+    ApiSecurityMonitoringTenantIdDashboardRoute,
   ApiSecurityMonitoringTenantIdEventsRoute:
     ApiSecurityMonitoringTenantIdEventsRoute,
   ApiSecurityMonitoringTenantIdMetricsRoute:
