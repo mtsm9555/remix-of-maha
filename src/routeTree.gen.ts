@@ -154,6 +154,12 @@ import { Route as ApiGovernanceRetentionEnforceRouteImport } from './routes/api/
 import { Route as ApiFinanceCostsTopToolsRouteImport } from './routes/api/finance/costs/top-tools'
 import { Route as ApiFinanceCostsPricingRouteImport } from './routes/api/finance/costs/pricing'
 import { Route as ApiFinanceCostsDepartmentsRouteImport } from './routes/api/finance/costs/departments'
+import { Route as ApiEncryptionTenantIdMetricsRouteImport } from './routes/api/encryption/$tenantId/metrics'
+import { Route as ApiEncryptionTenantIdKeysRouteImport } from './routes/api/encryption/$tenantId/keys'
+import { Route as ApiEncryptionTenantIdFieldsRouteImport } from './routes/api/encryption/$tenantId/fields'
+import { Route as ApiEncryptionTenantIdEncryptRouteImport } from './routes/api/encryption/$tenantId/encrypt'
+import { Route as ApiEncryptionTenantIdDecryptRouteImport } from './routes/api/encryption/$tenantId/decrypt'
+import { Route as ApiEncryptionTenantIdAuditRouteImport } from './routes/api/encryption/$tenantId/audit'
 import { Route as ApiDataVersionsRollbackRouteImport } from './routes/api/data/versions/rollback'
 import { Route as ApiDataVersionsDiffRouteImport } from './routes/api/data/versions/diff'
 import { Route as ApiDataVersionsVersionIdRouteImport } from './routes/api/data/versions/$versionId'
@@ -265,6 +271,8 @@ import { Route as ApiVaultTenantIdSecretsSecretIdRevokeRouteImport } from './rou
 import { Route as ApiVaultTenantIdSecretsSecretIdRevealRouteImport } from './routes/api/vault/$tenantId/secrets.$secretId.reveal'
 import { Route as ApiVaultTenantIdAccessRequestsRequestIdDecideRouteImport } from './routes/api/vault/$tenantId/access-requests.$requestId.decide'
 import { Route as ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport } from './routes/api/infrastructure/budget/topups/$requestId.approve'
+import { Route as ApiEncryptionTenantIdKeysKeyIdRotateRouteImport } from './routes/api/encryption/$tenantId/keys.$keyId.rotate'
+import { Route as ApiEncryptionTenantIdKeysKeyIdRevokeRouteImport } from './routes/api/encryption/$tenantId/keys.$keyId.revoke'
 import { Route as ApiDataVersionsHistoryEntityTypeEntityIdRouteImport } from './routes/api/data/versions/history/$entityType/$entityId'
 import { Route as ApiDataVersionsCurrentEntityTypeEntityIdRouteImport } from './routes/api/data/versions/current/$entityType/$entityId'
 import { Route as ApiDataSharedPromotionsPromotionIdRejectRouteImport } from './routes/api/data/shared/promotions/$promotionId/reject'
@@ -1062,6 +1070,42 @@ const ApiFinanceCostsDepartmentsRoute =
     path: '/api/finance/costs/departments',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiEncryptionTenantIdMetricsRoute =
+  ApiEncryptionTenantIdMetricsRouteImport.update({
+    id: '/api/encryption/$tenantId/metrics',
+    path: '/api/encryption/$tenantId/metrics',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiEncryptionTenantIdKeysRoute =
+  ApiEncryptionTenantIdKeysRouteImport.update({
+    id: '/api/encryption/$tenantId/keys',
+    path: '/api/encryption/$tenantId/keys',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiEncryptionTenantIdFieldsRoute =
+  ApiEncryptionTenantIdFieldsRouteImport.update({
+    id: '/api/encryption/$tenantId/fields',
+    path: '/api/encryption/$tenantId/fields',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiEncryptionTenantIdEncryptRoute =
+  ApiEncryptionTenantIdEncryptRouteImport.update({
+    id: '/api/encryption/$tenantId/encrypt',
+    path: '/api/encryption/$tenantId/encrypt',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiEncryptionTenantIdDecryptRoute =
+  ApiEncryptionTenantIdDecryptRouteImport.update({
+    id: '/api/encryption/$tenantId/decrypt',
+    path: '/api/encryption/$tenantId/decrypt',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiEncryptionTenantIdAuditRoute =
+  ApiEncryptionTenantIdAuditRouteImport.update({
+    id: '/api/encryption/$tenantId/audit',
+    path: '/api/encryption/$tenantId/audit',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiDataVersionsRollbackRoute = ApiDataVersionsRollbackRouteImport.update({
   id: '/api/data/versions/rollback',
   path: '/api/data/versions/rollback',
@@ -1709,6 +1753,18 @@ const ApiInfrastructureBudgetTopupsRequestIdApproveRoute =
     path: '/api/infrastructure/budget/topups/$requestId/approve',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiEncryptionTenantIdKeysKeyIdRotateRoute =
+  ApiEncryptionTenantIdKeysKeyIdRotateRouteImport.update({
+    id: '/$keyId/rotate',
+    path: '/$keyId/rotate',
+    getParentRoute: () => ApiEncryptionTenantIdKeysRoute,
+  } as any)
+const ApiEncryptionTenantIdKeysKeyIdRevokeRoute =
+  ApiEncryptionTenantIdKeysKeyIdRevokeRouteImport.update({
+    id: '/$keyId/revoke',
+    path: '/$keyId/revoke',
+    getParentRoute: () => ApiEncryptionTenantIdKeysRoute,
+  } as any)
 const ApiDataVersionsHistoryEntityTypeEntityIdRoute =
   ApiDataVersionsHistoryEntityTypeEntityIdRouteImport.update({
     id: '/api/data/versions/history/$entityType/$entityId',
@@ -1909,6 +1965,12 @@ export interface FileRoutesByFullPath {
   '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
   '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
+  '/api/encryption/$tenantId/audit': typeof ApiEncryptionTenantIdAuditRoute
+  '/api/encryption/$tenantId/decrypt': typeof ApiEncryptionTenantIdDecryptRoute
+  '/api/encryption/$tenantId/encrypt': typeof ApiEncryptionTenantIdEncryptRoute
+  '/api/encryption/$tenantId/fields': typeof ApiEncryptionTenantIdFieldsRoute
+  '/api/encryption/$tenantId/keys': typeof ApiEncryptionTenantIdKeysRouteWithChildren
+  '/api/encryption/$tenantId/metrics': typeof ApiEncryptionTenantIdMetricsRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -2074,6 +2136,8 @@ export interface FileRoutesByFullPath {
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
   '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
+  '/api/encryption/$tenantId/keys/$keyId/revoke': typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
+  '/api/encryption/$tenantId/keys/$keyId/rotate': typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
   '/api/vault/$tenantId/access-requests/$requestId/decide': typeof ApiVaultTenantIdAccessRequestsRequestIdDecideRoute
   '/api/vault/$tenantId/secrets/$secretId/reveal': typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
@@ -2183,6 +2247,12 @@ export interface FileRoutesByTo {
   '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
   '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
+  '/api/encryption/$tenantId/audit': typeof ApiEncryptionTenantIdAuditRoute
+  '/api/encryption/$tenantId/decrypt': typeof ApiEncryptionTenantIdDecryptRoute
+  '/api/encryption/$tenantId/encrypt': typeof ApiEncryptionTenantIdEncryptRoute
+  '/api/encryption/$tenantId/fields': typeof ApiEncryptionTenantIdFieldsRoute
+  '/api/encryption/$tenantId/keys': typeof ApiEncryptionTenantIdKeysRouteWithChildren
+  '/api/encryption/$tenantId/metrics': typeof ApiEncryptionTenantIdMetricsRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -2348,6 +2418,8 @@ export interface FileRoutesByTo {
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
   '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
+  '/api/encryption/$tenantId/keys/$keyId/revoke': typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
+  '/api/encryption/$tenantId/keys/$keyId/rotate': typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
   '/api/vault/$tenantId/access-requests/$requestId/decide': typeof ApiVaultTenantIdAccessRequestsRequestIdDecideRoute
   '/api/vault/$tenantId/secrets/$secretId/reveal': typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
@@ -2458,6 +2530,12 @@ export interface FileRoutesById {
   '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
   '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
+  '/api/encryption/$tenantId/audit': typeof ApiEncryptionTenantIdAuditRoute
+  '/api/encryption/$tenantId/decrypt': typeof ApiEncryptionTenantIdDecryptRoute
+  '/api/encryption/$tenantId/encrypt': typeof ApiEncryptionTenantIdEncryptRoute
+  '/api/encryption/$tenantId/fields': typeof ApiEncryptionTenantIdFieldsRoute
+  '/api/encryption/$tenantId/keys': typeof ApiEncryptionTenantIdKeysRouteWithChildren
+  '/api/encryption/$tenantId/metrics': typeof ApiEncryptionTenantIdMetricsRoute
   '/api/finance/costs/departments': typeof ApiFinanceCostsDepartmentsRoute
   '/api/finance/costs/pricing': typeof ApiFinanceCostsPricingRoute
   '/api/finance/costs/top-tools': typeof ApiFinanceCostsTopToolsRoute
@@ -2623,6 +2701,8 @@ export interface FileRoutesById {
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
   '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
+  '/api/encryption/$tenantId/keys/$keyId/revoke': typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
+  '/api/encryption/$tenantId/keys/$keyId/rotate': typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
   '/api/vault/$tenantId/access-requests/$requestId/decide': typeof ApiVaultTenantIdAccessRequestsRequestIdDecideRoute
   '/api/vault/$tenantId/secrets/$secretId/reveal': typeof ApiVaultTenantIdSecretsSecretIdRevealRoute
@@ -2734,6 +2814,12 @@ export interface FileRouteTypes {
     | '/api/data/versions/$versionId'
     | '/api/data/versions/diff'
     | '/api/data/versions/rollback'
+    | '/api/encryption/$tenantId/audit'
+    | '/api/encryption/$tenantId/decrypt'
+    | '/api/encryption/$tenantId/encrypt'
+    | '/api/encryption/$tenantId/fields'
+    | '/api/encryption/$tenantId/keys'
+    | '/api/encryption/$tenantId/metrics'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -2899,6 +2985,8 @@ export interface FileRouteTypes {
     | '/api/data/shared/promotions/$promotionId/reject'
     | '/api/data/versions/current/$entityType/$entityId'
     | '/api/data/versions/history/$entityType/$entityId'
+    | '/api/encryption/$tenantId/keys/$keyId/revoke'
+    | '/api/encryption/$tenantId/keys/$keyId/rotate'
     | '/api/infrastructure/budget/topups/$requestId/approve'
     | '/api/vault/$tenantId/access-requests/$requestId/decide'
     | '/api/vault/$tenantId/secrets/$secretId/reveal'
@@ -3008,6 +3096,12 @@ export interface FileRouteTypes {
     | '/api/data/versions/$versionId'
     | '/api/data/versions/diff'
     | '/api/data/versions/rollback'
+    | '/api/encryption/$tenantId/audit'
+    | '/api/encryption/$tenantId/decrypt'
+    | '/api/encryption/$tenantId/encrypt'
+    | '/api/encryption/$tenantId/fields'
+    | '/api/encryption/$tenantId/keys'
+    | '/api/encryption/$tenantId/metrics'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -3173,6 +3267,8 @@ export interface FileRouteTypes {
     | '/api/data/shared/promotions/$promotionId/reject'
     | '/api/data/versions/current/$entityType/$entityId'
     | '/api/data/versions/history/$entityType/$entityId'
+    | '/api/encryption/$tenantId/keys/$keyId/revoke'
+    | '/api/encryption/$tenantId/keys/$keyId/rotate'
     | '/api/infrastructure/budget/topups/$requestId/approve'
     | '/api/vault/$tenantId/access-requests/$requestId/decide'
     | '/api/vault/$tenantId/secrets/$secretId/reveal'
@@ -3282,6 +3378,12 @@ export interface FileRouteTypes {
     | '/api/data/versions/$versionId'
     | '/api/data/versions/diff'
     | '/api/data/versions/rollback'
+    | '/api/encryption/$tenantId/audit'
+    | '/api/encryption/$tenantId/decrypt'
+    | '/api/encryption/$tenantId/encrypt'
+    | '/api/encryption/$tenantId/fields'
+    | '/api/encryption/$tenantId/keys'
+    | '/api/encryption/$tenantId/metrics'
     | '/api/finance/costs/departments'
     | '/api/finance/costs/pricing'
     | '/api/finance/costs/top-tools'
@@ -3447,6 +3549,8 @@ export interface FileRouteTypes {
     | '/api/data/shared/promotions/$promotionId/reject'
     | '/api/data/versions/current/$entityType/$entityId'
     | '/api/data/versions/history/$entityType/$entityId'
+    | '/api/encryption/$tenantId/keys/$keyId/revoke'
+    | '/api/encryption/$tenantId/keys/$keyId/rotate'
     | '/api/infrastructure/budget/topups/$requestId/approve'
     | '/api/vault/$tenantId/access-requests/$requestId/decide'
     | '/api/vault/$tenantId/secrets/$secretId/reveal'
@@ -3557,6 +3661,12 @@ export interface RootRouteChildren {
   ApiDataVersionsVersionIdRoute: typeof ApiDataVersionsVersionIdRoute
   ApiDataVersionsDiffRoute: typeof ApiDataVersionsDiffRoute
   ApiDataVersionsRollbackRoute: typeof ApiDataVersionsRollbackRoute
+  ApiEncryptionTenantIdAuditRoute: typeof ApiEncryptionTenantIdAuditRoute
+  ApiEncryptionTenantIdDecryptRoute: typeof ApiEncryptionTenantIdDecryptRoute
+  ApiEncryptionTenantIdEncryptRoute: typeof ApiEncryptionTenantIdEncryptRoute
+  ApiEncryptionTenantIdFieldsRoute: typeof ApiEncryptionTenantIdFieldsRoute
+  ApiEncryptionTenantIdKeysRoute: typeof ApiEncryptionTenantIdKeysRouteWithChildren
+  ApiEncryptionTenantIdMetricsRoute: typeof ApiEncryptionTenantIdMetricsRoute
   ApiFinanceCostsDepartmentsRoute: typeof ApiFinanceCostsDepartmentsRoute
   ApiFinanceCostsPricingRoute: typeof ApiFinanceCostsPricingRoute
   ApiFinanceCostsTopToolsRoute: typeof ApiFinanceCostsTopToolsRoute
@@ -4708,6 +4818,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiFinanceCostsDepartmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/encryption/$tenantId/metrics': {
+      id: '/api/encryption/$tenantId/metrics'
+      path: '/api/encryption/$tenantId/metrics'
+      fullPath: '/api/encryption/$tenantId/metrics'
+      preLoaderRoute: typeof ApiEncryptionTenantIdMetricsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/encryption/$tenantId/keys': {
+      id: '/api/encryption/$tenantId/keys'
+      path: '/api/encryption/$tenantId/keys'
+      fullPath: '/api/encryption/$tenantId/keys'
+      preLoaderRoute: typeof ApiEncryptionTenantIdKeysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/encryption/$tenantId/fields': {
+      id: '/api/encryption/$tenantId/fields'
+      path: '/api/encryption/$tenantId/fields'
+      fullPath: '/api/encryption/$tenantId/fields'
+      preLoaderRoute: typeof ApiEncryptionTenantIdFieldsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/encryption/$tenantId/encrypt': {
+      id: '/api/encryption/$tenantId/encrypt'
+      path: '/api/encryption/$tenantId/encrypt'
+      fullPath: '/api/encryption/$tenantId/encrypt'
+      preLoaderRoute: typeof ApiEncryptionTenantIdEncryptRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/encryption/$tenantId/decrypt': {
+      id: '/api/encryption/$tenantId/decrypt'
+      path: '/api/encryption/$tenantId/decrypt'
+      fullPath: '/api/encryption/$tenantId/decrypt'
+      preLoaderRoute: typeof ApiEncryptionTenantIdDecryptRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/encryption/$tenantId/audit': {
+      id: '/api/encryption/$tenantId/audit'
+      path: '/api/encryption/$tenantId/audit'
+      fullPath: '/api/encryption/$tenantId/audit'
+      preLoaderRoute: typeof ApiEncryptionTenantIdAuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/data/versions/rollback': {
       id: '/api/data/versions/rollback'
       path: '/api/data/versions/rollback'
@@ -5485,6 +5637,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/encryption/$tenantId/keys/$keyId/rotate': {
+      id: '/api/encryption/$tenantId/keys/$keyId/rotate'
+      path: '/$keyId/rotate'
+      fullPath: '/api/encryption/$tenantId/keys/$keyId/rotate'
+      preLoaderRoute: typeof ApiEncryptionTenantIdKeysKeyIdRotateRouteImport
+      parentRoute: typeof ApiEncryptionTenantIdKeysRoute
+    }
+    '/api/encryption/$tenantId/keys/$keyId/revoke': {
+      id: '/api/encryption/$tenantId/keys/$keyId/revoke'
+      path: '/$keyId/revoke'
+      fullPath: '/api/encryption/$tenantId/keys/$keyId/revoke'
+      preLoaderRoute: typeof ApiEncryptionTenantIdKeysKeyIdRevokeRouteImport
+      parentRoute: typeof ApiEncryptionTenantIdKeysRoute
+    }
     '/api/data/versions/history/$entityType/$entityId': {
       id: '/api/data/versions/history/$entityType/$entityId'
       path: '/api/data/versions/history/$entityType/$entityId'
@@ -5871,6 +6037,24 @@ const ApiAuditTenantIdLogsRouteChildren: ApiAuditTenantIdLogsRouteChildren = {
 const ApiAuditTenantIdLogsRouteWithChildren =
   ApiAuditTenantIdLogsRoute._addFileChildren(ApiAuditTenantIdLogsRouteChildren)
 
+interface ApiEncryptionTenantIdKeysRouteChildren {
+  ApiEncryptionTenantIdKeysKeyIdRevokeRoute: typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
+  ApiEncryptionTenantIdKeysKeyIdRotateRoute: typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
+}
+
+const ApiEncryptionTenantIdKeysRouteChildren: ApiEncryptionTenantIdKeysRouteChildren =
+  {
+    ApiEncryptionTenantIdKeysKeyIdRevokeRoute:
+      ApiEncryptionTenantIdKeysKeyIdRevokeRoute,
+    ApiEncryptionTenantIdKeysKeyIdRotateRoute:
+      ApiEncryptionTenantIdKeysKeyIdRotateRoute,
+  }
+
+const ApiEncryptionTenantIdKeysRouteWithChildren =
+  ApiEncryptionTenantIdKeysRoute._addFileChildren(
+    ApiEncryptionTenantIdKeysRouteChildren,
+  )
+
 interface ApiInfrastructureHealthInstanceIdRouteChildren {
   ApiInfrastructureHealthInstanceIdHistoryRoute: typeof ApiInfrastructureHealthInstanceIdHistoryRoute
 }
@@ -6064,6 +6248,12 @@ const rootRouteChildren: RootRouteChildren = {
   ApiDataVersionsVersionIdRoute: ApiDataVersionsVersionIdRoute,
   ApiDataVersionsDiffRoute: ApiDataVersionsDiffRoute,
   ApiDataVersionsRollbackRoute: ApiDataVersionsRollbackRoute,
+  ApiEncryptionTenantIdAuditRoute: ApiEncryptionTenantIdAuditRoute,
+  ApiEncryptionTenantIdDecryptRoute: ApiEncryptionTenantIdDecryptRoute,
+  ApiEncryptionTenantIdEncryptRoute: ApiEncryptionTenantIdEncryptRoute,
+  ApiEncryptionTenantIdFieldsRoute: ApiEncryptionTenantIdFieldsRoute,
+  ApiEncryptionTenantIdKeysRoute: ApiEncryptionTenantIdKeysRouteWithChildren,
+  ApiEncryptionTenantIdMetricsRoute: ApiEncryptionTenantIdMetricsRoute,
   ApiFinanceCostsDepartmentsRoute: ApiFinanceCostsDepartmentsRoute,
   ApiFinanceCostsPricingRoute: ApiFinanceCostsPricingRoute,
   ApiFinanceCostsTopToolsRoute: ApiFinanceCostsTopToolsRoute,
