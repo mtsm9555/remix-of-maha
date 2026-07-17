@@ -4420,6 +4420,50 @@ export type Database = {
         }
         Relationships: []
       }
+      incident_response_actions: {
+        Row: {
+          action: string
+          created_at: string | null
+          details: Json | null
+          id: string
+          incident_id: string
+          notes: string | null
+          performed_at: string
+          performed_by: string
+          result: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string | null
+          details?: Json | null
+          id: string
+          incident_id: string
+          notes?: string | null
+          performed_at?: string
+          performed_by: string
+          result?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string | null
+          details?: Json | null
+          id?: string
+          incident_id?: string
+          notes?: string | null
+          performed_at?: string
+          performed_by?: string
+          result?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_response_actions_incident_id_fkey"
+            columns: ["incident_id"]
+            isOneToOne: false
+            referencedRelation: "security_incidents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       installed_tools: {
         Row: {
           installed_at: string
@@ -6766,6 +6810,380 @@ export type Database = {
           },
         ]
       }
+      security_alerts: {
+        Row: {
+          acknowledged_at: string | null
+          acknowledged_by: string | null
+          category: string
+          created_at: string | null
+          description: string
+          id: string
+          metadata: Json | null
+          notification_channels: string[] | null
+          notified_at: string
+          related_event_ids: string[] | null
+          resolved_at: string | null
+          resolved_by: string | null
+          severity: string
+          status: string
+          tenant_id: string
+          title: string
+          trigger_event_id: string | null
+          trigger_rule_id: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          category: string
+          created_at?: string | null
+          description: string
+          id: string
+          metadata?: Json | null
+          notification_channels?: string[] | null
+          notified_at?: string
+          related_event_ids?: string[] | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity: string
+          status: string
+          tenant_id: string
+          title: string
+          trigger_event_id?: string | null
+          trigger_rule_id?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          category?: string
+          created_at?: string | null
+          description?: string
+          id?: string
+          metadata?: Json | null
+          notification_channels?: string[] | null
+          notified_at?: string
+          related_event_ids?: string[] | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity?: string
+          status?: string
+          tenant_id?: string
+          title?: string
+          trigger_event_id?: string | null
+          trigger_rule_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "security_alerts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      security_events: {
+        Row: {
+          acknowledged_at: string | null
+          acknowledged_by: string | null
+          actor_email: string | null
+          actor_id: string
+          actor_name: string | null
+          actor_type: string
+          city: string | null
+          confidence_score: number
+          correlation_id: string | null
+          country: string | null
+          created_at: string
+          description: string
+          details: Json | null
+          detected_at: string
+          detection_method: string
+          event_count: number
+          event_type: string
+          id: string
+          ip_address: string
+          latitude: number | null
+          longitude: number | null
+          metadata: Json | null
+          mitigated_at: string | null
+          mitigated_by: string | null
+          potential_impact: string | null
+          recommended_action: string | null
+          related_event_ids: string[] | null
+          resolved_at: string | null
+          resolved_by: string | null
+          risk_score: number
+          rule_id: string | null
+          session_id: string | null
+          severity: string
+          status: string
+          tenant_id: string
+          title: string
+          updated_at: string
+          user_agent: string
+          workspace_id: string | null
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          actor_email?: string | null
+          actor_id: string
+          actor_name?: string | null
+          actor_type: string
+          city?: string | null
+          confidence_score?: number
+          correlation_id?: string | null
+          country?: string | null
+          created_at?: string
+          description: string
+          details?: Json | null
+          detected_at: string
+          detection_method: string
+          event_count?: number
+          event_type: string
+          id: string
+          ip_address: string
+          latitude?: number | null
+          longitude?: number | null
+          metadata?: Json | null
+          mitigated_at?: string | null
+          mitigated_by?: string | null
+          potential_impact?: string | null
+          recommended_action?: string | null
+          related_event_ids?: string[] | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          risk_score?: number
+          rule_id?: string | null
+          session_id?: string | null
+          severity: string
+          status: string
+          tenant_id: string
+          title: string
+          updated_at?: string
+          user_agent: string
+          workspace_id?: string | null
+        }
+        Update: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          actor_email?: string | null
+          actor_id?: string
+          actor_name?: string | null
+          actor_type?: string
+          city?: string | null
+          confidence_score?: number
+          correlation_id?: string | null
+          country?: string | null
+          created_at?: string
+          description?: string
+          details?: Json | null
+          detected_at?: string
+          detection_method?: string
+          event_count?: number
+          event_type?: string
+          id?: string
+          ip_address?: string
+          latitude?: number | null
+          longitude?: number | null
+          metadata?: Json | null
+          mitigated_at?: string | null
+          mitigated_by?: string | null
+          potential_impact?: string | null
+          recommended_action?: string | null
+          related_event_ids?: string[] | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          risk_score?: number
+          rule_id?: string | null
+          session_id?: string | null
+          severity?: string
+          status?: string
+          tenant_id?: string
+          title?: string
+          updated_at?: string
+          user_agent?: string
+          workspace_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "security_events_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      security_incidents: {
+        Row: {
+          acknowledged_at: string | null
+          affected_resources: string[] | null
+          affected_users: number | null
+          assigned_at: string | null
+          assigned_to: string | null
+          category: string
+          closed_at: string | null
+          contained_at: string | null
+          created_at: string | null
+          data_compromised: boolean | null
+          description: string
+          detected_at: string
+          event_count: number
+          id: string
+          lessons_learned: string | null
+          metadata: Json | null
+          priority: string
+          related_event_ids: string[] | null
+          resolved_at: string | null
+          root_cause: string | null
+          severity: string
+          status: string
+          tenant_id: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          affected_resources?: string[] | null
+          affected_users?: number | null
+          assigned_at?: string | null
+          assigned_to?: string | null
+          category: string
+          closed_at?: string | null
+          contained_at?: string | null
+          created_at?: string | null
+          data_compromised?: boolean | null
+          description: string
+          detected_at: string
+          event_count?: number
+          id: string
+          lessons_learned?: string | null
+          metadata?: Json | null
+          priority: string
+          related_event_ids?: string[] | null
+          resolved_at?: string | null
+          root_cause?: string | null
+          severity: string
+          status: string
+          tenant_id: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          acknowledged_at?: string | null
+          affected_resources?: string[] | null
+          affected_users?: number | null
+          assigned_at?: string | null
+          assigned_to?: string | null
+          category?: string
+          closed_at?: string | null
+          contained_at?: string | null
+          created_at?: string | null
+          data_compromised?: boolean | null
+          description?: string
+          detected_at?: string
+          event_count?: number
+          id?: string
+          lessons_learned?: string | null
+          metadata?: Json | null
+          priority?: string
+          related_event_ids?: string[] | null
+          resolved_at?: string | null
+          root_cause?: string | null
+          severity?: string
+          status?: string
+          tenant_id?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "security_incidents_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      security_rules: {
+        Row: {
+          auto_acknowledge: boolean | null
+          auto_mitigate: boolean | null
+          conditions: Json | null
+          created_at: string | null
+          created_by: string
+          description: string | null
+          event_type: string
+          id: string
+          is_active: boolean | null
+          logic: string
+          mitigation_action: string | null
+          name: string
+          notify_channels: string[] | null
+          priority: number
+          severity: string
+          tenant_id: string
+          threshold: number
+          time_window_minutes: number
+          updated_at: string | null
+        }
+        Insert: {
+          auto_acknowledge?: boolean | null
+          auto_mitigate?: boolean | null
+          conditions?: Json | null
+          created_at?: string | null
+          created_by: string
+          description?: string | null
+          event_type: string
+          id: string
+          is_active?: boolean | null
+          logic?: string
+          mitigation_action?: string | null
+          name: string
+          notify_channels?: string[] | null
+          priority?: number
+          severity: string
+          tenant_id: string
+          threshold?: number
+          time_window_minutes?: number
+          updated_at?: string | null
+        }
+        Update: {
+          auto_acknowledge?: boolean | null
+          auto_mitigate?: boolean | null
+          conditions?: Json | null
+          created_at?: string | null
+          created_by?: string
+          description?: string | null
+          event_type?: string
+          id?: string
+          is_active?: boolean | null
+          logic?: string
+          mitigation_action?: string | null
+          name?: string
+          notify_channels?: string[] | null
+          priority?: number
+          severity?: string
+          tenant_id?: string
+          threshold?: number
+          time_window_minutes?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "security_rules_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       shared_memories: {
         Row: {
           access_level: string
@@ -7162,6 +7580,63 @@ export type Database = {
           slug?: string
           status?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      threat_intelligence: {
+        Row: {
+          confidence: number
+          created_at: string | null
+          description: string | null
+          expires_at: string | null
+          first_seen_at: string | null
+          id: string
+          is_active: boolean | null
+          last_seen_at: string | null
+          severity: string
+          source: string
+          source_url: string | null
+          tags: string[] | null
+          threat_type: string
+          type: string
+          updated_at: string | null
+          value: string
+        }
+        Insert: {
+          confidence?: number
+          created_at?: string | null
+          description?: string | null
+          expires_at?: string | null
+          first_seen_at?: string | null
+          id: string
+          is_active?: boolean | null
+          last_seen_at?: string | null
+          severity: string
+          source: string
+          source_url?: string | null
+          tags?: string[] | null
+          threat_type: string
+          type: string
+          updated_at?: string | null
+          value: string
+        }
+        Update: {
+          confidence?: number
+          created_at?: string | null
+          description?: string | null
+          expires_at?: string | null
+          first_seen_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          last_seen_at?: string | null
+          severity?: string
+          source?: string
+          source_url?: string | null
+          tags?: string[] | null
+          threat_type?: string
+          type?: string
+          updated_at?: string | null
+          value?: string
         }
         Relationships: []
       }
