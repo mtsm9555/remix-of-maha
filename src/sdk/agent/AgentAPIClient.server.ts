@@ -63,66 +63,67 @@ export class AgentAPIClient {
 
   createTaskAPI(): AgentTaskAPI {
     const tenantId = this.tenantId;
-    const workspaceId = this.workspaceId;
     const agentId = this.agentId;
+    const db: any = supabaseAdmin;
     return {
       create: async (task: TaskDefinition) => {
         const taskId = `task_${crypto.randomUUID()}`;
-        await supabaseAdmin.from('pm_tasks').insert({
+        await db.from('pm_tasks').insert({
           id: taskId,
           tenant_id: tenantId,
-          workspace_id: workspaceId,
+          project_id: task.projectId,
+          task_number: taskId.slice(-8),
+          reporter_id: agentId,
           title: task.title,
           description: task.description,
-          type: task.type,
+          type: task.type || 'task',
           priority: task.priority,
-          status: 'pending',
-          assigned_to: task.assignedTo || agentId,
-          project_id: task.projectId,
+          status: 'todo',
+          assignee_id: task.assignedTo || agentId,
           due_date: task.dueDate?.toISOString(),
           estimated_hours: task.estimatedHours,
           metadata: task.metadata ?? {},
-        } as any);
+        });
         return taskId;
       },
       update: async (taskId, updates) => {
-        await supabaseAdmin.from('pm_tasks').update({
+        await db.from('pm_tasks').update({
           ...updates,
           due_date: updates.dueDate?.toISOString(),
-        } as any).eq('id', taskId).eq('tenant_id', tenantId);
+        }).eq('id', taskId).eq('tenant_id', tenantId);
       },
       complete: async (taskId, result) => {
-        await supabaseAdmin.from('pm_tasks').update({
+        await db.from('pm_tasks').update({
           status: 'completed',
           metadata: result ?? {},
-        } as any).eq('id', taskId).eq('tenant_id', tenantId);
+        }).eq('id', taskId).eq('tenant_id', tenantId);
       },
       fail: async (taskId, error) => {
-        await supabaseAdmin.from('pm_tasks').update({
-          status: 'failed',
+        await db.from('pm_tasks').update({
+          status: 'cancelled',
           metadata: { error },
-        } as any).eq('id', taskId).eq('tenant_id', tenantId);
+        }).eq('id', taskId).eq('tenant_id', tenantId);
       },
       get: async (taskId) => {
-        const { data } = await supabaseAdmin.from('pm_tasks').select('*').eq('id', taskId).eq('tenant_id', tenantId).single();
+        const { data } = await db.from('pm_tasks').select('*').eq('id', taskId).eq('tenant_id', tenantId).single();
         if (!data) throw new Error('Task not found');
         const d: any = data;
         return {
           id: d.id, title: d.title, description: d.description, type: d.type,
-          priority: d.priority, status: d.status, assignedTo: d.assigned_to,
+          priority: d.priority, status: d.status, assignedTo: d.assignee_id,
           projectId: d.project_id, dueDate: d.due_date ? new Date(d.due_date) : undefined,
           estimatedHours: d.estimated_hours, metadata: d.metadata,
         };
       },
       list: async (filters?: any) => {
-        let query = supabaseAdmin.from('pm_tasks').select('*').eq('tenant_id', tenantId);
+        let query = db.from('pm_tasks').select('*').eq('tenant_id', tenantId);
         if (filters?.projectId) query = query.eq('project_id', filters.projectId);
         if (filters?.status) query = query.eq('status', filters.status);
-        if (filters?.assignedTo) query = query.eq('assigned_to', filters.assignedTo);
+        if (filters?.assignedTo) query = query.eq('assignee_id', filters.assignedTo);
         const { data } = await query;
         return (data || []).map((t: any) => ({
           id: t.id, title: t.title, description: t.description, type: t.type,
-          priority: t.priority, status: t.status, assignedTo: t.assigned_to,
+          priority: t.priority, status: t.status, assignedTo: t.assignee_id,
           projectId: t.project_id, dueDate: t.due_date ? new Date(t.due_date) : undefined,
           estimatedHours: t.estimated_hours, metadata: t.metadata,
         }));
