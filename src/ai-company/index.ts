@@ -23,5 +23,7 @@ export * from "./memory/memoryStore";
 export * from "./memory/memoryManager";
 export * from "./permissions/permissions";
 export * from "./review/review";
-export * from "./recovery/recovery";
+export * from "./recovery/recoveryTypes";
+export * from "./recovery/recoveryQueue";
+export * from "./recovery/recoveryManager";
 export * from "./audit/audit";
