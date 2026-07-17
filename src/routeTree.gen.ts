@@ -320,6 +320,7 @@ import { Route as ApiTestingTenantIdSuitesSuiteIdRunRouteImport } from './routes
 import { Route as ApiTestingTenantIdRunsRunIdReportRouteImport } from './routes/api/testing/$tenantId/runs.$runId.report'
 import { Route as ApiTestingTenantIdReportsReportIdExportRouteImport } from './routes/api/testing/$tenantId/reports.$reportId.export'
 import { Route as ApiTestingTenantIdDatasetsDatasetIdEvaluateRouteImport } from './routes/api/testing/$tenantId/datasets.$datasetId.evaluate'
+import { Route as ApiPublicCicdWebhooksGithubTenantIdRouteImport } from './routes/api/public/cicd/webhooks/github.$tenantId'
 import { Route as ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport } from './routes/api/infrastructure/budget/topups/$requestId.approve'
 import { Route as ApiEncryptionTenantIdKeysKeyIdRotateRouteImport } from './routes/api/encryption/$tenantId/keys.$keyId.rotate'
 import { Route as ApiEncryptionTenantIdKeysKeyIdRevokeRouteImport } from './routes/api/encryption/$tenantId/keys.$keyId.revoke'
@@ -2090,6 +2091,12 @@ const ApiTestingTenantIdDatasetsDatasetIdEvaluateRoute =
     path: '/$datasetId/evaluate',
     getParentRoute: () => ApiTestingTenantIdDatasetsRoute,
   } as any)
+const ApiPublicCicdWebhooksGithubTenantIdRoute =
+  ApiPublicCicdWebhooksGithubTenantIdRouteImport.update({
+    id: '/api/public/cicd/webhooks/github/$tenantId',
+    path: '/api/public/cicd/webhooks/github/$tenantId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiInfrastructureBudgetTopupsRequestIdApproveRoute =
   ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport.update({
     id: '/api/infrastructure/budget/topups/$requestId/approve',
@@ -2534,6 +2541,7 @@ export interface FileRoutesByFullPath {
   '/api/encryption/$tenantId/keys/$keyId/revoke': typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
   '/api/encryption/$tenantId/keys/$keyId/rotate': typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  '/api/public/cicd/webhooks/github/$tenantId': typeof ApiPublicCicdWebhooksGithubTenantIdRoute
   '/api/testing/$tenantId/datasets/$datasetId/evaluate': typeof ApiTestingTenantIdDatasetsDatasetIdEvaluateRoute
   '/api/testing/$tenantId/reports/$reportId/export': typeof ApiTestingTenantIdReportsReportIdExportRoute
   '/api/testing/$tenantId/runs/$runId/report': typeof ApiTestingTenantIdRunsRunIdReportRoute
@@ -2867,6 +2875,7 @@ export interface FileRoutesByTo {
   '/api/encryption/$tenantId/keys/$keyId/revoke': typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
   '/api/encryption/$tenantId/keys/$keyId/rotate': typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  '/api/public/cicd/webhooks/github/$tenantId': typeof ApiPublicCicdWebhooksGithubTenantIdRoute
   '/api/testing/$tenantId/datasets/$datasetId/evaluate': typeof ApiTestingTenantIdDatasetsDatasetIdEvaluateRoute
   '/api/testing/$tenantId/reports/$reportId/export': typeof ApiTestingTenantIdReportsReportIdExportRoute
   '/api/testing/$tenantId/runs/$runId/report': typeof ApiTestingTenantIdRunsRunIdReportRoute
@@ -3201,6 +3210,7 @@ export interface FileRoutesById {
   '/api/encryption/$tenantId/keys/$keyId/revoke': typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
   '/api/encryption/$tenantId/keys/$keyId/rotate': typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  '/api/public/cicd/webhooks/github/$tenantId': typeof ApiPublicCicdWebhooksGithubTenantIdRoute
   '/api/testing/$tenantId/datasets/$datasetId/evaluate': typeof ApiTestingTenantIdDatasetsDatasetIdEvaluateRoute
   '/api/testing/$tenantId/reports/$reportId/export': typeof ApiTestingTenantIdReportsReportIdExportRoute
   '/api/testing/$tenantId/runs/$runId/report': typeof ApiTestingTenantIdRunsRunIdReportRoute
@@ -3536,6 +3546,7 @@ export interface FileRouteTypes {
     | '/api/encryption/$tenantId/keys/$keyId/revoke'
     | '/api/encryption/$tenantId/keys/$keyId/rotate'
     | '/api/infrastructure/budget/topups/$requestId/approve'
+    | '/api/public/cicd/webhooks/github/$tenantId'
     | '/api/testing/$tenantId/datasets/$datasetId/evaluate'
     | '/api/testing/$tenantId/reports/$reportId/export'
     | '/api/testing/$tenantId/runs/$runId/report'
@@ -3869,6 +3880,7 @@ export interface FileRouteTypes {
     | '/api/encryption/$tenantId/keys/$keyId/revoke'
     | '/api/encryption/$tenantId/keys/$keyId/rotate'
     | '/api/infrastructure/budget/topups/$requestId/approve'
+    | '/api/public/cicd/webhooks/github/$tenantId'
     | '/api/testing/$tenantId/datasets/$datasetId/evaluate'
     | '/api/testing/$tenantId/reports/$reportId/export'
     | '/api/testing/$tenantId/runs/$runId/report'
@@ -4202,6 +4214,7 @@ export interface FileRouteTypes {
     | '/api/encryption/$tenantId/keys/$keyId/revoke'
     | '/api/encryption/$tenantId/keys/$keyId/rotate'
     | '/api/infrastructure/budget/topups/$requestId/approve'
+    | '/api/public/cicd/webhooks/github/$tenantId'
     | '/api/testing/$tenantId/datasets/$datasetId/evaluate'
     | '/api/testing/$tenantId/reports/$reportId/export'
     | '/api/testing/$tenantId/runs/$runId/report'
@@ -4489,6 +4502,7 @@ export interface RootRouteChildren {
   ApiDataVersionsCurrentEntityTypeEntityIdRoute: typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
   ApiDataVersionsHistoryEntityTypeEntityIdRoute: typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  ApiPublicCicdWebhooksGithubTenantIdRoute: typeof ApiPublicCicdWebhooksGithubTenantIdRoute
   ApiTestingTenantIdReportsReportIdExportRoute: typeof ApiTestingTenantIdReportsReportIdExportRoute
 }
 
@@ -6671,6 +6685,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiTestingTenantIdDatasetsDatasetIdEvaluateRouteImport
       parentRoute: typeof ApiTestingTenantIdDatasetsRoute
     }
+    '/api/public/cicd/webhooks/github/$tenantId': {
+      id: '/api/public/cicd/webhooks/github/$tenantId'
+      path: '/api/public/cicd/webhooks/github/$tenantId'
+      fullPath: '/api/public/cicd/webhooks/github/$tenantId'
+      preLoaderRoute: typeof ApiPublicCicdWebhooksGithubTenantIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/infrastructure/budget/topups/$requestId/approve': {
       id: '/api/infrastructure/budget/topups/$requestId/approve'
       path: '/api/infrastructure/budget/topups/$requestId/approve'
@@ -7659,6 +7680,8 @@ const rootRouteChildren: RootRouteChildren = {
     ApiDataVersionsHistoryEntityTypeEntityIdRoute,
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute:
     ApiInfrastructureBudgetTopupsRequestIdApproveRoute,
+  ApiPublicCicdWebhooksGithubTenantIdRoute:
+    ApiPublicCicdWebhooksGithubTenantIdRoute,
   ApiTestingTenantIdReportsReportIdExportRoute:
     ApiTestingTenantIdReportsReportIdExportRoute,
 }
