@@ -128,6 +128,7 @@ import { Route as ApiAnalyticsToolsToolNameHistoryRouteImport } from './routes/a
 import { Route as ApiAnalyticsToolsToolNameErrorsRouteImport } from './routes/api/analytics/tools/$toolName/errors'
 import { Route as ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport } from './routes/api/infrastructure/budget/topups/$requestId.approve'
 import { Route as ApiDataVersionsHistoryEntityTypeEntityIdRouteImport } from './routes/api/data/versions/history/$entityType/$entityId'
+import { Route as ApiDataVersionsCurrentEntityTypeEntityIdRouteImport } from './routes/api/data/versions/current/$entityType/$entityId'
 import { Route as ApiDataSharedPromotionsPromotionIdRejectRouteImport } from './routes/api/data/shared/promotions/$promotionId/reject'
 import { Route as ApiDataSharedPromotionsPromotionIdApproveRouteImport } from './routes/api/data/shared/promotions/$promotionId/approve'
 
@@ -808,6 +809,12 @@ const ApiDataVersionsHistoryEntityTypeEntityIdRoute =
     path: '/api/data/versions/history/$entityType/$entityId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiDataVersionsCurrentEntityTypeEntityIdRoute =
+  ApiDataVersionsCurrentEntityTypeEntityIdRouteImport.update({
+    id: '/api/data/versions/current/$entityType/$entityId',
+    path: '/api/data/versions/current/$entityType/$entityId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiDataSharedPromotionsPromotionIdRejectRoute =
   ApiDataSharedPromotionsPromotionIdRejectRouteImport.update({
     id: '/api/data/shared/promotions/$promotionId/reject',
@@ -941,6 +948,7 @@ export interface FileRoutesByFullPath {
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
+  '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
   '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
@@ -1064,6 +1072,7 @@ export interface FileRoutesByTo {
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
+  '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
   '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
@@ -1188,6 +1197,7 @@ export interface FileRoutesById {
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
+  '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
   '/api/data/versions/history/$entityType/$entityId': typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
@@ -1313,6 +1323,7 @@ export interface FileRouteTypes {
     | '/api/tools/versioning/$toolName/versions'
     | '/api/data/shared/promotions/$promotionId/approve'
     | '/api/data/shared/promotions/$promotionId/reject'
+    | '/api/data/versions/current/$entityType/$entityId'
     | '/api/data/versions/history/$entityType/$entityId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesByTo: FileRoutesByTo
@@ -1436,6 +1447,7 @@ export interface FileRouteTypes {
     | '/api/tools/versioning/$toolName/versions'
     | '/api/data/shared/promotions/$promotionId/approve'
     | '/api/data/shared/promotions/$promotionId/reject'
+    | '/api/data/versions/current/$entityType/$entityId'
     | '/api/data/versions/history/$entityType/$entityId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   id:
@@ -1559,6 +1571,7 @@ export interface FileRouteTypes {
     | '/api/tools/versioning/$toolName/versions'
     | '/api/data/shared/promotions/$promotionId/approve'
     | '/api/data/shared/promotions/$promotionId/reject'
+    | '/api/data/versions/current/$entityType/$entityId'
     | '/api/data/versions/history/$entityType/$entityId'
     | '/api/infrastructure/budget/topups/$requestId/approve'
   fileRoutesById: FileRoutesById
@@ -1679,6 +1692,7 @@ export interface RootRouteChildren {
   ApiToolsVersioningToolNameVersionsRoute: typeof ApiToolsVersioningToolNameVersionsRoute
   ApiDataSharedPromotionsPromotionIdApproveRoute: typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   ApiDataSharedPromotionsPromotionIdRejectRoute: typeof ApiDataSharedPromotionsPromotionIdRejectRoute
+  ApiDataVersionsCurrentEntityTypeEntityIdRoute: typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
   ApiDataVersionsHistoryEntityTypeEntityIdRoute: typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
 }
@@ -2518,6 +2532,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDataVersionsHistoryEntityTypeEntityIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/data/versions/current/$entityType/$entityId': {
+      id: '/api/data/versions/current/$entityType/$entityId'
+      path: '/api/data/versions/current/$entityType/$entityId'
+      fullPath: '/api/data/versions/current/$entityType/$entityId'
+      preLoaderRoute: typeof ApiDataVersionsCurrentEntityTypeEntityIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/data/shared/promotions/$promotionId/reject': {
       id: '/api/data/shared/promotions/$promotionId/reject'
       path: '/api/data/shared/promotions/$promotionId/reject'
@@ -2727,6 +2748,8 @@ const rootRouteChildren: RootRouteChildren = {
     ApiDataSharedPromotionsPromotionIdApproveRoute,
   ApiDataSharedPromotionsPromotionIdRejectRoute:
     ApiDataSharedPromotionsPromotionIdRejectRoute,
+  ApiDataVersionsCurrentEntityTypeEntityIdRoute:
+    ApiDataVersionsCurrentEntityTypeEntityIdRoute,
   ApiDataVersionsHistoryEntityTypeEntityIdRoute:
     ApiDataVersionsHistoryEntityTypeEntityIdRoute,
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute:
