@@ -1086,6 +1086,364 @@ export type Database = {
           },
         ]
       }
+      approval_assignments: {
+        Row: {
+          approver_id: string
+          approver_role: string | null
+          assigned_at: string
+          created_at: string | null
+          decision: Json | null
+          id: string
+          request_id: string
+          responded_at: string | null
+          status: string
+        }
+        Insert: {
+          approver_id: string
+          approver_role?: string | null
+          assigned_at: string
+          created_at?: string | null
+          decision?: Json | null
+          id: string
+          request_id: string
+          responded_at?: string | null
+          status: string
+        }
+        Update: {
+          approver_id?: string
+          approver_role?: string | null
+          assigned_at?: string
+          created_at?: string | null
+          decision?: Json | null
+          id?: string
+          request_id?: string
+          responded_at?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "approval_assignments_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "approval_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      approval_decisions: {
+        Row: {
+          approver_id: string
+          comments: string | null
+          created_at: string | null
+          decided_at: string
+          decision: string
+          id: string
+          metadata: Json | null
+          request_id: string
+        }
+        Insert: {
+          approver_id: string
+          comments?: string | null
+          created_at?: string | null
+          decided_at: string
+          decision: string
+          id: string
+          metadata?: Json | null
+          request_id: string
+        }
+        Update: {
+          approver_id?: string
+          comments?: string | null
+          created_at?: string | null
+          decided_at?: string
+          decision?: string
+          id?: string
+          metadata?: Json | null
+          request_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "approval_decisions_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "approval_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      approval_executions: {
+        Row: {
+          action: string
+          created_at: string | null
+          error: string | null
+          executed_at: string | null
+          executed_by: string | null
+          id: string
+          payload: Json
+          request_id: string
+          result: Json | null
+          status: string
+        }
+        Insert: {
+          action: string
+          created_at?: string | null
+          error?: string | null
+          executed_at?: string | null
+          executed_by?: string | null
+          id: string
+          payload?: Json
+          request_id: string
+          result?: Json | null
+          status: string
+        }
+        Update: {
+          action?: string
+          created_at?: string | null
+          error?: string | null
+          executed_at?: string | null
+          executed_by?: string | null
+          id?: string
+          payload?: Json
+          request_id?: string
+          result?: Json | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "approval_executions_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "approval_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      approval_notifications: {
+        Row: {
+          channel: string
+          content: Json
+          created_at: string | null
+          id: string
+          read_at: string | null
+          recipient_id: string
+          request_id: string
+          sent_at: string
+          type: string
+        }
+        Insert: {
+          channel: string
+          content: Json
+          created_at?: string | null
+          id: string
+          read_at?: string | null
+          recipient_id: string
+          request_id: string
+          sent_at: string
+          type: string
+        }
+        Update: {
+          channel?: string
+          content?: Json
+          created_at?: string | null
+          id?: string
+          read_at?: string | null
+          recipient_id?: string
+          request_id?: string
+          sent_at?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "approval_notifications_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "approval_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      approval_policies: {
+        Row: {
+          action: string
+          approval_type: string
+          approver_hierarchy: string[] | null
+          approver_roles: string[] | null
+          approver_users: string[] | null
+          auto_reject_on_timeout: boolean | null
+          conditions: Json | null
+          created_at: string | null
+          description: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          notification_channels: string[] | null
+          notify_approvers: boolean | null
+          notify_requester: boolean | null
+          priority: string
+          required_approvers: number
+          tenant_id: string
+          timeout_minutes: number
+          updated_at: string | null
+          workspace_id: string | null
+        }
+        Insert: {
+          action: string
+          approval_type: string
+          approver_hierarchy?: string[] | null
+          approver_roles?: string[] | null
+          approver_users?: string[] | null
+          auto_reject_on_timeout?: boolean | null
+          conditions?: Json | null
+          created_at?: string | null
+          description?: string | null
+          id: string
+          is_active?: boolean | null
+          name: string
+          notification_channels?: string[] | null
+          notify_approvers?: boolean | null
+          notify_requester?: boolean | null
+          priority?: string
+          required_approvers?: number
+          tenant_id: string
+          timeout_minutes?: number
+          updated_at?: string | null
+          workspace_id?: string | null
+        }
+        Update: {
+          action?: string
+          approval_type?: string
+          approver_hierarchy?: string[] | null
+          approver_roles?: string[] | null
+          approver_users?: string[] | null
+          auto_reject_on_timeout?: boolean | null
+          conditions?: Json | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          notification_channels?: string[] | null
+          notify_approvers?: boolean | null
+          notify_requester?: boolean | null
+          priority?: string
+          required_approvers?: number
+          tenant_id?: string
+          timeout_minutes?: number
+          updated_at?: string | null
+          workspace_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "approval_policies_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      approval_requests: {
+        Row: {
+          action: string
+          approved_at: string | null
+          assigned_approvers: Json | null
+          created_at: string | null
+          current_approver_index: number | null
+          decisions: Json | null
+          executed_at: string | null
+          executed_by: string | null
+          execution_result: Json | null
+          expires_at: string
+          id: string
+          justification: string
+          metadata: Json | null
+          policy_id: string
+          priority: string
+          rejected_at: string | null
+          request_data: Json
+          requested_at: string
+          requested_by: string
+          status: string
+          target_resource_id: string | null
+          target_resource_name: string | null
+          target_resource_type: string | null
+          tenant_id: string
+          updated_at: string | null
+          workspace_id: string | null
+        }
+        Insert: {
+          action: string
+          approved_at?: string | null
+          assigned_approvers?: Json | null
+          created_at?: string | null
+          current_approver_index?: number | null
+          decisions?: Json | null
+          executed_at?: string | null
+          executed_by?: string | null
+          execution_result?: Json | null
+          expires_at: string
+          id: string
+          justification: string
+          metadata?: Json | null
+          policy_id: string
+          priority: string
+          rejected_at?: string | null
+          request_data?: Json
+          requested_at: string
+          requested_by: string
+          status: string
+          target_resource_id?: string | null
+          target_resource_name?: string | null
+          target_resource_type?: string | null
+          tenant_id: string
+          updated_at?: string | null
+          workspace_id?: string | null
+        }
+        Update: {
+          action?: string
+          approved_at?: string | null
+          assigned_approvers?: Json | null
+          created_at?: string | null
+          current_approver_index?: number | null
+          decisions?: Json | null
+          executed_at?: string | null
+          executed_by?: string | null
+          execution_result?: Json | null
+          expires_at?: string
+          id?: string
+          justification?: string
+          metadata?: Json | null
+          policy_id?: string
+          priority?: string
+          rejected_at?: string | null
+          request_data?: Json
+          requested_at?: string
+          requested_by?: string
+          status?: string
+          target_resource_id?: string | null
+          target_resource_name?: string | null
+          target_resource_type?: string | null
+          tenant_id?: string
+          updated_at?: string | null
+          workspace_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "approval_requests_policy_id_fkey"
+            columns: ["policy_id"]
+            isOneToOne: false
+            referencedRelation: "approval_policies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "approval_requests_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       audit_alerts: {
         Row: {
           acknowledged_at: string | null
