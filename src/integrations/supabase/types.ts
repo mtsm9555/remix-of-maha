@@ -1086,6 +1086,276 @@ export type Database = {
           },
         ]
       }
+      backup_jobs: {
+        Row: {
+          backup_id: string
+          checksum_sha256: string
+          completed_at: string | null
+          compressed_size_bytes: number
+          compression_ratio: number
+          created_at: string
+          encrypted: boolean
+          encryption_key_id: string | null
+          error_message: string | null
+          exclude_paths: string[] | null
+          exclude_tables: string[] | null
+          expires_at: string | null
+          file_count: number
+          id: string
+          include_paths: string[] | null
+          include_tables: string[] | null
+          metadata: Json
+          progress: number
+          retention_days: number
+          scheduled_at: string | null
+          size_bytes: number
+          started_at: string | null
+          status: string
+          storage: string
+          storage_path: string
+          storage_region: string
+          target: string
+          tenant_id: string
+          type: string
+          updated_at: string
+          verification_details: string | null
+          verification_status: string | null
+          verified_at: string | null
+        }
+        Insert: {
+          backup_id: string
+          checksum_sha256?: string
+          completed_at?: string | null
+          compressed_size_bytes?: number
+          compression_ratio?: number
+          created_at?: string
+          encrypted?: boolean
+          encryption_key_id?: string | null
+          error_message?: string | null
+          exclude_paths?: string[] | null
+          exclude_tables?: string[] | null
+          expires_at?: string | null
+          file_count?: number
+          id?: string
+          include_paths?: string[] | null
+          include_tables?: string[] | null
+          metadata?: Json
+          progress?: number
+          retention_days?: number
+          scheduled_at?: string | null
+          size_bytes?: number
+          started_at?: string | null
+          status?: string
+          storage: string
+          storage_path?: string
+          storage_region?: string
+          target: string
+          tenant_id: string
+          type: string
+          updated_at?: string
+          verification_details?: string | null
+          verification_status?: string | null
+          verified_at?: string | null
+        }
+        Update: {
+          backup_id?: string
+          checksum_sha256?: string
+          completed_at?: string | null
+          compressed_size_bytes?: number
+          compression_ratio?: number
+          created_at?: string
+          encrypted?: boolean
+          encryption_key_id?: string | null
+          error_message?: string | null
+          exclude_paths?: string[] | null
+          exclude_tables?: string[] | null
+          expires_at?: string | null
+          file_count?: number
+          id?: string
+          include_paths?: string[] | null
+          include_tables?: string[] | null
+          metadata?: Json
+          progress?: number
+          retention_days?: number
+          scheduled_at?: string | null
+          size_bytes?: number
+          started_at?: string | null
+          status?: string
+          storage?: string
+          storage_path?: string
+          storage_region?: string
+          target?: string
+          tenant_id?: string
+          type?: string
+          updated_at?: string
+          verification_details?: string | null
+          verification_status?: string | null
+          verified_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "backup_jobs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      backup_policies: {
+        Row: {
+          auto_verify: boolean
+          compression_enabled: boolean
+          compression_level: number
+          created_at: string
+          cron_expression: string | null
+          description: string | null
+          enable_cross_region_replication: boolean
+          encrypted: boolean
+          encryption_key_id: string | null
+          exclude_paths: string[] | null
+          exclude_tables: string[] | null
+          frequency: string
+          id: string
+          include_paths: string[] | null
+          include_tables: string[] | null
+          is_active: boolean
+          last_run_at: string | null
+          max_backups: number
+          name: string
+          next_run_at: string | null
+          notify_on_failure: boolean
+          notify_on_success: boolean
+          replica_regions: string[] | null
+          retention_days: number
+          storage: string
+          target: string
+          tenant_id: string
+          type: string
+          updated_at: string
+          verification_frequency: string
+        }
+        Insert: {
+          auto_verify?: boolean
+          compression_enabled?: boolean
+          compression_level?: number
+          created_at?: string
+          cron_expression?: string | null
+          description?: string | null
+          enable_cross_region_replication?: boolean
+          encrypted?: boolean
+          encryption_key_id?: string | null
+          exclude_paths?: string[] | null
+          exclude_tables?: string[] | null
+          frequency: string
+          id?: string
+          include_paths?: string[] | null
+          include_tables?: string[] | null
+          is_active?: boolean
+          last_run_at?: string | null
+          max_backups?: number
+          name: string
+          next_run_at?: string | null
+          notify_on_failure?: boolean
+          notify_on_success?: boolean
+          replica_regions?: string[] | null
+          retention_days?: number
+          storage: string
+          target: string
+          tenant_id: string
+          type: string
+          updated_at?: string
+          verification_frequency?: string
+        }
+        Update: {
+          auto_verify?: boolean
+          compression_enabled?: boolean
+          compression_level?: number
+          created_at?: string
+          cron_expression?: string | null
+          description?: string | null
+          enable_cross_region_replication?: boolean
+          encrypted?: boolean
+          encryption_key_id?: string | null
+          exclude_paths?: string[] | null
+          exclude_tables?: string[] | null
+          frequency?: string
+          id?: string
+          include_paths?: string[] | null
+          include_tables?: string[] | null
+          is_active?: boolean
+          last_run_at?: string | null
+          max_backups?: number
+          name?: string
+          next_run_at?: string | null
+          notify_on_failure?: boolean
+          notify_on_success?: boolean
+          replica_regions?: string[] | null
+          retention_days?: number
+          storage?: string
+          target?: string
+          tenant_id?: string
+          type?: string
+          updated_at?: string
+          verification_frequency?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "backup_policies_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      backup_verification_logs: {
+        Row: {
+          backup_job_id: string
+          checksum_actual: string | null
+          checksum_expected: string | null
+          created_at: string
+          details: string | null
+          duration_ms: number | null
+          id: string
+          status: string
+          tenant_id: string
+          verification_type: string
+        }
+        Insert: {
+          backup_job_id: string
+          checksum_actual?: string | null
+          checksum_expected?: string | null
+          created_at?: string
+          details?: string | null
+          duration_ms?: number | null
+          id?: string
+          status: string
+          tenant_id: string
+          verification_type: string
+        }
+        Update: {
+          backup_job_id?: string
+          checksum_actual?: string | null
+          checksum_expected?: string | null
+          created_at?: string
+          details?: string | null
+          duration_ms?: number | null
+          id?: string
+          status?: string
+          tenant_id?: string
+          verification_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "backup_verification_logs_backup_job_id_fkey"
+            columns: ["backup_job_id"]
+            isOneToOne: false
+            referencedRelation: "backup_jobs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       billing_credits: {
         Row: {
           amount_usd: number
@@ -1536,6 +1806,192 @@ export type Database = {
           id?: string
           metadata?: Json
           resource_type?: string
+        }
+        Relationships: []
+      }
+      cache_configs: {
+        Row: {
+          created_at: string
+          default_strategy: string
+          description: string | null
+          enable_tenant_isolation: boolean
+          enabled_levels: string[]
+          id: string
+          is_active: boolean
+          l1_default_ttl_seconds: number
+          l1_invalidation_policy: string
+          l1_max_size_mb: number
+          l2_default_ttl_seconds: number
+          l2_invalidation_policy: string
+          l2_max_memory_mb: number
+          l3_default_ttl_seconds: number
+          l3_invalidation_policy: string
+          min_cost_to_cache_usd: number
+          name: string
+          semantic_default_ttl_seconds: number
+          semantic_enabled: boolean
+          semantic_max_entries: number
+          semantic_similarity_threshold: number
+          track_cost_savings: boolean
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          default_strategy?: string
+          description?: string | null
+          enable_tenant_isolation?: boolean
+          enabled_levels?: string[]
+          id?: string
+          is_active?: boolean
+          l1_default_ttl_seconds?: number
+          l1_invalidation_policy?: string
+          l1_max_size_mb?: number
+          l2_default_ttl_seconds?: number
+          l2_invalidation_policy?: string
+          l2_max_memory_mb?: number
+          l3_default_ttl_seconds?: number
+          l3_invalidation_policy?: string
+          min_cost_to_cache_usd?: number
+          name: string
+          semantic_default_ttl_seconds?: number
+          semantic_enabled?: boolean
+          semantic_max_entries?: number
+          semantic_similarity_threshold?: number
+          track_cost_savings?: boolean
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          default_strategy?: string
+          description?: string | null
+          enable_tenant_isolation?: boolean
+          enabled_levels?: string[]
+          id?: string
+          is_active?: boolean
+          l1_default_ttl_seconds?: number
+          l1_invalidation_policy?: string
+          l1_max_size_mb?: number
+          l2_default_ttl_seconds?: number
+          l2_invalidation_policy?: string
+          l2_max_memory_mb?: number
+          l3_default_ttl_seconds?: number
+          l3_invalidation_policy?: string
+          min_cost_to_cache_usd?: number
+          name?: string
+          semantic_default_ttl_seconds?: number
+          semantic_enabled?: boolean
+          semantic_max_entries?: number
+          semantic_similarity_threshold?: number
+          track_cost_savings?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      cache_entries: {
+        Row: {
+          access_count: number
+          correlation_id: string | null
+          created_at: string
+          embedding: Json | null
+          expires_at: string
+          hit_count: number
+          id: string
+          invalidation_tags: string[]
+          key: string
+          last_accessed_at: string
+          level: string
+          miss_count: number
+          original_cost_usd: number | null
+          saved_cost_usd: number | null
+          serialized_value: string
+          similarity_threshold: number | null
+          size_bytes: number
+          tenant_id: string | null
+          type: string
+          updated_at: string
+          version: number
+          workspace_id: string | null
+        }
+        Insert: {
+          access_count?: number
+          correlation_id?: string | null
+          created_at?: string
+          embedding?: Json | null
+          expires_at: string
+          hit_count?: number
+          id?: string
+          invalidation_tags?: string[]
+          key: string
+          last_accessed_at?: string
+          level: string
+          miss_count?: number
+          original_cost_usd?: number | null
+          saved_cost_usd?: number | null
+          serialized_value: string
+          similarity_threshold?: number | null
+          size_bytes?: number
+          tenant_id?: string | null
+          type: string
+          updated_at?: string
+          version?: number
+          workspace_id?: string | null
+        }
+        Update: {
+          access_count?: number
+          correlation_id?: string | null
+          created_at?: string
+          embedding?: Json | null
+          expires_at?: string
+          hit_count?: number
+          id?: string
+          invalidation_tags?: string[]
+          key?: string
+          last_accessed_at?: string
+          level?: string
+          miss_count?: number
+          original_cost_usd?: number | null
+          saved_cost_usd?: number | null
+          serialized_value?: string
+          similarity_threshold?: number | null
+          size_bytes?: number
+          tenant_id?: string | null
+          type?: string
+          updated_at?: string
+          version?: number
+          workspace_id?: string | null
+        }
+        Relationships: []
+      }
+      cache_invalidation_events: {
+        Row: {
+          created_at: string
+          entries_removed: number
+          id: string
+          reason: string | null
+          scope: string
+          target: string
+          tenant_id: string | null
+          triggered_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          entries_removed?: number
+          id?: string
+          reason?: string | null
+          scope: string
+          target: string
+          tenant_id?: string | null
+          triggered_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          entries_removed?: number
+          id?: string
+          reason?: string | null
+          scope?: string
+          target?: string
+          tenant_id?: string | null
+          triggered_by?: string | null
         }
         Relationships: []
       }
@@ -4217,6 +4673,80 @@ export type Database = {
           severity?: string
         }
         Relationships: []
+      }
+      restore_jobs: {
+        Row: {
+          backup_id: string
+          completed_at: string | null
+          created_at: string
+          error_message: string | null
+          id: string
+          metadata: Json
+          overwrite_existing: boolean
+          post_restore_verification: boolean
+          progress: number
+          restore_to_timestamp: string | null
+          restored_file_count: number
+          restored_size_bytes: number
+          started_at: string | null
+          status: string
+          target_database: string | null
+          target_path: string | null
+          tenant_id: string
+          updated_at: string
+          verification_result: string | null
+        }
+        Insert: {
+          backup_id: string
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          metadata?: Json
+          overwrite_existing?: boolean
+          post_restore_verification?: boolean
+          progress?: number
+          restore_to_timestamp?: string | null
+          restored_file_count?: number
+          restored_size_bytes?: number
+          started_at?: string | null
+          status?: string
+          target_database?: string | null
+          target_path?: string | null
+          tenant_id: string
+          updated_at?: string
+          verification_result?: string | null
+        }
+        Update: {
+          backup_id?: string
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          metadata?: Json
+          overwrite_existing?: boolean
+          post_restore_verification?: boolean
+          progress?: number
+          restore_to_timestamp?: string | null
+          restored_file_count?: number
+          restored_size_bytes?: number
+          started_at?: string | null
+          status?: string
+          target_database?: string | null
+          target_path?: string | null
+          tenant_id?: string
+          updated_at?: string
+          verification_result?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "restore_jobs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       retention_policies: {
         Row: {
