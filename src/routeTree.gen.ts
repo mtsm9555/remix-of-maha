@@ -41,6 +41,7 @@ import { Route as ApiBillingPlansRouteImport } from './routes/api/billing/plans'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
 import { Route as ApiAdvancedRolesTemplatesRouteImport } from './routes/api/advanced-roles/templates'
 import { Route as ApiInfrastructureDiscoveryRouteRouteImport } from './routes/api/infrastructure/discovery/route'
+import { Route as ApiWorkspacesTenantIdIndexRouteImport } from './routes/api/workspaces/$tenantId/index'
 import { Route as ApiToolsPoliciesIndexRouteImport } from './routes/api/tools/policies/index'
 import { Route as ApiToolsMarketplaceIndexRouteImport } from './routes/api/tools/marketplace/index'
 import { Route as ApiIntelligenceLearnIndexRouteImport } from './routes/api/intelligence/learn/index'
@@ -347,6 +348,12 @@ const ApiInfrastructureDiscoveryRouteRoute =
   ApiInfrastructureDiscoveryRouteRouteImport.update({
     id: '/api/infrastructure/discovery',
     path: '/api/infrastructure/discovery',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiWorkspacesTenantIdIndexRoute =
+  ApiWorkspacesTenantIdIndexRouteImport.update({
+    id: '/api/workspaces/$tenantId/',
+    path: '/api/workspaces/$tenantId/',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiToolsPoliciesIndexRoute = ApiToolsPoliciesIndexRouteImport.update({
@@ -1290,6 +1297,7 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
   '/api/tools/policies/': typeof ApiToolsPoliciesIndexRoute
+  '/api/workspaces/$tenantId/': typeof ApiWorkspacesTenantIdIndexRoute
   '/api/advanced-roles/$tenantId/jit/$elevationId': typeof ApiAdvancedRolesTenantIdJitElevationIdRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
@@ -1465,6 +1473,7 @@ export interface FileRoutesByTo {
   '/api/intelligence/learn': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace': typeof ApiToolsMarketplaceIndexRoute
   '/api/tools/policies': typeof ApiToolsPoliciesIndexRoute
+  '/api/workspaces/$tenantId': typeof ApiWorkspacesTenantIdIndexRoute
   '/api/advanced-roles/$tenantId/jit/$elevationId': typeof ApiAdvancedRolesTenantIdJitElevationIdRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
@@ -1641,6 +1650,7 @@ export interface FileRoutesById {
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
   '/api/tools/policies/': typeof ApiToolsPoliciesIndexRoute
+  '/api/workspaces/$tenantId/': typeof ApiWorkspacesTenantIdIndexRoute
   '/api/advanced-roles/$tenantId/jit/$elevationId': typeof ApiAdvancedRolesTenantIdJitElevationIdRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
@@ -1818,6 +1828,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/'
     | '/api/tools/marketplace/'
     | '/api/tools/policies/'
+    | '/api/workspaces/$tenantId/'
     | '/api/advanced-roles/$tenantId/jit/$elevationId'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
@@ -1993,6 +2004,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn'
     | '/api/tools/marketplace'
     | '/api/tools/policies'
+    | '/api/workspaces/$tenantId'
     | '/api/advanced-roles/$tenantId/jit/$elevationId'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
@@ -2168,6 +2180,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/'
     | '/api/tools/marketplace/'
     | '/api/tools/policies/'
+    | '/api/workspaces/$tenantId/'
     | '/api/advanced-roles/$tenantId/jit/$elevationId'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
@@ -2343,6 +2356,7 @@ export interface RootRouteChildren {
   ApiIntelligenceLearnIndexRoute: typeof ApiIntelligenceLearnIndexRoute
   ApiToolsMarketplaceIndexRoute: typeof ApiToolsMarketplaceIndexRoute
   ApiToolsPoliciesIndexRoute: typeof ApiToolsPoliciesIndexRoute
+  ApiWorkspacesTenantIdIndexRoute: typeof ApiWorkspacesTenantIdIndexRoute
   ApiAnalyticsToolsToolNameErrorsRoute: typeof ApiAnalyticsToolsToolNameErrorsRoute
   ApiAnalyticsToolsToolNameHistoryRoute: typeof ApiAnalyticsToolsToolNameHistoryRoute
   ApiAnalyticsToolsToolNameRpmRoute: typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -2612,6 +2626,13 @@ declare module '@tanstack/react-router' {
       path: '/api/infrastructure/discovery'
       fullPath: '/api/infrastructure/discovery'
       preLoaderRoute: typeof ApiInfrastructureDiscoveryRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/workspaces/$tenantId/': {
+      id: '/api/workspaces/$tenantId/'
+      path: '/api/workspaces/$tenantId'
+      fullPath: '/api/workspaces/$tenantId/'
+      preLoaderRoute: typeof ApiWorkspacesTenantIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/tools/policies/': {
@@ -3811,6 +3832,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiIntelligenceLearnIndexRoute: ApiIntelligenceLearnIndexRoute,
   ApiToolsMarketplaceIndexRoute: ApiToolsMarketplaceIndexRoute,
   ApiToolsPoliciesIndexRoute: ApiToolsPoliciesIndexRoute,
+  ApiWorkspacesTenantIdIndexRoute: ApiWorkspacesTenantIdIndexRoute,
   ApiAnalyticsToolsToolNameErrorsRoute: ApiAnalyticsToolsToolNameErrorsRoute,
   ApiAnalyticsToolsToolNameHistoryRoute: ApiAnalyticsToolsToolNameHistoryRoute,
   ApiAnalyticsToolsToolNameRpmRoute: ApiAnalyticsToolsToolNameRpmRoute,
