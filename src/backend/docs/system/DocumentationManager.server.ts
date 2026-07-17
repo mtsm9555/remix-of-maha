@@ -66,7 +66,7 @@ export class SystemDocumentationManager {
     };
     const { data: inserted, error } = await supabaseAdmin
       .from("system_documentation")
-      .insert(row)
+      .insert(row as any)
       .select("*")
       .single();
     if (error) throw error;
@@ -118,7 +118,7 @@ export class SystemDocumentationManager {
     if (patch.lastEditedBy !== undefined) update.last_edited_by = patch.lastEditedBy;
     const { data, error } = await supabaseAdmin
       .from("system_documentation")
-      .update(update)
+      .update(update as any)
       .eq("id", docId)
       .eq("tenant_id", tenantId)
       .select("*")
