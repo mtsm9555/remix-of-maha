@@ -840,51 +840,223 @@ export type Database = {
           },
         ]
       }
-      billing_invoices: {
+      billing_credits: {
         Row: {
           amount_usd: number
+          applied_at: string | null
           created_at: string
           currency: string
+          expires_at: string | null
+          id: string
+          issued_by: string
+          reason: string
+          remaining_usd: number
+          status: string
+          tenant_id: string
+        }
+        Insert: {
+          amount_usd: number
+          applied_at?: string | null
+          created_at?: string
+          currency?: string
+          expires_at?: string | null
+          id?: string
+          issued_by: string
+          reason: string
+          remaining_usd: number
+          status: string
+          tenant_id: string
+        }
+        Update: {
+          amount_usd?: number
+          applied_at?: string | null
+          created_at?: string
+          currency?: string
+          expires_at?: string | null
+          id?: string
+          issued_by?: string
+          reason?: string
+          remaining_usd?: number
+          status?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_credits_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      billing_dunning_attempts: {
+        Row: {
+          attempt_number: number
+          id: string
+          invoice_id: string
+          result: string | null
+          scheduled_at: string
+          sent_at: string | null
+          status: string
+          tenant_id: string
+        }
+        Insert: {
+          attempt_number: number
+          id?: string
+          invoice_id: string
+          result?: string | null
+          scheduled_at: string
+          sent_at?: string | null
+          status: string
+          tenant_id: string
+        }
+        Update: {
+          attempt_number?: number
+          id?: string
+          invoice_id?: string
+          result?: string | null
+          scheduled_at?: string
+          sent_at?: string | null
+          status?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_dunning_attempts_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "billing_invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billing_dunning_attempts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      billing_events: {
+        Row: {
+          amount_usd: number | null
+          details: Json
+          event_type: string
+          id: string
+          invoice_id: string | null
+          payment_id: string | null
+          tenant_id: string
+          timestamp: string
+        }
+        Insert: {
+          amount_usd?: number | null
+          details?: Json
+          event_type: string
+          id?: string
+          invoice_id?: string | null
+          payment_id?: string | null
+          tenant_id: string
+          timestamp?: string
+        }
+        Update: {
+          amount_usd?: number | null
+          details?: Json
+          event_type?: string
+          id?: string
+          invoice_id?: string | null
+          payment_id?: string | null
+          tenant_id?: string
+          timestamp?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_events_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      billing_invoices: {
+        Row: {
+          amount_paid_usd: number
+          amount_remaining_usd: number
+          amount_usd: number
+          attempt_count: number
+          created_at: string
+          currency: string
+          discount_usd: number
           due_date: string | null
           id: string
+          invoice_date: string
+          last_attempt_at: string | null
           line_items: Json
+          metadata: Json
+          notes: string | null
           paid_at: string | null
           period_end: string
           period_start: string
           status: string
           stripe_invoice_id: string | null
           subscription_id: string | null
+          subtotal_usd: number
+          tax_usd: number
           tenant_id: string
+          updated_at: string
         }
         Insert: {
+          amount_paid_usd?: number
+          amount_remaining_usd?: number
           amount_usd: number
+          attempt_count?: number
           created_at?: string
           currency?: string
+          discount_usd?: number
           due_date?: string | null
           id?: string
+          invoice_date?: string
+          last_attempt_at?: string | null
           line_items?: Json
+          metadata?: Json
+          notes?: string | null
           paid_at?: string | null
           period_end: string
           period_start: string
           status: string
           stripe_invoice_id?: string | null
           subscription_id?: string | null
+          subtotal_usd?: number
+          tax_usd?: number
           tenant_id: string
+          updated_at?: string
         }
         Update: {
+          amount_paid_usd?: number
+          amount_remaining_usd?: number
           amount_usd?: number
+          attempt_count?: number
           created_at?: string
           currency?: string
+          discount_usd?: number
           due_date?: string | null
           id?: string
+          invoice_date?: string
+          last_attempt_at?: string | null
           line_items?: Json
+          metadata?: Json
+          notes?: string | null
           paid_at?: string | null
           period_end?: string
           period_start?: string
           status?: string
           stripe_invoice_id?: string | null
           subscription_id?: string | null
+          subtotal_usd?: number
+          tax_usd?: number
           tenant_id?: string
+          updated_at?: string
         }
         Relationships: [
           {
@@ -896,6 +1068,123 @@ export type Database = {
           },
           {
             foreignKeyName: "billing_invoices_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      billing_payments: {
+        Row: {
+          amount_usd: number
+          created_at: string
+          currency: string
+          id: string
+          invoice_id: string | null
+          payment_method: Json
+          processed_at: string | null
+          status: string
+          stripe_charge_id: string | null
+          stripe_payment_intent_id: string | null
+          tenant_id: string
+        }
+        Insert: {
+          amount_usd: number
+          created_at?: string
+          currency?: string
+          id?: string
+          invoice_id?: string | null
+          payment_method?: Json
+          processed_at?: string | null
+          status: string
+          stripe_charge_id?: string | null
+          stripe_payment_intent_id?: string | null
+          tenant_id: string
+        }
+        Update: {
+          amount_usd?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          invoice_id?: string | null
+          payment_method?: Json
+          processed_at?: string | null
+          status?: string
+          stripe_charge_id?: string | null
+          stripe_payment_intent_id?: string | null
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_payments_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "billing_invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billing_payments_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      billing_refunds: {
+        Row: {
+          amount_usd: number
+          created_at: string
+          currency: string
+          id: string
+          payment_id: string
+          processed_at: string | null
+          processed_by: string | null
+          reason: string
+          requested_by: string
+          status: string
+          stripe_refund_id: string | null
+          tenant_id: string
+        }
+        Insert: {
+          amount_usd: number
+          created_at?: string
+          currency?: string
+          id?: string
+          payment_id: string
+          processed_at?: string | null
+          processed_by?: string | null
+          reason: string
+          requested_by: string
+          status: string
+          stripe_refund_id?: string | null
+          tenant_id: string
+        }
+        Update: {
+          amount_usd?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          payment_id?: string
+          processed_at?: string | null
+          processed_by?: string | null
+          reason?: string
+          requested_by?: string
+          status?: string
+          stripe_refund_id?: string | null
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_refunds_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "billing_payments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billing_refunds_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"

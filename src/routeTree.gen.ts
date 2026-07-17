@@ -121,6 +121,10 @@ import { Route as ApiBillingTenantIdSubscribeRouteImport } from './routes/api/bi
 import { Route as ApiBillingTenantIdInvoicesRouteImport } from './routes/api/billing/$tenantId/invoices'
 import { Route as ApiBillingTenantIdChangePlanRouteImport } from './routes/api/billing/$tenantId/change-plan'
 import { Route as ApiBillingTenantIdCancelRouteImport } from './routes/api/billing/$tenantId/cancel'
+import { Route as ApiBillingOpsTenantIdRefundsRouteImport } from './routes/api/billing-ops/$tenantId/refunds'
+import { Route as ApiBillingOpsTenantIdPaymentsRouteImport } from './routes/api/billing-ops/$tenantId/payments'
+import { Route as ApiBillingOpsTenantIdEventsRouteImport } from './routes/api/billing-ops/$tenantId/events'
+import { Route as ApiBillingOpsTenantIdCreditsRouteImport } from './routes/api/billing-ops/$tenantId/credits'
 import { Route as ApiAnalyticsToolsOverviewRouteImport } from './routes/api/analytics/tools/overview'
 import { Route as ApiAnalyticsRetrievalOverviewRouteImport } from './routes/api/analytics/retrieval/overview'
 import { Route as ApiAnalyticsRetrievalHealthCheckRouteImport } from './routes/api/analytics/retrieval/health-check'
@@ -169,6 +173,8 @@ import { Route as ApiDataVersionsHistoryEntityTypeEntityIdRouteImport } from './
 import { Route as ApiDataVersionsCurrentEntityTypeEntityIdRouteImport } from './routes/api/data/versions/current/$entityType/$entityId'
 import { Route as ApiDataSharedPromotionsPromotionIdRejectRouteImport } from './routes/api/data/shared/promotions/$promotionId/reject'
 import { Route as ApiDataSharedPromotionsPromotionIdApproveRouteImport } from './routes/api/data/shared/promotions/$promotionId/approve'
+import { Route as ApiBillingOpsTenantIdInvoicesInvoiceIdPayRouteImport } from './routes/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
+import { Route as ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRouteImport } from './routes/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
 
 const VoiceRoute = VoiceRouteImport.update({
   id: '/voice',
@@ -784,6 +790,30 @@ const ApiBillingTenantIdCancelRoute =
     path: '/api/billing/$tenantId/cancel',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiBillingOpsTenantIdRefundsRoute =
+  ApiBillingOpsTenantIdRefundsRouteImport.update({
+    id: '/api/billing-ops/$tenantId/refunds',
+    path: '/api/billing-ops/$tenantId/refunds',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiBillingOpsTenantIdPaymentsRoute =
+  ApiBillingOpsTenantIdPaymentsRouteImport.update({
+    id: '/api/billing-ops/$tenantId/payments',
+    path: '/api/billing-ops/$tenantId/payments',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiBillingOpsTenantIdEventsRoute =
+  ApiBillingOpsTenantIdEventsRouteImport.update({
+    id: '/api/billing-ops/$tenantId/events',
+    path: '/api/billing-ops/$tenantId/events',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiBillingOpsTenantIdCreditsRoute =
+  ApiBillingOpsTenantIdCreditsRouteImport.update({
+    id: '/api/billing-ops/$tenantId/credits',
+    path: '/api/billing-ops/$tenantId/credits',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiAnalyticsToolsOverviewRoute =
   ApiAnalyticsToolsOverviewRouteImport.update({
     id: '/api/analytics/tools/overview',
@@ -1072,6 +1102,18 @@ const ApiDataSharedPromotionsPromotionIdApproveRoute =
     path: '/api/data/shared/promotions/$promotionId/approve',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute =
+  ApiBillingOpsTenantIdInvoicesInvoiceIdPayRouteImport.update({
+    id: '/api/billing-ops/$tenantId/invoices/$invoiceId/pay',
+    path: '/api/billing-ops/$tenantId/invoices/$invoiceId/pay',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute =
+  ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRouteImport.update({
+    id: '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize',
+    path: '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -1115,6 +1157,10 @@ export interface FileRoutesByFullPath {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/billing-ops/$tenantId/credits': typeof ApiBillingOpsTenantIdCreditsRoute
+  '/api/billing-ops/$tenantId/events': typeof ApiBillingOpsTenantIdEventsRoute
+  '/api/billing-ops/$tenantId/payments': typeof ApiBillingOpsTenantIdPaymentsRoute
+  '/api/billing-ops/$tenantId/refunds': typeof ApiBillingOpsTenantIdRefundsRoute
   '/api/billing/$tenantId/cancel': typeof ApiBillingTenantIdCancelRoute
   '/api/billing/$tenantId/change-plan': typeof ApiBillingTenantIdChangePlanRoute
   '/api/billing/$tenantId/invoices': typeof ApiBillingTenantIdInvoicesRoute
@@ -1229,6 +1275,8 @@ export interface FileRoutesByFullPath {
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
+  '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
+  '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
@@ -1277,6 +1325,10 @@ export interface FileRoutesByTo {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/billing-ops/$tenantId/credits': typeof ApiBillingOpsTenantIdCreditsRoute
+  '/api/billing-ops/$tenantId/events': typeof ApiBillingOpsTenantIdEventsRoute
+  '/api/billing-ops/$tenantId/payments': typeof ApiBillingOpsTenantIdPaymentsRoute
+  '/api/billing-ops/$tenantId/refunds': typeof ApiBillingOpsTenantIdRefundsRoute
   '/api/billing/$tenantId/cancel': typeof ApiBillingTenantIdCancelRoute
   '/api/billing/$tenantId/change-plan': typeof ApiBillingTenantIdChangePlanRoute
   '/api/billing/$tenantId/invoices': typeof ApiBillingTenantIdInvoicesRoute
@@ -1391,6 +1443,8 @@ export interface FileRoutesByTo {
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
+  '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
+  '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
@@ -1440,6 +1494,10 @@ export interface FileRoutesById {
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
   '/api/analytics/retrieval/overview': typeof ApiAnalyticsRetrievalOverviewRoute
   '/api/analytics/tools/overview': typeof ApiAnalyticsToolsOverviewRoute
+  '/api/billing-ops/$tenantId/credits': typeof ApiBillingOpsTenantIdCreditsRoute
+  '/api/billing-ops/$tenantId/events': typeof ApiBillingOpsTenantIdEventsRoute
+  '/api/billing-ops/$tenantId/payments': typeof ApiBillingOpsTenantIdPaymentsRoute
+  '/api/billing-ops/$tenantId/refunds': typeof ApiBillingOpsTenantIdRefundsRoute
   '/api/billing/$tenantId/cancel': typeof ApiBillingTenantIdCancelRoute
   '/api/billing/$tenantId/change-plan': typeof ApiBillingTenantIdChangePlanRoute
   '/api/billing/$tenantId/invoices': typeof ApiBillingTenantIdInvoicesRoute
@@ -1554,6 +1612,8 @@ export interface FileRoutesById {
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
+  '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
+  '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   '/api/data/shared/promotions/$promotionId/reject': typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   '/api/data/versions/current/$entityType/$entityId': typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
@@ -1604,6 +1664,10 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/billing-ops/$tenantId/credits'
+    | '/api/billing-ops/$tenantId/events'
+    | '/api/billing-ops/$tenantId/payments'
+    | '/api/billing-ops/$tenantId/refunds'
     | '/api/billing/$tenantId/cancel'
     | '/api/billing/$tenantId/change-plan'
     | '/api/billing/$tenantId/invoices'
@@ -1718,6 +1782,8 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
+    | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
+    | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
     | '/api/data/shared/promotions/$promotionId/approve'
     | '/api/data/shared/promotions/$promotionId/reject'
     | '/api/data/versions/current/$entityType/$entityId'
@@ -1766,6 +1832,10 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/billing-ops/$tenantId/credits'
+    | '/api/billing-ops/$tenantId/events'
+    | '/api/billing-ops/$tenantId/payments'
+    | '/api/billing-ops/$tenantId/refunds'
     | '/api/billing/$tenantId/cancel'
     | '/api/billing/$tenantId/change-plan'
     | '/api/billing/$tenantId/invoices'
@@ -1880,6 +1950,8 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
+    | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
+    | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
     | '/api/data/shared/promotions/$promotionId/approve'
     | '/api/data/shared/promotions/$promotionId/reject'
     | '/api/data/versions/current/$entityType/$entityId'
@@ -1928,6 +2000,10 @@ export interface FileRouteTypes {
     | '/api/analytics/retrieval/health-check'
     | '/api/analytics/retrieval/overview'
     | '/api/analytics/tools/overview'
+    | '/api/billing-ops/$tenantId/credits'
+    | '/api/billing-ops/$tenantId/events'
+    | '/api/billing-ops/$tenantId/payments'
+    | '/api/billing-ops/$tenantId/refunds'
     | '/api/billing/$tenantId/cancel'
     | '/api/billing/$tenantId/change-plan'
     | '/api/billing/$tenantId/invoices'
@@ -2042,6 +2118,8 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
+    | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
+    | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
     | '/api/data/shared/promotions/$promotionId/approve'
     | '/api/data/shared/promotions/$promotionId/reject'
     | '/api/data/versions/current/$entityType/$entityId'
@@ -2091,6 +2169,10 @@ export interface RootRouteChildren {
   ApiAnalyticsRetrievalHealthCheckRoute: typeof ApiAnalyticsRetrievalHealthCheckRoute
   ApiAnalyticsRetrievalOverviewRoute: typeof ApiAnalyticsRetrievalOverviewRoute
   ApiAnalyticsToolsOverviewRoute: typeof ApiAnalyticsToolsOverviewRoute
+  ApiBillingOpsTenantIdCreditsRoute: typeof ApiBillingOpsTenantIdCreditsRoute
+  ApiBillingOpsTenantIdEventsRoute: typeof ApiBillingOpsTenantIdEventsRoute
+  ApiBillingOpsTenantIdPaymentsRoute: typeof ApiBillingOpsTenantIdPaymentsRoute
+  ApiBillingOpsTenantIdRefundsRoute: typeof ApiBillingOpsTenantIdRefundsRoute
   ApiBillingTenantIdCancelRoute: typeof ApiBillingTenantIdCancelRoute
   ApiBillingTenantIdChangePlanRoute: typeof ApiBillingTenantIdChangePlanRoute
   ApiBillingTenantIdInvoicesRoute: typeof ApiBillingTenantIdInvoicesRoute
@@ -2200,6 +2282,8 @@ export interface RootRouteChildren {
   ApiToolsMcpDisconnectServerIdRoute: typeof ApiToolsMcpDisconnectServerIdRoute
   ApiToolsVersioningToolNameRollbackRoute: typeof ApiToolsVersioningToolNameRollbackRoute
   ApiToolsVersioningToolNameVersionsRoute: typeof ApiToolsVersioningToolNameVersionsRoute
+  ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute: typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
+  ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute: typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   ApiDataSharedPromotionsPromotionIdApproveRoute: typeof ApiDataSharedPromotionsPromotionIdApproveRoute
   ApiDataSharedPromotionsPromotionIdRejectRoute: typeof ApiDataSharedPromotionsPromotionIdRejectRoute
   ApiDataVersionsCurrentEntityTypeEntityIdRoute: typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
@@ -2993,6 +3077,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiBillingTenantIdCancelRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/billing-ops/$tenantId/refunds': {
+      id: '/api/billing-ops/$tenantId/refunds'
+      path: '/api/billing-ops/$tenantId/refunds'
+      fullPath: '/api/billing-ops/$tenantId/refunds'
+      preLoaderRoute: typeof ApiBillingOpsTenantIdRefundsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/billing-ops/$tenantId/payments': {
+      id: '/api/billing-ops/$tenantId/payments'
+      path: '/api/billing-ops/$tenantId/payments'
+      fullPath: '/api/billing-ops/$tenantId/payments'
+      preLoaderRoute: typeof ApiBillingOpsTenantIdPaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/billing-ops/$tenantId/events': {
+      id: '/api/billing-ops/$tenantId/events'
+      path: '/api/billing-ops/$tenantId/events'
+      fullPath: '/api/billing-ops/$tenantId/events'
+      preLoaderRoute: typeof ApiBillingOpsTenantIdEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/billing-ops/$tenantId/credits': {
+      id: '/api/billing-ops/$tenantId/credits'
+      path: '/api/billing-ops/$tenantId/credits'
+      fullPath: '/api/billing-ops/$tenantId/credits'
+      preLoaderRoute: typeof ApiBillingOpsTenantIdCreditsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/analytics/tools/overview': {
       id: '/api/analytics/tools/overview'
       path: '/api/analytics/tools/overview'
@@ -3329,6 +3441,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiDataSharedPromotionsPromotionIdApproveRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': {
+      id: '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
+      path: '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
+      fullPath: '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
+      preLoaderRoute: typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': {
+      id: '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
+      path: '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
+      fullPath: '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
+      preLoaderRoute: typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -3442,6 +3568,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAnalyticsRetrievalHealthCheckRoute: ApiAnalyticsRetrievalHealthCheckRoute,
   ApiAnalyticsRetrievalOverviewRoute: ApiAnalyticsRetrievalOverviewRoute,
   ApiAnalyticsToolsOverviewRoute: ApiAnalyticsToolsOverviewRoute,
+  ApiBillingOpsTenantIdCreditsRoute: ApiBillingOpsTenantIdCreditsRoute,
+  ApiBillingOpsTenantIdEventsRoute: ApiBillingOpsTenantIdEventsRoute,
+  ApiBillingOpsTenantIdPaymentsRoute: ApiBillingOpsTenantIdPaymentsRoute,
+  ApiBillingOpsTenantIdRefundsRoute: ApiBillingOpsTenantIdRefundsRoute,
   ApiBillingTenantIdCancelRoute: ApiBillingTenantIdCancelRoute,
   ApiBillingTenantIdChangePlanRoute: ApiBillingTenantIdChangePlanRoute,
   ApiBillingTenantIdInvoicesRoute: ApiBillingTenantIdInvoicesRoute,
@@ -3576,6 +3706,10 @@ const rootRouteChildren: RootRouteChildren = {
     ApiToolsVersioningToolNameRollbackRoute,
   ApiToolsVersioningToolNameVersionsRoute:
     ApiToolsVersioningToolNameVersionsRoute,
+  ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute:
+    ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute,
+  ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute:
+    ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute,
   ApiDataSharedPromotionsPromotionIdApproveRoute:
     ApiDataSharedPromotionsPromotionIdApproveRoute,
   ApiDataSharedPromotionsPromotionIdRejectRoute:
