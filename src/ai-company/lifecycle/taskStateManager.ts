@@ -1,4 +1,5 @@
-export type TaskStatus = "pending" | "running" | "paused" | "completed" | "failed" | "archived";
+import { LifecycleRules, type TaskStatus } from "./lifecycleRules";
+export type { TaskStatus };
 
 export type Task = {
   id: string;
@@ -11,6 +12,7 @@ export type Task = {
 
 export class TaskStateManager {
   private tasks: Map<string, Task> = new Map();
+  private rules = new LifecycleRules();
 
   createTask(id: string, title: string, description?: string): Task {
     const now = new Date().toISOString();
@@ -39,6 +41,7 @@ export class TaskStateManager {
     if (!task) {
       throw new Error(`Task not found: ${id}`);
     }
+    this.rules.assertTransition(task.status, nextStatus);
     task.status = nextStatus;
     task.updatedAt = new Date().toISOString();
     this.tasks.set(id, task);

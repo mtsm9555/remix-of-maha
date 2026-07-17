@@ -9,6 +9,7 @@ export { config };
 export * from "./types";
 export * from "./lifecycle/lifecycleManager";
 export * from "./lifecycle/taskStateManager";
+export * from "./lifecycle/lifecycleRules";
 export * from "./agents/agent";
 export * from "./memory/memory";
 export * from "./permissions/permissions";
