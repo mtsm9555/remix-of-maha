@@ -1333,6 +1333,48 @@ export type Database = {
         }
         Relationships: []
       }
+      memory_promotions: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          id: string
+          justification: string
+          proposed_access_level: string
+          proposed_content: string
+          requested_at: string
+          requested_by: string
+          source_department: string | null
+          source_memory_id: string | null
+          status: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          id: string
+          justification: string
+          proposed_access_level: string
+          proposed_content: string
+          requested_at?: string
+          requested_by: string
+          source_department?: string | null
+          source_memory_id?: string | null
+          status?: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          id?: string
+          justification?: string
+          proposed_access_level?: string
+          proposed_content?: string
+          requested_at?: string
+          requested_by?: string
+          source_department?: string | null
+          source_memory_id?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
       messages: {
         Row: {
           content: string
@@ -1676,6 +1718,60 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      shared_memories: {
+        Row: {
+          access_level: string
+          approved_at: string | null
+          approved_by: string | null
+          author_id: string
+          category: string
+          content: string
+          created_at: string
+          embedding: string | null
+          id: string
+          origin: string
+          source_department: string | null
+          source_memory_id: string | null
+          status: string
+          updated_at: string
+          version: number
+        }
+        Insert: {
+          access_level: string
+          approved_at?: string | null
+          approved_by?: string | null
+          author_id: string
+          category: string
+          content: string
+          created_at?: string
+          embedding?: string | null
+          id: string
+          origin: string
+          source_department?: string | null
+          source_memory_id?: string | null
+          status?: string
+          updated_at?: string
+          version?: number
+        }
+        Update: {
+          access_level?: string
+          approved_at?: string | null
+          approved_by?: string | null
+          author_id?: string
+          category?: string
+          content?: string
+          created_at?: string
+          embedding?: string | null
+          id?: string
+          origin?: string
+          source_department?: string | null
+          source_memory_id?: string | null
+          status?: string
+          updated_at?: string
+          version?: number
+        }
+        Relationships: []
       }
       tasks: {
         Row: {
@@ -2262,6 +2358,27 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
       workflow_definitions: {
         Row: {
           created_at: string
@@ -2358,9 +2475,18 @@ export type Database = {
         Args: { memory_ids: string[] }
         Returns: undefined
       }
+      clearance_rank: { Args: { _level: string }; Returns: number }
       decay_stale_memories: {
         Args: { days_threshold: number; decay_factor: number }
         Returns: undefined
+      }
+      get_user_clearance: { Args: { _user_id: string }; Returns: string }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
       }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
       is_project_member: {
@@ -2434,6 +2560,23 @@ export type Database = {
           type: string
         }[]
       }
+      match_shared_memories: {
+        Args: {
+          match_count: number
+          match_threshold: number
+          query_embedding: string
+          requester_clearance: string
+        }
+        Returns: {
+          access_level: string
+          category: string
+          content: string
+          id: string
+          origin: string
+          similarity: number
+          source_department: string
+        }[]
+      }
       match_user_memories: {
         Args: {
           match_count: number
@@ -2472,7 +2615,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -2599,6 +2742,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
