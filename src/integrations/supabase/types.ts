@@ -4308,6 +4308,483 @@ export type Database = {
           },
         ]
       }
+      doc_activities: {
+        Row: {
+          activity_type: string
+          created_at: string | null
+          details: Json | null
+          document_id: string
+          id: string
+          ip_address: string | null
+          tenant_id: string
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          activity_type: string
+          created_at?: string | null
+          details?: Json | null
+          document_id: string
+          id: string
+          ip_address?: string | null
+          tenant_id: string
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          activity_type?: string
+          created_at?: string | null
+          details?: Json | null
+          document_id?: string
+          id?: string
+          ip_address?: string | null
+          tenant_id?: string
+          user_agent?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "doc_activities_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "doc_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "doc_activities_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      doc_documents: {
+        Row: {
+          access_level: string
+          ai_category: string | null
+          ai_processed: boolean | null
+          ai_tags: string[] | null
+          article_id: string | null
+          categories: string[] | null
+          contact_id: string | null
+          created_at: string | null
+          current_version_id: string | null
+          custom_metadata: Json | null
+          deal_id: string | null
+          deleted_at: string | null
+          description: string | null
+          download_count: number | null
+          extracted_text: string | null
+          folder_id: string | null
+          id: string
+          is_encrypted: boolean | null
+          last_accessed_at: string | null
+          mime_type: string
+          name: string
+          original_name: string
+          owner_id: string
+          project_id: string | null
+          share_count: number | null
+          size_bytes: number
+          status: string
+          storage_path: string
+          storage_provider: string
+          tags: string[] | null
+          task_id: string | null
+          team_id: string | null
+          tenant_id: string
+          type: string
+          updated_at: string | null
+          version_count: number
+          view_count: number | null
+        }
+        Insert: {
+          access_level?: string
+          ai_category?: string | null
+          ai_processed?: boolean | null
+          ai_tags?: string[] | null
+          article_id?: string | null
+          categories?: string[] | null
+          contact_id?: string | null
+          created_at?: string | null
+          current_version_id?: string | null
+          custom_metadata?: Json | null
+          deal_id?: string | null
+          deleted_at?: string | null
+          description?: string | null
+          download_count?: number | null
+          extracted_text?: string | null
+          folder_id?: string | null
+          id: string
+          is_encrypted?: boolean | null
+          last_accessed_at?: string | null
+          mime_type: string
+          name: string
+          original_name: string
+          owner_id: string
+          project_id?: string | null
+          share_count?: number | null
+          size_bytes: number
+          status?: string
+          storage_path: string
+          storage_provider?: string
+          tags?: string[] | null
+          task_id?: string | null
+          team_id?: string | null
+          tenant_id: string
+          type: string
+          updated_at?: string | null
+          version_count?: number
+          view_count?: number | null
+        }
+        Update: {
+          access_level?: string
+          ai_category?: string | null
+          ai_processed?: boolean | null
+          ai_tags?: string[] | null
+          article_id?: string | null
+          categories?: string[] | null
+          contact_id?: string | null
+          created_at?: string | null
+          current_version_id?: string | null
+          custom_metadata?: Json | null
+          deal_id?: string | null
+          deleted_at?: string | null
+          description?: string | null
+          download_count?: number | null
+          extracted_text?: string | null
+          folder_id?: string | null
+          id?: string
+          is_encrypted?: boolean | null
+          last_accessed_at?: string | null
+          mime_type?: string
+          name?: string
+          original_name?: string
+          owner_id?: string
+          project_id?: string | null
+          share_count?: number | null
+          size_bytes?: number
+          status?: string
+          storage_path?: string
+          storage_provider?: string
+          tags?: string[] | null
+          task_id?: string | null
+          team_id?: string | null
+          tenant_id?: string
+          type?: string
+          updated_at?: string | null
+          version_count?: number
+          view_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "doc_documents_folder_id_fkey"
+            columns: ["folder_id"]
+            isOneToOne: false
+            referencedRelation: "doc_folders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "doc_documents_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      doc_folders: {
+        Row: {
+          access_level: string
+          allowed_roles: string[] | null
+          allowed_user_ids: string[] | null
+          child_ids: string[] | null
+          color: string | null
+          created_at: string | null
+          description: string | null
+          document_count: number | null
+          icon: string | null
+          id: string
+          level: number | null
+          name: string
+          parent_id: string | null
+          path: string
+          slug: string
+          tenant_id: string
+          total_size_bytes: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          access_level?: string
+          allowed_roles?: string[] | null
+          allowed_user_ids?: string[] | null
+          child_ids?: string[] | null
+          color?: string | null
+          created_at?: string | null
+          description?: string | null
+          document_count?: number | null
+          icon?: string | null
+          id: string
+          level?: number | null
+          name: string
+          parent_id?: string | null
+          path: string
+          slug: string
+          tenant_id: string
+          total_size_bytes?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          access_level?: string
+          allowed_roles?: string[] | null
+          allowed_user_ids?: string[] | null
+          child_ids?: string[] | null
+          color?: string | null
+          created_at?: string | null
+          description?: string | null
+          document_count?: number | null
+          icon?: string | null
+          id?: string
+          level?: number | null
+          name?: string
+          parent_id?: string | null
+          path?: string
+          slug?: string
+          tenant_id?: string
+          total_size_bytes?: number | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "doc_folders_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "doc_folders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "doc_folders_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      doc_metadata: {
+        Row: {
+          author: string | null
+          created_date: string | null
+          document_id: string
+          duration: number | null
+          entities: Json | null
+          extracted_at: string
+          height: number | null
+          id: string
+          keywords: string[] | null
+          language: string | null
+          modified_date: string | null
+          page_count: number | null
+          subject: string | null
+          summary: string | null
+          tenant_id: string
+          title: string | null
+          width: number | null
+          word_count: number | null
+        }
+        Insert: {
+          author?: string | null
+          created_date?: string | null
+          document_id: string
+          duration?: number | null
+          entities?: Json | null
+          extracted_at?: string
+          height?: number | null
+          id: string
+          keywords?: string[] | null
+          language?: string | null
+          modified_date?: string | null
+          page_count?: number | null
+          subject?: string | null
+          summary?: string | null
+          tenant_id: string
+          title?: string | null
+          width?: number | null
+          word_count?: number | null
+        }
+        Update: {
+          author?: string | null
+          created_date?: string | null
+          document_id?: string
+          duration?: number | null
+          entities?: Json | null
+          extracted_at?: string
+          height?: number | null
+          id?: string
+          keywords?: string[] | null
+          language?: string | null
+          modified_date?: string | null
+          page_count?: number | null
+          subject?: string | null
+          summary?: string | null
+          tenant_id?: string
+          title?: string | null
+          width?: number | null
+          word_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "doc_metadata_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "doc_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "doc_metadata_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      doc_shares: {
+        Row: {
+          created_at: string | null
+          current_downloads: number | null
+          document_id: string
+          expires_at: string | null
+          id: string
+          is_active: boolean | null
+          last_accessed_at: string | null
+          max_downloads: number | null
+          message: string | null
+          password_hash: string | null
+          permissions: string[]
+          public_link_id: string | null
+          require_login: boolean | null
+          share_type: string
+          shared_by: string
+          target_team_id: string | null
+          target_user_id: string | null
+          tenant_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          current_downloads?: number | null
+          document_id: string
+          expires_at?: string | null
+          id: string
+          is_active?: boolean | null
+          last_accessed_at?: string | null
+          max_downloads?: number | null
+          message?: string | null
+          password_hash?: string | null
+          permissions?: string[]
+          public_link_id?: string | null
+          require_login?: boolean | null
+          share_type: string
+          shared_by: string
+          target_team_id?: string | null
+          target_user_id?: string | null
+          tenant_id: string
+        }
+        Update: {
+          created_at?: string | null
+          current_downloads?: number | null
+          document_id?: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          last_accessed_at?: string | null
+          max_downloads?: number | null
+          message?: string | null
+          password_hash?: string | null
+          permissions?: string[]
+          public_link_id?: string | null
+          require_login?: boolean | null
+          share_type?: string
+          shared_by?: string
+          target_team_id?: string | null
+          target_user_id?: string | null
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "doc_shares_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "doc_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "doc_shares_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      doc_versions: {
+        Row: {
+          change_summary: string | null
+          changed_by: string
+          checksum_sha256: string
+          created_at: string | null
+          document_id: string
+          id: string
+          size_bytes: number
+          status: string
+          storage_path: string
+          tenant_id: string
+          version: number
+        }
+        Insert: {
+          change_summary?: string | null
+          changed_by: string
+          checksum_sha256: string
+          created_at?: string | null
+          document_id: string
+          id: string
+          size_bytes: number
+          status: string
+          storage_path: string
+          tenant_id: string
+          version: number
+        }
+        Update: {
+          change_summary?: string | null
+          changed_by?: string
+          checksum_sha256?: string
+          created_at?: string | null
+          document_id?: string
+          id?: string
+          size_bytes?: number
+          status?: string
+          storage_path?: string
+          tenant_id?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "doc_versions_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "doc_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "doc_versions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       dr_regions: {
         Row: {
           api_endpoint: string
@@ -6537,6 +7014,449 @@ export type Database = {
           tool_name?: string
         }
         Relationships: []
+      }
+      meeting_action_items: {
+        Row: {
+          assignee_id: string | null
+          assignee_name: string | null
+          completed_at: string | null
+          context: string | null
+          created_at: string | null
+          description: string | null
+          due_date: string | null
+          id: string
+          meeting_id: string
+          mentioned_at: number | null
+          priority: string | null
+          status: string | null
+          summary_id: string | null
+          tenant_id: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          assignee_id?: string | null
+          assignee_name?: string | null
+          completed_at?: string | null
+          context?: string | null
+          created_at?: string | null
+          description?: string | null
+          due_date?: string | null
+          id: string
+          meeting_id: string
+          mentioned_at?: number | null
+          priority?: string | null
+          status?: string | null
+          summary_id?: string | null
+          tenant_id: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          assignee_id?: string | null
+          assignee_name?: string | null
+          completed_at?: string | null
+          context?: string | null
+          created_at?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          meeting_id?: string
+          mentioned_at?: number | null
+          priority?: string | null
+          status?: string | null
+          summary_id?: string | null
+          tenant_id?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meeting_action_items_meeting_id_fkey"
+            columns: ["meeting_id"]
+            isOneToOne: false
+            referencedRelation: "meetings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "meeting_action_items_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meeting_decisions: {
+        Row: {
+          alternatives: Json | null
+          created_at: string | null
+          decided_by: string[] | null
+          description: string | null
+          id: string
+          meeting_id: string
+          mentioned_at: number | null
+          rationale: string | null
+          status: string | null
+          summary_id: string | null
+          tenant_id: string
+          title: string
+        }
+        Insert: {
+          alternatives?: Json | null
+          created_at?: string | null
+          decided_by?: string[] | null
+          description?: string | null
+          id: string
+          meeting_id: string
+          mentioned_at?: number | null
+          rationale?: string | null
+          status?: string | null
+          summary_id?: string | null
+          tenant_id: string
+          title: string
+        }
+        Update: {
+          alternatives?: Json | null
+          created_at?: string | null
+          decided_by?: string[] | null
+          description?: string | null
+          id?: string
+          meeting_id?: string
+          mentioned_at?: number | null
+          rationale?: string | null
+          status?: string | null
+          summary_id?: string | null
+          tenant_id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meeting_decisions_meeting_id_fkey"
+            columns: ["meeting_id"]
+            isOneToOne: false
+            referencedRelation: "meetings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "meeting_decisions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meeting_follow_ups: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          due_date: string | null
+          id: string
+          meeting_id: string
+          responsible_id: string | null
+          responsible_name: string | null
+          summary_id: string | null
+          tenant_id: string
+          title: string
+          type: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          due_date?: string | null
+          id: string
+          meeting_id: string
+          responsible_id?: string | null
+          responsible_name?: string | null
+          summary_id?: string | null
+          tenant_id: string
+          title: string
+          type?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          meeting_id?: string
+          responsible_id?: string | null
+          responsible_name?: string | null
+          summary_id?: string | null
+          tenant_id?: string
+          title?: string
+          type?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meeting_follow_ups_meeting_id_fkey"
+            columns: ["meeting_id"]
+            isOneToOne: false
+            referencedRelation: "meetings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "meeting_follow_ups_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meeting_summaries: {
+        Row: {
+          ai_confidence: number | null
+          created_at: string | null
+          executive_summary: string | null
+          human_reviewed: boolean | null
+          id: string
+          key_points: Json | null
+          meeting_id: string
+          reading_time_minutes: number | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          sentiment: string | null
+          tenant_id: string
+          topics: Json | null
+          updated_at: string | null
+          word_count: number | null
+        }
+        Insert: {
+          ai_confidence?: number | null
+          created_at?: string | null
+          executive_summary?: string | null
+          human_reviewed?: boolean | null
+          id: string
+          key_points?: Json | null
+          meeting_id: string
+          reading_time_minutes?: number | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sentiment?: string | null
+          tenant_id: string
+          topics?: Json | null
+          updated_at?: string | null
+          word_count?: number | null
+        }
+        Update: {
+          ai_confidence?: number | null
+          created_at?: string | null
+          executive_summary?: string | null
+          human_reviewed?: boolean | null
+          id?: string
+          key_points?: Json | null
+          meeting_id?: string
+          reading_time_minutes?: number | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sentiment?: string | null
+          tenant_id?: string
+          topics?: Json | null
+          updated_at?: string | null
+          word_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meeting_summaries_meeting_id_fkey"
+            columns: ["meeting_id"]
+            isOneToOne: false
+            referencedRelation: "meetings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "meeting_summaries_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meeting_transcripts: {
+        Row: {
+          confidence: number | null
+          created_at: string | null
+          full_transcript: string | null
+          id: string
+          language: string | null
+          meeting_id: string
+          processed_at: string | null
+          processing_time_ms: number | null
+          segments: Json | null
+          speaker_count: number | null
+          status: string
+          tenant_id: string
+          word_count: number | null
+        }
+        Insert: {
+          confidence?: number | null
+          created_at?: string | null
+          full_transcript?: string | null
+          id: string
+          language?: string | null
+          meeting_id: string
+          processed_at?: string | null
+          processing_time_ms?: number | null
+          segments?: Json | null
+          speaker_count?: number | null
+          status?: string
+          tenant_id: string
+          word_count?: number | null
+        }
+        Update: {
+          confidence?: number | null
+          created_at?: string | null
+          full_transcript?: string | null
+          id?: string
+          language?: string | null
+          meeting_id?: string
+          processed_at?: string | null
+          processing_time_ms?: number | null
+          segments?: Json | null
+          speaker_count?: number | null
+          status?: string
+          tenant_id?: string
+          word_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meeting_transcripts_meeting_id_fkey"
+            columns: ["meeting_id"]
+            isOneToOne: false
+            referencedRelation: "meetings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "meeting_transcripts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meetings: {
+        Row: {
+          action_item_count: number | null
+          actual_end: string | null
+          actual_start: string | null
+          ai_processed: boolean | null
+          calendar_event_id: string | null
+          contact_id: string | null
+          created_at: string | null
+          deal_id: string | null
+          decision_count: number | null
+          description: string | null
+          duration_minutes: number
+          external_participants: Json | null
+          follow_up_count: number | null
+          id: string
+          is_recorded: boolean | null
+          is_virtual: boolean | null
+          location: string | null
+          meeting_url: string | null
+          metadata: Json | null
+          organizer_id: string
+          participant_ids: string[] | null
+          project_id: string | null
+          recording_duration_seconds: number | null
+          recording_url: string | null
+          scheduled_end: string
+          scheduled_start: string
+          status: string
+          summary_id: string | null
+          tags: string[] | null
+          tenant_id: string
+          title: string
+          transcript_id: string | null
+          transcript_status: string | null
+          type: string
+          updated_at: string | null
+        }
+        Insert: {
+          action_item_count?: number | null
+          actual_end?: string | null
+          actual_start?: string | null
+          ai_processed?: boolean | null
+          calendar_event_id?: string | null
+          contact_id?: string | null
+          created_at?: string | null
+          deal_id?: string | null
+          decision_count?: number | null
+          description?: string | null
+          duration_minutes?: number
+          external_participants?: Json | null
+          follow_up_count?: number | null
+          id: string
+          is_recorded?: boolean | null
+          is_virtual?: boolean | null
+          location?: string | null
+          meeting_url?: string | null
+          metadata?: Json | null
+          organizer_id: string
+          participant_ids?: string[] | null
+          project_id?: string | null
+          recording_duration_seconds?: number | null
+          recording_url?: string | null
+          scheduled_end: string
+          scheduled_start: string
+          status?: string
+          summary_id?: string | null
+          tags?: string[] | null
+          tenant_id: string
+          title: string
+          transcript_id?: string | null
+          transcript_status?: string | null
+          type: string
+          updated_at?: string | null
+        }
+        Update: {
+          action_item_count?: number | null
+          actual_end?: string | null
+          actual_start?: string | null
+          ai_processed?: boolean | null
+          calendar_event_id?: string | null
+          contact_id?: string | null
+          created_at?: string | null
+          deal_id?: string | null
+          decision_count?: number | null
+          description?: string | null
+          duration_minutes?: number
+          external_participants?: Json | null
+          follow_up_count?: number | null
+          id?: string
+          is_recorded?: boolean | null
+          is_virtual?: boolean | null
+          location?: string | null
+          meeting_url?: string | null
+          metadata?: Json | null
+          organizer_id?: string
+          participant_ids?: string[] | null
+          project_id?: string | null
+          recording_duration_seconds?: number | null
+          recording_url?: string | null
+          scheduled_end?: string
+          scheduled_start?: string
+          status?: string
+          summary_id?: string | null
+          tags?: string[] | null
+          tenant_id?: string
+          title?: string
+          transcript_id?: string | null
+          transcript_status?: string | null
+          type?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meetings_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       member_invites: {
         Row: {
