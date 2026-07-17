@@ -70,7 +70,7 @@ export class RoleManager {
       patch.permissions = updates.permissions;
       patch.effective_permissions = updates.permissions;
     }
-    const { data, error } = await supabaseAdmin.from("rbac_roles").update(patch).eq("id", roleId).select("*").single();
+    const { data, error } = await supabaseAdmin.from("rbac_roles").update(patch as any).eq("id", roleId).select("*").single();
     if (error) throw error;
     return rowToRole(data);
   }
