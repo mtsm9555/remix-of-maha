@@ -116,6 +116,7 @@ import { Route as ApiInfrastructureDiscoveryReputationAgentIdRouteImport } from 
 import { Route as ApiInfrastructureBudgetWalletInstanceIdRouteImport } from './routes/api/infrastructure/budget/wallet.$instanceId'
 import { Route as ApiInfrastructureBudgetTopupsPendingRouteImport } from './routes/api/infrastructure/budget/topups/pending'
 import { Route as ApiInfrastructureBudgetLedgerInstanceIdRouteImport } from './routes/api/infrastructure/budget/ledger.$instanceId'
+import { Route as ApiGovernanceDsarIdProcessRouteImport } from './routes/api/governance/dsar/$id/process'
 import { Route as ApiDataUserMemoriesSearchRouteImport } from './routes/api/data/user/memories/search'
 import { Route as ApiDataUserMemoriesMemoryIdRouteImport } from './routes/api/data/user/memories/$memoryId'
 import { Route as ApiDataSnapshotsTaskTaskIdRouteImport } from './routes/api/data/snapshots/task/$taskId'
@@ -738,6 +739,12 @@ const ApiInfrastructureBudgetLedgerInstanceIdRoute =
     path: '/api/infrastructure/budget/ledger/$instanceId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiGovernanceDsarIdProcessRoute =
+  ApiGovernanceDsarIdProcessRouteImport.update({
+    id: '/api/governance/dsar/$id/process',
+    path: '/api/governance/dsar/$id/process',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiDataUserMemoriesSearchRoute =
   ApiDataUserMemoriesSearchRouteImport.update({
     id: '/api/data/user/memories/search',
@@ -958,6 +965,7 @@ export interface FileRoutesByFullPath {
   '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
+  '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -1086,6 +1094,7 @@ export interface FileRoutesByTo {
   '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
+  '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -1215,6 +1224,7 @@ export interface FileRoutesById {
   '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
+  '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
   '/api/infrastructure/budget/ledger/$instanceId': typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   '/api/infrastructure/budget/topups/pending': typeof ApiInfrastructureBudgetTopupsPendingRoute
   '/api/infrastructure/budget/wallet/$instanceId': typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -1345,6 +1355,7 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
+    | '/api/governance/dsar/$id/process'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -1473,6 +1484,7 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
+    | '/api/governance/dsar/$id/process'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -1601,6 +1613,7 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
+    | '/api/governance/dsar/$id/process'
     | '/api/infrastructure/budget/ledger/$instanceId'
     | '/api/infrastructure/budget/topups/pending'
     | '/api/infrastructure/budget/wallet/$instanceId'
@@ -1729,6 +1742,7 @@ export interface RootRouteChildren {
   ApiDataSnapshotsTaskTaskIdRoute: typeof ApiDataSnapshotsTaskTaskIdRoute
   ApiDataUserMemoriesMemoryIdRoute: typeof ApiDataUserMemoriesMemoryIdRoute
   ApiDataUserMemoriesSearchRoute: typeof ApiDataUserMemoriesSearchRoute
+  ApiGovernanceDsarIdProcessRoute: typeof ApiGovernanceDsarIdProcessRoute
   ApiInfrastructureBudgetLedgerInstanceIdRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRoute
   ApiInfrastructureBudgetTopupsPendingRoute: typeof ApiInfrastructureBudgetTopupsPendingRoute
   ApiInfrastructureBudgetWalletInstanceIdRoute: typeof ApiInfrastructureBudgetWalletInstanceIdRoute
@@ -2501,6 +2515,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiInfrastructureBudgetLedgerInstanceIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/governance/dsar/$id/process': {
+      id: '/api/governance/dsar/$id/process'
+      path: '/api/governance/dsar/$id/process'
+      fullPath: '/api/governance/dsar/$id/process'
+      preLoaderRoute: typeof ApiGovernanceDsarIdProcessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/data/user/memories/search': {
       id: '/api/data/user/memories/search'
       path: '/api/data/user/memories/search'
@@ -2805,6 +2826,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiDataSnapshotsTaskTaskIdRoute: ApiDataSnapshotsTaskTaskIdRoute,
   ApiDataUserMemoriesMemoryIdRoute: ApiDataUserMemoriesMemoryIdRoute,
   ApiDataUserMemoriesSearchRoute: ApiDataUserMemoriesSearchRoute,
+  ApiGovernanceDsarIdProcessRoute: ApiGovernanceDsarIdProcessRoute,
   ApiInfrastructureBudgetLedgerInstanceIdRoute:
     ApiInfrastructureBudgetLedgerInstanceIdRoute,
   ApiInfrastructureBudgetTopupsPendingRoute:
