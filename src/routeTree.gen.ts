@@ -55,6 +55,7 @@ import { Route as ApiDepartmentsSplatRouteImport } from './routes/api/department
 import { Route as ApiCollaborationSessionsRouteImport } from './routes/api/collaboration/sessions'
 import { Route as ApiCollaborationInitiateRouteImport } from './routes/api/collaboration/initiate'
 import { Route as ApiClusterMetricsRouteImport } from './routes/api/cluster/metrics'
+import { Route as ApiCacheStatsRouteImport } from './routes/api/cache/stats'
 import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiBillingPlansRouteImport } from './routes/api/billing/plans'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
@@ -462,6 +463,11 @@ const ApiCollaborationInitiateRoute =
 const ApiClusterMetricsRoute = ApiClusterMetricsRouteImport.update({
   id: '/api/cluster/metrics',
   path: '/api/cluster/metrics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCacheStatsRoute = ApiCacheStatsRouteImport.update({
+  id: '/api/cache/stats',
+  path: '/api/cache/stats',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiBudgetSplatRoute = ApiBudgetSplatRouteImport.update({
@@ -1479,6 +1485,7 @@ export interface FileRoutesByFullPath {
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/billing/plans': typeof ApiBillingPlansRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
+  '/api/cache/stats': typeof ApiCacheStatsRoute
   '/api/cluster/metrics': typeof ApiClusterMetricsRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
@@ -1700,6 +1707,7 @@ export interface FileRoutesByTo {
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/billing/plans': typeof ApiBillingPlansRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
+  '/api/cache/stats': typeof ApiCacheStatsRoute
   '/api/cluster/metrics': typeof ApiClusterMetricsRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
@@ -1922,6 +1930,7 @@ export interface FileRoutesById {
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/billing/plans': typeof ApiBillingPlansRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
+  '/api/cache/stats': typeof ApiCacheStatsRoute
   '/api/cluster/metrics': typeof ApiClusterMetricsRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
   '/api/collaboration/sessions': typeof ApiCollaborationSessionsRoute
@@ -2145,6 +2154,7 @@ export interface FileRouteTypes {
     | '/api/approvals/$'
     | '/api/billing/plans'
     | '/api/budget/$'
+    | '/api/cache/stats'
     | '/api/cluster/metrics'
     | '/api/collaboration/initiate'
     | '/api/collaboration/sessions'
@@ -2366,6 +2376,7 @@ export interface FileRouteTypes {
     | '/api/approvals/$'
     | '/api/billing/plans'
     | '/api/budget/$'
+    | '/api/cache/stats'
     | '/api/cluster/metrics'
     | '/api/collaboration/initiate'
     | '/api/collaboration/sessions'
@@ -2587,6 +2598,7 @@ export interface FileRouteTypes {
     | '/api/approvals/$'
     | '/api/billing/plans'
     | '/api/budget/$'
+    | '/api/cache/stats'
     | '/api/cluster/metrics'
     | '/api/collaboration/initiate'
     | '/api/collaboration/sessions'
@@ -2809,6 +2821,7 @@ export interface RootRouteChildren {
   ApiApprovalsSplatRoute: typeof ApiApprovalsSplatRoute
   ApiBillingPlansRoute: typeof ApiBillingPlansRoute
   ApiBudgetSplatRoute: typeof ApiBudgetSplatRoute
+  ApiCacheStatsRoute: typeof ApiCacheStatsRoute
   ApiClusterMetricsRoute: typeof ApiClusterMetricsRoute
   ApiCollaborationInitiateRoute: typeof ApiCollaborationInitiateRoute
   ApiCollaborationSessionsRoute: typeof ApiCollaborationSessionsRoute
@@ -3317,6 +3330,13 @@ declare module '@tanstack/react-router' {
       path: '/api/cluster/metrics'
       fullPath: '/api/cluster/metrics'
       preLoaderRoute: typeof ApiClusterMetricsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cache/stats': {
+      id: '/api/cache/stats'
+      path: '/api/cache/stats'
+      fullPath: '/api/cache/stats'
+      preLoaderRoute: typeof ApiCacheStatsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/budget/$': {
@@ -4717,6 +4737,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiApprovalsSplatRoute: ApiApprovalsSplatRoute,
   ApiBillingPlansRoute: ApiBillingPlansRoute,
   ApiBudgetSplatRoute: ApiBudgetSplatRoute,
+  ApiCacheStatsRoute: ApiCacheStatsRoute,
   ApiClusterMetricsRoute: ApiClusterMetricsRoute,
   ApiCollaborationInitiateRoute: ApiCollaborationInitiateRoute,
   ApiCollaborationSessionsRoute: ApiCollaborationSessionsRoute,
