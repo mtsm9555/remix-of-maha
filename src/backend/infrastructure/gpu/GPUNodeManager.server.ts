@@ -68,7 +68,7 @@ export const GPUNodeManager = {
         utilization_percent: gpu.utilizationPercent,
         memory_used_gb: gpu.memoryUsedGB,
         memory_free_gb: gpu.memoryFreeGB,
-        mig_instances: gpu.migInstances ?? [],
+        mig_instances: (gpu.migInstances ?? []) as unknown as never,
         pci_bus_id: gpu.pciBusId,
         uuid: gpu.uuid,
         location: gpu.location,
