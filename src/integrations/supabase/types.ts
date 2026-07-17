@@ -3288,6 +3288,219 @@ export type Database = {
           },
         ]
       }
+      scaling_events: {
+        Row: {
+          completed_at: string | null
+          direction: string
+          error: string | null
+          estimated_cost_change_usd: number | null
+          id: string
+          initiated_at: string
+          instances_after: number
+          instances_before: number
+          metadata: Json
+          metric_value: number
+          policy_id: string
+          reason: string
+          status: string
+          threshold_value: number
+          trigger: string
+        }
+        Insert: {
+          completed_at?: string | null
+          direction: string
+          error?: string | null
+          estimated_cost_change_usd?: number | null
+          id: string
+          initiated_at: string
+          instances_after: number
+          instances_before: number
+          metadata?: Json
+          metric_value: number
+          policy_id: string
+          reason: string
+          status: string
+          threshold_value: number
+          trigger: string
+        }
+        Update: {
+          completed_at?: string | null
+          direction?: string
+          error?: string | null
+          estimated_cost_change_usd?: number | null
+          id?: string
+          initiated_at?: string
+          instances_after?: number
+          instances_before?: number
+          metadata?: Json
+          metric_value?: number
+          policy_id?: string
+          reason?: string
+          status?: string
+          threshold_value?: number
+          trigger?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scaling_events_policy_id_fkey"
+            columns: ["policy_id"]
+            isOneToOne: false
+            referencedRelation: "scaling_policies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scaling_metrics: {
+        Row: {
+          cpu_usage_percent: number
+          current_instances: number
+          custom_metrics: Json
+          desired_instances: number
+          id: string
+          memory_usage_percent: number
+          policy_id: string
+          queue_depth: number
+          requests_per_second: number
+          timestamp: string
+        }
+        Insert: {
+          cpu_usage_percent: number
+          current_instances: number
+          custom_metrics?: Json
+          desired_instances: number
+          id: string
+          memory_usage_percent: number
+          policy_id: string
+          queue_depth?: number
+          requests_per_second?: number
+          timestamp: string
+        }
+        Update: {
+          cpu_usage_percent?: number
+          current_instances?: number
+          custom_metrics?: Json
+          desired_instances?: number
+          id?: string
+          memory_usage_percent?: number
+          policy_id?: string
+          queue_depth?: number
+          requests_per_second?: number
+          timestamp?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scaling_metrics_policy_id_fkey"
+            columns: ["policy_id"]
+            isOneToOne: false
+            referencedRelation: "scaling_policies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      scaling_policies: {
+        Row: {
+          cloud_provider: string
+          created_at: string
+          current_instances: number
+          description: string | null
+          desired_instances: number
+          id: string
+          last_scaled_at: string | null
+          max_instances: number
+          min_instances: number
+          name: string
+          scale_down_cooldown_seconds: number
+          scale_up_cooldown_seconds: number
+          stabilization_window_seconds: number
+          status: string
+          target_resource_id: string
+          target_resource_type: string
+          trigger_configs: Json
+          triggers: string[]
+          updated_at: string
+        }
+        Insert: {
+          cloud_provider: string
+          created_at?: string
+          current_instances?: number
+          description?: string | null
+          desired_instances?: number
+          id: string
+          last_scaled_at?: string | null
+          max_instances?: number
+          min_instances?: number
+          name: string
+          scale_down_cooldown_seconds?: number
+          scale_up_cooldown_seconds?: number
+          stabilization_window_seconds?: number
+          status?: string
+          target_resource_id: string
+          target_resource_type: string
+          trigger_configs?: Json
+          triggers?: string[]
+          updated_at?: string
+        }
+        Update: {
+          cloud_provider?: string
+          created_at?: string
+          current_instances?: number
+          description?: string | null
+          desired_instances?: number
+          id?: string
+          last_scaled_at?: string | null
+          max_instances?: number
+          min_instances?: number
+          name?: string
+          scale_down_cooldown_seconds?: number
+          scale_up_cooldown_seconds?: number
+          stabilization_window_seconds?: number
+          status?: string
+          target_resource_id?: string
+          target_resource_type?: string
+          trigger_configs?: Json
+          triggers?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      scaling_predictions: {
+        Row: {
+          confidence_score: number
+          generated_at: string
+          id: string
+          policy_id: string
+          predicted_instances_needed: number
+          predicted_metric_value: number
+          predicted_timestamp: string
+        }
+        Insert: {
+          confidence_score: number
+          generated_at: string
+          id: string
+          policy_id: string
+          predicted_instances_needed: number
+          predicted_metric_value: number
+          predicted_timestamp: string
+        }
+        Update: {
+          confidence_score?: number
+          generated_at?: string
+          id?: string
+          policy_id?: string
+          predicted_instances_needed?: number
+          predicted_metric_value?: number
+          predicted_timestamp?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scaling_predictions_policy_id_fkey"
+            columns: ["policy_id"]
+            isOneToOne: false
+            referencedRelation: "scaling_policies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       shared_memories: {
         Row: {
           access_level: string
