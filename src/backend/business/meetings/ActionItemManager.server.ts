@@ -3,7 +3,7 @@ import type { ActionItem, ActionItemStatus } from "./MeetingIntelligenceTypes";
 
 export class ActionItemManager {
   static async updateStatus(actionItemId: string, tenantId: string, status: ActionItemStatus): Promise<void> {
-    const updates: Record<string, any> = { status };
+    const updates: { status: ActionItemStatus; completed_at?: string } = { status };
     if (status === 'completed') updates.completed_at = new Date().toISOString();
     await db.from('meeting_action_items').update(updates).eq('id', actionItemId).eq('tenant_id', tenantId);
   }
