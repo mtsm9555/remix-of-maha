@@ -5112,6 +5112,48 @@ export type Database = {
           },
         ]
       }
+      doc_feedback: {
+        Row: {
+          created_at: string | null
+          doc_id: string
+          helpful: boolean
+          id: string
+          tenant_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          doc_id: string
+          helpful: boolean
+          id: string
+          tenant_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          doc_id?: string
+          helpful?: boolean
+          id?: string
+          tenant_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "doc_feedback_doc_id_fkey"
+            columns: ["doc_id"]
+            isOneToOne: false
+            referencedRelation: "system_documentation"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "doc_feedback_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       doc_folders: {
         Row: {
           access_level: string
@@ -5268,6 +5310,38 @@ export type Database = {
           },
         ]
       }
+      doc_search_logs_sys: {
+        Row: {
+          created_at: string | null
+          id: string
+          query: string
+          result_count: number
+          tenant_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id: string
+          query: string
+          result_count: number
+          tenant_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          query?: string
+          result_count?: number
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "doc_search_logs_sys_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       doc_shares: {
         Row: {
           created_at: string | null
@@ -5399,6 +5473,56 @@ export type Database = {
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      doc_versions_sys: {
+        Row: {
+          content: string
+          created_at: string | null
+          diagrams: Json | null
+          doc_id: string
+          id: string
+          is_latest: boolean | null
+          metadata: Json | null
+          published_at: string
+          published_by: string
+          revision: number
+          version: string
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          diagrams?: Json | null
+          doc_id: string
+          id: string
+          is_latest?: boolean | null
+          metadata?: Json | null
+          published_at: string
+          published_by: string
+          revision: number
+          version: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          diagrams?: Json | null
+          doc_id?: string
+          id?: string
+          is_latest?: boolean | null
+          metadata?: Json | null
+          published_at?: string
+          published_by?: string
+          revision?: number
+          version?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "doc_versions_sys_doc_id_fkey"
+            columns: ["doc_id"]
+            isOneToOne: false
+            referencedRelation: "system_documentation"
             referencedColumns: ["id"]
           },
         ]
@@ -11777,6 +11901,89 @@ export type Database = {
             foreignKeyName: "subscriptions_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: true
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      system_documentation: {
+        Row: {
+          access_level: string
+          category: string
+          child_ids: string[] | null
+          content: string
+          created_at: string | null
+          diagrams: Json | null
+          helpful_count: number | null
+          id: string
+          keywords: string[] | null
+          last_edited_by: string
+          metadata: Json | null
+          parent_id: string | null
+          published_at: string | null
+          related_doc_ids: string[] | null
+          revision: number
+          status: string
+          tags: string[] | null
+          tenant_id: string
+          title: string
+          updated_at: string | null
+          version: string
+          view_count: number | null
+        }
+        Insert: {
+          access_level?: string
+          category: string
+          child_ids?: string[] | null
+          content: string
+          created_at?: string | null
+          diagrams?: Json | null
+          helpful_count?: number | null
+          id: string
+          keywords?: string[] | null
+          last_edited_by: string
+          metadata?: Json | null
+          parent_id?: string | null
+          published_at?: string | null
+          related_doc_ids?: string[] | null
+          revision?: number
+          status?: string
+          tags?: string[] | null
+          tenant_id: string
+          title: string
+          updated_at?: string | null
+          version: string
+          view_count?: number | null
+        }
+        Update: {
+          access_level?: string
+          category?: string
+          child_ids?: string[] | null
+          content?: string
+          created_at?: string | null
+          diagrams?: Json | null
+          helpful_count?: number | null
+          id?: string
+          keywords?: string[] | null
+          last_edited_by?: string
+          metadata?: Json | null
+          parent_id?: string | null
+          published_at?: string | null
+          related_doc_ids?: string[] | null
+          revision?: number
+          status?: string
+          tags?: string[] | null
+          tenant_id?: string
+          title?: string
+          updated_at?: string | null
+          version?: string
+          view_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "system_documentation_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
             referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
