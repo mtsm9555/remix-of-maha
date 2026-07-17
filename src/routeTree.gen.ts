@@ -21,6 +21,7 @@ import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AgencyRouteImport } from './routes/agency'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPlannerTestRouteImport } from './routes/api/planner-test'
+import { Route as ApiTenantsIndexRouteImport } from './routes/api/tenants/index'
 import { Route as ApiWorkflowsOpenapiDotjsonRouteImport } from './routes/api/workflows/openapi[.]json'
 import { Route as ApiWorkflowsDocsRouteImport } from './routes/api/workflows/docs'
 import { Route as ApiWorkflowsSplatRouteImport } from './routes/api/workflows/$'
@@ -199,6 +200,11 @@ const IndexRoute = IndexRouteImport.update({
 const ApiPlannerTestRoute = ApiPlannerTestRouteImport.update({
   id: '/api/planner-test',
   path: '/api/planner-test',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTenantsIndexRoute = ApiTenantsIndexRouteImport.update({
+  id: '/api/tenants/',
+  path: '/api/tenants/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiWorkflowsOpenapiDotjsonRoute =
@@ -916,6 +922,7 @@ export interface FileRoutesByFullPath {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/tenants/': typeof ApiTenantsIndexRoute
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -1049,6 +1056,7 @@ export interface FileRoutesByTo {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/tenants': typeof ApiTenantsIndexRoute
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -1183,6 +1191,7 @@ export interface FileRoutesById {
   '/api/workflows/$': typeof ApiWorkflowsSplatRoute
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
+  '/api/tenants/': typeof ApiTenantsIndexRoute
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -1318,6 +1327,7 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/tenants/'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
     | '/api/analytics/retrieval/health-check'
@@ -1451,6 +1461,7 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/tenants'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
     | '/api/analytics/retrieval/health-check'
@@ -1584,6 +1595,7 @@ export interface FileRouteTypes {
     | '/api/workflows/$'
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
+    | '/api/tenants/'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
     | '/api/analytics/retrieval/health-check'
@@ -1718,6 +1730,7 @@ export interface RootRouteChildren {
   ApiWorkflowsSplatRoute: typeof ApiWorkflowsSplatRoute
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
+  ApiTenantsIndexRoute: typeof ApiTenantsIndexRoute
   ApiAnalyticsRetrievalEvaluateRoute: typeof ApiAnalyticsRetrievalEvaluateRoute
   ApiAnalyticsRetrievalExpensiveQueriesRoute: typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   ApiAnalyticsRetrievalHealthCheckRoute: typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -1902,6 +1915,13 @@ declare module '@tanstack/react-router' {
       path: '/api/planner-test'
       fullPath: '/api/planner-test'
       preLoaderRoute: typeof ApiPlannerTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tenants/': {
+      id: '/api/tenants/'
+      path: '/api/tenants'
+      fullPath: '/api/tenants/'
+      preLoaderRoute: typeof ApiTenantsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/workflows/openapi.json': {
@@ -2819,6 +2839,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkflowsSplatRoute: ApiWorkflowsSplatRoute,
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
+  ApiTenantsIndexRoute: ApiTenantsIndexRoute,
   ApiAnalyticsRetrievalEvaluateRoute: ApiAnalyticsRetrievalEvaluateRoute,
   ApiAnalyticsRetrievalExpensiveQueriesRoute:
     ApiAnalyticsRetrievalExpensiveQueriesRoute,
