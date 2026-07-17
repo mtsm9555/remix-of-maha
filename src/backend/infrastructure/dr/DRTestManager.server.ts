@@ -67,7 +67,7 @@ export class DRTestManager {
     const { data: plan } = await supabaseAdmin
       .from("failover_plans" as never)
       .select("*")
-      .eq("id", t.plan_id)
+      .eq("id", String(t.plan_id))
       .single();
     if (!plan) throw new Error("Failover plan not found");
     const planSteps = ((plan as Record<string, unknown>).steps as FailoverStep[] | undefined) ?? [];
