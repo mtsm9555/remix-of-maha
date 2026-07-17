@@ -33,7 +33,10 @@ export class PipelineExecutor {
 
     const runId = `run_${crypto.randomUUID()}`;
     const startedAt = new Date();
-    const variables = { ...(pipeline.variables ?? {}), ...(context.variables ?? {}) };
+    const variables = {
+      ...((pipeline.variables as Record<string, string> | null) ?? {}),
+      ...(context.variables ?? {}),
+    };
 
     await supabaseAdmin.from("pipeline_runs").insert({
       id: runId,
@@ -50,7 +53,7 @@ export class PipelineExecutor {
       variables,
     });
 
-    const definition = pipeline.definition as PipelineDefinition;
+    const definition = pipeline.definition as unknown as PipelineDefinition;
     const stageRuns: StageRun[] = [];
     let overall: PipelineStatus = "success";
 
@@ -125,7 +128,7 @@ export class PipelineExecutor {
         status: overall,
         completed_at: completedAt.toISOString(),
         duration_seconds: durationSeconds,
-        stages: stageRuns as unknown as object,
+        stages: stageRuns as unknown as never,
       })
       .eq("id", runId);
 
