@@ -6804,6 +6804,514 @@ export type Database = {
           },
         ]
       }
+      pm_milestones: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          deliverables: Json | null
+          description: string | null
+          due_date: string
+          id: string
+          name: string
+          progress: number | null
+          project_id: string
+          status: string
+          tags: string[] | null
+          task_ids: string[] | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          deliverables?: Json | null
+          description?: string | null
+          due_date: string
+          id: string
+          name: string
+          progress?: number | null
+          project_id: string
+          status: string
+          tags?: string[] | null
+          task_ids?: string[] | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          deliverables?: Json | null
+          description?: string | null
+          due_date?: string
+          id?: string
+          name?: string
+          progress?: number | null
+          project_id?: string
+          status?: string
+          tags?: string[] | null
+          task_ids?: string[] | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pm_milestones_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "pm_projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pm_milestones_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pm_projects: {
+        Row: {
+          actual_end_date: string | null
+          actual_start_date: string | null
+          budget_usd: number | null
+          category: string | null
+          company_id: string | null
+          completed_milestones: number | null
+          completed_tasks: number | null
+          created_at: string
+          deal_id: string | null
+          description: string | null
+          end_date: string | null
+          health_score: number | null
+          id: string
+          key: string
+          member_ids: string[] | null
+          metadata: Json | null
+          name: string
+          overdue_tasks: number | null
+          phase: string
+          priority: string
+          progress: number | null
+          project_manager_id: string | null
+          remaining_usd: number | null
+          spent_usd: number | null
+          start_date: string
+          status: string
+          tags: string[] | null
+          team_ids: string[] | null
+          tenant_id: string
+          total_milestones: number | null
+          total_tasks: number | null
+          updated_at: string
+          workspace_id: string | null
+        }
+        Insert: {
+          actual_end_date?: string | null
+          actual_start_date?: string | null
+          budget_usd?: number | null
+          category?: string | null
+          company_id?: string | null
+          completed_milestones?: number | null
+          completed_tasks?: number | null
+          created_at?: string
+          deal_id?: string | null
+          description?: string | null
+          end_date?: string | null
+          health_score?: number | null
+          id: string
+          key: string
+          member_ids?: string[] | null
+          metadata?: Json | null
+          name: string
+          overdue_tasks?: number | null
+          phase: string
+          priority: string
+          progress?: number | null
+          project_manager_id?: string | null
+          remaining_usd?: number | null
+          spent_usd?: number | null
+          start_date: string
+          status: string
+          tags?: string[] | null
+          team_ids?: string[] | null
+          tenant_id: string
+          total_milestones?: number | null
+          total_tasks?: number | null
+          updated_at?: string
+          workspace_id?: string | null
+        }
+        Update: {
+          actual_end_date?: string | null
+          actual_start_date?: string | null
+          budget_usd?: number | null
+          category?: string | null
+          company_id?: string | null
+          completed_milestones?: number | null
+          completed_tasks?: number | null
+          created_at?: string
+          deal_id?: string | null
+          description?: string | null
+          end_date?: string | null
+          health_score?: number | null
+          id?: string
+          key?: string
+          member_ids?: string[] | null
+          metadata?: Json | null
+          name?: string
+          overdue_tasks?: number | null
+          phase?: string
+          priority?: string
+          progress?: number | null
+          project_manager_id?: string | null
+          remaining_usd?: number | null
+          spent_usd?: number | null
+          start_date?: string
+          status?: string
+          tags?: string[] | null
+          team_ids?: string[] | null
+          tenant_id?: string
+          total_milestones?: number | null
+          total_tasks?: number | null
+          updated_at?: string
+          workspace_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pm_projects_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pm_resources: {
+        Row: {
+          allocated_capacity: number | null
+          available_capacity: number | null
+          created_at: string
+          description: string | null
+          hourly_rate_usd: number | null
+          id: string
+          is_available: boolean | null
+          name: string
+          project_id: string | null
+          skills: string[] | null
+          tenant_id: string
+          total_capacity: number
+          type: string
+          unavailable_from: string | null
+          unavailable_to: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          allocated_capacity?: number | null
+          available_capacity?: number | null
+          created_at?: string
+          description?: string | null
+          hourly_rate_usd?: number | null
+          id: string
+          is_available?: boolean | null
+          name: string
+          project_id?: string | null
+          skills?: string[] | null
+          tenant_id: string
+          total_capacity: number
+          type: string
+          unavailable_from?: string | null
+          unavailable_to?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          allocated_capacity?: number | null
+          available_capacity?: number | null
+          created_at?: string
+          description?: string | null
+          hourly_rate_usd?: number | null
+          id?: string
+          is_available?: boolean | null
+          name?: string
+          project_id?: string | null
+          skills?: string[] | null
+          tenant_id?: string
+          total_capacity?: number
+          type?: string
+          unavailable_from?: string | null
+          unavailable_to?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pm_resources_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pm_sprints: {
+        Row: {
+          completed_points: number | null
+          completed_tasks: number | null
+          created_at: string
+          end_date: string
+          goal: string | null
+          id: string
+          name: string
+          project_id: string
+          start_date: string
+          status: string
+          task_ids: string[] | null
+          tenant_id: string
+          total_points: number | null
+          total_tasks: number | null
+          updated_at: string
+        }
+        Insert: {
+          completed_points?: number | null
+          completed_tasks?: number | null
+          created_at?: string
+          end_date: string
+          goal?: string | null
+          id: string
+          name: string
+          project_id: string
+          start_date: string
+          status: string
+          task_ids?: string[] | null
+          tenant_id: string
+          total_points?: number | null
+          total_tasks?: number | null
+          updated_at?: string
+        }
+        Update: {
+          completed_points?: number | null
+          completed_tasks?: number | null
+          created_at?: string
+          end_date?: string
+          goal?: string | null
+          id?: string
+          name?: string
+          project_id?: string
+          start_date?: string
+          status?: string
+          task_ids?: string[] | null
+          tenant_id?: string
+          total_points?: number | null
+          total_tasks?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pm_sprints_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "pm_projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pm_sprints_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pm_tasks: {
+        Row: {
+          actual_hours: number | null
+          assignee_id: string | null
+          attachments: string[] | null
+          blocked_by: string[] | null
+          completed_at: string | null
+          created_at: string
+          depends_on: string[] | null
+          description: string | null
+          due_date: string | null
+          estimated_hours: number | null
+          id: string
+          metadata: Json | null
+          milestone_id: string | null
+          parent_task_id: string | null
+          priority: string
+          progress: number | null
+          project_id: string
+          reporter_id: string
+          sprint_id: string | null
+          start_date: string | null
+          status: string
+          subtask_ids: string[] | null
+          tags: string[] | null
+          task_number: string
+          team_id: string | null
+          tenant_id: string
+          title: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          actual_hours?: number | null
+          assignee_id?: string | null
+          attachments?: string[] | null
+          blocked_by?: string[] | null
+          completed_at?: string | null
+          created_at?: string
+          depends_on?: string[] | null
+          description?: string | null
+          due_date?: string | null
+          estimated_hours?: number | null
+          id: string
+          metadata?: Json | null
+          milestone_id?: string | null
+          parent_task_id?: string | null
+          priority: string
+          progress?: number | null
+          project_id: string
+          reporter_id: string
+          sprint_id?: string | null
+          start_date?: string | null
+          status: string
+          subtask_ids?: string[] | null
+          tags?: string[] | null
+          task_number: string
+          team_id?: string | null
+          tenant_id: string
+          title: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          actual_hours?: number | null
+          assignee_id?: string | null
+          attachments?: string[] | null
+          blocked_by?: string[] | null
+          completed_at?: string | null
+          created_at?: string
+          depends_on?: string[] | null
+          description?: string | null
+          due_date?: string | null
+          estimated_hours?: number | null
+          id?: string
+          metadata?: Json | null
+          milestone_id?: string | null
+          parent_task_id?: string | null
+          priority?: string
+          progress?: number | null
+          project_id?: string
+          reporter_id?: string
+          sprint_id?: string | null
+          start_date?: string | null
+          status?: string
+          subtask_ids?: string[] | null
+          tags?: string[] | null
+          task_number?: string
+          team_id?: string | null
+          tenant_id?: string
+          title?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pm_tasks_parent_task_id_fkey"
+            columns: ["parent_task_id"]
+            isOneToOne: false
+            referencedRelation: "pm_tasks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pm_tasks_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "pm_projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pm_tasks_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pm_time_entries: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          billable: boolean | null
+          created_at: string
+          date: string
+          description: string
+          duration_hours: number
+          end_time: string
+          hourly_rate_usd: number | null
+          id: string
+          project_id: string
+          start_time: string
+          status: string
+          task_id: string | null
+          tenant_id: string
+          total_cost_usd: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          billable?: boolean | null
+          created_at?: string
+          date: string
+          description: string
+          duration_hours: number
+          end_time: string
+          hourly_rate_usd?: number | null
+          id: string
+          project_id: string
+          start_time: string
+          status: string
+          task_id?: string | null
+          tenant_id: string
+          total_cost_usd?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          billable?: boolean | null
+          created_at?: string
+          date?: string
+          description?: string
+          duration_hours?: number
+          end_time?: string
+          hourly_rate_usd?: number | null
+          id?: string
+          project_id?: string
+          start_time?: string
+          status?: string
+          task_id?: string | null
+          tenant_id?: string
+          total_cost_usd?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pm_time_entries_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       pricing_plans: {
         Row: {
           created_at: string
