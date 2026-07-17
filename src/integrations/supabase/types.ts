@@ -14,6 +14,270 @@ export type Database = {
   }
   public: {
     Tables: {
+      advanced_jit_role_elevations: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          expires_at: string
+          id: string
+          reason: string
+          requested_at: string
+          status: string
+          target_role_id: string
+          tenant_id: string
+          user_id: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          expires_at: string
+          id?: string
+          reason: string
+          requested_at?: string
+          status: string
+          target_role_id: string
+          tenant_id: string
+          user_id: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          expires_at?: string
+          id?: string
+          reason?: string
+          requested_at?: string
+          status?: string
+          target_role_id?: string
+          tenant_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "advanced_jit_role_elevations_target_role_id_fkey"
+            columns: ["target_role_id"]
+            isOneToOne: false
+            referencedRelation: "advanced_roles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "advanced_jit_role_elevations_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      advanced_role_assignments: {
+        Row: {
+          assigned_at: string
+          assigned_by: string | null
+          expires_at: string | null
+          id: string
+          is_active: boolean
+          is_temporary: boolean
+          role_id: string
+          tenant_id: string
+          user_id: string
+        }
+        Insert: {
+          assigned_at?: string
+          assigned_by?: string | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          is_temporary?: boolean
+          role_id: string
+          tenant_id: string
+          user_id: string
+        }
+        Update: {
+          assigned_at?: string
+          assigned_by?: string | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          is_temporary?: boolean
+          role_id?: string
+          tenant_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "advanced_role_assignments_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "advanced_roles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "advanced_role_assignments_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      advanced_role_change_logs: {
+        Row: {
+          change_type: string
+          changed_at: string
+          changed_by: string | null
+          details: Json
+          id: string
+          role_id: string
+          tenant_id: string
+        }
+        Insert: {
+          change_type: string
+          changed_at?: string
+          changed_by?: string | null
+          details?: Json
+          id?: string
+          role_id: string
+          tenant_id: string
+        }
+        Update: {
+          change_type?: string
+          changed_at?: string
+          changed_by?: string | null
+          details?: Json
+          id?: string
+          role_id?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "advanced_role_change_logs_role_id_fkey"
+            columns: ["role_id"]
+            isOneToOne: false
+            referencedRelation: "advanced_roles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "advanced_role_change_logs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      advanced_role_templates: {
+        Row: {
+          category: string
+          conditional_permissions: Json
+          created_at: string
+          description: string
+          id: string
+          is_system_template: boolean
+          name: string
+          permissions: string[]
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          conditional_permissions?: Json
+          created_at?: string
+          description?: string
+          id?: string
+          is_system_template?: boolean
+          name: string
+          permissions?: string[]
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          conditional_permissions?: Json
+          created_at?: string
+          description?: string
+          id?: string
+          is_system_template?: boolean
+          name?: string
+          permissions?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      advanced_roles: {
+        Row: {
+          conditional_permissions: Json
+          created_at: string
+          created_by: string | null
+          current_member_count: number
+          description: string
+          direct_permissions: string[]
+          effective_permissions: string[]
+          id: string
+          inheritance_depth: number
+          inherited_permissions: string[]
+          is_system_role: boolean
+          is_template: boolean
+          max_members: number
+          name: string
+          parent_role_id: string | null
+          tenant_id: string
+          updated_at: string
+          version: number
+        }
+        Insert: {
+          conditional_permissions?: Json
+          created_at?: string
+          created_by?: string | null
+          current_member_count?: number
+          description?: string
+          direct_permissions?: string[]
+          effective_permissions?: string[]
+          id?: string
+          inheritance_depth?: number
+          inherited_permissions?: string[]
+          is_system_role?: boolean
+          is_template?: boolean
+          max_members?: number
+          name: string
+          parent_role_id?: string | null
+          tenant_id: string
+          updated_at?: string
+          version?: number
+        }
+        Update: {
+          conditional_permissions?: Json
+          created_at?: string
+          created_by?: string | null
+          current_member_count?: number
+          description?: string
+          direct_permissions?: string[]
+          effective_permissions?: string[]
+          id?: string
+          inheritance_depth?: number
+          inherited_permissions?: string[]
+          is_system_role?: boolean
+          is_template?: boolean
+          max_members?: number
+          name?: string
+          parent_role_id?: string | null
+          tenant_id?: string
+          updated_at?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "advanced_roles_parent_role_id_fkey"
+            columns: ["parent_role_id"]
+            isOneToOne: false
+            referencedRelation: "advanced_roles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "advanced_roles_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       agent_capability_embeddings: {
         Row: {
           agent_type: string

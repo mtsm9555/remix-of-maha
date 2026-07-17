@@ -38,6 +38,7 @@ import { Route as ApiCollaborationSessionsRouteImport } from './routes/api/colla
 import { Route as ApiCollaborationInitiateRouteImport } from './routes/api/collaboration/initiate'
 import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
+import { Route as ApiAdvancedRolesTemplatesRouteImport } from './routes/api/advanced-roles/templates'
 import { Route as ApiInfrastructureDiscoveryRouteRouteImport } from './routes/api/infrastructure/discovery/route'
 import { Route as ApiToolsPoliciesIndexRouteImport } from './routes/api/tools/policies/index'
 import { Route as ApiToolsMarketplaceIndexRouteImport } from './routes/api/tools/marketplace/index'
@@ -46,6 +47,7 @@ import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/ap
 import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
 import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/infrastructure/fleet/index'
 import { Route as ApiGovernanceDsarIndexRouteImport } from './routes/api/governance/dsar/index'
+import { Route as ApiAdvancedRolesTenantIdIndexRouteImport } from './routes/api/advanced-roles/$tenantId/index'
 import { Route as ApiToolsVersioningPinRouteImport } from './routes/api/tools/versioning/pin'
 import { Route as ApiToolsPoliciesTestRouteImport } from './routes/api/tools/policies/test'
 import { Route as ApiToolsPoliciesLogsRouteImport } from './routes/api/tools/policies/logs'
@@ -116,6 +118,10 @@ import { Route as ApiAnalyticsRetrievalOverviewRouteImport } from './routes/api/
 import { Route as ApiAnalyticsRetrievalHealthCheckRouteImport } from './routes/api/analytics/retrieval/health-check'
 import { Route as ApiAnalyticsRetrievalExpensiveQueriesRouteImport } from './routes/api/analytics/retrieval/expensive-queries'
 import { Route as ApiAnalyticsRetrievalEvaluateRouteImport } from './routes/api/analytics/retrieval/evaluate'
+import { Route as ApiAdvancedRolesTenantIdJitRouteImport } from './routes/api/advanced-roles/$tenantId/jit'
+import { Route as ApiAdvancedRolesTenantIdHierarchyRouteImport } from './routes/api/advanced-roles/$tenantId/hierarchy'
+import { Route as ApiAdvancedRolesTenantIdFromTemplateRouteImport } from './routes/api/advanced-roles/$tenantId/from-template'
+import { Route as ApiAdvancedRolesTenantIdRoleIdRouteImport } from './routes/api/advanced-roles/$tenantId/$roleId'
 import { Route as ApiToolsVersioningToolNameVersionsRouteImport } from './routes/api/tools/versioning/$toolName/versions'
 import { Route as ApiToolsVersioningToolNameRollbackRouteImport } from './routes/api/tools/versioning/$toolName/rollback'
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
@@ -149,6 +155,7 @@ import { Route as ApiDataDepartmentDeptIdInsightsRouteImport } from './routes/ap
 import { Route as ApiAnalyticsToolsToolNameRpmRouteImport } from './routes/api/analytics/tools/$toolName/rpm'
 import { Route as ApiAnalyticsToolsToolNameHistoryRouteImport } from './routes/api/analytics/tools/$toolName/history'
 import { Route as ApiAnalyticsToolsToolNameErrorsRouteImport } from './routes/api/analytics/tools/$toolName/errors'
+import { Route as ApiAdvancedRolesTenantIdJitElevationIdRouteImport } from './routes/api/advanced-roles/$tenantId/jit/$elevationId'
 import { Route as ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport } from './routes/api/infrastructure/budget/topups/$requestId.approve'
 import { Route as ApiDataVersionsHistoryEntityTypeEntityIdRouteImport } from './routes/api/data/versions/history/$entityType/$entityId'
 import { Route as ApiDataVersionsCurrentEntityTypeEntityIdRouteImport } from './routes/api/data/versions/current/$entityType/$entityId'
@@ -304,6 +311,12 @@ const ApiApprovalsSplatRoute = ApiApprovalsSplatRouteImport.update({
   path: '/api/approvals/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAdvancedRolesTemplatesRoute =
+  ApiAdvancedRolesTemplatesRouteImport.update({
+    id: '/api/advanced-roles/templates',
+    path: '/api/advanced-roles/templates',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiInfrastructureDiscoveryRouteRoute =
   ApiInfrastructureDiscoveryRouteRouteImport.update({
     id: '/api/infrastructure/discovery',
@@ -350,6 +363,12 @@ const ApiGovernanceDsarIndexRoute = ApiGovernanceDsarIndexRouteImport.update({
   path: '/api/governance/dsar/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAdvancedRolesTenantIdIndexRoute =
+  ApiAdvancedRolesTenantIdIndexRouteImport.update({
+    id: '/api/advanced-roles/$tenantId/',
+    path: '/api/advanced-roles/$tenantId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiToolsVersioningPinRoute = ApiToolsVersioningPinRouteImport.update({
   id: '/api/tools/versioning/pin',
   path: '/api/tools/versioning/pin',
@@ -742,6 +761,30 @@ const ApiAnalyticsRetrievalEvaluateRoute =
     path: '/api/analytics/retrieval/evaluate',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiAdvancedRolesTenantIdJitRoute =
+  ApiAdvancedRolesTenantIdJitRouteImport.update({
+    id: '/api/advanced-roles/$tenantId/jit',
+    path: '/api/advanced-roles/$tenantId/jit',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiAdvancedRolesTenantIdHierarchyRoute =
+  ApiAdvancedRolesTenantIdHierarchyRouteImport.update({
+    id: '/api/advanced-roles/$tenantId/hierarchy',
+    path: '/api/advanced-roles/$tenantId/hierarchy',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiAdvancedRolesTenantIdFromTemplateRoute =
+  ApiAdvancedRolesTenantIdFromTemplateRouteImport.update({
+    id: '/api/advanced-roles/$tenantId/from-template',
+    path: '/api/advanced-roles/$tenantId/from-template',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiAdvancedRolesTenantIdRoleIdRoute =
+  ApiAdvancedRolesTenantIdRoleIdRouteImport.update({
+    id: '/api/advanced-roles/$tenantId/$roleId',
+    path: '/api/advanced-roles/$tenantId/$roleId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiToolsVersioningToolNameVersionsRoute =
   ApiToolsVersioningToolNameVersionsRouteImport.update({
     id: '/api/tools/versioning/$toolName/versions',
@@ -940,6 +983,12 @@ const ApiAnalyticsToolsToolNameErrorsRoute =
     path: '/api/analytics/tools/$toolName/errors',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiAdvancedRolesTenantIdJitElevationIdRoute =
+  ApiAdvancedRolesTenantIdJitElevationIdRouteImport.update({
+    id: '/$elevationId',
+    path: '/$elevationId',
+    getParentRoute: () => ApiAdvancedRolesTenantIdJitRoute,
+  } as any)
 const ApiInfrastructureBudgetTopupsRequestIdApproveRoute =
   ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport.update({
     id: '/api/infrastructure/budget/topups/$requestId/approve',
@@ -985,6 +1034,7 @@ export interface FileRoutesByFullPath {
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
+  '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
@@ -1002,6 +1052,10 @@ export interface FileRoutesByFullPath {
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/tenants/': typeof ApiTenantsIndexRoute
+  '/api/advanced-roles/$tenantId/$roleId': typeof ApiAdvancedRolesTenantIdRoleIdRoute
+  '/api/advanced-roles/$tenantId/from-template': typeof ApiAdvancedRolesTenantIdFromTemplateRoute
+  '/api/advanced-roles/$tenantId/hierarchy': typeof ApiAdvancedRolesTenantIdHierarchyRoute
+  '/api/advanced-roles/$tenantId/jit': typeof ApiAdvancedRolesTenantIdJitRouteWithChildren
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -1072,6 +1126,7 @@ export interface FileRoutesByFullPath {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/advanced-roles/$tenantId/': typeof ApiAdvancedRolesTenantIdIndexRoute
   '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
@@ -1079,6 +1134,7 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
   '/api/tools/policies/': typeof ApiToolsPoliciesIndexRoute
+  '/api/advanced-roles/$tenantId/jit/$elevationId': typeof ApiAdvancedRolesTenantIdJitElevationIdRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -1132,6 +1188,7 @@ export interface FileRoutesByTo {
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
+  '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
@@ -1149,6 +1206,10 @@ export interface FileRoutesByTo {
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/tenants': typeof ApiTenantsIndexRoute
+  '/api/advanced-roles/$tenantId/$roleId': typeof ApiAdvancedRolesTenantIdRoleIdRoute
+  '/api/advanced-roles/$tenantId/from-template': typeof ApiAdvancedRolesTenantIdFromTemplateRoute
+  '/api/advanced-roles/$tenantId/hierarchy': typeof ApiAdvancedRolesTenantIdHierarchyRoute
+  '/api/advanced-roles/$tenantId/jit': typeof ApiAdvancedRolesTenantIdJitRouteWithChildren
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -1219,6 +1280,7 @@ export interface FileRoutesByTo {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/advanced-roles/$tenantId': typeof ApiAdvancedRolesTenantIdIndexRoute
   '/api/governance/dsar': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
@@ -1226,6 +1288,7 @@ export interface FileRoutesByTo {
   '/api/intelligence/learn': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace': typeof ApiToolsMarketplaceIndexRoute
   '/api/tools/policies': typeof ApiToolsPoliciesIndexRoute
+  '/api/advanced-roles/$tenantId/jit/$elevationId': typeof ApiAdvancedRolesTenantIdJitElevationIdRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -1280,6 +1343,7 @@ export interface FileRoutesById {
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
+  '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
@@ -1297,6 +1361,10 @@ export interface FileRoutesById {
   '/api/workflows/docs': typeof ApiWorkflowsDocsRoute
   '/api/workflows/openapi.json': typeof ApiWorkflowsOpenapiDotjsonRoute
   '/api/tenants/': typeof ApiTenantsIndexRoute
+  '/api/advanced-roles/$tenantId/$roleId': typeof ApiAdvancedRolesTenantIdRoleIdRoute
+  '/api/advanced-roles/$tenantId/from-template': typeof ApiAdvancedRolesTenantIdFromTemplateRoute
+  '/api/advanced-roles/$tenantId/hierarchy': typeof ApiAdvancedRolesTenantIdHierarchyRoute
+  '/api/advanced-roles/$tenantId/jit': typeof ApiAdvancedRolesTenantIdJitRouteWithChildren
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -1367,6 +1435,7 @@ export interface FileRoutesById {
   '/api/tools/policies/logs': typeof ApiToolsPoliciesLogsRoute
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
+  '/api/advanced-roles/$tenantId/': typeof ApiAdvancedRolesTenantIdIndexRoute
   '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
@@ -1374,6 +1443,7 @@ export interface FileRoutesById {
   '/api/intelligence/learn/': typeof ApiIntelligenceLearnIndexRoute
   '/api/tools/marketplace/': typeof ApiToolsMarketplaceIndexRoute
   '/api/tools/policies/': typeof ApiToolsPoliciesIndexRoute
+  '/api/advanced-roles/$tenantId/jit/$elevationId': typeof ApiAdvancedRolesTenantIdJitElevationIdRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -1429,6 +1499,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/planner-test'
     | '/api/infrastructure/discovery'
+    | '/api/advanced-roles/templates'
     | '/api/approvals/$'
     | '/api/budget/$'
     | '/api/collaboration/initiate'
@@ -1446,6 +1517,10 @@ export interface FileRouteTypes {
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
     | '/api/tenants/'
+    | '/api/advanced-roles/$tenantId/$roleId'
+    | '/api/advanced-roles/$tenantId/from-template'
+    | '/api/advanced-roles/$tenantId/hierarchy'
+    | '/api/advanced-roles/$tenantId/jit'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
     | '/api/analytics/retrieval/health-check'
@@ -1516,6 +1591,7 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/advanced-roles/$tenantId/'
     | '/api/governance/dsar/'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
@@ -1523,6 +1599,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/'
     | '/api/tools/marketplace/'
     | '/api/tools/policies/'
+    | '/api/advanced-roles/$tenantId/jit/$elevationId'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
@@ -1576,6 +1653,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/planner-test'
     | '/api/infrastructure/discovery'
+    | '/api/advanced-roles/templates'
     | '/api/approvals/$'
     | '/api/budget/$'
     | '/api/collaboration/initiate'
@@ -1593,6 +1671,10 @@ export interface FileRouteTypes {
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
     | '/api/tenants'
+    | '/api/advanced-roles/$tenantId/$roleId'
+    | '/api/advanced-roles/$tenantId/from-template'
+    | '/api/advanced-roles/$tenantId/hierarchy'
+    | '/api/advanced-roles/$tenantId/jit'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
     | '/api/analytics/retrieval/health-check'
@@ -1663,6 +1745,7 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/advanced-roles/$tenantId'
     | '/api/governance/dsar'
     | '/api/infrastructure/fleet'
     | '/api/infrastructure/registry'
@@ -1670,6 +1753,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn'
     | '/api/tools/marketplace'
     | '/api/tools/policies'
+    | '/api/advanced-roles/$tenantId/jit/$elevationId'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
@@ -1723,6 +1807,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/planner-test'
     | '/api/infrastructure/discovery'
+    | '/api/advanced-roles/templates'
     | '/api/approvals/$'
     | '/api/budget/$'
     | '/api/collaboration/initiate'
@@ -1740,6 +1825,10 @@ export interface FileRouteTypes {
     | '/api/workflows/docs'
     | '/api/workflows/openapi.json'
     | '/api/tenants/'
+    | '/api/advanced-roles/$tenantId/$roleId'
+    | '/api/advanced-roles/$tenantId/from-template'
+    | '/api/advanced-roles/$tenantId/hierarchy'
+    | '/api/advanced-roles/$tenantId/jit'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
     | '/api/analytics/retrieval/health-check'
@@ -1810,6 +1899,7 @@ export interface FileRouteTypes {
     | '/api/tools/policies/logs'
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
+    | '/api/advanced-roles/$tenantId/'
     | '/api/governance/dsar/'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
@@ -1817,6 +1907,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/learn/'
     | '/api/tools/marketplace/'
     | '/api/tools/policies/'
+    | '/api/advanced-roles/$tenantId/jit/$elevationId'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
@@ -1871,6 +1962,7 @@ export interface RootRouteChildren {
   VoiceRoute: typeof VoiceRoute
   ApiPlannerTestRoute: typeof ApiPlannerTestRoute
   ApiInfrastructureDiscoveryRouteRoute: typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
+  ApiAdvancedRolesTemplatesRoute: typeof ApiAdvancedRolesTemplatesRoute
   ApiApprovalsSplatRoute: typeof ApiApprovalsSplatRoute
   ApiBudgetSplatRoute: typeof ApiBudgetSplatRoute
   ApiCollaborationInitiateRoute: typeof ApiCollaborationInitiateRoute
@@ -1888,6 +1980,10 @@ export interface RootRouteChildren {
   ApiWorkflowsDocsRoute: typeof ApiWorkflowsDocsRoute
   ApiWorkflowsOpenapiDotjsonRoute: typeof ApiWorkflowsOpenapiDotjsonRoute
   ApiTenantsIndexRoute: typeof ApiTenantsIndexRoute
+  ApiAdvancedRolesTenantIdRoleIdRoute: typeof ApiAdvancedRolesTenantIdRoleIdRoute
+  ApiAdvancedRolesTenantIdFromTemplateRoute: typeof ApiAdvancedRolesTenantIdFromTemplateRoute
+  ApiAdvancedRolesTenantIdHierarchyRoute: typeof ApiAdvancedRolesTenantIdHierarchyRoute
+  ApiAdvancedRolesTenantIdJitRoute: typeof ApiAdvancedRolesTenantIdJitRouteWithChildren
   ApiAnalyticsRetrievalEvaluateRoute: typeof ApiAnalyticsRetrievalEvaluateRoute
   ApiAnalyticsRetrievalExpensiveQueriesRoute: typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   ApiAnalyticsRetrievalHealthCheckRoute: typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -1957,6 +2053,7 @@ export interface RootRouteChildren {
   ApiToolsPoliciesLogsRoute: typeof ApiToolsPoliciesLogsRoute
   ApiToolsPoliciesTestRoute: typeof ApiToolsPoliciesTestRoute
   ApiToolsVersioningPinRoute: typeof ApiToolsVersioningPinRoute
+  ApiAdvancedRolesTenantIdIndexRoute: typeof ApiAdvancedRolesTenantIdIndexRoute
   ApiGovernanceDsarIndexRoute: typeof ApiGovernanceDsarIndexRoute
   ApiInfrastructureFleetIndexRoute: typeof ApiInfrastructureFleetIndexRoute
   ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
@@ -2206,6 +2303,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiApprovalsSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/advanced-roles/templates': {
+      id: '/api/advanced-roles/templates'
+      path: '/api/advanced-roles/templates'
+      fullPath: '/api/advanced-roles/templates'
+      preLoaderRoute: typeof ApiAdvancedRolesTemplatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/infrastructure/discovery': {
       id: '/api/infrastructure/discovery'
       path: '/api/infrastructure/discovery'
@@ -2260,6 +2364,13 @@ declare module '@tanstack/react-router' {
       path: '/api/governance/dsar'
       fullPath: '/api/governance/dsar/'
       preLoaderRoute: typeof ApiGovernanceDsarIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/advanced-roles/$tenantId/': {
+      id: '/api/advanced-roles/$tenantId/'
+      path: '/api/advanced-roles/$tenantId'
+      fullPath: '/api/advanced-roles/$tenantId/'
+      preLoaderRoute: typeof ApiAdvancedRolesTenantIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/tools/versioning/pin': {
@@ -2752,6 +2863,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAnalyticsRetrievalEvaluateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/advanced-roles/$tenantId/jit': {
+      id: '/api/advanced-roles/$tenantId/jit'
+      path: '/api/advanced-roles/$tenantId/jit'
+      fullPath: '/api/advanced-roles/$tenantId/jit'
+      preLoaderRoute: typeof ApiAdvancedRolesTenantIdJitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/advanced-roles/$tenantId/hierarchy': {
+      id: '/api/advanced-roles/$tenantId/hierarchy'
+      path: '/api/advanced-roles/$tenantId/hierarchy'
+      fullPath: '/api/advanced-roles/$tenantId/hierarchy'
+      preLoaderRoute: typeof ApiAdvancedRolesTenantIdHierarchyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/advanced-roles/$tenantId/from-template': {
+      id: '/api/advanced-roles/$tenantId/from-template'
+      path: '/api/advanced-roles/$tenantId/from-template'
+      fullPath: '/api/advanced-roles/$tenantId/from-template'
+      preLoaderRoute: typeof ApiAdvancedRolesTenantIdFromTemplateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/advanced-roles/$tenantId/$roleId': {
+      id: '/api/advanced-roles/$tenantId/$roleId'
+      path: '/api/advanced-roles/$tenantId/$roleId'
+      fullPath: '/api/advanced-roles/$tenantId/$roleId'
+      preLoaderRoute: typeof ApiAdvancedRolesTenantIdRoleIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/tools/versioning/$toolName/versions': {
       id: '/api/tools/versioning/$toolName/versions'
       path: '/api/tools/versioning/$toolName/versions'
@@ -2983,6 +3122,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAnalyticsToolsToolNameErrorsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/advanced-roles/$tenantId/jit/$elevationId': {
+      id: '/api/advanced-roles/$tenantId/jit/$elevationId'
+      path: '/$elevationId'
+      fullPath: '/api/advanced-roles/$tenantId/jit/$elevationId'
+      preLoaderRoute: typeof ApiAdvancedRolesTenantIdJitElevationIdRouteImport
+      parentRoute: typeof ApiAdvancedRolesTenantIdJitRoute
+    }
     '/api/infrastructure/budget/topups/$requestId/approve': {
       id: '/api/infrastructure/budget/topups/$requestId/approve'
       path: '/api/infrastructure/budget/topups/$requestId/approve'
@@ -3039,6 +3185,21 @@ const ApiInfrastructureDiscoveryRouteRouteWithChildren =
     ApiInfrastructureDiscoveryRouteRouteChildren,
   )
 
+interface ApiAdvancedRolesTenantIdJitRouteChildren {
+  ApiAdvancedRolesTenantIdJitElevationIdRoute: typeof ApiAdvancedRolesTenantIdJitElevationIdRoute
+}
+
+const ApiAdvancedRolesTenantIdJitRouteChildren: ApiAdvancedRolesTenantIdJitRouteChildren =
+  {
+    ApiAdvancedRolesTenantIdJitElevationIdRoute:
+      ApiAdvancedRolesTenantIdJitElevationIdRoute,
+  }
+
+const ApiAdvancedRolesTenantIdJitRouteWithChildren =
+  ApiAdvancedRolesTenantIdJitRoute._addFileChildren(
+    ApiAdvancedRolesTenantIdJitRouteChildren,
+  )
+
 interface ApiInfrastructureHealthInstanceIdRouteChildren {
   ApiInfrastructureHealthInstanceIdHistoryRoute: typeof ApiInfrastructureHealthInstanceIdHistoryRoute
 }
@@ -3084,6 +3245,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPlannerTestRoute: ApiPlannerTestRoute,
   ApiInfrastructureDiscoveryRouteRoute:
     ApiInfrastructureDiscoveryRouteRouteWithChildren,
+  ApiAdvancedRolesTemplatesRoute: ApiAdvancedRolesTemplatesRoute,
   ApiApprovalsSplatRoute: ApiApprovalsSplatRoute,
   ApiBudgetSplatRoute: ApiBudgetSplatRoute,
   ApiCollaborationInitiateRoute: ApiCollaborationInitiateRoute,
@@ -3101,6 +3263,13 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWorkflowsDocsRoute: ApiWorkflowsDocsRoute,
   ApiWorkflowsOpenapiDotjsonRoute: ApiWorkflowsOpenapiDotjsonRoute,
   ApiTenantsIndexRoute: ApiTenantsIndexRoute,
+  ApiAdvancedRolesTenantIdRoleIdRoute: ApiAdvancedRolesTenantIdRoleIdRoute,
+  ApiAdvancedRolesTenantIdFromTemplateRoute:
+    ApiAdvancedRolesTenantIdFromTemplateRoute,
+  ApiAdvancedRolesTenantIdHierarchyRoute:
+    ApiAdvancedRolesTenantIdHierarchyRoute,
+  ApiAdvancedRolesTenantIdJitRoute:
+    ApiAdvancedRolesTenantIdJitRouteWithChildren,
   ApiAnalyticsRetrievalEvaluateRoute: ApiAnalyticsRetrievalEvaluateRoute,
   ApiAnalyticsRetrievalExpensiveQueriesRoute:
     ApiAnalyticsRetrievalExpensiveQueriesRoute,
@@ -3184,6 +3353,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiToolsPoliciesLogsRoute: ApiToolsPoliciesLogsRoute,
   ApiToolsPoliciesTestRoute: ApiToolsPoliciesTestRoute,
   ApiToolsVersioningPinRoute: ApiToolsVersioningPinRoute,
+  ApiAdvancedRolesTenantIdIndexRoute: ApiAdvancedRolesTenantIdIndexRoute,
   ApiGovernanceDsarIndexRoute: ApiGovernanceDsarIndexRoute,
   ApiInfrastructureFleetIndexRoute: ApiInfrastructureFleetIndexRoute,
   ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,
