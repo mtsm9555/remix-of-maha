@@ -97,10 +97,17 @@ export class CLIOutputImpl implements CLIOutput {
    * Creates spinner
    */
   spinner(message: string): CLISpinner {
-    return ora({
+    const instance = ora({
       text: message,
       color: 'cyan'
     });
+    return {
+      start: () => { instance.start(); },
+      stop: () => { instance.stop(); },
+      succeed: (msg?: string) => { instance.succeed(msg); },
+      fail: (msg?: string) => { instance.fail(msg); },
+      update: (msg: string) => { instance.text = msg; },
+    };
   }
 
   /**
