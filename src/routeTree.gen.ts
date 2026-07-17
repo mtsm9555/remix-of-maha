@@ -48,6 +48,7 @@ import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/ap
 import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
 import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/infrastructure/fleet/index'
 import { Route as ApiGovernanceDsarIndexRouteImport } from './routes/api/governance/dsar/index'
+import { Route as ApiApikeysTenantIdIndexRouteImport } from './routes/api/apikeys/$tenantId/index'
 import { Route as ApiAdvancedRolesTenantIdIndexRouteImport } from './routes/api/advanced-roles/$tenantId/index'
 import { Route as ApiToolsVersioningPinRouteImport } from './routes/api/tools/versioning/pin'
 import { Route as ApiToolsPoliciesTestRouteImport } from './routes/api/tools/policies/test'
@@ -134,6 +135,7 @@ import { Route as ApiAdvancedRolesTenantIdJitRouteImport } from './routes/api/ad
 import { Route as ApiAdvancedRolesTenantIdHierarchyRouteImport } from './routes/api/advanced-roles/$tenantId/hierarchy'
 import { Route as ApiAdvancedRolesTenantIdFromTemplateRouteImport } from './routes/api/advanced-roles/$tenantId/from-template'
 import { Route as ApiAdvancedRolesTenantIdRoleIdRouteImport } from './routes/api/advanced-roles/$tenantId/$roleId'
+import { Route as ApiApikeysTenantIdKeyIdIndexRouteImport } from './routes/api/apikeys/$tenantId/$keyId/index'
 import { Route as ApiToolsVersioningToolNameVersionsRouteImport } from './routes/api/tools/versioning/$toolName/versions'
 import { Route as ApiToolsVersioningToolNameRollbackRouteImport } from './routes/api/tools/versioning/$toolName/rollback'
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
@@ -164,6 +166,11 @@ import { Route as ApiDataProjectProjectIdContextRouteImport } from './routes/api
 import { Route as ApiDataDepartmentDeptIdSynthesizeProjectRouteImport } from './routes/api/data/department/$deptId/synthesize-project'
 import { Route as ApiDataDepartmentDeptIdSearchRouteImport } from './routes/api/data/department/$deptId/search'
 import { Route as ApiDataDepartmentDeptIdInsightsRouteImport } from './routes/api/data/department/$deptId/insights'
+import { Route as ApiApikeysTenantIdKeyIdUsageRouteImport } from './routes/api/apikeys/$tenantId/$keyId/usage'
+import { Route as ApiApikeysTenantIdKeyIdRotateRouteImport } from './routes/api/apikeys/$tenantId/$keyId/rotate'
+import { Route as ApiApikeysTenantIdKeyIdRevokeRouteImport } from './routes/api/apikeys/$tenantId/$keyId/revoke'
+import { Route as ApiApikeysTenantIdKeyIdAuditRouteImport } from './routes/api/apikeys/$tenantId/$keyId/audit'
+import { Route as ApiApikeysTenantIdKeyIdAnalyticsRouteImport } from './routes/api/apikeys/$tenantId/$keyId/analytics'
 import { Route as ApiAnalyticsToolsToolNameRpmRouteImport } from './routes/api/analytics/tools/$toolName/rpm'
 import { Route as ApiAnalyticsToolsToolNameHistoryRouteImport } from './routes/api/analytics/tools/$toolName/history'
 import { Route as ApiAnalyticsToolsToolNameErrorsRouteImport } from './routes/api/analytics/tools/$toolName/errors'
@@ -380,6 +387,11 @@ const ApiInfrastructureFleetIndexRoute =
 const ApiGovernanceDsarIndexRoute = ApiGovernanceDsarIndexRouteImport.update({
   id: '/api/governance/dsar/',
   path: '/api/governance/dsar/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiApikeysTenantIdIndexRoute = ApiApikeysTenantIdIndexRouteImport.update({
+  id: '/api/apikeys/$tenantId/',
+  path: '/api/apikeys/$tenantId/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAdvancedRolesTenantIdIndexRoute =
@@ -868,6 +880,12 @@ const ApiAdvancedRolesTenantIdRoleIdRoute =
     path: '/api/advanced-roles/$tenantId/$roleId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiApikeysTenantIdKeyIdIndexRoute =
+  ApiApikeysTenantIdKeyIdIndexRouteImport.update({
+    id: '/api/apikeys/$tenantId/$keyId/',
+    path: '/api/apikeys/$tenantId/$keyId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiToolsVersioningToolNameVersionsRoute =
   ApiToolsVersioningToolNameVersionsRouteImport.update({
     id: '/api/tools/versioning/$toolName/versions',
@@ -1046,6 +1064,36 @@ const ApiDataDepartmentDeptIdInsightsRoute =
   ApiDataDepartmentDeptIdInsightsRouteImport.update({
     id: '/api/data/department/$deptId/insights',
     path: '/api/data/department/$deptId/insights',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiApikeysTenantIdKeyIdUsageRoute =
+  ApiApikeysTenantIdKeyIdUsageRouteImport.update({
+    id: '/api/apikeys/$tenantId/$keyId/usage',
+    path: '/api/apikeys/$tenantId/$keyId/usage',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiApikeysTenantIdKeyIdRotateRoute =
+  ApiApikeysTenantIdKeyIdRotateRouteImport.update({
+    id: '/api/apikeys/$tenantId/$keyId/rotate',
+    path: '/api/apikeys/$tenantId/$keyId/rotate',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiApikeysTenantIdKeyIdRevokeRoute =
+  ApiApikeysTenantIdKeyIdRevokeRouteImport.update({
+    id: '/api/apikeys/$tenantId/$keyId/revoke',
+    path: '/api/apikeys/$tenantId/$keyId/revoke',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiApikeysTenantIdKeyIdAuditRoute =
+  ApiApikeysTenantIdKeyIdAuditRouteImport.update({
+    id: '/api/apikeys/$tenantId/$keyId/audit',
+    path: '/api/apikeys/$tenantId/$keyId/audit',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiApikeysTenantIdKeyIdAnalyticsRoute =
+  ApiApikeysTenantIdKeyIdAnalyticsRouteImport.update({
+    id: '/api/apikeys/$tenantId/$keyId/analytics',
+    path: '/api/apikeys/$tenantId/$keyId/analytics',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiAnalyticsToolsToolNameRpmRoute =
@@ -1234,6 +1282,7 @@ export interface FileRoutesByFullPath {
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/advanced-roles/$tenantId/': typeof ApiAdvancedRolesTenantIdIndexRoute
+  '/api/apikeys/$tenantId/': typeof ApiApikeysTenantIdIndexRoute
   '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
@@ -1245,6 +1294,11 @@ export interface FileRoutesByFullPath {
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
+  '/api/apikeys/$tenantId/$keyId/analytics': typeof ApiApikeysTenantIdKeyIdAnalyticsRoute
+  '/api/apikeys/$tenantId/$keyId/audit': typeof ApiApikeysTenantIdKeyIdAuditRoute
+  '/api/apikeys/$tenantId/$keyId/revoke': typeof ApiApikeysTenantIdKeyIdRevokeRoute
+  '/api/apikeys/$tenantId/$keyId/rotate': typeof ApiApikeysTenantIdKeyIdRotateRoute
+  '/api/apikeys/$tenantId/$keyId/usage': typeof ApiApikeysTenantIdKeyIdUsageRoute
   '/api/data/department/$deptId/insights': typeof ApiDataDepartmentDeptIdInsightsRoute
   '/api/data/department/$deptId/search': typeof ApiDataDepartmentDeptIdSearchRoute
   '/api/data/department/$deptId/synthesize-project': typeof ApiDataDepartmentDeptIdSynthesizeProjectRoute
@@ -1275,6 +1329,7 @@ export interface FileRoutesByFullPath {
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
+  '/api/apikeys/$tenantId/$keyId/': typeof ApiApikeysTenantIdKeyIdIndexRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
@@ -1402,6 +1457,7 @@ export interface FileRoutesByTo {
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/advanced-roles/$tenantId': typeof ApiAdvancedRolesTenantIdIndexRoute
+  '/api/apikeys/$tenantId': typeof ApiApikeysTenantIdIndexRoute
   '/api/governance/dsar': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
@@ -1413,6 +1469,11 @@ export interface FileRoutesByTo {
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
+  '/api/apikeys/$tenantId/$keyId/analytics': typeof ApiApikeysTenantIdKeyIdAnalyticsRoute
+  '/api/apikeys/$tenantId/$keyId/audit': typeof ApiApikeysTenantIdKeyIdAuditRoute
+  '/api/apikeys/$tenantId/$keyId/revoke': typeof ApiApikeysTenantIdKeyIdRevokeRoute
+  '/api/apikeys/$tenantId/$keyId/rotate': typeof ApiApikeysTenantIdKeyIdRotateRoute
+  '/api/apikeys/$tenantId/$keyId/usage': typeof ApiApikeysTenantIdKeyIdUsageRoute
   '/api/data/department/$deptId/insights': typeof ApiDataDepartmentDeptIdInsightsRoute
   '/api/data/department/$deptId/search': typeof ApiDataDepartmentDeptIdSearchRoute
   '/api/data/department/$deptId/synthesize-project': typeof ApiDataDepartmentDeptIdSynthesizeProjectRoute
@@ -1443,6 +1504,7 @@ export interface FileRoutesByTo {
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
+  '/api/apikeys/$tenantId/$keyId': typeof ApiApikeysTenantIdKeyIdIndexRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
@@ -1571,6 +1633,7 @@ export interface FileRoutesById {
   '/api/tools/policies/test': typeof ApiToolsPoliciesTestRoute
   '/api/tools/versioning/pin': typeof ApiToolsVersioningPinRoute
   '/api/advanced-roles/$tenantId/': typeof ApiAdvancedRolesTenantIdIndexRoute
+  '/api/apikeys/$tenantId/': typeof ApiApikeysTenantIdIndexRoute
   '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
@@ -1582,6 +1645,11 @@ export interface FileRoutesById {
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
+  '/api/apikeys/$tenantId/$keyId/analytics': typeof ApiApikeysTenantIdKeyIdAnalyticsRoute
+  '/api/apikeys/$tenantId/$keyId/audit': typeof ApiApikeysTenantIdKeyIdAuditRoute
+  '/api/apikeys/$tenantId/$keyId/revoke': typeof ApiApikeysTenantIdKeyIdRevokeRoute
+  '/api/apikeys/$tenantId/$keyId/rotate': typeof ApiApikeysTenantIdKeyIdRotateRoute
+  '/api/apikeys/$tenantId/$keyId/usage': typeof ApiApikeysTenantIdKeyIdUsageRoute
   '/api/data/department/$deptId/insights': typeof ApiDataDepartmentDeptIdInsightsRoute
   '/api/data/department/$deptId/search': typeof ApiDataDepartmentDeptIdSearchRoute
   '/api/data/department/$deptId/synthesize-project': typeof ApiDataDepartmentDeptIdSynthesizeProjectRoute
@@ -1612,6 +1680,7 @@ export interface FileRoutesById {
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
   '/api/tools/versioning/$toolName/rollback': typeof ApiToolsVersioningToolNameRollbackRoute
   '/api/tools/versioning/$toolName/versions': typeof ApiToolsVersioningToolNameVersionsRoute
+  '/api/apikeys/$tenantId/$keyId/': typeof ApiApikeysTenantIdKeyIdIndexRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   '/api/billing-ops/$tenantId/invoices/$invoiceId/pay': typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   '/api/data/shared/promotions/$promotionId/approve': typeof ApiDataSharedPromotionsPromotionIdApproveRoute
@@ -1741,6 +1810,7 @@ export interface FileRouteTypes {
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
     | '/api/advanced-roles/$tenantId/'
+    | '/api/apikeys/$tenantId/'
     | '/api/governance/dsar/'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
@@ -1752,6 +1822,11 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
+    | '/api/apikeys/$tenantId/$keyId/analytics'
+    | '/api/apikeys/$tenantId/$keyId/audit'
+    | '/api/apikeys/$tenantId/$keyId/revoke'
+    | '/api/apikeys/$tenantId/$keyId/rotate'
+    | '/api/apikeys/$tenantId/$keyId/usage'
     | '/api/data/department/$deptId/insights'
     | '/api/data/department/$deptId/search'
     | '/api/data/department/$deptId/synthesize-project'
@@ -1782,6 +1857,7 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
+    | '/api/apikeys/$tenantId/$keyId/'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
     | '/api/data/shared/promotions/$promotionId/approve'
@@ -1909,6 +1985,7 @@ export interface FileRouteTypes {
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
     | '/api/advanced-roles/$tenantId'
+    | '/api/apikeys/$tenantId'
     | '/api/governance/dsar'
     | '/api/infrastructure/fleet'
     | '/api/infrastructure/registry'
@@ -1920,6 +1997,11 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
+    | '/api/apikeys/$tenantId/$keyId/analytics'
+    | '/api/apikeys/$tenantId/$keyId/audit'
+    | '/api/apikeys/$tenantId/$keyId/revoke'
+    | '/api/apikeys/$tenantId/$keyId/rotate'
+    | '/api/apikeys/$tenantId/$keyId/usage'
     | '/api/data/department/$deptId/insights'
     | '/api/data/department/$deptId/search'
     | '/api/data/department/$deptId/synthesize-project'
@@ -1950,6 +2032,7 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
+    | '/api/apikeys/$tenantId/$keyId'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
     | '/api/data/shared/promotions/$promotionId/approve'
@@ -2077,6 +2160,7 @@ export interface FileRouteTypes {
     | '/api/tools/policies/test'
     | '/api/tools/versioning/pin'
     | '/api/advanced-roles/$tenantId/'
+    | '/api/apikeys/$tenantId/'
     | '/api/governance/dsar/'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
@@ -2088,6 +2172,11 @@ export interface FileRouteTypes {
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
+    | '/api/apikeys/$tenantId/$keyId/analytics'
+    | '/api/apikeys/$tenantId/$keyId/audit'
+    | '/api/apikeys/$tenantId/$keyId/revoke'
+    | '/api/apikeys/$tenantId/$keyId/rotate'
+    | '/api/apikeys/$tenantId/$keyId/usage'
     | '/api/data/department/$deptId/insights'
     | '/api/data/department/$deptId/search'
     | '/api/data/department/$deptId/synthesize-project'
@@ -2118,6 +2207,7 @@ export interface FileRouteTypes {
     | '/api/tools/mcp/disconnect/$serverId'
     | '/api/tools/versioning/$toolName/rollback'
     | '/api/tools/versioning/$toolName/versions'
+    | '/api/apikeys/$tenantId/$keyId/'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/finalize'
     | '/api/billing-ops/$tenantId/invoices/$invoiceId/pay'
     | '/api/data/shared/promotions/$promotionId/approve'
@@ -2245,6 +2335,7 @@ export interface RootRouteChildren {
   ApiToolsPoliciesTestRoute: typeof ApiToolsPoliciesTestRoute
   ApiToolsVersioningPinRoute: typeof ApiToolsVersioningPinRoute
   ApiAdvancedRolesTenantIdIndexRoute: typeof ApiAdvancedRolesTenantIdIndexRoute
+  ApiApikeysTenantIdIndexRoute: typeof ApiApikeysTenantIdIndexRoute
   ApiGovernanceDsarIndexRoute: typeof ApiGovernanceDsarIndexRoute
   ApiInfrastructureFleetIndexRoute: typeof ApiInfrastructureFleetIndexRoute
   ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
@@ -2255,6 +2346,11 @@ export interface RootRouteChildren {
   ApiAnalyticsToolsToolNameErrorsRoute: typeof ApiAnalyticsToolsToolNameErrorsRoute
   ApiAnalyticsToolsToolNameHistoryRoute: typeof ApiAnalyticsToolsToolNameHistoryRoute
   ApiAnalyticsToolsToolNameRpmRoute: typeof ApiAnalyticsToolsToolNameRpmRoute
+  ApiApikeysTenantIdKeyIdAnalyticsRoute: typeof ApiApikeysTenantIdKeyIdAnalyticsRoute
+  ApiApikeysTenantIdKeyIdAuditRoute: typeof ApiApikeysTenantIdKeyIdAuditRoute
+  ApiApikeysTenantIdKeyIdRevokeRoute: typeof ApiApikeysTenantIdKeyIdRevokeRoute
+  ApiApikeysTenantIdKeyIdRotateRoute: typeof ApiApikeysTenantIdKeyIdRotateRoute
+  ApiApikeysTenantIdKeyIdUsageRoute: typeof ApiApikeysTenantIdKeyIdUsageRoute
   ApiDataDepartmentDeptIdInsightsRoute: typeof ApiDataDepartmentDeptIdInsightsRoute
   ApiDataDepartmentDeptIdSearchRoute: typeof ApiDataDepartmentDeptIdSearchRoute
   ApiDataDepartmentDeptIdSynthesizeProjectRoute: typeof ApiDataDepartmentDeptIdSynthesizeProjectRoute
@@ -2282,6 +2378,7 @@ export interface RootRouteChildren {
   ApiToolsMcpDisconnectServerIdRoute: typeof ApiToolsMcpDisconnectServerIdRoute
   ApiToolsVersioningToolNameRollbackRoute: typeof ApiToolsVersioningToolNameRollbackRoute
   ApiToolsVersioningToolNameVersionsRoute: typeof ApiToolsVersioningToolNameVersionsRoute
+  ApiApikeysTenantIdKeyIdIndexRoute: typeof ApiApikeysTenantIdKeyIdIndexRoute
   ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute: typeof ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute
   ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute: typeof ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute
   ApiDataSharedPromotionsPromotionIdApproveRoute: typeof ApiDataSharedPromotionsPromotionIdApproveRoute
@@ -2564,6 +2661,13 @@ declare module '@tanstack/react-router' {
       path: '/api/governance/dsar'
       fullPath: '/api/governance/dsar/'
       preLoaderRoute: typeof ApiGovernanceDsarIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/apikeys/$tenantId/': {
+      id: '/api/apikeys/$tenantId/'
+      path: '/api/apikeys/$tenantId'
+      fullPath: '/api/apikeys/$tenantId/'
+      preLoaderRoute: typeof ApiApikeysTenantIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/advanced-roles/$tenantId/': {
@@ -3168,6 +3272,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAdvancedRolesTenantIdRoleIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/apikeys/$tenantId/$keyId/': {
+      id: '/api/apikeys/$tenantId/$keyId/'
+      path: '/api/apikeys/$tenantId/$keyId'
+      fullPath: '/api/apikeys/$tenantId/$keyId/'
+      preLoaderRoute: typeof ApiApikeysTenantIdKeyIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/tools/versioning/$toolName/versions': {
       id: '/api/tools/versioning/$toolName/versions'
       path: '/api/tools/versioning/$toolName/versions'
@@ -3376,6 +3487,41 @@ declare module '@tanstack/react-router' {
       path: '/api/data/department/$deptId/insights'
       fullPath: '/api/data/department/$deptId/insights'
       preLoaderRoute: typeof ApiDataDepartmentDeptIdInsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/apikeys/$tenantId/$keyId/usage': {
+      id: '/api/apikeys/$tenantId/$keyId/usage'
+      path: '/api/apikeys/$tenantId/$keyId/usage'
+      fullPath: '/api/apikeys/$tenantId/$keyId/usage'
+      preLoaderRoute: typeof ApiApikeysTenantIdKeyIdUsageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/apikeys/$tenantId/$keyId/rotate': {
+      id: '/api/apikeys/$tenantId/$keyId/rotate'
+      path: '/api/apikeys/$tenantId/$keyId/rotate'
+      fullPath: '/api/apikeys/$tenantId/$keyId/rotate'
+      preLoaderRoute: typeof ApiApikeysTenantIdKeyIdRotateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/apikeys/$tenantId/$keyId/revoke': {
+      id: '/api/apikeys/$tenantId/$keyId/revoke'
+      path: '/api/apikeys/$tenantId/$keyId/revoke'
+      fullPath: '/api/apikeys/$tenantId/$keyId/revoke'
+      preLoaderRoute: typeof ApiApikeysTenantIdKeyIdRevokeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/apikeys/$tenantId/$keyId/audit': {
+      id: '/api/apikeys/$tenantId/$keyId/audit'
+      path: '/api/apikeys/$tenantId/$keyId/audit'
+      fullPath: '/api/apikeys/$tenantId/$keyId/audit'
+      preLoaderRoute: typeof ApiApikeysTenantIdKeyIdAuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/apikeys/$tenantId/$keyId/analytics': {
+      id: '/api/apikeys/$tenantId/$keyId/analytics'
+      path: '/api/apikeys/$tenantId/$keyId/analytics'
+      fullPath: '/api/apikeys/$tenantId/$keyId/analytics'
+      preLoaderRoute: typeof ApiApikeysTenantIdKeyIdAnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/analytics/tools/$toolName/rpm': {
@@ -3657,6 +3803,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiToolsPoliciesTestRoute: ApiToolsPoliciesTestRoute,
   ApiToolsVersioningPinRoute: ApiToolsVersioningPinRoute,
   ApiAdvancedRolesTenantIdIndexRoute: ApiAdvancedRolesTenantIdIndexRoute,
+  ApiApikeysTenantIdIndexRoute: ApiApikeysTenantIdIndexRoute,
   ApiGovernanceDsarIndexRoute: ApiGovernanceDsarIndexRoute,
   ApiInfrastructureFleetIndexRoute: ApiInfrastructureFleetIndexRoute,
   ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,
@@ -3667,6 +3814,11 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAnalyticsToolsToolNameErrorsRoute: ApiAnalyticsToolsToolNameErrorsRoute,
   ApiAnalyticsToolsToolNameHistoryRoute: ApiAnalyticsToolsToolNameHistoryRoute,
   ApiAnalyticsToolsToolNameRpmRoute: ApiAnalyticsToolsToolNameRpmRoute,
+  ApiApikeysTenantIdKeyIdAnalyticsRoute: ApiApikeysTenantIdKeyIdAnalyticsRoute,
+  ApiApikeysTenantIdKeyIdAuditRoute: ApiApikeysTenantIdKeyIdAuditRoute,
+  ApiApikeysTenantIdKeyIdRevokeRoute: ApiApikeysTenantIdKeyIdRevokeRoute,
+  ApiApikeysTenantIdKeyIdRotateRoute: ApiApikeysTenantIdKeyIdRotateRoute,
+  ApiApikeysTenantIdKeyIdUsageRoute: ApiApikeysTenantIdKeyIdUsageRoute,
   ApiDataDepartmentDeptIdInsightsRoute: ApiDataDepartmentDeptIdInsightsRoute,
   ApiDataDepartmentDeptIdSearchRoute: ApiDataDepartmentDeptIdSearchRoute,
   ApiDataDepartmentDeptIdSynthesizeProjectRoute:
@@ -3706,6 +3858,7 @@ const rootRouteChildren: RootRouteChildren = {
     ApiToolsVersioningToolNameRollbackRoute,
   ApiToolsVersioningToolNameVersionsRoute:
     ApiToolsVersioningToolNameVersionsRoute,
+  ApiApikeysTenantIdKeyIdIndexRoute: ApiApikeysTenantIdKeyIdIndexRoute,
   ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute:
     ApiBillingOpsTenantIdInvoicesInvoiceIdFinalizeRoute,
   ApiBillingOpsTenantIdInvoicesInvoiceIdPayRoute:
