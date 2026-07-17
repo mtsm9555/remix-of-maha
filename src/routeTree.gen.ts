@@ -115,6 +115,9 @@ import { Route as ApiTeamsTenantIdCreateRouteImport } from './routes/api/teams/$
 import { Route as ApiTeamsTeamIdChannelsRouteImport } from './routes/api/teams/$teamId/channels'
 import { Route as ApiTeamsTeamIdBudgetRouteImport } from './routes/api/teams/$teamId/budget'
 import { Route as ApiTeamsTeamIdAnalyticsRouteImport } from './routes/api/teams/$teamId/analytics'
+import { Route as ApiSystemDocsTenantIdSearchRouteImport } from './routes/api/system-docs/$tenantId/search'
+import { Route as ApiSystemDocsTenantIdAnalyticsRouteImport } from './routes/api/system-docs/$tenantId/analytics'
+import { Route as ApiSystemDocsTenantIdDocIdRouteImport } from './routes/api/system-docs/$tenantId/$docId'
 import { Route as ApiSecurityMonitoringTenantIdMetricsRouteImport } from './routes/api/security-monitoring/$tenantId/metrics'
 import { Route as ApiSecurityMonitoringTenantIdIncidentsRouteImport } from './routes/api/security-monitoring/$tenantId/incidents'
 import { Route as ApiSecurityMonitoringTenantIdEventsRouteImport } from './routes/api/security-monitoring/$tenantId/events'
@@ -229,6 +232,9 @@ import { Route as ApiToolsVersioningToolNameRollbackRouteImport } from './routes
 import { Route as ApiToolsMcpDisconnectServerIdRouteImport } from './routes/api/tools/mcp/disconnect.$serverId'
 import { Route as ApiThreatTenantIdIocsCheckRouteImport } from './routes/api/threat/$tenantId/iocs.check'
 import { Route as ApiTeamsChannelsChannelIdMessagesRouteImport } from './routes/api/teams/channels/$channelId/messages'
+import { Route as ApiSystemDocsTenantIdDocIdPublishRouteImport } from './routes/api/system-docs/$tenantId/$docId.publish'
+import { Route as ApiSystemDocsTenantIdDocIdFeedbackRouteImport } from './routes/api/system-docs/$tenantId/$docId.feedback'
+import { Route as ApiSystemDocsTenantIdDocIdExportRouteImport } from './routes/api/system-docs/$tenantId/$docId.export'
 import { Route as ApiSecurityMonitoringIncidentsIncidentIdStatusRouteImport } from './routes/api/security-monitoring/incidents/$incidentId.status'
 import { Route as ApiSecurityMonitoringIncidentsIncidentIdActionsRouteImport } from './routes/api/security-monitoring/incidents/$incidentId.actions'
 import { Route as ApiSecurityMonitoringAlertsAlertIdResolveRouteImport } from './routes/api/security-monitoring/alerts/$alertId.resolve'
@@ -878,6 +884,24 @@ const ApiTeamsTeamIdAnalyticsRoute = ApiTeamsTeamIdAnalyticsRouteImport.update({
   path: '/api/teams/$teamId/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSystemDocsTenantIdSearchRoute =
+  ApiSystemDocsTenantIdSearchRouteImport.update({
+    id: '/api/system-docs/$tenantId/search',
+    path: '/api/system-docs/$tenantId/search',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiSystemDocsTenantIdAnalyticsRoute =
+  ApiSystemDocsTenantIdAnalyticsRouteImport.update({
+    id: '/api/system-docs/$tenantId/analytics',
+    path: '/api/system-docs/$tenantId/analytics',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiSystemDocsTenantIdDocIdRoute =
+  ApiSystemDocsTenantIdDocIdRouteImport.update({
+    id: '/api/system-docs/$tenantId/$docId',
+    path: '/api/system-docs/$tenantId/$docId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiSecurityMonitoringTenantIdMetricsRoute =
   ApiSecurityMonitoringTenantIdMetricsRouteImport.update({
     id: '/api/security-monitoring/$tenantId/metrics',
@@ -1531,6 +1555,24 @@ const ApiTeamsChannelsChannelIdMessagesRoute =
     id: '/api/teams/channels/$channelId/messages',
     path: '/api/teams/channels/$channelId/messages',
     getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiSystemDocsTenantIdDocIdPublishRoute =
+  ApiSystemDocsTenantIdDocIdPublishRouteImport.update({
+    id: '/publish',
+    path: '/publish',
+    getParentRoute: () => ApiSystemDocsTenantIdDocIdRoute,
+  } as any)
+const ApiSystemDocsTenantIdDocIdFeedbackRoute =
+  ApiSystemDocsTenantIdDocIdFeedbackRouteImport.update({
+    id: '/feedback',
+    path: '/feedback',
+    getParentRoute: () => ApiSystemDocsTenantIdDocIdRoute,
+  } as any)
+const ApiSystemDocsTenantIdDocIdExportRoute =
+  ApiSystemDocsTenantIdDocIdExportRouteImport.update({
+    id: '/export',
+    path: '/export',
+    getParentRoute: () => ApiSystemDocsTenantIdDocIdRoute,
   } as any)
 const ApiSecurityMonitoringIncidentsIncidentIdStatusRoute =
   ApiSecurityMonitoringIncidentsIncidentIdStatusRouteImport.update({
@@ -2249,6 +2291,9 @@ export interface FileRoutesByFullPath {
   '/api/security-monitoring/$tenantId/events': typeof ApiSecurityMonitoringTenantIdEventsRoute
   '/api/security-monitoring/$tenantId/incidents': typeof ApiSecurityMonitoringTenantIdIncidentsRoute
   '/api/security-monitoring/$tenantId/metrics': typeof ApiSecurityMonitoringTenantIdMetricsRoute
+  '/api/system-docs/$tenantId/$docId': typeof ApiSystemDocsTenantIdDocIdRouteWithChildren
+  '/api/system-docs/$tenantId/analytics': typeof ApiSystemDocsTenantIdAnalyticsRoute
+  '/api/system-docs/$tenantId/search': typeof ApiSystemDocsTenantIdSearchRoute
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
   '/api/teams/$teamId/channels': typeof ApiTeamsTeamIdChannelsRoute
@@ -2360,6 +2405,9 @@ export interface FileRoutesByFullPath {
   '/api/security-monitoring/alerts/$alertId/resolve': typeof ApiSecurityMonitoringAlertsAlertIdResolveRoute
   '/api/security-monitoring/incidents/$incidentId/actions': typeof ApiSecurityMonitoringIncidentsIncidentIdActionsRoute
   '/api/security-monitoring/incidents/$incidentId/status': typeof ApiSecurityMonitoringIncidentsIncidentIdStatusRoute
+  '/api/system-docs/$tenantId/$docId/export': typeof ApiSystemDocsTenantIdDocIdExportRoute
+  '/api/system-docs/$tenantId/$docId/feedback': typeof ApiSystemDocsTenantIdDocIdFeedbackRoute
+  '/api/system-docs/$tenantId/$docId/publish': typeof ApiSystemDocsTenantIdDocIdPublishRoute
   '/api/teams/channels/$channelId/messages': typeof ApiTeamsChannelsChannelIdMessagesRoute
   '/api/threat/$tenantId/iocs/check': typeof ApiThreatTenantIdIocsCheckRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
@@ -2563,6 +2611,9 @@ export interface FileRoutesByTo {
   '/api/security-monitoring/$tenantId/events': typeof ApiSecurityMonitoringTenantIdEventsRoute
   '/api/security-monitoring/$tenantId/incidents': typeof ApiSecurityMonitoringTenantIdIncidentsRoute
   '/api/security-monitoring/$tenantId/metrics': typeof ApiSecurityMonitoringTenantIdMetricsRoute
+  '/api/system-docs/$tenantId/$docId': typeof ApiSystemDocsTenantIdDocIdRouteWithChildren
+  '/api/system-docs/$tenantId/analytics': typeof ApiSystemDocsTenantIdAnalyticsRoute
+  '/api/system-docs/$tenantId/search': typeof ApiSystemDocsTenantIdSearchRoute
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
   '/api/teams/$teamId/channels': typeof ApiTeamsTeamIdChannelsRoute
@@ -2674,6 +2725,9 @@ export interface FileRoutesByTo {
   '/api/security-monitoring/alerts/$alertId/resolve': typeof ApiSecurityMonitoringAlertsAlertIdResolveRoute
   '/api/security-monitoring/incidents/$incidentId/actions': typeof ApiSecurityMonitoringIncidentsIncidentIdActionsRoute
   '/api/security-monitoring/incidents/$incidentId/status': typeof ApiSecurityMonitoringIncidentsIncidentIdStatusRoute
+  '/api/system-docs/$tenantId/$docId/export': typeof ApiSystemDocsTenantIdDocIdExportRoute
+  '/api/system-docs/$tenantId/$docId/feedback': typeof ApiSystemDocsTenantIdDocIdFeedbackRoute
+  '/api/system-docs/$tenantId/$docId/publish': typeof ApiSystemDocsTenantIdDocIdPublishRoute
   '/api/teams/channels/$channelId/messages': typeof ApiTeamsChannelsChannelIdMessagesRoute
   '/api/threat/$tenantId/iocs/check': typeof ApiThreatTenantIdIocsCheckRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
@@ -2878,6 +2932,9 @@ export interface FileRoutesById {
   '/api/security-monitoring/$tenantId/events': typeof ApiSecurityMonitoringTenantIdEventsRoute
   '/api/security-monitoring/$tenantId/incidents': typeof ApiSecurityMonitoringTenantIdIncidentsRoute
   '/api/security-monitoring/$tenantId/metrics': typeof ApiSecurityMonitoringTenantIdMetricsRoute
+  '/api/system-docs/$tenantId/$docId': typeof ApiSystemDocsTenantIdDocIdRouteWithChildren
+  '/api/system-docs/$tenantId/analytics': typeof ApiSystemDocsTenantIdAnalyticsRoute
+  '/api/system-docs/$tenantId/search': typeof ApiSystemDocsTenantIdSearchRoute
   '/api/teams/$teamId/analytics': typeof ApiTeamsTeamIdAnalyticsRoute
   '/api/teams/$teamId/budget': typeof ApiTeamsTeamIdBudgetRoute
   '/api/teams/$teamId/channels': typeof ApiTeamsTeamIdChannelsRoute
@@ -2989,6 +3046,9 @@ export interface FileRoutesById {
   '/api/security-monitoring/alerts/$alertId/resolve': typeof ApiSecurityMonitoringAlertsAlertIdResolveRoute
   '/api/security-monitoring/incidents/$incidentId/actions': typeof ApiSecurityMonitoringIncidentsIncidentIdActionsRoute
   '/api/security-monitoring/incidents/$incidentId/status': typeof ApiSecurityMonitoringIncidentsIncidentIdStatusRoute
+  '/api/system-docs/$tenantId/$docId/export': typeof ApiSystemDocsTenantIdDocIdExportRoute
+  '/api/system-docs/$tenantId/$docId/feedback': typeof ApiSystemDocsTenantIdDocIdFeedbackRoute
+  '/api/system-docs/$tenantId/$docId/publish': typeof ApiSystemDocsTenantIdDocIdPublishRoute
   '/api/teams/channels/$channelId/messages': typeof ApiTeamsChannelsChannelIdMessagesRoute
   '/api/threat/$tenantId/iocs/check': typeof ApiThreatTenantIdIocsCheckRoute
   '/api/tools/mcp/disconnect/$serverId': typeof ApiToolsMcpDisconnectServerIdRoute
@@ -3194,6 +3254,9 @@ export interface FileRouteTypes {
     | '/api/security-monitoring/$tenantId/events'
     | '/api/security-monitoring/$tenantId/incidents'
     | '/api/security-monitoring/$tenantId/metrics'
+    | '/api/system-docs/$tenantId/$docId'
+    | '/api/system-docs/$tenantId/analytics'
+    | '/api/system-docs/$tenantId/search'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
     | '/api/teams/$teamId/channels'
@@ -3305,6 +3368,9 @@ export interface FileRouteTypes {
     | '/api/security-monitoring/alerts/$alertId/resolve'
     | '/api/security-monitoring/incidents/$incidentId/actions'
     | '/api/security-monitoring/incidents/$incidentId/status'
+    | '/api/system-docs/$tenantId/$docId/export'
+    | '/api/system-docs/$tenantId/$docId/feedback'
+    | '/api/system-docs/$tenantId/$docId/publish'
     | '/api/teams/channels/$channelId/messages'
     | '/api/threat/$tenantId/iocs/check'
     | '/api/tools/mcp/disconnect/$serverId'
@@ -3508,6 +3574,9 @@ export interface FileRouteTypes {
     | '/api/security-monitoring/$tenantId/events'
     | '/api/security-monitoring/$tenantId/incidents'
     | '/api/security-monitoring/$tenantId/metrics'
+    | '/api/system-docs/$tenantId/$docId'
+    | '/api/system-docs/$tenantId/analytics'
+    | '/api/system-docs/$tenantId/search'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
     | '/api/teams/$teamId/channels'
@@ -3619,6 +3688,9 @@ export interface FileRouteTypes {
     | '/api/security-monitoring/alerts/$alertId/resolve'
     | '/api/security-monitoring/incidents/$incidentId/actions'
     | '/api/security-monitoring/incidents/$incidentId/status'
+    | '/api/system-docs/$tenantId/$docId/export'
+    | '/api/system-docs/$tenantId/$docId/feedback'
+    | '/api/system-docs/$tenantId/$docId/publish'
     | '/api/teams/channels/$channelId/messages'
     | '/api/threat/$tenantId/iocs/check'
     | '/api/tools/mcp/disconnect/$serverId'
@@ -3822,6 +3894,9 @@ export interface FileRouteTypes {
     | '/api/security-monitoring/$tenantId/events'
     | '/api/security-monitoring/$tenantId/incidents'
     | '/api/security-monitoring/$tenantId/metrics'
+    | '/api/system-docs/$tenantId/$docId'
+    | '/api/system-docs/$tenantId/analytics'
+    | '/api/system-docs/$tenantId/search'
     | '/api/teams/$teamId/analytics'
     | '/api/teams/$teamId/budget'
     | '/api/teams/$teamId/channels'
@@ -3933,6 +4008,9 @@ export interface FileRouteTypes {
     | '/api/security-monitoring/alerts/$alertId/resolve'
     | '/api/security-monitoring/incidents/$incidentId/actions'
     | '/api/security-monitoring/incidents/$incidentId/status'
+    | '/api/system-docs/$tenantId/$docId/export'
+    | '/api/system-docs/$tenantId/$docId/feedback'
+    | '/api/system-docs/$tenantId/$docId/publish'
     | '/api/teams/channels/$channelId/messages'
     | '/api/threat/$tenantId/iocs/check'
     | '/api/tools/mcp/disconnect/$serverId'
@@ -4133,6 +4211,9 @@ export interface RootRouteChildren {
   ApiSecurityMonitoringTenantIdEventsRoute: typeof ApiSecurityMonitoringTenantIdEventsRoute
   ApiSecurityMonitoringTenantIdIncidentsRoute: typeof ApiSecurityMonitoringTenantIdIncidentsRoute
   ApiSecurityMonitoringTenantIdMetricsRoute: typeof ApiSecurityMonitoringTenantIdMetricsRoute
+  ApiSystemDocsTenantIdDocIdRoute: typeof ApiSystemDocsTenantIdDocIdRouteWithChildren
+  ApiSystemDocsTenantIdAnalyticsRoute: typeof ApiSystemDocsTenantIdAnalyticsRoute
+  ApiSystemDocsTenantIdSearchRoute: typeof ApiSystemDocsTenantIdSearchRoute
   ApiTeamsTeamIdAnalyticsRoute: typeof ApiTeamsTeamIdAnalyticsRoute
   ApiTeamsTeamIdBudgetRoute: typeof ApiTeamsTeamIdBudgetRoute
   ApiTeamsTeamIdChannelsRoute: typeof ApiTeamsTeamIdChannelsRoute
@@ -4980,6 +5061,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiTeamsTeamIdAnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/system-docs/$tenantId/search': {
+      id: '/api/system-docs/$tenantId/search'
+      path: '/api/system-docs/$tenantId/search'
+      fullPath: '/api/system-docs/$tenantId/search'
+      preLoaderRoute: typeof ApiSystemDocsTenantIdSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/system-docs/$tenantId/analytics': {
+      id: '/api/system-docs/$tenantId/analytics'
+      path: '/api/system-docs/$tenantId/analytics'
+      fullPath: '/api/system-docs/$tenantId/analytics'
+      preLoaderRoute: typeof ApiSystemDocsTenantIdAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/system-docs/$tenantId/$docId': {
+      id: '/api/system-docs/$tenantId/$docId'
+      path: '/api/system-docs/$tenantId/$docId'
+      fullPath: '/api/system-docs/$tenantId/$docId'
+      preLoaderRoute: typeof ApiSystemDocsTenantIdDocIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/security-monitoring/$tenantId/metrics': {
       id: '/api/security-monitoring/$tenantId/metrics'
       path: '/api/security-monitoring/$tenantId/metrics'
@@ -5777,6 +5879,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/teams/channels/$channelId/messages'
       preLoaderRoute: typeof ApiTeamsChannelsChannelIdMessagesRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/api/system-docs/$tenantId/$docId/publish': {
+      id: '/api/system-docs/$tenantId/$docId/publish'
+      path: '/publish'
+      fullPath: '/api/system-docs/$tenantId/$docId/publish'
+      preLoaderRoute: typeof ApiSystemDocsTenantIdDocIdPublishRouteImport
+      parentRoute: typeof ApiSystemDocsTenantIdDocIdRoute
+    }
+    '/api/system-docs/$tenantId/$docId/feedback': {
+      id: '/api/system-docs/$tenantId/$docId/feedback'
+      path: '/feedback'
+      fullPath: '/api/system-docs/$tenantId/$docId/feedback'
+      preLoaderRoute: typeof ApiSystemDocsTenantIdDocIdFeedbackRouteImport
+      parentRoute: typeof ApiSystemDocsTenantIdDocIdRoute
+    }
+    '/api/system-docs/$tenantId/$docId/export': {
+      id: '/api/system-docs/$tenantId/$docId/export'
+      path: '/export'
+      fullPath: '/api/system-docs/$tenantId/$docId/export'
+      preLoaderRoute: typeof ApiSystemDocsTenantIdDocIdExportRouteImport
+      parentRoute: typeof ApiSystemDocsTenantIdDocIdRoute
     }
     '/api/security-monitoring/incidents/$incidentId/status': {
       id: '/api/security-monitoring/incidents/$incidentId/status'
@@ -6763,6 +6886,27 @@ const ApiIntelligenceReflectionMetricsRouteWithChildren =
     ApiIntelligenceReflectionMetricsRouteChildren,
   )
 
+interface ApiSystemDocsTenantIdDocIdRouteChildren {
+  ApiSystemDocsTenantIdDocIdExportRoute: typeof ApiSystemDocsTenantIdDocIdExportRoute
+  ApiSystemDocsTenantIdDocIdFeedbackRoute: typeof ApiSystemDocsTenantIdDocIdFeedbackRoute
+  ApiSystemDocsTenantIdDocIdPublishRoute: typeof ApiSystemDocsTenantIdDocIdPublishRoute
+}
+
+const ApiSystemDocsTenantIdDocIdRouteChildren: ApiSystemDocsTenantIdDocIdRouteChildren =
+  {
+    ApiSystemDocsTenantIdDocIdExportRoute:
+      ApiSystemDocsTenantIdDocIdExportRoute,
+    ApiSystemDocsTenantIdDocIdFeedbackRoute:
+      ApiSystemDocsTenantIdDocIdFeedbackRoute,
+    ApiSystemDocsTenantIdDocIdPublishRoute:
+      ApiSystemDocsTenantIdDocIdPublishRoute,
+  }
+
+const ApiSystemDocsTenantIdDocIdRouteWithChildren =
+  ApiSystemDocsTenantIdDocIdRoute._addFileChildren(
+    ApiSystemDocsTenantIdDocIdRouteChildren,
+  )
+
 interface ApiThreatTenantIdFeedsRouteChildren {
   ApiThreatTenantIdFeedsFeedIdSyncRoute: typeof ApiThreatTenantIdFeedsFeedIdSyncRoute
 }
@@ -7032,6 +7176,9 @@ const rootRouteChildren: RootRouteChildren = {
     ApiSecurityMonitoringTenantIdIncidentsRoute,
   ApiSecurityMonitoringTenantIdMetricsRoute:
     ApiSecurityMonitoringTenantIdMetricsRoute,
+  ApiSystemDocsTenantIdDocIdRoute: ApiSystemDocsTenantIdDocIdRouteWithChildren,
+  ApiSystemDocsTenantIdAnalyticsRoute: ApiSystemDocsTenantIdAnalyticsRoute,
+  ApiSystemDocsTenantIdSearchRoute: ApiSystemDocsTenantIdSearchRoute,
   ApiTeamsTeamIdAnalyticsRoute: ApiTeamsTeamIdAnalyticsRoute,
   ApiTeamsTeamIdBudgetRoute: ApiTeamsTeamIdBudgetRoute,
   ApiTeamsTeamIdChannelsRoute: ApiTeamsTeamIdChannelsRoute,
