@@ -1,4 +1,4 @@
-import type { AgentStatus } from "../types";
+import type { AgentStatus } from "../agents/agentTypes";
 
 export class LifecycleManager {
   private state: AgentStatus = "idle";
