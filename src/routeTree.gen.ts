@@ -38,6 +38,7 @@ import { Route as ApiCollaborationSessionsRouteImport } from './routes/api/colla
 import { Route as ApiCollaborationInitiateRouteImport } from './routes/api/collaboration/initiate'
 import { Route as ApiBudgetSplatRouteImport } from './routes/api/budget/$'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
+import { Route as ApiAdvancedRolesTemplatesRouteImport } from './routes/api/advanced-roles/templates'
 import { Route as ApiInfrastructureDiscoveryRouteRouteImport } from './routes/api/infrastructure/discovery/route'
 import { Route as ApiToolsPoliciesIndexRouteImport } from './routes/api/tools/policies/index'
 import { Route as ApiToolsMarketplaceIndexRouteImport } from './routes/api/tools/marketplace/index'
@@ -307,6 +308,12 @@ const ApiApprovalsSplatRoute = ApiApprovalsSplatRouteImport.update({
   path: '/api/approvals/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAdvancedRolesTemplatesRoute =
+  ApiAdvancedRolesTemplatesRouteImport.update({
+    id: '/api/advanced-roles/templates',
+    path: '/api/advanced-roles/templates',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiInfrastructureDiscoveryRouteRoute =
   ApiInfrastructureDiscoveryRouteRouteImport.update({
     id: '/api/infrastructure/discovery',
@@ -1006,6 +1013,7 @@ export interface FileRoutesByFullPath {
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
+  '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
@@ -1156,6 +1164,7 @@ export interface FileRoutesByTo {
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
+  '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
@@ -1307,6 +1316,7 @@ export interface FileRoutesById {
   '/voice': typeof VoiceRoute
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
+  '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/budget/$': typeof ApiBudgetSplatRoute
   '/api/collaboration/initiate': typeof ApiCollaborationInitiateRoute
@@ -1459,6 +1469,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/planner-test'
     | '/api/infrastructure/discovery'
+    | '/api/advanced-roles/templates'
     | '/api/approvals/$'
     | '/api/budget/$'
     | '/api/collaboration/initiate'
@@ -1609,6 +1620,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/planner-test'
     | '/api/infrastructure/discovery'
+    | '/api/advanced-roles/templates'
     | '/api/approvals/$'
     | '/api/budget/$'
     | '/api/collaboration/initiate'
@@ -1759,6 +1771,7 @@ export interface FileRouteTypes {
     | '/voice'
     | '/api/planner-test'
     | '/api/infrastructure/discovery'
+    | '/api/advanced-roles/templates'
     | '/api/approvals/$'
     | '/api/budget/$'
     | '/api/collaboration/initiate'
@@ -1910,6 +1923,7 @@ export interface RootRouteChildren {
   VoiceRoute: typeof VoiceRoute
   ApiPlannerTestRoute: typeof ApiPlannerTestRoute
   ApiInfrastructureDiscoveryRouteRoute: typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
+  ApiAdvancedRolesTemplatesRoute: typeof ApiAdvancedRolesTemplatesRoute
   ApiApprovalsSplatRoute: typeof ApiApprovalsSplatRoute
   ApiBudgetSplatRoute: typeof ApiBudgetSplatRoute
   ApiCollaborationInitiateRoute: typeof ApiCollaborationInitiateRoute
@@ -2246,6 +2260,13 @@ declare module '@tanstack/react-router' {
       path: '/api/approvals/$'
       fullPath: '/api/approvals/$'
       preLoaderRoute: typeof ApiApprovalsSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/advanced-roles/templates': {
+      id: '/api/advanced-roles/templates'
+      path: '/api/advanced-roles/templates'
+      fullPath: '/api/advanced-roles/templates'
+      preLoaderRoute: typeof ApiAdvancedRolesTemplatesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/infrastructure/discovery': {
@@ -3147,6 +3168,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPlannerTestRoute: ApiPlannerTestRoute,
   ApiInfrastructureDiscoveryRouteRoute:
     ApiInfrastructureDiscoveryRouteRouteWithChildren,
+  ApiAdvancedRolesTemplatesRoute: ApiAdvancedRolesTemplatesRoute,
   ApiApprovalsSplatRoute: ApiApprovalsSplatRoute,
   ApiBudgetSplatRoute: ApiBudgetSplatRoute,
   ApiCollaborationInitiateRoute: ApiCollaborationInitiateRoute,
