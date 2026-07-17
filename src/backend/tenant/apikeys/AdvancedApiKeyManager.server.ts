@@ -153,7 +153,7 @@ export class AdvancedApiKeyManager {
       rateLimitPerDay: oldKey.rate_limit_per_day,
       ipAllowlist: oldKey.ip_allowlist ?? undefined,
       expiresAt: oldKey.expires_at ? new Date(oldKey.expires_at) : undefined,
-      rotationPolicy: oldKey.rotation_policy ?? undefined,
+      rotationPolicy: (oldKey.rotation_policy ?? undefined) as AdvancedApiKey["rotationPolicy"],
       createdBy: rotatedBy,
     });
 
