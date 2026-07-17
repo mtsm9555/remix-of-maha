@@ -1,5 +1,5 @@
-import { MemoryStore } from "./memory/memoryStore";
-import { MemoryManager } from "./memory/memoryManager";
+import { MemoryStore } from "./memoryStore";
+import { MemoryManager } from "./memoryManager";
 
 const memoryStore = new MemoryStore();
 const memoryManager = new MemoryManager(memoryStore);
