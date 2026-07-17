@@ -81,6 +81,7 @@ import { Route as ApiIntelligenceConsolidateIndexRouteImport } from './routes/ap
 import { Route as ApiInfrastructureRegistryIndexRouteImport } from './routes/api/infrastructure/registry/index'
 import { Route as ApiInfrastructureFleetIndexRouteImport } from './routes/api/infrastructure/fleet/index'
 import { Route as ApiGovernanceDsarIndexRouteImport } from './routes/api/governance/dsar/index'
+import { Route as ApiDocsTenantIdIndexRouteImport } from './routes/api/docs/$tenantId/index'
 import { Route as ApiClusterWorkersIndexRouteImport } from './routes/api/cluster/workers/index'
 import { Route as ApiClusterTasksIndexRouteImport } from './routes/api/cluster/tasks/index'
 import { Route as ApiApikeysTenantIdIndexRouteImport } from './routes/api/apikeys/$tenantId/index'
@@ -172,6 +173,7 @@ import { Route as ApiEncryptionTenantIdFieldsRouteImport } from './routes/api/en
 import { Route as ApiEncryptionTenantIdEncryptRouteImport } from './routes/api/encryption/$tenantId/encrypt'
 import { Route as ApiEncryptionTenantIdDecryptRouteImport } from './routes/api/encryption/$tenantId/decrypt'
 import { Route as ApiEncryptionTenantIdAuditRouteImport } from './routes/api/encryption/$tenantId/audit'
+import { Route as ApiDocsTenantIdDocIdRouteImport } from './routes/api/docs/$tenantId/$docId'
 import { Route as ApiDataVersionsRollbackRouteImport } from './routes/api/data/versions/rollback'
 import { Route as ApiDataVersionsDiffRouteImport } from './routes/api/data/versions/diff'
 import { Route as ApiDataVersionsVersionIdRouteImport } from './routes/api/data/versions/$versionId'
@@ -258,6 +260,11 @@ import { Route as ApiGpuAllocationsIdReleaseRouteImport } from './routes/api/gpu
 import { Route as ApiGovernanceDsarIdProcessRouteImport } from './routes/api/governance/dsar/$id/process'
 import { Route as ApiDrTestsIdExecuteRouteImport } from './routes/api/dr/tests.$id.execute'
 import { Route as ApiDrRegionsIdHealthRouteImport } from './routes/api/dr/regions.$id.health'
+import { Route as ApiDocsTenantIdDocIdVersionsRouteImport } from './routes/api/docs/$tenantId/$docId.versions'
+import { Route as ApiDocsTenantIdDocIdOpenapiYamlRouteImport } from './routes/api/docs/$tenantId/$docId.openapi-yaml'
+import { Route as ApiDocsTenantIdDocIdOpenapiJsonRouteImport } from './routes/api/docs/$tenantId/$docId.openapi-json'
+import { Route as ApiDocsTenantIdDocIdMarkdownRouteImport } from './routes/api/docs/$tenantId/$docId.markdown'
+import { Route as ApiDocsTenantIdDocIdExamplesRouteImport } from './routes/api/docs/$tenantId/$docId.examples'
 import { Route as ApiDataUserMemoriesSearchRouteImport } from './routes/api/data/user/memories/search'
 import { Route as ApiDataUserMemoriesMemoryIdRouteImport } from './routes/api/data/user/memories/$memoryId'
 import { Route as ApiDataSnapshotsTaskTaskIdRouteImport } from './routes/api/data/snapshots/task/$taskId'
@@ -686,6 +693,11 @@ const ApiInfrastructureFleetIndexRoute =
 const ApiGovernanceDsarIndexRoute = ApiGovernanceDsarIndexRouteImport.update({
   id: '/api/governance/dsar/',
   path: '/api/governance/dsar/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDocsTenantIdIndexRoute = ApiDocsTenantIdIndexRouteImport.update({
+  id: '/api/docs/$tenantId/',
+  path: '/api/docs/$tenantId/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiClusterWorkersIndexRoute = ApiClusterWorkersIndexRouteImport.update({
@@ -1198,6 +1210,11 @@ const ApiEncryptionTenantIdAuditRoute =
     path: '/api/encryption/$tenantId/audit',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiDocsTenantIdDocIdRoute = ApiDocsTenantIdDocIdRouteImport.update({
+  id: '/api/docs/$tenantId/$docId',
+  path: '/api/docs/$tenantId/$docId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiDataVersionsRollbackRoute = ApiDataVersionsRollbackRouteImport.update({
   id: '/api/data/versions/rollback',
   path: '/api/data/versions/rollback',
@@ -1696,6 +1713,36 @@ const ApiDrRegionsIdHealthRoute = ApiDrRegionsIdHealthRouteImport.update({
   path: '/$id/health',
   getParentRoute: () => ApiDrRegionsRoute,
 } as any)
+const ApiDocsTenantIdDocIdVersionsRoute =
+  ApiDocsTenantIdDocIdVersionsRouteImport.update({
+    id: '/versions',
+    path: '/versions',
+    getParentRoute: () => ApiDocsTenantIdDocIdRoute,
+  } as any)
+const ApiDocsTenantIdDocIdOpenapiYamlRoute =
+  ApiDocsTenantIdDocIdOpenapiYamlRouteImport.update({
+    id: '/openapi-yaml',
+    path: '/openapi-yaml',
+    getParentRoute: () => ApiDocsTenantIdDocIdRoute,
+  } as any)
+const ApiDocsTenantIdDocIdOpenapiJsonRoute =
+  ApiDocsTenantIdDocIdOpenapiJsonRouteImport.update({
+    id: '/openapi-json',
+    path: '/openapi-json',
+    getParentRoute: () => ApiDocsTenantIdDocIdRoute,
+  } as any)
+const ApiDocsTenantIdDocIdMarkdownRoute =
+  ApiDocsTenantIdDocIdMarkdownRouteImport.update({
+    id: '/markdown',
+    path: '/markdown',
+    getParentRoute: () => ApiDocsTenantIdDocIdRoute,
+  } as any)
+const ApiDocsTenantIdDocIdExamplesRoute =
+  ApiDocsTenantIdDocIdExamplesRouteImport.update({
+    id: '/examples',
+    path: '/examples',
+    getParentRoute: () => ApiDocsTenantIdDocIdRoute,
+  } as any)
 const ApiDataUserMemoriesSearchRoute =
   ApiDataUserMemoriesSearchRouteImport.update({
     id: '/api/data/user/memories/search',
@@ -2135,6 +2182,7 @@ export interface FileRoutesByFullPath {
   '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
   '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
+  '/api/docs/$tenantId/$docId': typeof ApiDocsTenantIdDocIdRouteWithChildren
   '/api/encryption/$tenantId/audit': typeof ApiEncryptionTenantIdAuditRoute
   '/api/encryption/$tenantId/decrypt': typeof ApiEncryptionTenantIdDecryptRoute
   '/api/encryption/$tenantId/encrypt': typeof ApiEncryptionTenantIdEncryptRoute
@@ -2226,6 +2274,7 @@ export interface FileRoutesByFullPath {
   '/api/apikeys/$tenantId/': typeof ApiApikeysTenantIdIndexRoute
   '/api/cluster/tasks/': typeof ApiClusterTasksIndexRoute
   '/api/cluster/workers/': typeof ApiClusterWorkersIndexRoute
+  '/api/docs/$tenantId/': typeof ApiDocsTenantIdIndexRoute
   '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
@@ -2266,6 +2315,11 @@ export interface FileRoutesByFullPath {
   '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
+  '/api/docs/$tenantId/$docId/examples': typeof ApiDocsTenantIdDocIdExamplesRoute
+  '/api/docs/$tenantId/$docId/markdown': typeof ApiDocsTenantIdDocIdMarkdownRoute
+  '/api/docs/$tenantId/$docId/openapi-json': typeof ApiDocsTenantIdDocIdOpenapiJsonRoute
+  '/api/docs/$tenantId/$docId/openapi-yaml': typeof ApiDocsTenantIdDocIdOpenapiYamlRoute
+  '/api/docs/$tenantId/$docId/versions': typeof ApiDocsTenantIdDocIdVersionsRoute
   '/api/dr/regions/$id/health': typeof ApiDrRegionsIdHealthRoute
   '/api/dr/tests/$id/execute': typeof ApiDrTestsIdExecuteRoute
   '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
@@ -2441,6 +2495,7 @@ export interface FileRoutesByTo {
   '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
   '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
+  '/api/docs/$tenantId/$docId': typeof ApiDocsTenantIdDocIdRouteWithChildren
   '/api/encryption/$tenantId/audit': typeof ApiEncryptionTenantIdAuditRoute
   '/api/encryption/$tenantId/decrypt': typeof ApiEncryptionTenantIdDecryptRoute
   '/api/encryption/$tenantId/encrypt': typeof ApiEncryptionTenantIdEncryptRoute
@@ -2532,6 +2587,7 @@ export interface FileRoutesByTo {
   '/api/apikeys/$tenantId': typeof ApiApikeysTenantIdIndexRoute
   '/api/cluster/tasks': typeof ApiClusterTasksIndexRoute
   '/api/cluster/workers': typeof ApiClusterWorkersIndexRoute
+  '/api/docs/$tenantId': typeof ApiDocsTenantIdIndexRoute
   '/api/governance/dsar': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry': typeof ApiInfrastructureRegistryIndexRoute
@@ -2572,6 +2628,11 @@ export interface FileRoutesByTo {
   '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
+  '/api/docs/$tenantId/$docId/examples': typeof ApiDocsTenantIdDocIdExamplesRoute
+  '/api/docs/$tenantId/$docId/markdown': typeof ApiDocsTenantIdDocIdMarkdownRoute
+  '/api/docs/$tenantId/$docId/openapi-json': typeof ApiDocsTenantIdDocIdOpenapiJsonRoute
+  '/api/docs/$tenantId/$docId/openapi-yaml': typeof ApiDocsTenantIdDocIdOpenapiYamlRoute
+  '/api/docs/$tenantId/$docId/versions': typeof ApiDocsTenantIdDocIdVersionsRoute
   '/api/dr/regions/$id/health': typeof ApiDrRegionsIdHealthRoute
   '/api/dr/tests/$id/execute': typeof ApiDrTestsIdExecuteRoute
   '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
@@ -2748,6 +2809,7 @@ export interface FileRoutesById {
   '/api/data/versions/$versionId': typeof ApiDataVersionsVersionIdRoute
   '/api/data/versions/diff': typeof ApiDataVersionsDiffRoute
   '/api/data/versions/rollback': typeof ApiDataVersionsRollbackRoute
+  '/api/docs/$tenantId/$docId': typeof ApiDocsTenantIdDocIdRouteWithChildren
   '/api/encryption/$tenantId/audit': typeof ApiEncryptionTenantIdAuditRoute
   '/api/encryption/$tenantId/decrypt': typeof ApiEncryptionTenantIdDecryptRoute
   '/api/encryption/$tenantId/encrypt': typeof ApiEncryptionTenantIdEncryptRoute
@@ -2839,6 +2901,7 @@ export interface FileRoutesById {
   '/api/apikeys/$tenantId/': typeof ApiApikeysTenantIdIndexRoute
   '/api/cluster/tasks/': typeof ApiClusterTasksIndexRoute
   '/api/cluster/workers/': typeof ApiClusterWorkersIndexRoute
+  '/api/docs/$tenantId/': typeof ApiDocsTenantIdIndexRoute
   '/api/governance/dsar/': typeof ApiGovernanceDsarIndexRoute
   '/api/infrastructure/fleet/': typeof ApiInfrastructureFleetIndexRoute
   '/api/infrastructure/registry/': typeof ApiInfrastructureRegistryIndexRoute
@@ -2879,6 +2942,11 @@ export interface FileRoutesById {
   '/api/data/snapshots/task/$taskId': typeof ApiDataSnapshotsTaskTaskIdRoute
   '/api/data/user/memories/$memoryId': typeof ApiDataUserMemoriesMemoryIdRoute
   '/api/data/user/memories/search': typeof ApiDataUserMemoriesSearchRoute
+  '/api/docs/$tenantId/$docId/examples': typeof ApiDocsTenantIdDocIdExamplesRoute
+  '/api/docs/$tenantId/$docId/markdown': typeof ApiDocsTenantIdDocIdMarkdownRoute
+  '/api/docs/$tenantId/$docId/openapi-json': typeof ApiDocsTenantIdDocIdOpenapiJsonRoute
+  '/api/docs/$tenantId/$docId/openapi-yaml': typeof ApiDocsTenantIdDocIdOpenapiYamlRoute
+  '/api/docs/$tenantId/$docId/versions': typeof ApiDocsTenantIdDocIdVersionsRoute
   '/api/dr/regions/$id/health': typeof ApiDrRegionsIdHealthRoute
   '/api/dr/tests/$id/execute': typeof ApiDrTestsIdExecuteRoute
   '/api/governance/dsar/$id/process': typeof ApiGovernanceDsarIdProcessRoute
@@ -3056,6 +3124,7 @@ export interface FileRouteTypes {
     | '/api/data/versions/$versionId'
     | '/api/data/versions/diff'
     | '/api/data/versions/rollback'
+    | '/api/docs/$tenantId/$docId'
     | '/api/encryption/$tenantId/audit'
     | '/api/encryption/$tenantId/decrypt'
     | '/api/encryption/$tenantId/encrypt'
@@ -3147,6 +3216,7 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/'
     | '/api/cluster/tasks/'
     | '/api/cluster/workers/'
+    | '/api/docs/$tenantId/'
     | '/api/governance/dsar/'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
@@ -3187,6 +3257,11 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
+    | '/api/docs/$tenantId/$docId/examples'
+    | '/api/docs/$tenantId/$docId/markdown'
+    | '/api/docs/$tenantId/$docId/openapi-json'
+    | '/api/docs/$tenantId/$docId/openapi-yaml'
+    | '/api/docs/$tenantId/$docId/versions'
     | '/api/dr/regions/$id/health'
     | '/api/dr/tests/$id/execute'
     | '/api/governance/dsar/$id/process'
@@ -3362,6 +3437,7 @@ export interface FileRouteTypes {
     | '/api/data/versions/$versionId'
     | '/api/data/versions/diff'
     | '/api/data/versions/rollback'
+    | '/api/docs/$tenantId/$docId'
     | '/api/encryption/$tenantId/audit'
     | '/api/encryption/$tenantId/decrypt'
     | '/api/encryption/$tenantId/encrypt'
@@ -3453,6 +3529,7 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId'
     | '/api/cluster/tasks'
     | '/api/cluster/workers'
+    | '/api/docs/$tenantId'
     | '/api/governance/dsar'
     | '/api/infrastructure/fleet'
     | '/api/infrastructure/registry'
@@ -3493,6 +3570,11 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
+    | '/api/docs/$tenantId/$docId/examples'
+    | '/api/docs/$tenantId/$docId/markdown'
+    | '/api/docs/$tenantId/$docId/openapi-json'
+    | '/api/docs/$tenantId/$docId/openapi-yaml'
+    | '/api/docs/$tenantId/$docId/versions'
     | '/api/dr/regions/$id/health'
     | '/api/dr/tests/$id/execute'
     | '/api/governance/dsar/$id/process'
@@ -3668,6 +3750,7 @@ export interface FileRouteTypes {
     | '/api/data/versions/$versionId'
     | '/api/data/versions/diff'
     | '/api/data/versions/rollback'
+    | '/api/docs/$tenantId/$docId'
     | '/api/encryption/$tenantId/audit'
     | '/api/encryption/$tenantId/decrypt'
     | '/api/encryption/$tenantId/encrypt'
@@ -3759,6 +3842,7 @@ export interface FileRouteTypes {
     | '/api/apikeys/$tenantId/'
     | '/api/cluster/tasks/'
     | '/api/cluster/workers/'
+    | '/api/docs/$tenantId/'
     | '/api/governance/dsar/'
     | '/api/infrastructure/fleet/'
     | '/api/infrastructure/registry/'
@@ -3799,6 +3883,11 @@ export interface FileRouteTypes {
     | '/api/data/snapshots/task/$taskId'
     | '/api/data/user/memories/$memoryId'
     | '/api/data/user/memories/search'
+    | '/api/docs/$tenantId/$docId/examples'
+    | '/api/docs/$tenantId/$docId/markdown'
+    | '/api/docs/$tenantId/$docId/openapi-json'
+    | '/api/docs/$tenantId/$docId/openapi-yaml'
+    | '/api/docs/$tenantId/$docId/versions'
     | '/api/dr/regions/$id/health'
     | '/api/dr/tests/$id/execute'
     | '/api/governance/dsar/$id/process'
@@ -3975,6 +4064,7 @@ export interface RootRouteChildren {
   ApiDataVersionsVersionIdRoute: typeof ApiDataVersionsVersionIdRoute
   ApiDataVersionsDiffRoute: typeof ApiDataVersionsDiffRoute
   ApiDataVersionsRollbackRoute: typeof ApiDataVersionsRollbackRoute
+  ApiDocsTenantIdDocIdRoute: typeof ApiDocsTenantIdDocIdRouteWithChildren
   ApiEncryptionTenantIdAuditRoute: typeof ApiEncryptionTenantIdAuditRoute
   ApiEncryptionTenantIdDecryptRoute: typeof ApiEncryptionTenantIdDecryptRoute
   ApiEncryptionTenantIdEncryptRoute: typeof ApiEncryptionTenantIdEncryptRoute
@@ -4062,6 +4152,7 @@ export interface RootRouteChildren {
   ApiApikeysTenantIdIndexRoute: typeof ApiApikeysTenantIdIndexRoute
   ApiClusterTasksIndexRoute: typeof ApiClusterTasksIndexRoute
   ApiClusterWorkersIndexRoute: typeof ApiClusterWorkersIndexRoute
+  ApiDocsTenantIdIndexRoute: typeof ApiDocsTenantIdIndexRoute
   ApiGovernanceDsarIndexRoute: typeof ApiGovernanceDsarIndexRoute
   ApiInfrastructureFleetIndexRoute: typeof ApiInfrastructureFleetIndexRoute
   ApiInfrastructureRegistryIndexRoute: typeof ApiInfrastructureRegistryIndexRoute
@@ -4635,6 +4726,13 @@ declare module '@tanstack/react-router' {
       path: '/api/governance/dsar'
       fullPath: '/api/governance/dsar/'
       preLoaderRoute: typeof ApiGovernanceDsarIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/docs/$tenantId/': {
+      id: '/api/docs/$tenantId/'
+      path: '/api/docs/$tenantId'
+      fullPath: '/api/docs/$tenantId/'
+      preLoaderRoute: typeof ApiDocsTenantIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/cluster/workers/': {
@@ -5274,6 +5372,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiEncryptionTenantIdAuditRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/docs/$tenantId/$docId': {
+      id: '/api/docs/$tenantId/$docId'
+      path: '/api/docs/$tenantId/$docId'
+      fullPath: '/api/docs/$tenantId/$docId'
+      preLoaderRoute: typeof ApiDocsTenantIdDocIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/data/versions/rollback': {
       id: '/api/data/versions/rollback'
       path: '/api/data/versions/rollback'
@@ -5875,6 +5980,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/dr/regions/$id/health'
       preLoaderRoute: typeof ApiDrRegionsIdHealthRouteImport
       parentRoute: typeof ApiDrRegionsRoute
+    }
+    '/api/docs/$tenantId/$docId/versions': {
+      id: '/api/docs/$tenantId/$docId/versions'
+      path: '/versions'
+      fullPath: '/api/docs/$tenantId/$docId/versions'
+      preLoaderRoute: typeof ApiDocsTenantIdDocIdVersionsRouteImport
+      parentRoute: typeof ApiDocsTenantIdDocIdRoute
+    }
+    '/api/docs/$tenantId/$docId/openapi-yaml': {
+      id: '/api/docs/$tenantId/$docId/openapi-yaml'
+      path: '/openapi-yaml'
+      fullPath: '/api/docs/$tenantId/$docId/openapi-yaml'
+      preLoaderRoute: typeof ApiDocsTenantIdDocIdOpenapiYamlRouteImport
+      parentRoute: typeof ApiDocsTenantIdDocIdRoute
+    }
+    '/api/docs/$tenantId/$docId/openapi-json': {
+      id: '/api/docs/$tenantId/$docId/openapi-json'
+      path: '/openapi-json'
+      fullPath: '/api/docs/$tenantId/$docId/openapi-json'
+      preLoaderRoute: typeof ApiDocsTenantIdDocIdOpenapiJsonRouteImport
+      parentRoute: typeof ApiDocsTenantIdDocIdRoute
+    }
+    '/api/docs/$tenantId/$docId/markdown': {
+      id: '/api/docs/$tenantId/$docId/markdown'
+      path: '/markdown'
+      fullPath: '/api/docs/$tenantId/$docId/markdown'
+      preLoaderRoute: typeof ApiDocsTenantIdDocIdMarkdownRouteImport
+      parentRoute: typeof ApiDocsTenantIdDocIdRoute
+    }
+    '/api/docs/$tenantId/$docId/examples': {
+      id: '/api/docs/$tenantId/$docId/examples'
+      path: '/examples'
+      fullPath: '/api/docs/$tenantId/$docId/examples'
+      preLoaderRoute: typeof ApiDocsTenantIdDocIdExamplesRouteImport
+      parentRoute: typeof ApiDocsTenantIdDocIdRoute
     }
     '/api/data/user/memories/search': {
       id: '/api/data/user/memories/search'
@@ -6535,6 +6675,25 @@ const ApiAuditTenantIdLogsRouteChildren: ApiAuditTenantIdLogsRouteChildren = {
 const ApiAuditTenantIdLogsRouteWithChildren =
   ApiAuditTenantIdLogsRoute._addFileChildren(ApiAuditTenantIdLogsRouteChildren)
 
+interface ApiDocsTenantIdDocIdRouteChildren {
+  ApiDocsTenantIdDocIdExamplesRoute: typeof ApiDocsTenantIdDocIdExamplesRoute
+  ApiDocsTenantIdDocIdMarkdownRoute: typeof ApiDocsTenantIdDocIdMarkdownRoute
+  ApiDocsTenantIdDocIdOpenapiJsonRoute: typeof ApiDocsTenantIdDocIdOpenapiJsonRoute
+  ApiDocsTenantIdDocIdOpenapiYamlRoute: typeof ApiDocsTenantIdDocIdOpenapiYamlRoute
+  ApiDocsTenantIdDocIdVersionsRoute: typeof ApiDocsTenantIdDocIdVersionsRoute
+}
+
+const ApiDocsTenantIdDocIdRouteChildren: ApiDocsTenantIdDocIdRouteChildren = {
+  ApiDocsTenantIdDocIdExamplesRoute: ApiDocsTenantIdDocIdExamplesRoute,
+  ApiDocsTenantIdDocIdMarkdownRoute: ApiDocsTenantIdDocIdMarkdownRoute,
+  ApiDocsTenantIdDocIdOpenapiJsonRoute: ApiDocsTenantIdDocIdOpenapiJsonRoute,
+  ApiDocsTenantIdDocIdOpenapiYamlRoute: ApiDocsTenantIdDocIdOpenapiYamlRoute,
+  ApiDocsTenantIdDocIdVersionsRoute: ApiDocsTenantIdDocIdVersionsRoute,
+}
+
+const ApiDocsTenantIdDocIdRouteWithChildren =
+  ApiDocsTenantIdDocIdRoute._addFileChildren(ApiDocsTenantIdDocIdRouteChildren)
+
 interface ApiEncryptionTenantIdKeysRouteChildren {
   ApiEncryptionTenantIdKeysKeyIdRevokeRoute: typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
   ApiEncryptionTenantIdKeysKeyIdRotateRoute: typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
@@ -6780,6 +6939,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiDataVersionsVersionIdRoute: ApiDataVersionsVersionIdRoute,
   ApiDataVersionsDiffRoute: ApiDataVersionsDiffRoute,
   ApiDataVersionsRollbackRoute: ApiDataVersionsRollbackRoute,
+  ApiDocsTenantIdDocIdRoute: ApiDocsTenantIdDocIdRouteWithChildren,
   ApiEncryptionTenantIdAuditRoute: ApiEncryptionTenantIdAuditRoute,
   ApiEncryptionTenantIdDecryptRoute: ApiEncryptionTenantIdDecryptRoute,
   ApiEncryptionTenantIdEncryptRoute: ApiEncryptionTenantIdEncryptRoute,
@@ -6886,6 +7046,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiApikeysTenantIdIndexRoute: ApiApikeysTenantIdIndexRoute,
   ApiClusterTasksIndexRoute: ApiClusterTasksIndexRoute,
   ApiClusterWorkersIndexRoute: ApiClusterWorkersIndexRoute,
+  ApiDocsTenantIdIndexRoute: ApiDocsTenantIdIndexRoute,
   ApiGovernanceDsarIndexRoute: ApiGovernanceDsarIndexRoute,
   ApiInfrastructureFleetIndexRoute: ApiInfrastructureFleetIndexRoute,
   ApiInfrastructureRegistryIndexRoute: ApiInfrastructureRegistryIndexRoute,

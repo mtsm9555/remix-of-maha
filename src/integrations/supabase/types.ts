@@ -1229,6 +1229,100 @@ export type Database = {
           },
         ]
       }
+      api_documentation: {
+        Row: {
+          auth_methods: Json
+          created_at: string
+          description: string
+          endpoints: Json
+          external_docs: Json | null
+          id: string
+          schemas: Json
+          servers: Json
+          tags: string[]
+          tenant_id: string
+          title: string
+          updated_at: string
+          version: string
+        }
+        Insert: {
+          auth_methods?: Json
+          created_at?: string
+          description: string
+          endpoints?: Json
+          external_docs?: Json | null
+          id: string
+          schemas?: Json
+          servers?: Json
+          tags?: string[]
+          tenant_id: string
+          title: string
+          updated_at?: string
+          version: string
+        }
+        Update: {
+          auth_methods?: Json
+          created_at?: string
+          description?: string
+          endpoints?: Json
+          external_docs?: Json | null
+          id?: string
+          schemas?: Json
+          servers?: Json
+          tags?: string[]
+          tenant_id?: string
+          title?: string
+          updated_at?: string
+          version?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "api_documentation_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      api_documentation_versions: {
+        Row: {
+          created_at: string
+          doc_id: string
+          documentation: Json
+          id: string
+          is_latest: boolean
+          published_at: string
+          version: string
+        }
+        Insert: {
+          created_at?: string
+          doc_id: string
+          documentation: Json
+          id: string
+          is_latest?: boolean
+          published_at?: string
+          version: string
+        }
+        Update: {
+          created_at?: string
+          doc_id?: string
+          documentation?: Json
+          id?: string
+          is_latest?: boolean
+          published_at?: string
+          version?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "api_documentation_versions_doc_id_fkey"
+            columns: ["doc_id"]
+            isOneToOne: false
+            referencedRelation: "api_documentation"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       api_key_audit_logs: {
         Row: {
           action: string
