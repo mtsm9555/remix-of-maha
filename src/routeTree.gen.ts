@@ -313,6 +313,7 @@ import { Route as ApiVaultTenantIdAccessRequestsRequestIdDecideRouteImport } fro
 import { Route as ApiThreatTenantIdFeedsFeedIdSyncRouteImport } from './routes/api/threat/$tenantId/feeds.$feedId.sync'
 import { Route as ApiTestingTenantIdSuitesSuiteIdRunRouteImport } from './routes/api/testing/$tenantId/suites.$suiteId.run'
 import { Route as ApiTestingTenantIdRunsRunIdReportRouteImport } from './routes/api/testing/$tenantId/runs.$runId.report'
+import { Route as ApiTestingTenantIdReportsReportIdExportRouteImport } from './routes/api/testing/$tenantId/reports.$reportId.export'
 import { Route as ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport } from './routes/api/infrastructure/budget/topups/$requestId.approve'
 import { Route as ApiEncryptionTenantIdKeysKeyIdRotateRouteImport } from './routes/api/encryption/$tenantId/keys.$keyId.rotate'
 import { Route as ApiEncryptionTenantIdKeysKeyIdRevokeRouteImport } from './routes/api/encryption/$tenantId/keys.$keyId.revoke'
@@ -2041,6 +2042,12 @@ const ApiTestingTenantIdRunsRunIdReportRoute =
     path: '/report',
     getParentRoute: () => ApiTestingTenantIdRunsRunIdRoute,
   } as any)
+const ApiTestingTenantIdReportsReportIdExportRoute =
+  ApiTestingTenantIdReportsReportIdExportRouteImport.update({
+    id: '/api/testing/$tenantId/reports/$reportId/export',
+    path: '/api/testing/$tenantId/reports/$reportId/export',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiInfrastructureBudgetTopupsRequestIdApproveRoute =
   ApiInfrastructureBudgetTopupsRequestIdApproveRouteImport.update({
     id: '/api/infrastructure/budget/topups/$requestId/approve',
@@ -2473,6 +2480,7 @@ export interface FileRoutesByFullPath {
   '/api/encryption/$tenantId/keys/$keyId/revoke': typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
   '/api/encryption/$tenantId/keys/$keyId/rotate': typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  '/api/testing/$tenantId/reports/$reportId/export': typeof ApiTestingTenantIdReportsReportIdExportRoute
   '/api/testing/$tenantId/runs/$runId/report': typeof ApiTestingTenantIdRunsRunIdReportRoute
   '/api/testing/$tenantId/suites/$suiteId/run': typeof ApiTestingTenantIdSuitesSuiteIdRunRoute
   '/api/threat/$tenantId/feeds/$feedId/sync': typeof ApiThreatTenantIdFeedsFeedIdSyncRoute
@@ -2798,6 +2806,7 @@ export interface FileRoutesByTo {
   '/api/encryption/$tenantId/keys/$keyId/revoke': typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
   '/api/encryption/$tenantId/keys/$keyId/rotate': typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  '/api/testing/$tenantId/reports/$reportId/export': typeof ApiTestingTenantIdReportsReportIdExportRoute
   '/api/testing/$tenantId/runs/$runId/report': typeof ApiTestingTenantIdRunsRunIdReportRoute
   '/api/testing/$tenantId/suites/$suiteId/run': typeof ApiTestingTenantIdSuitesSuiteIdRunRoute
   '/api/threat/$tenantId/feeds/$feedId/sync': typeof ApiThreatTenantIdFeedsFeedIdSyncRoute
@@ -3124,6 +3133,7 @@ export interface FileRoutesById {
   '/api/encryption/$tenantId/keys/$keyId/revoke': typeof ApiEncryptionTenantIdKeysKeyIdRevokeRoute
   '/api/encryption/$tenantId/keys/$keyId/rotate': typeof ApiEncryptionTenantIdKeysKeyIdRotateRoute
   '/api/infrastructure/budget/topups/$requestId/approve': typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  '/api/testing/$tenantId/reports/$reportId/export': typeof ApiTestingTenantIdReportsReportIdExportRoute
   '/api/testing/$tenantId/runs/$runId/report': typeof ApiTestingTenantIdRunsRunIdReportRoute
   '/api/testing/$tenantId/suites/$suiteId/run': typeof ApiTestingTenantIdSuitesSuiteIdRunRoute
   '/api/threat/$tenantId/feeds/$feedId/sync': typeof ApiThreatTenantIdFeedsFeedIdSyncRoute
@@ -3451,6 +3461,7 @@ export interface FileRouteTypes {
     | '/api/encryption/$tenantId/keys/$keyId/revoke'
     | '/api/encryption/$tenantId/keys/$keyId/rotate'
     | '/api/infrastructure/budget/topups/$requestId/approve'
+    | '/api/testing/$tenantId/reports/$reportId/export'
     | '/api/testing/$tenantId/runs/$runId/report'
     | '/api/testing/$tenantId/suites/$suiteId/run'
     | '/api/threat/$tenantId/feeds/$feedId/sync'
@@ -3776,6 +3787,7 @@ export interface FileRouteTypes {
     | '/api/encryption/$tenantId/keys/$keyId/revoke'
     | '/api/encryption/$tenantId/keys/$keyId/rotate'
     | '/api/infrastructure/budget/topups/$requestId/approve'
+    | '/api/testing/$tenantId/reports/$reportId/export'
     | '/api/testing/$tenantId/runs/$runId/report'
     | '/api/testing/$tenantId/suites/$suiteId/run'
     | '/api/threat/$tenantId/feeds/$feedId/sync'
@@ -4101,6 +4113,7 @@ export interface FileRouteTypes {
     | '/api/encryption/$tenantId/keys/$keyId/revoke'
     | '/api/encryption/$tenantId/keys/$keyId/rotate'
     | '/api/infrastructure/budget/topups/$requestId/approve'
+    | '/api/testing/$tenantId/reports/$reportId/export'
     | '/api/testing/$tenantId/runs/$runId/report'
     | '/api/testing/$tenantId/suites/$suiteId/run'
     | '/api/threat/$tenantId/feeds/$feedId/sync'
@@ -4381,6 +4394,7 @@ export interface RootRouteChildren {
   ApiDataVersionsCurrentEntityTypeEntityIdRoute: typeof ApiDataVersionsCurrentEntityTypeEntityIdRoute
   ApiDataVersionsHistoryEntityTypeEntityIdRoute: typeof ApiDataVersionsHistoryEntityTypeEntityIdRoute
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute: typeof ApiInfrastructureBudgetTopupsRequestIdApproveRoute
+  ApiTestingTenantIdReportsReportIdExportRoute: typeof ApiTestingTenantIdReportsReportIdExportRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -6513,6 +6527,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiTestingTenantIdRunsRunIdReportRouteImport
       parentRoute: typeof ApiTestingTenantIdRunsRunIdRoute
     }
+    '/api/testing/$tenantId/reports/$reportId/export': {
+      id: '/api/testing/$tenantId/reports/$reportId/export'
+      path: '/api/testing/$tenantId/reports/$reportId/export'
+      fullPath: '/api/testing/$tenantId/reports/$reportId/export'
+      preLoaderRoute: typeof ApiTestingTenantIdReportsReportIdExportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/infrastructure/budget/topups/$requestId/approve': {
       id: '/api/infrastructure/budget/topups/$requestId/approve'
       path: '/api/infrastructure/budget/topups/$requestId/approve'
@@ -7459,6 +7480,8 @@ const rootRouteChildren: RootRouteChildren = {
     ApiDataVersionsHistoryEntityTypeEntityIdRoute,
   ApiInfrastructureBudgetTopupsRequestIdApproveRoute:
     ApiInfrastructureBudgetTopupsRequestIdApproveRoute,
+  ApiTestingTenantIdReportsReportIdExportRoute:
+    ApiTestingTenantIdReportsReportIdExportRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
