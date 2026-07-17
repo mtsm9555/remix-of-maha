@@ -55,6 +55,7 @@ import { Route as ApiToolsMcpCallRouteImport } from './routes/api/tools/mcp/call
 import { Route as ApiToolsMarketplaceUninstallRouteImport } from './routes/api/tools/marketplace/uninstall'
 import { Route as ApiToolsMarketplaceInstalledRouteImport } from './routes/api/tools/marketplace/installed'
 import { Route as ApiToolsMarketplaceInstallRouteImport } from './routes/api/tools/marketplace/install'
+import { Route as ApiTenantsIdSuspendRouteImport } from './routes/api/tenants/$id/suspend'
 import { Route as ApiPrioritizationQueuePlanIdRouteImport } from './routes/api/prioritization/queue.$planId'
 import { Route as ApiPlanningGoalIntelligentRouteImport } from './routes/api/planning/goal/intelligent'
 import { Route as ApiIntelligenceReflectionMetricsRouteImport } from './routes/api/intelligence/reflection/metrics'
@@ -385,6 +386,11 @@ const ApiToolsMarketplaceInstallRoute =
     path: '/api/tools/marketplace/install',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiTenantsIdSuspendRoute = ApiTenantsIdSuspendRouteImport.update({
+  id: '/api/tenants/$id/suspend',
+  path: '/api/tenants/$id/suspend',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPrioritizationQueuePlanIdRoute =
   ApiPrioritizationQueuePlanIdRouteImport.update({
     id: '/api/prioritization/queue/$planId',
@@ -972,6 +978,7 @@ export interface FileRoutesByFullPath {
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
   '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
@@ -1106,6 +1113,7 @@ export interface FileRoutesByTo {
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
   '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
@@ -1241,6 +1249,7 @@ export interface FileRoutesById {
   '/api/intelligence/reflection/metrics': typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   '/api/planning/goal/intelligent': typeof ApiPlanningGoalIntelligentRoute
   '/api/prioritization/queue/$planId': typeof ApiPrioritizationQueuePlanIdRoute
+  '/api/tenants/$id/suspend': typeof ApiTenantsIdSuspendRoute
   '/api/tools/marketplace/install': typeof ApiToolsMarketplaceInstallRoute
   '/api/tools/marketplace/installed': typeof ApiToolsMarketplaceInstalledRoute
   '/api/tools/marketplace/uninstall': typeof ApiToolsMarketplaceUninstallRoute
@@ -1377,6 +1386,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/tenants/$id/suspend'
     | '/api/tools/marketplace/install'
     | '/api/tools/marketplace/installed'
     | '/api/tools/marketplace/uninstall'
@@ -1511,6 +1521,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/tenants/$id/suspend'
     | '/api/tools/marketplace/install'
     | '/api/tools/marketplace/installed'
     | '/api/tools/marketplace/uninstall'
@@ -1645,6 +1656,7 @@ export interface FileRouteTypes {
     | '/api/intelligence/reflection/metrics'
     | '/api/planning/goal/intelligent'
     | '/api/prioritization/queue/$planId'
+    | '/api/tenants/$id/suspend'
     | '/api/tools/marketplace/install'
     | '/api/tools/marketplace/installed'
     | '/api/tools/marketplace/uninstall'
@@ -1779,6 +1791,7 @@ export interface RootRouteChildren {
   ApiIntelligenceReflectionMetricsRoute: typeof ApiIntelligenceReflectionMetricsRouteWithChildren
   ApiPlanningGoalIntelligentRoute: typeof ApiPlanningGoalIntelligentRoute
   ApiPrioritizationQueuePlanIdRoute: typeof ApiPrioritizationQueuePlanIdRoute
+  ApiTenantsIdSuspendRoute: typeof ApiTenantsIdSuspendRoute
   ApiToolsMarketplaceInstallRoute: typeof ApiToolsMarketplaceInstallRoute
   ApiToolsMarketplaceInstalledRoute: typeof ApiToolsMarketplaceInstalledRoute
   ApiToolsMarketplaceUninstallRoute: typeof ApiToolsMarketplaceUninstallRoute
@@ -2153,6 +2166,13 @@ declare module '@tanstack/react-router' {
       path: '/api/tools/marketplace/install'
       fullPath: '/api/tools/marketplace/install'
       preLoaderRoute: typeof ApiToolsMarketplaceInstallRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tenants/$id/suspend': {
+      id: '/api/tenants/$id/suspend'
+      path: '/api/tenants/$id/suspend'
+      fullPath: '/api/tenants/$id/suspend'
+      preLoaderRoute: typeof ApiTenantsIdSuspendRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/prioritization/queue/$planId': {
@@ -2902,6 +2922,7 @@ const rootRouteChildren: RootRouteChildren = {
     ApiIntelligenceReflectionMetricsRouteWithChildren,
   ApiPlanningGoalIntelligentRoute: ApiPlanningGoalIntelligentRoute,
   ApiPrioritizationQueuePlanIdRoute: ApiPrioritizationQueuePlanIdRoute,
+  ApiTenantsIdSuspendRoute: ApiTenantsIdSuspendRoute,
   ApiToolsMarketplaceInstallRoute: ApiToolsMarketplaceInstallRoute,
   ApiToolsMarketplaceInstalledRoute: ApiToolsMarketplaceInstalledRoute,
   ApiToolsMarketplaceUninstallRoute: ApiToolsMarketplaceUninstallRoute,
