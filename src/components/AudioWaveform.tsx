@@ -71,7 +71,7 @@ export default function AudioWaveform({
           dataArrayRef.current =
             new Uint8Array(new ArrayBuffer(
               bufferLength
-            );
+            ));
 
           draw();
 
