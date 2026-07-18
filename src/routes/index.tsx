@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import MahaApp from "@/components/maha/MahaApp";
+import { OSPage } from "./os";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -10,5 +10,5 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Maha OS HUD interface." },
     ],
   }),
-  component: MahaApp,
+  component: OSPage,
 });
