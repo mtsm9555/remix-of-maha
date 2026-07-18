@@ -5,6 +5,7 @@ import {
   Mic, Brain, Play, Pause, Power,
 } from "lucide-react";
 import "./os.css";
+import ReactorCore from "@/components/ReactorCore";
 
 export const Route = createFileRoute("/os")({
   head: () => ({
@@ -344,10 +345,7 @@ export function OSPage() {
             <div className="callout c4"><b>SYS-CTRL</b> · ADAPTIVE ON</div>
 
             <div className="core-stage" aria-hidden="true">
-              <div className="ring-outer" />
-              <div className="ring-mid" />
-              <div className="ring-inner" />
-              <div className="core-orb"><div className="diamond" /></div>
+              <ReactorCore state={mode === "executing" ? "speaking" : mode} />
             </div>
 
             <div className="core-caption">
