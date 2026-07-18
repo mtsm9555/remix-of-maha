@@ -164,6 +164,12 @@ function OSPage() {
     <div className="maha-os">
       <div className="background-grid" />
       <div className="background-circuits" />
+      <div className="background-particles">
+        {Array.from({ length: 40 }).map((_, i) => (
+          <span key={i} style={{ left: `${(i * 37) % 100}%`, animationDelay: `${(i * 0.7) % 12}s`, animationDuration: `${8 + (i % 6)}s` }} />
+        ))}
+      </div>
+      <div className="background-scanner" />
 
       <header className="topbar">
         <div className="logo-section">
