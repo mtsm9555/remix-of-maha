@@ -29,3 +29,5 @@ export * from "./recovery/recoveryManager";
 export * from "./audit/auditTypes";
 export * from "./audit/auditLog";
 export * from "./testing/systemTest";
+export * from "./orchestrator/orchestratorTypes";
+export * from "./orchestrator/orchestrator";
