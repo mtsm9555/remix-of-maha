@@ -1,0 +1,794 @@
+/* =========================
+   MAHA AI OS - HUD STYLE
+========================= */
+
+.maha-os *{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+.maha-os{
+
+--cyan:#00eaff;
+--cyan-soft:#4df2ff;
+
+--bg:#03060c;
+--panel:#07111d;
+
+--line:rgba(0,234,255,.18);
+
+--text:#cfffff;
+--muted:#67d7e5;
+
+background:var(--bg);
+color:var(--text);
+
+font-family:
+"Segoe UI",
+sans-serif;
+
+position:fixed;
+inset:0;
+overflow:hidden;
+
+}
+
+/* =========================
+BACKGROUND
+========================= */
+
+.background-grid{
+
+position:fixed;
+inset:0;
+
+background:
+
+linear-gradient(
+rgba(0,234,255,.03) 1px,
+transparent 1px
+),
+
+linear-gradient(
+90deg,
+rgba(0,234,255,.03) 1px,
+transparent 1px
+);
+
+background-size:
+50px 50px;
+
+pointer-events:none;
+
+}
+
+.background-circuits{
+
+position:fixed;
+inset:0;
+
+background:
+
+radial-gradient(
+circle at center,
+rgba(0,234,255,.08),
+transparent 60%
+);
+
+filter:blur(20px);
+
+pointer-events:none;
+
+}
+
+/* =========================
+TOPBAR
+========================= */
+
+.topbar{
+
+position:absolute;
+
+top:20px;
+left:20px;
+right:20px;
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+z-index:50;
+
+}
+
+.logo-section{
+
+display:flex;
+align-items:center;
+gap:15px;
+
+}
+
+.logo-ring{
+
+width:50px;
+height:50px;
+
+border-radius:50%;
+
+border:4px solid var(--cyan);
+
+box-shadow:
+0 0 15px var(--cyan);
+
+}
+
+.logo-section h1{
+
+font-size:24px;
+font-weight:700;
+
+letter-spacing:2px;
+
+}
+
+.logo-section span{
+
+color:var(--muted);
+
+}
+
+.date-panel{
+
+display:flex;
+align-items:center;
+gap:20px;
+
+}
+
+.day{
+
+font-size:52px;
+font-weight:700;
+
+color:var(--cyan);
+
+}
+
+.system-status{
+
+display:flex;
+align-items:center;
+gap:10px;
+
+font-size:14px;
+
+}
+
+.status-indicator{
+
+width:10px;
+height:10px;
+
+border-radius:50%;
+
+background:var(--cyan);
+
+box-shadow:
+0 0 15px var(--cyan);
+
+}
+
+/* =========================
+LAYOUT
+========================= */
+
+.dashboard{
+
+position:absolute;
+
+top:100px;
+left:20px;
+right:20px;
+bottom:110px;
+
+display:grid;
+
+grid-template-columns:
+320px
+1fr
+320px;
+
+gap:20px;
+
+}
+
+/* =========================
+PANELS
+========================= */
+
+.hud-panel{
+
+background:
+
+linear-gradient(
+180deg,
+rgba(8,20,35,.85),
+rgba(4,10,18,.95)
+);
+
+border:
+
+1px solid
+rgba(0,234,255,.18);
+
+border-radius:20px;
+
+padding:18px;
+
+margin-bottom:20px;
+
+box-shadow:
+
+0 0 25px
+rgba(0,234,255,.08);
+
+backdrop-filter:
+blur(10px);
+
+}
+
+.hud-panel h2{
+
+font-size:18px;
+
+margin-bottom:18px;
+
+color:var(--cyan);
+
+letter-spacing:1px;
+
+}
+
+/* =========================
+MISSION STATUS
+========================= */
+
+.mission-item{
+
+margin-bottom:15px;
+
+}
+
+.mission-item span{
+
+display:block;
+
+margin-bottom:8px;
+
+}
+
+.progress{
+
+height:6px;
+
+background:
+rgba(255,255,255,.08);
+
+border-radius:50px;
+
+overflow:hidden;
+
+position:relative;
+
+}
+
+.progress::before{
+
+content:"";
+
+position:absolute;
+
+left:0;
+top:0;
+
+height:100%;
+width:70%;
+
+background:var(--cyan);
+
+box-shadow:
+0 0 15px var(--cyan);
+
+}
+
+/* =========================
+METRICS
+========================= */
+
+.metric{
+
+margin-bottom:20px;
+
+}
+
+.metric-bar{
+
+height:8px;
+
+margin-top:10px;
+
+background:
+rgba(255,255,255,.08);
+
+border-radius:30px;
+
+overflow:hidden;
+
+}
+
+.metric-bar div{
+
+height:100%;
+
+width:50%;
+
+background:var(--cyan);
+
+box-shadow:
+0 0 12px var(--cyan);
+
+}
+
+/* =========================
+CENTER CORE
+========================= */
+
+.center-area{
+
+position:relative;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+justify-content:center;
+
+}
+
+.ai-core-container{
+
+position:relative;
+
+width:550px;
+height:550px;
+
+}
+
+/* Rings */
+
+.ring{
+
+position:absolute;
+
+border-radius:50%;
+
+border:
+2px solid
+rgba(0,234,255,.25);
+
+}
+
+.ring-1{
+
+inset:0;
+
+animation:
+spin 25s linear infinite;
+
+}
+
+.ring-2{
+
+inset:50px;
+
+animation:
+spinReverse 18s linear infinite;
+
+}
+
+.ring-3{
+
+inset:110px;
+
+animation:
+spin 12s linear infinite;
+
+}
+
+.ring-4{
+
+inset:170px;
+
+animation:
+spinReverse 8s linear infinite;
+
+}
+
+/* Core */
+
+.core-center{
+
+position:absolute;
+
+left:50%;
+top:50%;
+
+transform:
+translate(-50%,-50%);
+
+width:150px;
+height:150px;
+
+border-radius:50%;
+
+background:
+
+radial-gradient(
+circle,
+#ffffff,
+#4deeff 45%,
+#008cff
+);
+
+box-shadow:
+
+0 0 30px #00eaff,
+0 0 80px #00eaff;
+
+}
+
+.core-glow{
+
+position:absolute;
+
+inset:-60px;
+
+border-radius:50%;
+
+background:
+
+radial-gradient(
+circle,
+rgba(0,234,255,.18),
+transparent
+);
+
+animation:
+pulse 4s infinite;
+
+}
+
+/* =========================
+TEXT
+========================= */
+
+.core-title{
+
+font-size:72px;
+
+letter-spacing:8px;
+
+margin-top:-40px;
+
+}
+
+.core-subtitle{
+
+font-size:32px;
+
+color:var(--cyan);
+
+margin-top:10px;
+
+}
+
+.ready-status{
+
+margin-top:25px;
+
+font-size:24px;
+
+letter-spacing:6px;
+
+color:var(--cyan);
+
+}
+
+/* =========================
+DATA BOXES
+========================= */
+
+.data-box{
+
+position:absolute;
+
+padding:15px 20px;
+
+background:
+rgba(0,234,255,.05);
+
+border:
+1px solid rgba(0,234,255,.18);
+
+border-radius:14px;
+
+}
+
+.box-a{
+
+top:90px;
+left:80px;
+
+}
+
+.box-b{
+
+top:100px;
+right:80px;
+
+}
+
+/* =========================
+AGENTS
+========================= */
+
+.agent-list{
+
+list-style:none;
+
+}
+
+.agent-list li{
+
+padding:12px;
+
+margin-bottom:10px;
+
+border-radius:12px;
+
+background:
+rgba(255,255,255,.03);
+
+border:
+1px solid rgba(0,234,255,.08);
+
+}
+
+/* =========================
+CANVAS
+========================= */
+
+canvas{
+
+width:100%;
+height:180px;
+
+display:block;
+
+}
+
+/* =========================
+COMMAND DOCK
+========================= */
+
+.command-dock{
+
+position:fixed;
+
+left:50%;
+bottom:25px;
+
+transform:
+translateX(-50%);
+
+width:min(1100px,90%);
+
+height:62px;
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:0 18px;
+
+background:
+
+rgba(5,15,25,.85);
+
+border:
+
+1px solid
+rgba(0,234,255,.15);
+
+border-radius:40px;
+
+backdrop-filter:
+blur(18px);
+
+box-shadow:
+
+0 0 25px
+rgba(0,234,255,.08);
+
+}
+
+.command-dock input{
+
+flex:1;
+
+background:none;
+border:none;
+outline:none;
+
+color:white;
+
+font-size:17px;
+
+}
+
+.command-dock input::placeholder{
+
+color:#79dce8;
+
+}
+
+.dock-btn,
+.dock-grid{
+
+width:40px;
+height:40px;
+
+border:none;
+
+border-radius:50%;
+
+background:
+rgba(0,234,255,.06);
+
+color:var(--cyan);
+
+cursor:pointer;
+
+}
+
+/* =========================
+VOICE BUTTON
+========================= */
+
+.wave-button{
+
+width:58px;
+height:58px;
+
+border:none;
+
+border-radius:50%;
+
+background:
+
+rgba(0,234,255,.08);
+
+border:
+1px solid rgba(0,234,255,.18);
+
+cursor:pointer;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+}
+
+.wave-icon{
+
+display:flex;
+align-items:center;
+gap:4px;
+
+}
+
+.wave-icon span{
+
+width:3px;
+
+background:var(--cyan);
+
+border-radius:20px;
+
+animation:
+wave 1s infinite ease-in-out;
+
+}
+
+.wave-icon span:nth-child(1){
+height:10px;
+}
+
+.wave-icon span:nth-child(2){
+height:20px;
+animation-delay:.1s;
+}
+
+.wave-icon span:nth-child(3){
+height:28px;
+animation-delay:.2s;
+}
+
+.wave-icon span:nth-child(4){
+height:20px;
+animation-delay:.3s;
+}
+
+.wave-icon span:nth-child(5){
+height:10px;
+animation-delay:.4s;
+}
+
+/* =========================
+ANIMATIONS
+========================= */
+
+@keyframes spin{
+
+from{
+transform:rotate(0deg);
+}
+
+to{
+transform:rotate(360deg);
+}
+
+}
+
+@keyframes spinReverse{
+
+from{
+transform:rotate(360deg);
+}
+
+to{
+transform:rotate(0deg);
+}
+
+}
+
+@keyframes pulse{
+
+0%,100%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.2);
+}
+
+}
+
+@keyframes wave{
+
+0%,100%{
+transform:scaleY(.5);
+}
+
+50%{
+transform:scaleY(1.5);
+}
+
+}
