@@ -53,9 +53,7 @@ function OSPage() {
   const [clock, setClock] = useState("");
   const [mode, setMode] = useState<Mode>("idle");
   const [metrics, setMetrics] = useState({ cpu: 14, mem: 4.8, net: 2, tmp: 32 });
-  const [timeline, setTimeline] = useState(() =>
-    ACTIVITIES.slice(0, 5).map((m) => ({ msg: m, time: fmtTime() }))
-  );
+  const [timeline, setTimeline] = useState<{ msg: string; time: string }[]>([]);
   const [execLog, setExecLog] = useState<string[]>([]);
   const [tasks] = useState(INITIAL_TASKS);
 
@@ -64,6 +62,11 @@ function OSPage() {
     tick();
     const t = setInterval(tick, 1000);
     return () => clearInterval(t);
+  }, []);
+
+  // Seed timeline on client only (avoids SSR hydration mismatch)
+  useEffect(() => {
+    setTimeline(ACTIVITIES.slice(0, 5).map((m) => ({ msg: m, time: fmtTime() })));
   }, []);
 
   useEffect(() => {
