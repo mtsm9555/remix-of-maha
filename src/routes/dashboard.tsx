@@ -1,91 +1,184 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Maha OS — Dashboard" },
-      { name: "description", content: "Maha OS mobile dashboard." },
+      { title: "AI Company Dashboard" },
+      { name: "description", content: "Manage agents, goals, tasks, reasoning, and tools." },
     ],
   }),
-  component: MobileDashboard,
-  notFoundComponent: () => <div className="p-8">Not found</div>,
-  errorComponent: ({ error }) => (
-    <div className="p-8 text-destructive">{error.message}</div>
-  ),
+  component: DashboardPage,
 });
 
-function MobileDashboard() {
-  const navigate = useNavigate();
+const API = "/api/ai-company";
+
+async function jpost(path: string, body: unknown) {
+  const res = await fetch(`${API}${path}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  return res.json();
+}
+async function jget(path: string) {
+  const res = await fetch(`${API}${path}`);
+  return res.json();
+}
+
+function DashboardPage() {
+  const [output, setOutput] = useState<unknown>(null);
+  const [agents, setAgents] = useState<unknown>(null);
+  const [goals, setGoals] = useState<unknown>(null);
+  const [memory, setMemory] = useState<unknown>(null);
+  const [audit, setAudit] = useState<unknown>(null);
+
+  const [agentId, setAgentId] = useState("");
+  const [agentName, setAgentName] = useState("");
+  const [agentRole, setAgentRole] = useState("worker");
+  const [agentSkills, setAgentSkills] = useState("");
+
+  const [goalId, setGoalId] = useState("");
+  const [goalTitle, setGoalTitle] = useState("");
+  const [goalDesc, setGoalDesc] = useState("");
+
+  const [reasonAgentId, setReasonAgentId] = useState("");
+  const [reasonGoal, setReasonGoal] = useState("");
+
+  const [toolAgentId, setToolAgentId] = useState("");
+  const [toolName, setToolName] = useState("calculator");
+  const [toolInput, setToolInput] = useState('{"expression":"2+2"}');
+
+  const loadAgents = async () => setAgents(await jget("/agents"));
+  const loadGoals = async () => setGoals(await jget("/goals"));
+  const loadMemory = async () => setMemory(await jget("/memory"));
+  const loadAudit = async () => setAudit(await jget("/audit"));
+
+  useEffect(() => {
+    loadAgents();
+    loadGoals();
+    loadMemory();
+    loadAudit();
+  }, []);
+
+  const createAgent = async () => {
+    const data = await jpost("/agents", {
+      id: agentId,
+      name: agentName,
+      role: agentRole,
+      skills: agentSkills.split(",").map((s) => s.trim()).filter(Boolean),
+    });
+    setOutput(data);
+    loadAgents();
+  };
+
+  const createGoal = async () => {
+    const data = await jpost("/goals", { id: goalId, title: goalTitle, description: goalDesc });
+    setOutput(data);
+    loadGoals();
+  };
+
+  const runReasoning = async () => {
+    const data = await jpost("/reason", { agentId: reasonAgentId, goal: reasonGoal, context: {} });
+    setOutput(data);
+  };
+
+  const runTool = async () => {
+    let input: unknown = {};
+    try {
+      input = JSON.parse(toolInput || "{}");
+    } catch {
+      alert("Invalid JSON input");
+      return;
+    }
+    const data = await jpost("/tools/run", {
+      agentId: toolAgentId,
+      call: {
+        id: `call-${Date.now()}`,
+        tool: toolName,
+        input,
+        requestedBy: toolAgentId,
+        createdAt: new Date().toISOString(),
+      },
+    });
+    setOutput(data);
+  };
+
+  const inputCls =
+    "w-full box-border p-2.5 mt-2 mb-2.5 rounded-lg border border-slate-600 bg-slate-950 text-white";
+  const btnCls =
+    "bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-2.5 rounded-lg mt-2.5 cursor-pointer";
+  const cardCls = "bg-slate-900 border border-slate-700 rounded-xl p-4";
+  const listCls = "mt-2.5 whitespace-pre-wrap text-sm text-slate-300";
+
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-[#05080C] text-white">
-      {/* HEADER */}
-      <header className="sticky top-0 z-50 h-16 border-b border-cyan-900/30 bg-[#05080C]/90 backdrop-blur">
-        <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4 md:px-8">
-          <h1 className="text-cyan-300 text-xl md:text-2xl font-bold tracking-[0.35em] md:tracking-[0.4em]">
-            MAHA OS
-          </h1>
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6 text-sm text-cyan-200/80">
-            <button onClick={() => navigate({ to: "/" })} className="hover:text-cyan-300">Home</button>
-            <button onClick={() => navigate({ to: "/chat" })} className="hover:text-cyan-300">Chat</button>
-            <button onClick={() => navigate({ to: "/voice" })} className="hover:text-cyan-300">Voice</button>
-            <button onClick={() => navigate({ to: "/settings" })} className="hover:text-cyan-300">Settings</button>
-          </nav>
+    <div className="min-h-screen bg-slate-950 text-slate-200 p-5" style={{ fontFamily: "Arial, sans-serif" }}>
+      <div className="max-w-[1100px] mx-auto">
+        <h1 className="text-2xl font-bold">AI Company Dashboard</h1>
+        <p>Manage agents, goals, tasks, reasoning, and tools.</p>
+
+        <div className="grid gap-4 mt-5" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
+          <div className={cardCls}>
+            <h3 className="font-semibold">Create Agent</h3>
+            <input className={inputCls} placeholder="Agent ID" value={agentId} onChange={(e) => setAgentId(e.target.value)} />
+            <input className={inputCls} placeholder="Agent Name" value={agentName} onChange={(e) => setAgentName(e.target.value)} />
+            <input className={inputCls} placeholder="Role" value={agentRole} onChange={(e) => setAgentRole(e.target.value)} />
+            <input className={inputCls} placeholder="Skills comma separated" value={agentSkills} onChange={(e) => setAgentSkills(e.target.value)} />
+            <button className={btnCls} onClick={createAgent}>Create</button>
+          </div>
+
+          <div className={cardCls}>
+            <h3 className="font-semibold">Create Goal</h3>
+            <input className={inputCls} placeholder="Goal ID" value={goalId} onChange={(e) => setGoalId(e.target.value)} />
+            <input className={inputCls} placeholder="Goal Title" value={goalTitle} onChange={(e) => setGoalTitle(e.target.value)} />
+            <textarea className={inputCls} placeholder="Goal Description" value={goalDesc} onChange={(e) => setGoalDesc(e.target.value)} />
+            <button className={btnCls} onClick={createGoal}>Create</button>
+          </div>
+
+          <div className={cardCls}>
+            <h3 className="font-semibold">Run Reasoning</h3>
+            <input className={inputCls} placeholder="Agent ID" value={reasonAgentId} onChange={(e) => setReasonAgentId(e.target.value)} />
+            <input className={inputCls} placeholder="Goal" value={reasonGoal} onChange={(e) => setReasonGoal(e.target.value)} />
+            <button className={btnCls} onClick={runReasoning}>Run</button>
+          </div>
+
+          <div className={cardCls}>
+            <h3 className="font-semibold">Run Tool</h3>
+            <input className={inputCls} placeholder="Agent ID" value={toolAgentId} onChange={(e) => setToolAgentId(e.target.value)} />
+            <input className={inputCls} placeholder="Tool Name" value={toolName} onChange={(e) => setToolName(e.target.value)} />
+            <input className={inputCls} placeholder='Input JSON like {"expression":"2+2"}' value={toolInput} onChange={(e) => setToolInput(e.target.value)} />
+            <button className={btnCls} onClick={runTool}>Run</button>
+          </div>
         </div>
-      </header>
 
-      {/* CONTENT */}
-      <main className="mx-auto max-w-6xl px-3 md:px-8 pb-40 md:pb-16 pt-4 md:pt-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
-          {/* TOOL NETWORK */}
-          <section className="lg:col-span-5 rounded-2xl border border-cyan-900/30 bg-[#0B1118] p-4 md:p-6">
-            <h2 className="text-cyan-300 mb-4 tracking-widest text-sm md:text-base">TOOL NETWORK</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-3">
-              {["MEMORY", "SEARCH", "VISION", "PLANNER", "LLM", "SPEECH"].map((tool) => (
-                <div
-                  key={tool}
-                  className="h-16 md:h-20 rounded-xl border border-cyan-900/30 bg-black/30 flex items-center justify-center text-xs md:text-sm tracking-wider hover:border-cyan-400/60 transition"
-                >
-                  {tool}
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* REACTOR */}
-          <section className="lg:col-span-7 rounded-2xl border border-cyan-900/30 bg-[#0B1118] py-10 md:py-16">
-            <div className="flex justify-center">
-              <div className="relative w-[240px] h-[240px] sm:w-[320px] sm:h-[320px] lg:w-[420px] lg:h-[420px]">
-                <div className="absolute inset-0 rounded-full border border-cyan-400/40 animate-pulse" />
-                <div className="absolute inset-[8%] rounded-full border-4 border-cyan-400/60" />
-                <div className="absolute inset-[16%] rounded-full bg-cyan-400/20 blur-sm" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 rounded-full bg-cyan-400 flex items-center justify-center text-black font-bold tracking-[0.3em] text-sm md:text-base shadow-[0_0_60px_#4FD8FF]">
-                    MAHA
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+        <div className="grid gap-4 mt-5" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
+          <div className={cardCls}>
+            <h3 className="font-semibold">Agents</h3>
+            <button className={btnCls} onClick={loadAgents}>Refresh</button>
+            <div className={listCls}>{JSON.stringify(agents, null, 2)}</div>
+          </div>
+          <div className={cardCls}>
+            <h3 className="font-semibold">Goals</h3>
+            <button className={btnCls} onClick={loadGoals}>Refresh</button>
+            <div className={listCls}>{JSON.stringify(goals, null, 2)}</div>
+          </div>
+          <div className={cardCls}>
+            <h3 className="font-semibold">Memory</h3>
+            <button className={btnCls} onClick={loadMemory}>Refresh</button>
+            <div className={listCls}>{JSON.stringify(memory, null, 2)}</div>
+          </div>
+          <div className={cardCls}>
+            <h3 className="font-semibold">Audit Log</h3>
+            <button className={btnCls} onClick={loadAudit}>Refresh</button>
+            <div className={listCls}>{JSON.stringify(audit, null, 2)}</div>
+          </div>
         </div>
-      </main>
 
-      {/* FLOATING MIC (mobile only — desktop uses nav) */}
-      <button
-        onClick={() => navigate({ to: "/voice" })}
-        aria-label="Open voice agent"
-        className="md:hidden fixed bottom-24 right-5 z-50 w-16 h-16 rounded-full bg-cyan-400 text-black flex items-center justify-center shadow-[0_0_30px_#4FD8FF]"
-      >
-        🎤
-      </button>
-
-      {/* BOTTOM NAV (mobile only) */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 h-20 bg-[#0B1118] border-t border-cyan-900/30 flex justify-around items-center z-40">
-        <button onClick={() => navigate({ to: "/" })} aria-label="Home" className="text-2xl">🏠</button>
-        <button onClick={() => navigate({ to: "/chat" })} aria-label="Chat" className="text-2xl">🧠</button>
-        <button aria-label="Alerts" className="text-2xl">🔔</button>
-        <button onClick={() => navigate({ to: "/settings" })} aria-label="Settings" className="text-2xl">⚙️</button>
-      </nav>
+        <div className={`${cardCls} mt-4`}>
+          <h3 className="font-semibold">Output</h3>
+          <div className={listCls}>{output ? JSON.stringify(output, null, 2) : ""}</div>
+        </div>
+      </div>
     </div>
   );
 }
