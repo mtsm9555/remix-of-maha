@@ -1,12 +1,12 @@
 // src/index.ts
 
-import { AgentRegistry } from "./agents/agentRegistry";
-import { TaskStateManager } from "./lifecycle/taskStateManager";
-import { AuditLog } from "./audit/auditLog";
-import { MemoryStore } from "./memory/memoryStore";
-import { RecoveryQueue } from "./recovery/recoveryQueue";
-import { RecoveryManager } from "./recovery/recoveryManager";
-import { Orchestrator } from "./orchestrator/orchestrator";
+import { AgentRegistry } from "../agents/agentRegistry";
+import { TaskStateManager } from "../lifecycle/taskStateManager";
+import { AuditLog } from "../audit/auditLog";
+import { MemoryStore } from "../memory/memoryStore";
+import { RecoveryQueue } from "../recovery/recoveryQueue";
+import { RecoveryManager } from "../recovery/recoveryManager";
+import { Orchestrator } from "./orchestrator";
 
 const agentRegistry = new AgentRegistry();
 const taskManager = new TaskStateManager();
