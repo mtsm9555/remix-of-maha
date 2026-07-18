@@ -54,7 +54,7 @@ function OSPage() {
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.beginPath();
-      ctx.strokeStyle = "#0071e3";
+      ctx.strokeStyle = "#00eaff";
       ctx.lineWidth = 2;
       for (let i = 0; i < points.length; i++) {
         const x = i * 8;
@@ -81,7 +81,7 @@ function OSPage() {
     let raf = 0;
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = "#0071e3";
+      ctx.strokeStyle = "#00eaff";
       ctx.lineWidth = 2;
       ctx.beginPath();
       for (let x = 0; x < 300; x++) {
@@ -119,7 +119,7 @@ function OSPage() {
     const t = setInterval(() => {
       if (!coreRef.current) return;
       const glow = Math.random() * 30 + 30;
-      coreRef.current.style.boxShadow = `0 20px 60px -20px rgba(0,113,227,0.4), 0 0 ${glow}px rgba(0,113,227,0.25)`;
+      coreRef.current.style.boxShadow = `0 0 30px #00eaff, 0 0 ${glow + 50}px #00eaff`;
     }, 1200);
     return () => clearInterval(t);
   }, []);
@@ -135,7 +135,8 @@ function OSPage() {
       });
       const pick = items[Math.floor(Math.random() * items.length)] as HTMLElement | undefined;
       if (pick) {
-        pick.style.background = "rgba(0,113,227,0.06)";
+        pick.style.background = "rgba(0,234,255,0.12)";
+        pick.style.borderColor = "rgba(0,234,255,0.4)";
       }
     }, 1500);
     return () => clearInterval(t);
