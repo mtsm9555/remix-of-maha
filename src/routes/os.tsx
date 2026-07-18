@@ -244,6 +244,7 @@ export function OSPage() {
 
   return (
     <div className="maha-os">
+      <a href="#main" className="skip-link">Skip to dashboard</a>
       <canvas ref={neuralCanvasRef} className="neural-canvas" aria-hidden="true" />
       <div ref={particleLayerRef} className="particles-layer" aria-hidden="true" />
       <div className="background-grid" aria-hidden="true" />
