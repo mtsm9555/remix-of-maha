@@ -2,13 +2,13 @@
    MAHA AI OS - HUD STYLE
 ========================= */
 
-*{
+.maha-os *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 }
 
-:root{
+.maha-os{
 
 --cyan:#00eaff;
 --cyan-soft:#4df2ff;
@@ -21,10 +21,6 @@ box-sizing:border-box;
 --text:#cfffff;
 --muted:#67d7e5;
 
-}
-
-body{
-
 background:var(--bg);
 color:var(--text);
 
@@ -32,7 +28,8 @@ font-family:
 "Segoe UI",
 sans-serif;
 
-height:100vh;
+position:fixed;
+inset:0;
 overflow:hidden;
 
 }
