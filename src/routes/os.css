@@ -1,429 +1,248 @@
-/* MAHA AI OS - HUD (scoped) */
+/* MAHA AI OS — Bento HUD (v2) */
 .maha-os {
-  --cyan: #00eaff;
-  --cyan-soft: #4df2ff;
-  --bg: #03060c;
-  --panel-a: rgba(8,20,35,.85);
-  --panel-b: rgba(4,10,18,.95);
-  --line: rgba(0,234,255,.18);
-  --text: #cfffff;
-  --muted: #67d7e5;
+  --cyan: #22d3ee;
+  --cyan-soft: #67e8f9;
+  --cyan-dim: rgba(34, 211, 238, 0.3);
+  --cyan-line: rgba(34, 211, 238, 0.2);
+  --cyan-faint: rgba(34, 211, 238, 0.08);
+  --bg: #020617;
+  --panel: rgba(8, 47, 73, 0.1);
+  --panel-strong: rgba(8, 47, 73, 0.3);
+  --text: #e0f7ff;
+  --muted: #7bb8c9;
+  --deep: #0f172a;
   position: fixed;
   inset: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "Segoe UI", system-ui, sans-serif;
+  font-family: "DM Sans", "Inter", system-ui, sans-serif;
   overflow: auto;
+  padding: 24px;
+  selection-color: rgba(34, 211, 238, 0.3);
 }
 .maha-os * { box-sizing: border-box; }
 
+/* backgrounds */
 .maha-os .background-grid {
-  position: fixed; inset: 0; pointer-events: none;
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background:
-    linear-gradient(rgba(0,234,255,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,234,255,.03) 1px, transparent 1px);
-  background-size: 50px 50px;
+    linear-gradient(rgba(34,211,238,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,211,238,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
 }
-.maha-os .background-circuits {
-  position: fixed; inset: 0; pointer-events: none;
-  background: radial-gradient(circle at center, rgba(0,234,255,.10), transparent 60%);
-  filter: blur(24px);
+.maha-os .background-glow {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(600px circle at 20% 30%, rgba(34,211,238,.08), transparent 60%),
+    radial-gradient(500px circle at 80% 70%, rgba(56,189,248,.06), transparent 60%);
 }
-
-/* TOPBAR */
-.maha-os .topbar {
-  position: relative;
-  display: grid; grid-template-columns: 1fr auto 1fr auto;
-  align-items: center; gap: 24px;
-  padding: 20px 28px; z-index: 50;
-}
-.maha-os .logo-section { display: flex; align-items: center; gap: 14px; }
-.maha-os .logo-ring {
-  width: 44px; height: 44px; border-radius: 50%;
-  border: 2px solid var(--cyan);
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 0 12px rgba(0,234,255,.5);
-}
-.maha-os .logo-inner {
-  width: 16px; height: 16px; border-radius: 50%;
-  background: var(--cyan); box-shadow: 0 0 12px var(--cyan);
-}
-.maha-os .logo-section h1 { font-size: 18px; font-weight: 700; letter-spacing: 2px; margin: 0; }
-.maha-os .logo-section span { color: var(--muted); font-size: 11px; letter-spacing: 1px; }
-.maha-os .dot-row { display: flex; gap: 6px; margin-left: 12px; }
-.maha-os .dot-row span {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: rgba(0,234,255,.5);
-}
-.maha-os .dot-row span:nth-child(2n) { background: rgba(0,234,255,.9); box-shadow: 0 0 6px var(--cyan); }
-
-.maha-os .date-panel {
-  display: flex; align-items: center; gap: 16px;
-  padding: 8px 24px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: rgba(4,12,20,0.6);
-}
-.maha-os .day { font-size: 40px; font-weight: 700; color: #fff; line-height: 1; }
-.maha-os .date-info { font-size: 12px; color: var(--muted); letter-spacing: 1px; }
-.maha-os .clock { color: var(--cyan); font-size: 15px; margin-top: 3px; letter-spacing: 2px; }
-
-.maha-os .system-status {
-  justify-self: end;
-  text-align: right;
-  font-size: 11px; letter-spacing: 2px;
-}
-.maha-os .ss-label { color: #fff; margin-bottom: 6px; font-weight: 600; }
-.maha-os .ss-value { display: flex; align-items: center; gap: 8px; color: var(--muted); }
-.maha-os .status-indicator {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--cyan); box-shadow: 0 0 10px var(--cyan);
-  animation: maha-pulse-dot 1.5s infinite;
-}
-.maha-os .corner-radar {
-  width: 44px; height: 44px; border-radius: 50%;
-  border: 2px solid var(--cyan);
-  position: relative;
-  box-shadow: 0 0 12px rgba(0,234,255,.4);
-}
-.maha-os .radar-ring {
-  position: absolute; border-radius: 50%;
-  border: 1px solid rgba(0,234,255,.5);
-}
-.maha-os .radar-ring.r1 { inset: 6px; }
-.maha-os .radar-ring.r2 { inset: 14px; }
-.maha-os .radar-dot {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 5px; height: 5px; background: var(--cyan); border-radius: 50%;
-  box-shadow: 0 0 8px var(--cyan);
-}
-
-/* DASHBOARD */
-.maha-os .dashboard {
-  padding: 0 24px 110px;
-  display: grid; grid-template-columns: 300px 1fr 320px; gap: 24px;
-  min-height: calc(100vh - 90px);
-}
-
-/* PANELS */
-.maha-os .hud-panel {
-  background: linear-gradient(180deg, var(--panel-a), var(--panel-b));
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 18px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 25px rgba(0,234,255,.06);
-  backdrop-filter: blur(10px);
-  position: relative;
-}
-.maha-os .hud-panel::before,
-.maha-os .hud-panel::after {
-  content: "";
-  position: absolute;
-  width: 10px; height: 10px;
-  border-color: var(--cyan);
-  border-style: solid;
-}
-.maha-os .hud-panel::before {
-  top: -1px; left: -1px;
-  border-width: 1px 0 0 1px;
-}
-.maha-os .hud-panel::after {
-  bottom: -1px; right: -1px;
-  border-width: 0 1px 1px 0;
-}
-.maha-os .panel-head {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  margin-bottom: 14px;
-}
-.maha-os .hud-panel h2 {
-  font-size: 12px; margin: 0 0 14px; color: #fff;
-  letter-spacing: 3px; font-weight: 700;
-}
-.maha-os .panel-head h2 { margin-bottom: 0; }
-.maha-os .big-count {
-  font-size: 30px; font-weight: 700; color: #fff;
-  margin-top: 4px; letter-spacing: 2px;
-}
-.maha-os .icon-btn {
-  width: 30px; height: 30px; border-radius: 50%;
-  background: rgba(0,234,255,.08);
-  border: 1px solid var(--line);
-  color: var(--cyan); cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-}
-.maha-os .mini-radar {
-  width: 30px; height: 30px; border-radius: 50%;
-  border: 1px solid var(--cyan);
-  position: relative;
-  box-shadow: 0 0 8px rgba(0,234,255,.3);
-}
-.maha-os .mini-radar::after {
-  content: ""; position: absolute; inset: 5px;
-  border: 1px solid rgba(0,234,255,.5); border-radius: 50%;
-}
-.maha-os .live-tag {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 10px; letter-spacing: 2px; color: var(--cyan);
-}
-.maha-os .live-tag.muted { color: var(--muted); }
-.maha-os .pulse-dot {
-  display: inline-block;
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--cyan); box-shadow: 0 0 8px var(--cyan);
-  animation: maha-pulse-dot 1.5s infinite;
-}
-
-/* MISSION */
-.maha-os .mission-item {
-  display: flex; align-items: center; gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(0,234,255,.05);
-}
-.maha-os .mission-item:last-child { border-bottom: none; }
-.maha-os .mission-icon {
-  width: 34px; height: 34px; border-radius: 50%;
-  border: 1px solid var(--line);
-  color: var(--cyan);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.maha-os .mission-body { flex: 1; }
-.maha-os .mission-body span {
-  display: block; font-size: 12px; letter-spacing: 2px; color: #fff;
-  margin-bottom: 6px;
-}
-.maha-os .dot-progress { display: flex; gap: 3px; }
-.maha-os .dot-progress i {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: rgba(0,234,255,.15);
-}
-.maha-os .dot-progress i.on {
-  background: var(--cyan); box-shadow: 0 0 6px var(--cyan);
-}
-.maha-os .mission-more { color: var(--muted); font-size: 14px; letter-spacing: 1px; }
-
-/* METRICS */
-.maha-os .metric { margin-bottom: 16px; }
-.maha-os .metric-head { display: flex; justify-content: space-between; align-items: center; }
-.maha-os .metric-label { font-size: 10px; letter-spacing: 2px; color: var(--muted); }
-.maha-os .metric-value {
-  font-size: 20px; color: var(--cyan); font-weight: 600; margin: 4px 0 6px;
-  letter-spacing: 1px;
-}
-.maha-os .metric-bar {
-  height: 4px;
-  background: rgba(255,255,255,.06); border-radius: 30px; overflow: hidden;
-}
-.maha-os .metric-bar div {
-  height: 100%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan);
-  transition: width .8s ease;
-}
-.maha-os .mini-chart { opacity: .9; }
-
-/* CENTER */
-.maha-os .center-area {
-  position: relative;
-  min-height: 700px;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-}
-.maha-os .floating-label {
-  position: absolute; text-align: center;
-  font-size: 10px; letter-spacing: 3px;
-}
-.maha-os .floating-label.top-center { top: 10px; left: 50%; transform: translateX(-50%); }
-.maha-os .fl-title { color: var(--muted); margin-bottom: 4px; }
-.maha-os .fl-value { color: var(--cyan); font-weight: 600; }
-
-.maha-os .ai-core-container {
-  position: relative; width: min(560px, 95%); aspect-ratio: 1;
-}
-.maha-os .ring {
-  position: absolute; border-radius: 50%;
-  border: 2px solid rgba(0,234,255,.25);
-}
-.maha-os .ring-1 { inset: 0; animation: maha-spin 30s linear infinite; border-style: dashed; }
-.maha-os .ring-2 { inset: 40px; animation: maha-spin-r 22s linear infinite; }
-.maha-os .ring-3 { inset: 90px; animation: maha-spin 16s linear infinite; border-color: rgba(0,234,255,.4); }
-.maha-os .ring-4 { inset: 150px; animation: maha-spin-r 10s linear infinite; border-color: rgba(0,234,255,.5); }
-.maha-os .ring-dashed {
-  position: absolute; inset: 200px; border-radius: 50%;
-  border: 1px dashed rgba(0,234,255,.6);
-  animation: maha-spin 8s linear infinite;
-}
-
-.maha-os .core-center {
-  position: absolute; left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
-  width: 120px; height: 120px; border-radius: 50%;
-  background: radial-gradient(circle, #ffffff 5%, #4deeff 40%, #008cff 80%);
-  box-shadow: 0 0 40px #00eaff, 0 0 100px #00eaff;
-  animation: maha-core-pulse 3s infinite;
-}
-.maha-os .core-glow {
-  position: absolute; inset: -80px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,234,255,.15), transparent 70%);
-  animation: maha-pulse 4s infinite;
-}
-
-.maha-os .core-caption {
-  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-  text-align: center;
-}
-.maha-os .core-title {
-  font-size: 44px; letter-spacing: 10px; margin: 0; font-weight: 700; color: #fff;
-}
-.maha-os .core-subtitle {
-  font-size: 15px; color: var(--cyan); margin: 4px 0 0; letter-spacing: 5px; font-weight: 500;
-}
-.maha-os .ready-status {
-  margin-top: 16px; font-size: 14px; letter-spacing: 6px; color: var(--cyan);
-}
-
-/* DATA BOXES */
-.maha-os .data-box {
-  position: absolute; padding: 10px 14px;
-  background: rgba(4,12,20,.7);
-  border: 1px solid var(--line); border-radius: 6px;
-  font-size: 10px; letter-spacing: 1px; color: var(--muted);
-  min-width: 150px;
-  backdrop-filter: blur(6px);
-  z-index: 5;
-}
-.maha-os .db-title {
-  color: var(--cyan); font-size: 12px; letter-spacing: 2px;
-  font-weight: 700; margin-bottom: 6px;
-}
-.maha-os .db-row { line-height: 1.6; }
-.maha-os .db-row b { color: #fff; font-weight: 500; }
-.maha-os .box-a { top: 40px; left: 20px; }
-.maha-os .box-b { top: 40px; right: 20px; }
-.maha-os .box-c { bottom: 90px; left: 20px; }
-.maha-os .box-d { bottom: 90px; right: 20px; }
-
-/* AGENTS */
-.maha-os .agent-list { list-style: none; margin: 0; padding: 0; }
-.maha-os .agent-list li {
-  display: flex; align-items: center; gap: 12px;
-  padding: 10px 12px; margin-bottom: 8px; border-radius: 10px;
-  background: rgba(0,234,255,.03);
-  border: 1px solid rgba(0,234,255,.10);
-}
-.maha-os .agent-icon {
-  width: 32px; height: 32px; border-radius: 8px;
-  background: rgba(0,234,255,.08);
-  border: 1px solid var(--line);
-  color: var(--cyan);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.maha-os .agent-body { flex: 1; }
-.maha-os .agent-name { font-size: 11px; letter-spacing: 1.5px; color: #fff; font-weight: 600; }
-.maha-os .agent-status {
-  font-size: 9px; letter-spacing: 2px; color: var(--muted);
-  display: flex; align-items: center; gap: 6px; margin-top: 3px;
-}
-.maha-os .agent-more { color: var(--muted); font-size: 14px; }
-
-/* CANVAS */
-.maha-os .net-canvas { width: 100%; height: 160px; display: block; }
-.maha-os .wave-canvas { width: 100%; height: 100px; display: block; }
-
-/* COMMAND DOCK */
-.maha-os .command-dock {
-  position: fixed; left: 50%; bottom: 24px;
-  transform: translateX(-50%);
-  width: min(1000px, 92%);
-  height: 60px;
-  display: flex; align-items: center; gap: 10px; padding: 0 12px 0 20px;
-  background: rgba(4,12,20,.85);
-  border: 1px solid var(--line);
-  border-radius: 40px;
-  backdrop-filter: blur(18px);
-  box-shadow: 0 0 30px rgba(0,234,255,.15);
-  z-index: 60;
-}
-.maha-os .command-dock input {
-  flex: 1; background: none; border: none; outline: none;
-  color: white; font-size: 15px; letter-spacing: 0.5px;
-}
-.maha-os .command-dock input::placeholder { color: #79dce8; }
-.maha-os .dock-btn {
-  width: 40px; height: 40px; border: none; border-radius: 50%;
-  background: rgba(0,234,255,.06);
-  border: 1px solid var(--line);
-  color: var(--cyan); cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-}
-.maha-os .dock-grid {
-  width: 40px; height: 40px; border-radius: 50%;
-  background: rgba(0,234,255,.06);
-  border: 1px solid var(--line);
-  color: var(--cyan); cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-}
-.maha-os .grid-3x3 {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
-}
-.maha-os .grid-3x3 i {
-  width: 3px; height: 3px; background: var(--cyan); border-radius: 50%;
-}
-
-.maha-os .wave-button {
-  width: 48px; height: 48px; border-radius: 50%;
-  background: rgba(0,234,255,.08);
-  border: 1px solid rgba(0,234,255,.30);
-  cursor: pointer;
-  display: flex; justify-content: center; align-items: center;
-  box-shadow: 0 0 15px rgba(0,234,255,.3);
-}
-.maha-os .wave-icon { display: flex; align-items: center; gap: 3px; }
-.maha-os .wave-icon span {
-  width: 2.5px; background: var(--cyan); border-radius: 20px;
-  animation: maha-wave 1s infinite ease-in-out;
-}
-.maha-os .wave-icon span:nth-child(1) { height: 8px; }
-.maha-os .wave-icon span:nth-child(2) { height: 16px; animation-delay: .1s; }
-.maha-os .wave-icon span:nth-child(3) { height: 22px; animation-delay: .2s; }
-.maha-os .wave-icon span:nth-child(4) { height: 16px; animation-delay: .3s; }
-.maha-os .wave-icon span:nth-child(5) { height: 8px; animation-delay: .4s; }
-
-@keyframes maha-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-@keyframes maha-spin-r { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
-@keyframes maha-pulse { 0%,100% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.2); opacity: 1; } }
-@keyframes maha-pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-@keyframes maha-core-pulse {
-  0%,100% { box-shadow: 0 0 40px #00eaff, 0 0 100px #00eaff; }
-  50% { box-shadow: 0 0 60px #00eaff, 0 0 140px #00eaff; }
-}
-@keyframes maha-wave { 0%,100% { transform: scaleY(.5); } 50% { transform: scaleY(1.5); } }
-
 .maha-os .background-particles {
-  position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden;
+  position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
 }
 .maha-os .background-particles span {
-  position: absolute; bottom: -10px; width: 2px; height: 2px;
-  background: #00eaff; border-radius: 50%;
-  box-shadow: 0 0 8px #00eaff, 0 0 16px rgba(0,234,255,.5);
-  animation: maha-float linear infinite; opacity: .6;
+  position: absolute; bottom: -10px; width: 2px; height: 2px; border-radius: 50%;
+  background: var(--cyan); box-shadow: 0 0 6px var(--cyan);
+  opacity: 0; animation: float-up linear infinite;
 }
-@keyframes maha-float {
-  0% { transform: translateY(0) translateX(0); opacity: 0; }
+@keyframes float-up {
+  0% { transform: translateY(0); opacity: 0; }
   10% { opacity: .8; }
-  100% { transform: translateY(-105vh) translateX(30px); opacity: 0; }
+  90% { opacity: .6; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+.maha-os .background-scanner {
+  position: fixed; left: 0; right: 0; height: 2px; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(34,211,238,.5), transparent);
+  box-shadow: 0 0 12px rgba(34,211,238,.6);
+  animation: scan-sweep 8s linear infinite;
+}
+@keyframes scan-sweep {
+  0% { top: -2px; }
+  100% { top: 100vh; }
 }
 
-.maha-os .background-scanner {
-  position: fixed; inset: 0; pointer-events: none; z-index: 1;
-  background: linear-gradient(180deg, transparent 0%, rgba(0,234,255,.06) 50%, transparent 100%);
-  height: 200px; animation: maha-scan 8s linear infinite;
+/* grid */
+.maha-os .bento {
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 16px;
+  max-width: 1440px; margin: 0 auto;
+  height: calc(100vh - 48px);
+  min-height: 800px;
 }
-@keyframes maha-scan {
-  0% { transform: translateY(-200px); }
-  100% { transform: translateY(100vh); }
+
+.maha-os .tile {
+  position: relative;
+  border: 1px solid var(--cyan-line);
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 20px;
+  overflow: hidden;
+  transition: border-color .2s, transform .2s;
 }
+.maha-os .tile:hover { border-color: var(--cyan-dim); }
+.maha-os .tile::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan-dim), transparent);
+}
+
+/* Tile placement */
+.maha-os .tile-mission     { grid-column: span 3; grid-row: span 4; display: flex; flex-direction: column; justify-content: space-between; }
+.maha-os .tile-core        { grid-column: span 9; grid-row: span 4; display: flex; align-items: center; justify-content: center; }
+.maha-os .tile-memory      { grid-column: span 4; grid-row: span 2; display: flex; flex-direction: column; }
+.maha-os .tile-command     { grid-column: span 5; grid-row: span 2; display: flex; flex-direction: column; gap: 12px; }
+.maha-os .tile-agents      { grid-column: span 3; grid-row: span 2; overflow-y: auto; }
+
+/* Titles */
+.maha-os .tile-title {
+  font-family: "Space Grotesk", "DM Sans", sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--cyan); opacity: .85;
+  display: flex; align-items: center; gap: 8px;
+}
+.maha-os .tile-title .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+
+/* Mission tile */
+.maha-os .mission-head { display: flex; flex-direction: column; gap: 20px; }
+.maha-os .mission-directive .label { font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.maha-os .mission-directive .value { font-family: "Space Grotesk", sans-serif; font-size: 20px; font-weight: 300; color: #fff; margin-top: 4px; letter-spacing: -.01em; }
+.maha-os .divider { height: 1px; background: var(--cyan-faint); margin: 8px 0; }
+
+.maha-os .mission-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.maha-os .mission-list li { display: flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: .1em; color: var(--muted); font-family: "JetBrains Mono", monospace; }
+.maha-os .mission-list li.active { color: var(--cyan-soft); }
+.maha-os .mission-list li svg { flex: 0 0 14px; }
+.maha-os .mission-list li .bar { flex: 1; height: 2px; background: rgba(34,211,238,.1); border-radius: 2px; overflow: hidden; }
+.maha-os .mission-list li .bar > i { display: block; height: 100%; background: var(--cyan); box-shadow: 0 0 6px var(--cyan); width: 40%; }
+.maha-os .mission-list li.active .bar > i { width: 85%; }
+
+/* System metrics grid */
+.maha-os .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-family: "JetBrains Mono", monospace; }
+.maha-os .metric-cell .lbl { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); opacity: .6; }
+.maha-os .metric-cell .val { font-family: "Space Grotesk", sans-serif; font-size: 22px; font-weight: 300; color: #fff; letter-spacing: -.02em; margin-top: 2px; }
+.maha-os .metric-cell .tinybar { margin-top: 4px; height: 2px; background: rgba(34,211,238,.12); border-radius: 2px; overflow: hidden; }
+.maha-os .metric-cell .tinybar > i { display: block; height: 100%; background: var(--cyan); box-shadow: 0 0 4px var(--cyan); transition: width .6s ease; }
+
+/* Core tile */
+.maha-os .core-topbar {
+  position: absolute; top: 0; left: 0; right: 0; padding: 14px 20px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid var(--cyan-faint);
+  font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+}
+.maha-os .core-topbar .brand { color: var(--cyan); }
+.maha-os .core-topbar .secure { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+.maha-os .core-topbar .secure .dot { width: 6px; height: 6px; border-radius: 50%; background: #34d399; box-shadow: 0 0 8px #34d399; }
+
+.maha-os .core-stage { position: relative; display: flex; align-items: center; justify-content: center; }
+.maha-os .ring-outer { position: absolute; width: 320px; height: 320px; border-radius: 50%; border: 1px solid rgba(34,211,238,.15); animation: spin 20s linear infinite; }
+.maha-os .ring-mid { position: absolute; width: 240px; height: 240px; border-radius: 50%; border: 2px dashed rgba(34,211,238,.25); animation: spin 15s linear infinite reverse; }
+.maha-os .ring-inner { position: absolute; width: 180px; height: 180px; border-radius: 50%; border: 1px solid rgba(34,211,238,.4); }
+@keyframes spin { to { transform: rotate(360deg); } }
+.maha-os .core-orb {
+  width: 130px; height: 130px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #67e8f9, #22d3ee 45%, #0891b2 100%);
+  border: 1px solid rgba(34,211,238,.5);
+  box-shadow: 0 0 60px rgba(34,211,238,.4), inset 0 0 30px rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(10px);
+  animation: coreBreath 4s ease-in-out infinite;
+}
+.maha-os .core-orb .diamond { width: 16px; height: 16px; background: #fff; transform: rotate(45deg); box-shadow: 0 0 20px #fff; animation: pulse 1.6s ease-in-out infinite; }
+@keyframes coreBreath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+.maha-os .core-caption {
+  position: absolute; bottom: 80px; left: 0; right: 0; text-align: center;
+  font-family: "Space Grotesk", sans-serif;
+}
+.maha-os .core-caption .title { font-size: 32px; font-weight: 300; letter-spacing: .3em; color: #fff; }
+.maha-os .core-caption .sub { font-size: 10px; letter-spacing: .4em; color: var(--muted); margin-top: 4px; text-transform: uppercase; }
+.maha-os .core-caption .state { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: .3em; color: var(--cyan); margin-top: 10px; text-transform: uppercase; }
+
+/* Voice wave inside core tile */
+.maha-os .voice-strip { position: absolute; bottom: 16px; left: 20px; right: 20px; text-align: center; }
+.maha-os .voice-strip canvas { width: 100%; height: 48px; display: block; }
+.maha-os .voice-strip .lbl { font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: .3em; color: var(--muted); opacity: .5; text-transform: uppercase; margin-top: 6px; }
+
+.maha-os .callout {
+  position: absolute; padding: 8px 12px; border: 1px solid var(--cyan-line);
+  background: rgba(2,6,23,.6); backdrop-filter: blur(6px); border-radius: 6px;
+  font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--muted);
+}
+.maha-os .callout b { color: var(--cyan-soft); font-weight: 600; }
+.maha-os .callout.c1 { top: 60px; left: 30px; }
+.maha-os .callout.c2 { top: 60px; right: 30px; }
+.maha-os .callout.c3 { bottom: 110px; left: 30px; }
+.maha-os .callout.c4 { bottom: 110px; right: 30px; }
+
+/* Memory tile */
+.maha-os .memory-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.maha-os .memory-head .count { font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--muted); }
+.maha-os .tile-memory canvas { flex: 1; width: 100%; display: block; min-height: 0; }
+
+/* Command tile */
+.maha-os .cmd-input {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(2,6,23,.6); border: 1px solid var(--cyan-line);
+  padding: 12px 14px; border-radius: 8px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.maha-os .cmd-input:focus-within { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(34,211,238,.15); }
+.maha-os .cmd-input .prompt { color: var(--cyan); font-family: "JetBrains Mono", monospace; font-weight: 700; }
+.maha-os .cmd-input input {
+  flex: 1; background: transparent; border: none; outline: none; color: #fff;
+  font-family: "JetBrains Mono", monospace; font-size: 13px; letter-spacing: .05em;
+}
+.maha-os .cmd-input input::placeholder { color: rgba(34,211,238,.35); text-transform: uppercase; letter-spacing: .1em; font-size: 11px; }
+.maha-os .cmd-input .exec { background: var(--cyan); color: #020617; font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 4px; border: none; cursor: pointer; }
+
+.maha-os .log-strip {
+  border: 1px solid var(--cyan-faint); border-radius: 8px;
+  padding: 10px 14px; overflow: hidden;
+  font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: .1em;
+  color: var(--muted); opacity: .7; white-space: nowrap;
+}
+.maha-os .log-strip b { color: var(--cyan-soft); font-weight: 700; }
+
+/* Agents tile */
+.maha-os .agents-list { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.maha-os .agents-list li { display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+.maha-os .agents-list li .name { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #fff; font-family: "Space Grotesk", sans-serif; }
+.maha-os .agents-list li .name svg { color: var(--cyan); }
+.maha-os .agents-list li .badge {
+  font-family: "JetBrains Mono", monospace; font-size: 8px; letter-spacing: .15em;
+  padding: 2px 6px; border: 1px solid var(--cyan-dim); border-radius: 3px;
+  color: var(--cyan-soft); background: rgba(34,211,238,.06); text-transform: uppercase;
+}
+.maha-os .agents-list li .badge.idle { color: var(--muted); border-color: var(--cyan-faint); }
+
+/* Header bar */
+.maha-os .header-bar {
+  position: relative; z-index: 3;
+  display: flex; justify-content: space-between; align-items: center;
+  max-width: 1440px; margin: 0 auto 16px;
+  padding: 0 4px;
+}
+.maha-os .brand-block { display: flex; align-items: center; gap: 12px; }
+.maha-os .brand-mark { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--cyan-dim); display: flex; align-items: center; justify-content: center; background: rgba(34,211,238,.08); }
+.maha-os .brand-mark span { width: 10px; height: 10px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+.maha-os .brand-name { font-family: "Space Grotesk", sans-serif; font-size: 14px; font-weight: 700; letter-spacing: .18em; color: #fff; }
+.maha-os .brand-name span { display: block; font-size: 9px; font-weight: 400; letter-spacing: .3em; color: var(--muted); }
+.maha-os .header-right { display: flex; align-items: center; gap: 24px; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: .18em; color: var(--muted); text-transform: uppercase; }
+.maha-os .header-right .clock { color: var(--cyan-soft); }
+.maha-os .header-right .status { display: flex; align-items: center; gap: 8px; }
+.maha-os .header-right .status .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); animation: pulse 2s ease-in-out infinite; }
+
+/* Scrollbar */
+.maha-os ::-webkit-scrollbar { width: 6px; }
+.maha-os ::-webkit-scrollbar-thumb { background: var(--cyan-dim); border-radius: 3px; }
 
 @media (max-width: 1100px) {
-  .maha-os .dashboard { grid-template-columns: 1fr; }
-  .maha-os .center-area { min-height: 500px; }
+  .maha-os .bento { grid-template-columns: repeat(6, 1fr); grid-auto-rows: minmax(140px, auto); height: auto; }
+  .maha-os .tile-mission, .maha-os .tile-core, .maha-os .tile-memory, .maha-os .tile-command, .maha-os .tile-agents { grid-column: span 6; grid-row: auto; min-height: 260px; }
 }
