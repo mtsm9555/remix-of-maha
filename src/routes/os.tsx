@@ -54,7 +54,7 @@ function OSPage() {
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.beginPath();
-      ctx.strokeStyle = "#00eaff";
+      ctx.strokeStyle = "#0071e3";
       ctx.lineWidth = 2;
       for (let i = 0; i < points.length; i++) {
         const x = i * 8;
@@ -81,7 +81,7 @@ function OSPage() {
     let raf = 0;
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = "#00eaff";
+      ctx.strokeStyle = "#0071e3";
       ctx.lineWidth = 2;
       ctx.beginPath();
       for (let x = 0; x < 300; x++) {
@@ -118,8 +118,8 @@ function OSPage() {
   useEffect(() => {
     const t = setInterval(() => {
       if (!coreRef.current) return;
-      const glow = Math.random() * 80 + 40;
-      coreRef.current.style.boxShadow = `0 0 30px #00eaff, 0 0 ${glow}px #00eaff`;
+      const glow = Math.random() * 30 + 30;
+      coreRef.current.style.boxShadow = `0 20px 60px -20px rgba(0,113,227,0.4), 0 0 ${glow}px rgba(0,113,227,0.25)`;
     }, 1200);
     return () => clearInterval(t);
   }, []);
@@ -129,9 +129,14 @@ function OSPage() {
       const list = agentsRef.current;
       if (!list) return;
       const items = list.querySelectorAll("li");
-      items.forEach((el) => ((el as HTMLElement).style.borderColor = "rgba(0,234,255,.08)"));
+      items.forEach((el) => {
+        (el as HTMLElement).style.background = "transparent";
+        (el as HTMLElement).style.color = "";
+      });
       const pick = items[Math.floor(Math.random() * items.length)] as HTMLElement | undefined;
-      if (pick) pick.style.borderColor = "#00eaff";
+      if (pick) {
+        pick.style.background = "rgba(0,113,227,0.06)";
+      }
     }, 1500);
     return () => clearInterval(t);
   }, []);
