@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
   Shield, Network, Wrench, Bot, Eye, Cpu, Activity,
+  Mic, Brain, Play, Pause, Power,
 } from "lucide-react";
 import "./os.css";
 
@@ -359,6 +360,67 @@ export function OSPage() {
           </section>
         </aside>
       </div>
+
+      <nav className="hud-dock" aria-label="HUD controls">
+        <button
+          type="button"
+          className={`dock-btn ${mode === "listening" ? "is-active" : ""}`}
+          aria-label="Listen"
+          aria-pressed={mode === "listening"}
+          onClick={() => setMode("listening")}
+        >
+          <Mic size={20} aria-hidden />
+          <span>Listen</span>
+        </button>
+        <button
+          type="button"
+          className={`dock-btn ${mode === "thinking" ? "is-active" : ""}`}
+          aria-label="Think"
+          aria-pressed={mode === "thinking"}
+          onClick={() => setMode("thinking")}
+        >
+          <Brain size={20} aria-hidden />
+          <span>Think</span>
+        </button>
+        <button
+          type="button"
+          className={`dock-btn ${mode === "executing" ? "is-active" : ""}`}
+          aria-label="Execute"
+          aria-pressed={mode === "executing"}
+          onClick={() => {
+            setMode("executing");
+            setExecLog((prev) => [
+              EXEC_LOGS[Math.floor(Math.random() * EXEC_LOGS.length)],
+              ...prev,
+            ].slice(0, 8));
+          }}
+        >
+          <Play size={20} aria-hidden />
+          <span>Execute</span>
+        </button>
+        <button
+          type="button"
+          className={`dock-btn ${mode === "idle" ? "is-active" : ""}`}
+          aria-label="Idle"
+          aria-pressed={mode === "idle"}
+          onClick={() => setMode("idle")}
+        >
+          <Pause size={20} aria-hidden />
+          <span>Idle</span>
+        </button>
+        <button
+          type="button"
+          className="dock-btn dock-btn-danger"
+          aria-label="Clear log"
+          onClick={() => {
+            setExecLog([]);
+            setTimeline([]);
+          }}
+        >
+          <Power size={20} aria-hidden />
+          <span>Clear</span>
+        </button>
+      </nav>
     </div>
   );
 }
