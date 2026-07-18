@@ -70,6 +70,13 @@ import { Route as ApiBillingPlansRouteImport } from './routes/api/billing/plans'
 import { Route as ApiBackupRestoreRouteImport } from './routes/api/backup/restore'
 import { Route as ApiBackupJobsRouteImport } from './routes/api/backup/jobs'
 import { Route as ApiApprovalsSplatRouteImport } from './routes/api/approvals/$'
+import { Route as ApiAiCompanyRecoveryRouteImport } from './routes/api/ai-company/recovery'
+import { Route as ApiAiCompanyReasonRouteImport } from './routes/api/ai-company/reason'
+import { Route as ApiAiCompanyMemoryRouteImport } from './routes/api/ai-company/memory'
+import { Route as ApiAiCompanyHealthRouteImport } from './routes/api/ai-company/health'
+import { Route as ApiAiCompanyGoalsRouteImport } from './routes/api/ai-company/goals'
+import { Route as ApiAiCompanyAuditRouteImport } from './routes/api/ai-company/audit'
+import { Route as ApiAiCompanyAgentsRouteImport } from './routes/api/ai-company/agents'
 import { Route as ApiAdvancedRolesTemplatesRouteImport } from './routes/api/advanced-roles/templates'
 import { Route as ApiInfrastructureDiscoveryRouteRouteImport } from './routes/api/infrastructure/discovery/route'
 import { Route as ApiWorkspacesWorkspaceIdIndexRouteImport } from './routes/api/workspaces/$workspaceId/index'
@@ -226,6 +233,8 @@ import { Route as ApiAnalyticsRetrievalOverviewRouteImport } from './routes/api/
 import { Route as ApiAnalyticsRetrievalHealthCheckRouteImport } from './routes/api/analytics/retrieval/health-check'
 import { Route as ApiAnalyticsRetrievalExpensiveQueriesRouteImport } from './routes/api/analytics/retrieval/expensive-queries'
 import { Route as ApiAnalyticsRetrievalEvaluateRouteImport } from './routes/api/analytics/retrieval/evaluate'
+import { Route as ApiAiCompanyGoalsIdRouteImport } from './routes/api/ai-company/goals.$id'
+import { Route as ApiAiCompanyAgentsIdRouteImport } from './routes/api/ai-company/agents.$id'
 import { Route as ApiAdvancedRolesTenantIdJitRouteImport } from './routes/api/advanced-roles/$tenantId/jit'
 import { Route as ApiAdvancedRolesTenantIdHierarchyRouteImport } from './routes/api/advanced-roles/$tenantId/hierarchy'
 import { Route as ApiAdvancedRolesTenantIdFromTemplateRouteImport } from './routes/api/advanced-roles/$tenantId/from-template'
@@ -310,6 +319,9 @@ import { Route as ApiApikeysTenantIdKeyIdAnalyticsRouteImport } from './routes/a
 import { Route as ApiAnalyticsToolsToolNameRpmRouteImport } from './routes/api/analytics/tools/$toolName/rpm'
 import { Route as ApiAnalyticsToolsToolNameHistoryRouteImport } from './routes/api/analytics/tools/$toolName/history'
 import { Route as ApiAnalyticsToolsToolNameErrorsRouteImport } from './routes/api/analytics/tools/$toolName/errors'
+import { Route as ApiAiCompanySubtasksIdCompleteRouteImport } from './routes/api/ai-company/subtasks.$id.complete'
+import { Route as ApiAiCompanySubtasksIdAssignRouteImport } from './routes/api/ai-company/subtasks.$id.assign'
+import { Route as ApiAiCompanyGoalsIdPlanRouteImport } from './routes/api/ai-company/goals.$id.plan'
 import { Route as ApiAdvancedRolesTenantIdJitElevationIdRouteImport } from './routes/api/advanced-roles/$tenantId/jit/$elevationId'
 import { Route as ApiVaultTenantIdSecretsSecretIdRotateRouteImport } from './routes/api/vault/$tenantId/secrets.$secretId.rotate'
 import { Route as ApiVaultTenantIdSecretsSecretIdRevokeRouteImport } from './routes/api/vault/$tenantId/secrets.$secretId.revoke'
@@ -650,6 +662,41 @@ const ApiBackupJobsRoute = ApiBackupJobsRouteImport.update({
 const ApiApprovalsSplatRoute = ApiApprovalsSplatRouteImport.update({
   id: '/api/approvals/$',
   path: '/api/approvals/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAiCompanyRecoveryRoute = ApiAiCompanyRecoveryRouteImport.update({
+  id: '/api/ai-company/recovery',
+  path: '/api/ai-company/recovery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAiCompanyReasonRoute = ApiAiCompanyReasonRouteImport.update({
+  id: '/api/ai-company/reason',
+  path: '/api/ai-company/reason',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAiCompanyMemoryRoute = ApiAiCompanyMemoryRouteImport.update({
+  id: '/api/ai-company/memory',
+  path: '/api/ai-company/memory',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAiCompanyHealthRoute = ApiAiCompanyHealthRouteImport.update({
+  id: '/api/ai-company/health',
+  path: '/api/ai-company/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAiCompanyGoalsRoute = ApiAiCompanyGoalsRouteImport.update({
+  id: '/api/ai-company/goals',
+  path: '/api/ai-company/goals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAiCompanyAuditRoute = ApiAiCompanyAuditRouteImport.update({
+  id: '/api/ai-company/audit',
+  path: '/api/ai-company/audit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAiCompanyAgentsRoute = ApiAiCompanyAgentsRouteImport.update({
+  id: '/api/ai-company/agents',
+  path: '/api/ai-company/agents',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAdvancedRolesTemplatesRoute =
@@ -1532,6 +1579,16 @@ const ApiAnalyticsRetrievalEvaluateRoute =
     path: '/api/analytics/retrieval/evaluate',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiAiCompanyGoalsIdRoute = ApiAiCompanyGoalsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ApiAiCompanyGoalsRoute,
+} as any)
+const ApiAiCompanyAgentsIdRoute = ApiAiCompanyAgentsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ApiAiCompanyAgentsRoute,
+} as any)
 const ApiAdvancedRolesTenantIdJitRoute =
   ApiAdvancedRolesTenantIdJitRouteImport.update({
     id: '/api/advanced-roles/$tenantId/jit',
@@ -2031,6 +2088,23 @@ const ApiAnalyticsToolsToolNameErrorsRoute =
     path: '/api/analytics/tools/$toolName/errors',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiAiCompanySubtasksIdCompleteRoute =
+  ApiAiCompanySubtasksIdCompleteRouteImport.update({
+    id: '/api/ai-company/subtasks/$id/complete',
+    path: '/api/ai-company/subtasks/$id/complete',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiAiCompanySubtasksIdAssignRoute =
+  ApiAiCompanySubtasksIdAssignRouteImport.update({
+    id: '/api/ai-company/subtasks/$id/assign',
+    path: '/api/ai-company/subtasks/$id/assign',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiAiCompanyGoalsIdPlanRoute = ApiAiCompanyGoalsIdPlanRouteImport.update({
+  id: '/plan',
+  path: '/plan',
+  getParentRoute: () => ApiAiCompanyGoalsIdRoute,
+} as any)
 const ApiAdvancedRolesTenantIdJitElevationIdRoute =
   ApiAdvancedRolesTenantIdJitElevationIdRouteImport.update({
     id: '/$elevationId',
@@ -2233,6 +2307,13 @@ export interface FileRoutesByFullPath {
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
+  '/api/ai-company/agents': typeof ApiAiCompanyAgentsRouteWithChildren
+  '/api/ai-company/audit': typeof ApiAiCompanyAuditRoute
+  '/api/ai-company/goals': typeof ApiAiCompanyGoalsRouteWithChildren
+  '/api/ai-company/health': typeof ApiAiCompanyHealthRoute
+  '/api/ai-company/memory': typeof ApiAiCompanyMemoryRoute
+  '/api/ai-company/reason': typeof ApiAiCompanyReasonRoute
+  '/api/ai-company/recovery': typeof ApiAiCompanyRecoveryRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/backup/jobs': typeof ApiBackupJobsRouteWithChildren
   '/api/backup/restore': typeof ApiBackupRestoreRoute
@@ -2286,6 +2367,8 @@ export interface FileRoutesByFullPath {
   '/api/advanced-roles/$tenantId/from-template': typeof ApiAdvancedRolesTenantIdFromTemplateRoute
   '/api/advanced-roles/$tenantId/hierarchy': typeof ApiAdvancedRolesTenantIdHierarchyRoute
   '/api/advanced-roles/$tenantId/jit': typeof ApiAdvancedRolesTenantIdJitRouteWithChildren
+  '/api/ai-company/agents/$id': typeof ApiAiCompanyAgentsIdRoute
+  '/api/ai-company/goals/$id': typeof ApiAiCompanyGoalsIdRouteWithChildren
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -2441,6 +2524,9 @@ export interface FileRoutesByFullPath {
   '/api/workspaces/$tenantId/': typeof ApiWorkspacesTenantIdIndexRoute
   '/api/workspaces/$workspaceId/': typeof ApiWorkspacesWorkspaceIdIndexRoute
   '/api/advanced-roles/$tenantId/jit/$elevationId': typeof ApiAdvancedRolesTenantIdJitElevationIdRoute
+  '/api/ai-company/goals/$id/plan': typeof ApiAiCompanyGoalsIdPlanRoute
+  '/api/ai-company/subtasks/$id/assign': typeof ApiAiCompanySubtasksIdAssignRoute
+  '/api/ai-company/subtasks/$id/complete': typeof ApiAiCompanySubtasksIdCompleteRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -2567,6 +2653,13 @@ export interface FileRoutesByTo {
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
+  '/api/ai-company/agents': typeof ApiAiCompanyAgentsRouteWithChildren
+  '/api/ai-company/audit': typeof ApiAiCompanyAuditRoute
+  '/api/ai-company/goals': typeof ApiAiCompanyGoalsRouteWithChildren
+  '/api/ai-company/health': typeof ApiAiCompanyHealthRoute
+  '/api/ai-company/memory': typeof ApiAiCompanyMemoryRoute
+  '/api/ai-company/reason': typeof ApiAiCompanyReasonRoute
+  '/api/ai-company/recovery': typeof ApiAiCompanyRecoveryRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/backup/jobs': typeof ApiBackupJobsRouteWithChildren
   '/api/backup/restore': typeof ApiBackupRestoreRoute
@@ -2620,6 +2713,8 @@ export interface FileRoutesByTo {
   '/api/advanced-roles/$tenantId/from-template': typeof ApiAdvancedRolesTenantIdFromTemplateRoute
   '/api/advanced-roles/$tenantId/hierarchy': typeof ApiAdvancedRolesTenantIdHierarchyRoute
   '/api/advanced-roles/$tenantId/jit': typeof ApiAdvancedRolesTenantIdJitRouteWithChildren
+  '/api/ai-company/agents/$id': typeof ApiAiCompanyAgentsIdRoute
+  '/api/ai-company/goals/$id': typeof ApiAiCompanyGoalsIdRouteWithChildren
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -2775,6 +2870,9 @@ export interface FileRoutesByTo {
   '/api/workspaces/$tenantId': typeof ApiWorkspacesTenantIdIndexRoute
   '/api/workspaces/$workspaceId': typeof ApiWorkspacesWorkspaceIdIndexRoute
   '/api/advanced-roles/$tenantId/jit/$elevationId': typeof ApiAdvancedRolesTenantIdJitElevationIdRoute
+  '/api/ai-company/goals/$id/plan': typeof ApiAiCompanyGoalsIdPlanRoute
+  '/api/ai-company/subtasks/$id/assign': typeof ApiAiCompanySubtasksIdAssignRoute
+  '/api/ai-company/subtasks/$id/complete': typeof ApiAiCompanySubtasksIdCompleteRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -2902,6 +3000,13 @@ export interface FileRoutesById {
   '/api/planner-test': typeof ApiPlannerTestRoute
   '/api/infrastructure/discovery': typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   '/api/advanced-roles/templates': typeof ApiAdvancedRolesTemplatesRoute
+  '/api/ai-company/agents': typeof ApiAiCompanyAgentsRouteWithChildren
+  '/api/ai-company/audit': typeof ApiAiCompanyAuditRoute
+  '/api/ai-company/goals': typeof ApiAiCompanyGoalsRouteWithChildren
+  '/api/ai-company/health': typeof ApiAiCompanyHealthRoute
+  '/api/ai-company/memory': typeof ApiAiCompanyMemoryRoute
+  '/api/ai-company/reason': typeof ApiAiCompanyReasonRoute
+  '/api/ai-company/recovery': typeof ApiAiCompanyRecoveryRoute
   '/api/approvals/$': typeof ApiApprovalsSplatRoute
   '/api/backup/jobs': typeof ApiBackupJobsRouteWithChildren
   '/api/backup/restore': typeof ApiBackupRestoreRoute
@@ -2955,6 +3060,8 @@ export interface FileRoutesById {
   '/api/advanced-roles/$tenantId/from-template': typeof ApiAdvancedRolesTenantIdFromTemplateRoute
   '/api/advanced-roles/$tenantId/hierarchy': typeof ApiAdvancedRolesTenantIdHierarchyRoute
   '/api/advanced-roles/$tenantId/jit': typeof ApiAdvancedRolesTenantIdJitRouteWithChildren
+  '/api/ai-company/agents/$id': typeof ApiAiCompanyAgentsIdRoute
+  '/api/ai-company/goals/$id': typeof ApiAiCompanyGoalsIdRouteWithChildren
   '/api/analytics/retrieval/evaluate': typeof ApiAnalyticsRetrievalEvaluateRoute
   '/api/analytics/retrieval/expensive-queries': typeof ApiAnalyticsRetrievalExpensiveQueriesRoute
   '/api/analytics/retrieval/health-check': typeof ApiAnalyticsRetrievalHealthCheckRoute
@@ -3110,6 +3217,9 @@ export interface FileRoutesById {
   '/api/workspaces/$tenantId/': typeof ApiWorkspacesTenantIdIndexRoute
   '/api/workspaces/$workspaceId/': typeof ApiWorkspacesWorkspaceIdIndexRoute
   '/api/advanced-roles/$tenantId/jit/$elevationId': typeof ApiAdvancedRolesTenantIdJitElevationIdRoute
+  '/api/ai-company/goals/$id/plan': typeof ApiAiCompanyGoalsIdPlanRoute
+  '/api/ai-company/subtasks/$id/assign': typeof ApiAiCompanySubtasksIdAssignRoute
+  '/api/ai-company/subtasks/$id/complete': typeof ApiAiCompanySubtasksIdCompleteRoute
   '/api/analytics/tools/$toolName/errors': typeof ApiAnalyticsToolsToolNameErrorsRoute
   '/api/analytics/tools/$toolName/history': typeof ApiAnalyticsToolsToolNameHistoryRoute
   '/api/analytics/tools/$toolName/rpm': typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -3238,6 +3348,13 @@ export interface FileRouteTypes {
     | '/api/planner-test'
     | '/api/infrastructure/discovery'
     | '/api/advanced-roles/templates'
+    | '/api/ai-company/agents'
+    | '/api/ai-company/audit'
+    | '/api/ai-company/goals'
+    | '/api/ai-company/health'
+    | '/api/ai-company/memory'
+    | '/api/ai-company/reason'
+    | '/api/ai-company/recovery'
     | '/api/approvals/$'
     | '/api/backup/jobs'
     | '/api/backup/restore'
@@ -3291,6 +3408,8 @@ export interface FileRouteTypes {
     | '/api/advanced-roles/$tenantId/from-template'
     | '/api/advanced-roles/$tenantId/hierarchy'
     | '/api/advanced-roles/$tenantId/jit'
+    | '/api/ai-company/agents/$id'
+    | '/api/ai-company/goals/$id'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
     | '/api/analytics/retrieval/health-check'
@@ -3446,6 +3565,9 @@ export interface FileRouteTypes {
     | '/api/workspaces/$tenantId/'
     | '/api/workspaces/$workspaceId/'
     | '/api/advanced-roles/$tenantId/jit/$elevationId'
+    | '/api/ai-company/goals/$id/plan'
+    | '/api/ai-company/subtasks/$id/assign'
+    | '/api/ai-company/subtasks/$id/complete'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
@@ -3572,6 +3694,13 @@ export interface FileRouteTypes {
     | '/api/planner-test'
     | '/api/infrastructure/discovery'
     | '/api/advanced-roles/templates'
+    | '/api/ai-company/agents'
+    | '/api/ai-company/audit'
+    | '/api/ai-company/goals'
+    | '/api/ai-company/health'
+    | '/api/ai-company/memory'
+    | '/api/ai-company/reason'
+    | '/api/ai-company/recovery'
     | '/api/approvals/$'
     | '/api/backup/jobs'
     | '/api/backup/restore'
@@ -3625,6 +3754,8 @@ export interface FileRouteTypes {
     | '/api/advanced-roles/$tenantId/from-template'
     | '/api/advanced-roles/$tenantId/hierarchy'
     | '/api/advanced-roles/$tenantId/jit'
+    | '/api/ai-company/agents/$id'
+    | '/api/ai-company/goals/$id'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
     | '/api/analytics/retrieval/health-check'
@@ -3780,6 +3911,9 @@ export interface FileRouteTypes {
     | '/api/workspaces/$tenantId'
     | '/api/workspaces/$workspaceId'
     | '/api/advanced-roles/$tenantId/jit/$elevationId'
+    | '/api/ai-company/goals/$id/plan'
+    | '/api/ai-company/subtasks/$id/assign'
+    | '/api/ai-company/subtasks/$id/complete'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
@@ -3906,6 +4040,13 @@ export interface FileRouteTypes {
     | '/api/planner-test'
     | '/api/infrastructure/discovery'
     | '/api/advanced-roles/templates'
+    | '/api/ai-company/agents'
+    | '/api/ai-company/audit'
+    | '/api/ai-company/goals'
+    | '/api/ai-company/health'
+    | '/api/ai-company/memory'
+    | '/api/ai-company/reason'
+    | '/api/ai-company/recovery'
     | '/api/approvals/$'
     | '/api/backup/jobs'
     | '/api/backup/restore'
@@ -3959,6 +4100,8 @@ export interface FileRouteTypes {
     | '/api/advanced-roles/$tenantId/from-template'
     | '/api/advanced-roles/$tenantId/hierarchy'
     | '/api/advanced-roles/$tenantId/jit'
+    | '/api/ai-company/agents/$id'
+    | '/api/ai-company/goals/$id'
     | '/api/analytics/retrieval/evaluate'
     | '/api/analytics/retrieval/expensive-queries'
     | '/api/analytics/retrieval/health-check'
@@ -4114,6 +4257,9 @@ export interface FileRouteTypes {
     | '/api/workspaces/$tenantId/'
     | '/api/workspaces/$workspaceId/'
     | '/api/advanced-roles/$tenantId/jit/$elevationId'
+    | '/api/ai-company/goals/$id/plan'
+    | '/api/ai-company/subtasks/$id/assign'
+    | '/api/ai-company/subtasks/$id/complete'
     | '/api/analytics/tools/$toolName/errors'
     | '/api/analytics/tools/$toolName/history'
     | '/api/analytics/tools/$toolName/rpm'
@@ -4241,6 +4387,13 @@ export interface RootRouteChildren {
   ApiPlannerTestRoute: typeof ApiPlannerTestRoute
   ApiInfrastructureDiscoveryRouteRoute: typeof ApiInfrastructureDiscoveryRouteRouteWithChildren
   ApiAdvancedRolesTemplatesRoute: typeof ApiAdvancedRolesTemplatesRoute
+  ApiAiCompanyAgentsRoute: typeof ApiAiCompanyAgentsRouteWithChildren
+  ApiAiCompanyAuditRoute: typeof ApiAiCompanyAuditRoute
+  ApiAiCompanyGoalsRoute: typeof ApiAiCompanyGoalsRouteWithChildren
+  ApiAiCompanyHealthRoute: typeof ApiAiCompanyHealthRoute
+  ApiAiCompanyMemoryRoute: typeof ApiAiCompanyMemoryRoute
+  ApiAiCompanyReasonRoute: typeof ApiAiCompanyReasonRoute
+  ApiAiCompanyRecoveryRoute: typeof ApiAiCompanyRecoveryRoute
   ApiApprovalsSplatRoute: typeof ApiApprovalsSplatRoute
   ApiBackupJobsRoute: typeof ApiBackupJobsRouteWithChildren
   ApiBackupRestoreRoute: typeof ApiBackupRestoreRoute
@@ -4444,6 +4597,8 @@ export interface RootRouteChildren {
   ApiToolsPoliciesIndexRoute: typeof ApiToolsPoliciesIndexRoute
   ApiWorkspacesTenantIdIndexRoute: typeof ApiWorkspacesTenantIdIndexRoute
   ApiWorkspacesWorkspaceIdIndexRoute: typeof ApiWorkspacesWorkspaceIdIndexRoute
+  ApiAiCompanySubtasksIdAssignRoute: typeof ApiAiCompanySubtasksIdAssignRoute
+  ApiAiCompanySubtasksIdCompleteRoute: typeof ApiAiCompanySubtasksIdCompleteRoute
   ApiAnalyticsToolsToolNameErrorsRoute: typeof ApiAnalyticsToolsToolNameErrorsRoute
   ApiAnalyticsToolsToolNameHistoryRoute: typeof ApiAnalyticsToolsToolNameHistoryRoute
   ApiAnalyticsToolsToolNameRpmRoute: typeof ApiAnalyticsToolsToolNameRpmRoute
@@ -4933,6 +5088,55 @@ declare module '@tanstack/react-router' {
       path: '/api/approvals/$'
       fullPath: '/api/approvals/$'
       preLoaderRoute: typeof ApiApprovalsSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ai-company/recovery': {
+      id: '/api/ai-company/recovery'
+      path: '/api/ai-company/recovery'
+      fullPath: '/api/ai-company/recovery'
+      preLoaderRoute: typeof ApiAiCompanyRecoveryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ai-company/reason': {
+      id: '/api/ai-company/reason'
+      path: '/api/ai-company/reason'
+      fullPath: '/api/ai-company/reason'
+      preLoaderRoute: typeof ApiAiCompanyReasonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ai-company/memory': {
+      id: '/api/ai-company/memory'
+      path: '/api/ai-company/memory'
+      fullPath: '/api/ai-company/memory'
+      preLoaderRoute: typeof ApiAiCompanyMemoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ai-company/health': {
+      id: '/api/ai-company/health'
+      path: '/api/ai-company/health'
+      fullPath: '/api/ai-company/health'
+      preLoaderRoute: typeof ApiAiCompanyHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ai-company/goals': {
+      id: '/api/ai-company/goals'
+      path: '/api/ai-company/goals'
+      fullPath: '/api/ai-company/goals'
+      preLoaderRoute: typeof ApiAiCompanyGoalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ai-company/audit': {
+      id: '/api/ai-company/audit'
+      path: '/api/ai-company/audit'
+      fullPath: '/api/ai-company/audit'
+      preLoaderRoute: typeof ApiAiCompanyAuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ai-company/agents': {
+      id: '/api/ai-company/agents'
+      path: '/api/ai-company/agents'
+      fullPath: '/api/ai-company/agents'
+      preLoaderRoute: typeof ApiAiCompanyAgentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/advanced-roles/templates': {
@@ -6027,6 +6231,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAnalyticsRetrievalEvaluateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/ai-company/goals/$id': {
+      id: '/api/ai-company/goals/$id'
+      path: '/$id'
+      fullPath: '/api/ai-company/goals/$id'
+      preLoaderRoute: typeof ApiAiCompanyGoalsIdRouteImport
+      parentRoute: typeof ApiAiCompanyGoalsRoute
+    }
+    '/api/ai-company/agents/$id': {
+      id: '/api/ai-company/agents/$id'
+      path: '/$id'
+      fullPath: '/api/ai-company/agents/$id'
+      preLoaderRoute: typeof ApiAiCompanyAgentsIdRouteImport
+      parentRoute: typeof ApiAiCompanyAgentsRoute
+    }
     '/api/advanced-roles/$tenantId/jit': {
       id: '/api/advanced-roles/$tenantId/jit'
       path: '/api/advanced-roles/$tenantId/jit'
@@ -6615,6 +6833,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAnalyticsToolsToolNameErrorsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/ai-company/subtasks/$id/complete': {
+      id: '/api/ai-company/subtasks/$id/complete'
+      path: '/api/ai-company/subtasks/$id/complete'
+      fullPath: '/api/ai-company/subtasks/$id/complete'
+      preLoaderRoute: typeof ApiAiCompanySubtasksIdCompleteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ai-company/subtasks/$id/assign': {
+      id: '/api/ai-company/subtasks/$id/assign'
+      path: '/api/ai-company/subtasks/$id/assign'
+      fullPath: '/api/ai-company/subtasks/$id/assign'
+      preLoaderRoute: typeof ApiAiCompanySubtasksIdAssignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ai-company/goals/$id/plan': {
+      id: '/api/ai-company/goals/$id/plan'
+      path: '/plan'
+      fullPath: '/api/ai-company/goals/$id/plan'
+      preLoaderRoute: typeof ApiAiCompanyGoalsIdPlanRouteImport
+      parentRoute: typeof ApiAiCompanyGoalsIdRoute
+    }
     '/api/advanced-roles/$tenantId/jit/$elevationId': {
       id: '/api/advanced-roles/$tenantId/jit/$elevationId'
       path: '/$elevationId'
@@ -6852,6 +7091,39 @@ const ApiInfrastructureDiscoveryRouteRouteWithChildren =
   ApiInfrastructureDiscoveryRouteRoute._addFileChildren(
     ApiInfrastructureDiscoveryRouteRouteChildren,
   )
+
+interface ApiAiCompanyAgentsRouteChildren {
+  ApiAiCompanyAgentsIdRoute: typeof ApiAiCompanyAgentsIdRoute
+}
+
+const ApiAiCompanyAgentsRouteChildren: ApiAiCompanyAgentsRouteChildren = {
+  ApiAiCompanyAgentsIdRoute: ApiAiCompanyAgentsIdRoute,
+}
+
+const ApiAiCompanyAgentsRouteWithChildren =
+  ApiAiCompanyAgentsRoute._addFileChildren(ApiAiCompanyAgentsRouteChildren)
+
+interface ApiAiCompanyGoalsIdRouteChildren {
+  ApiAiCompanyGoalsIdPlanRoute: typeof ApiAiCompanyGoalsIdPlanRoute
+}
+
+const ApiAiCompanyGoalsIdRouteChildren: ApiAiCompanyGoalsIdRouteChildren = {
+  ApiAiCompanyGoalsIdPlanRoute: ApiAiCompanyGoalsIdPlanRoute,
+}
+
+const ApiAiCompanyGoalsIdRouteWithChildren =
+  ApiAiCompanyGoalsIdRoute._addFileChildren(ApiAiCompanyGoalsIdRouteChildren)
+
+interface ApiAiCompanyGoalsRouteChildren {
+  ApiAiCompanyGoalsIdRoute: typeof ApiAiCompanyGoalsIdRouteWithChildren
+}
+
+const ApiAiCompanyGoalsRouteChildren: ApiAiCompanyGoalsRouteChildren = {
+  ApiAiCompanyGoalsIdRoute: ApiAiCompanyGoalsIdRouteWithChildren,
+}
+
+const ApiAiCompanyGoalsRouteWithChildren =
+  ApiAiCompanyGoalsRoute._addFileChildren(ApiAiCompanyGoalsRouteChildren)
 
 interface ApiBackupJobsRouteChildren {
   ApiBackupJobsIdExecuteRoute: typeof ApiBackupJobsIdExecuteRoute
@@ -7364,6 +7636,13 @@ const rootRouteChildren: RootRouteChildren = {
   ApiInfrastructureDiscoveryRouteRoute:
     ApiInfrastructureDiscoveryRouteRouteWithChildren,
   ApiAdvancedRolesTemplatesRoute: ApiAdvancedRolesTemplatesRoute,
+  ApiAiCompanyAgentsRoute: ApiAiCompanyAgentsRouteWithChildren,
+  ApiAiCompanyAuditRoute: ApiAiCompanyAuditRoute,
+  ApiAiCompanyGoalsRoute: ApiAiCompanyGoalsRouteWithChildren,
+  ApiAiCompanyHealthRoute: ApiAiCompanyHealthRoute,
+  ApiAiCompanyMemoryRoute: ApiAiCompanyMemoryRoute,
+  ApiAiCompanyReasonRoute: ApiAiCompanyReasonRoute,
+  ApiAiCompanyRecoveryRoute: ApiAiCompanyRecoveryRoute,
   ApiApprovalsSplatRoute: ApiApprovalsSplatRoute,
   ApiBackupJobsRoute: ApiBackupJobsRouteWithChildren,
   ApiBackupRestoreRoute: ApiBackupRestoreRoute,
@@ -7594,6 +7873,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiToolsPoliciesIndexRoute: ApiToolsPoliciesIndexRoute,
   ApiWorkspacesTenantIdIndexRoute: ApiWorkspacesTenantIdIndexRoute,
   ApiWorkspacesWorkspaceIdIndexRoute: ApiWorkspacesWorkspaceIdIndexRoute,
+  ApiAiCompanySubtasksIdAssignRoute: ApiAiCompanySubtasksIdAssignRoute,
+  ApiAiCompanySubtasksIdCompleteRoute: ApiAiCompanySubtasksIdCompleteRoute,
   ApiAnalyticsToolsToolNameErrorsRoute: ApiAnalyticsToolsToolNameErrorsRoute,
   ApiAnalyticsToolsToolNameHistoryRoute: ApiAnalyticsToolsToolNameHistoryRoute,
   ApiAnalyticsToolsToolNameRpmRoute: ApiAnalyticsToolsToolNameRpmRoute,
