@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as VoiceRouteImport } from './routes/voice'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as OsRouteImport } from './routes/os'
 import { Route as MahaRouteImport } from './routes/maha'
 import { Route as LogsRouteImport } from './routes/logs'
 import { Route as HudRouteImport } from './routes/hud'
@@ -368,11 +367,6 @@ const ToolsRoute = ToolsRouteImport.update({
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OsRoute = OsRouteImport.update({
-  id: '/os',
-  path: '/os',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MahaRoute = MahaRouteImport.update({
@@ -2307,7 +2301,6 @@ export interface FileRoutesByFullPath {
   '/hud': typeof HudRoute
   '/logs': typeof LogsRoute
   '/maha': typeof MahaRoute
-  '/os': typeof OsRoute
   '/settings': typeof SettingsRoute
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
@@ -2654,7 +2647,6 @@ export interface FileRoutesByTo {
   '/hud': typeof HudRoute
   '/logs': typeof LogsRoute
   '/maha': typeof MahaRoute
-  '/os': typeof OsRoute
   '/settings': typeof SettingsRoute
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
@@ -3002,7 +2994,6 @@ export interface FileRoutesById {
   '/hud': typeof HudRoute
   '/logs': typeof LogsRoute
   '/maha': typeof MahaRoute
-  '/os': typeof OsRoute
   '/settings': typeof SettingsRoute
   '/tools': typeof ToolsRoute
   '/voice': typeof VoiceRoute
@@ -3351,7 +3342,6 @@ export interface FileRouteTypes {
     | '/hud'
     | '/logs'
     | '/maha'
-    | '/os'
     | '/settings'
     | '/tools'
     | '/voice'
@@ -3698,7 +3688,6 @@ export interface FileRouteTypes {
     | '/hud'
     | '/logs'
     | '/maha'
-    | '/os'
     | '/settings'
     | '/tools'
     | '/voice'
@@ -4045,7 +4034,6 @@ export interface FileRouteTypes {
     | '/hud'
     | '/logs'
     | '/maha'
-    | '/os'
     | '/settings'
     | '/tools'
     | '/voice'
@@ -4393,7 +4381,6 @@ export interface RootRouteChildren {
   HudRoute: typeof HudRoute
   LogsRoute: typeof LogsRoute
   MahaRoute: typeof MahaRoute
-  OsRoute: typeof OsRoute
   SettingsRoute: typeof SettingsRoute
   ToolsRoute: typeof ToolsRoute
   VoiceRoute: typeof VoiceRoute
@@ -4695,13 +4682,6 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/os': {
-      id: '/os'
-      path: '/os'
-      fullPath: '/os'
-      preLoaderRoute: typeof OsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/maha': {
@@ -7649,7 +7629,6 @@ const rootRouteChildren: RootRouteChildren = {
   HudRoute: HudRoute,
   LogsRoute: LogsRoute,
   MahaRoute: MahaRoute,
-  OsRoute: OsRoute,
   SettingsRoute: SettingsRoute,
   ToolsRoute: ToolsRoute,
   VoiceRoute: VoiceRoute,
