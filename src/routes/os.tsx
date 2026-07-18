@@ -244,69 +244,97 @@ export function OSPage() {
 
   return (
     <div className="maha-os">
-      <canvas ref={neuralCanvasRef} className="neural-canvas" />
-      <div ref={particleLayerRef} className="particles-layer" />
-      <div className="background-grid" />
-      <div className="background-glow" />
-      <div className="background-scanner" />
+      <canvas ref={neuralCanvasRef} className="neural-canvas" aria-hidden="true" />
+      <div ref={particleLayerRef} className="particles-layer" aria-hidden="true" />
+      <div className="background-grid" aria-hidden="true" />
+      <div className="background-glow" aria-hidden="true" />
+      <div className="background-scanner" aria-hidden="true" />
 
       {/* Header */}
-      <header className="header-bar">
+      <header className="header-bar" role="banner">
         <div className="brand-block">
-          <div className="brand-mark"><span /></div>
+          <div className="brand-mark" aria-hidden="true"><span /></div>
           <div className="brand-name">
-            MAHA AI OS
+            <h1 className="brand-title">MAHA AI OS</h1>
             <span>Neural Operating System · v4.0</span>
           </div>
         </div>
         <div className="header-right">
-          <div className="clock">{clock}</div>
-          <div>MODE · {mode.toUpperCase()}</div>
-          <div className="status"><span className="dot" /> SYSTEMS OPERATIONAL</div>
+          <div
+            className="clock"
+            aria-label={clock ? `Current time ${clock}` : "Clock"}
+            aria-live="off"
+          >
+            {clock}
+          </div>
+          <div role="status" aria-live="polite" aria-atomic="true">
+            MODE · <span aria-label={`Mode ${mode}`}>{mode.toUpperCase()}</span>
+          </div>
+          <div className="status" role="status">
+            <span className="dot" aria-hidden="true" /> SYSTEMS OPERATIONAL
+          </div>
         </div>
       </header>
 
-      <div className="layout">
+      <main className="layout" id="main" aria-label="MAHA AI OS dashboard">
         {/* LEFT — Tasks + Timeline */}
-        <aside className="col left-panel">
+        <aside className="col left-panel" aria-label="Tasks, metrics and timeline">
           <section className="hud-card">
-            <h2><Activity size={12} /> Active Tasks</h2>
-            <div className="task-list">
+            <h2><Activity size={12} aria-hidden="true" /> Active Tasks</h2>
+            <ul className="task-list" aria-label="Active tasks">
               {tasks.map((t) => (
-                <div key={t} className="task-item"><span className="task-status" /> {t}</div>
+                <li key={t} className="task-item">
+                  <span className="task-status" aria-hidden="true" /> {t}
+                </li>
               ))}
-            </div>
+            </ul>
           </section>
 
           <section className="hud-card grow">
-            <h2><Cpu size={12} /> System Metrics</h2>
+            <h2><Cpu size={12} aria-hidden="true" /> System Metrics</h2>
             <div className="metrics-grid">
-              <div className="metric-cell"><div className="lbl">CPU</div><div className="val">{metrics.cpu}%</div><div className="tinybar"><i style={{ width: `${metrics.cpu}%` }} /></div></div>
-              <div className="metric-cell"><div className="lbl">MEM</div><div className="val">{metrics.mem}GB</div><div className="tinybar"><i style={{ width: `${metrics.mem * 10}%` }} /></div></div>
-              <div className="metric-cell"><div className="lbl">NET</div><div className="val">{metrics.net}ms</div><div className="tinybar"><i style={{ width: `${metrics.net * 10}%` }} /></div></div>
-              <div className="metric-cell"><div className="lbl">TMP</div><div className="val">{metrics.tmp}°</div><div className="tinybar"><i style={{ width: `${metrics.tmp * 2}%` }} /></div></div>
+              <div className="metric-cell" role="group" aria-label={`CPU ${metrics.cpu} percent`}>
+                <div className="lbl">CPU</div>
+                <div className="val" aria-live="polite">{metrics.cpu}%</div>
+                <div className="tinybar" aria-hidden="true"><i style={{ width: `${metrics.cpu}%` }} /></div>
+              </div>
+              <div className="metric-cell" role="group" aria-label={`Memory ${metrics.mem} gigabytes`}>
+                <div className="lbl">MEM</div>
+                <div className="val" aria-live="polite">{metrics.mem}GB</div>
+                <div className="tinybar" aria-hidden="true"><i style={{ width: `${metrics.mem * 10}%` }} /></div>
+              </div>
+              <div className="metric-cell" role="group" aria-label={`Network latency ${metrics.net} milliseconds`}>
+                <div className="lbl">NET</div>
+                <div className="val" aria-live="polite">{metrics.net}ms</div>
+                <div className="tinybar" aria-hidden="true"><i style={{ width: `${metrics.net * 10}%` }} /></div>
+              </div>
+              <div className="metric-cell" role="group" aria-label={`Temperature ${metrics.tmp} degrees`}>
+                <div className="lbl">TMP</div>
+                <div className="val" aria-live="polite">{metrics.tmp}°</div>
+                <div className="tinybar" aria-hidden="true"><i style={{ width: `${metrics.tmp * 2}%` }} /></div>
+              </div>
             </div>
           </section>
 
           <section className="hud-card grow">
             <h2>Mission Timeline</h2>
-            <div id="timeline" className="timeline">
+            <ol id="timeline" className="timeline" aria-label="Mission timeline" aria-live="polite" aria-relevant="additions">
               {timeline.map((e, i) => (
-                <div key={i} className="timeline-item">
+                <li key={i} className="timeline-item">
                   <div className="timeline-title">{e.msg}</div>
                   <div className="timeline-time">{e.time}</div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ol>
           </section>
         </aside>
 
         {/* CENTER — Core + Wave */}
-        <main className="col center-panel">
+        <section className="col center-panel" aria-label="AI core">
           <section className="core-tile">
             <div className="core-topbar">
               <span className="brand">MAHA_OS // V.4.0.2</span>
-              <span className="secure"><span className="dot" /> Secure Link</span>
+              <span className="secure"><span className="dot" aria-hidden="true" /> Secure Link</span>
             </div>
 
             <div className="callout c1"><b>OPT-78</b> · AES-256 · 6,582 PKT</div>
@@ -314,7 +342,7 @@ export function OSPage() {
             <div className="callout c3"><b>LINK-23</b> · 18ms · 1.2Gbps</div>
             <div className="callout c4"><b>SYS-CTRL</b> · ADAPTIVE ON</div>
 
-            <div className="core-stage">
+            <div className="core-stage" aria-hidden="true">
               <div className="ring-outer" />
               <div className="ring-mid" />
               <div className="ring-inner" />
@@ -330,19 +358,32 @@ export function OSPage() {
 
           <section className="hud-card wave-tile">
             <h2>Voice Waveform</h2>
-            <canvas id="voiceWave" ref={waveCanvasRef} />
+            <canvas
+              id="voiceWave"
+              ref={waveCanvasRef}
+              role="img"
+              aria-label={`Voice waveform, ${mode} mode`}
+            />
           </section>
-        </main>
+        </section>
 
         {/* RIGHT — Agents + Execution Log */}
-        <aside className="col right-panel">
+        <aside className="col right-panel" aria-label="Agents and execution log">
           <section className="hud-card">
             <h2>Active Agents</h2>
-            <ul className="agents-list">
+            <ul className="agents-list" aria-label="Active agents">
               {AGENTS.map(({ label, Icon, status: s }) => (
                 <li key={label}>
-                  <div className="name"><Icon size={14} /> {label}</div>
-                  <div className={`badge ${s === "Idle" ? "idle" : ""}`}>{s}</div>
+                  <div className="name">
+                    <Icon size={14} aria-hidden="true" /> {label}
+                  </div>
+                  <div
+                    className={`badge ${s === "Idle" ? "idle" : ""}`}
+                    role="status"
+                    aria-label={`${label} status ${s}`}
+                  >
+                    {s}
+                  </div>
                 </li>
               ))}
             </ul>
@@ -350,16 +391,22 @@ export function OSPage() {
 
           <section className="hud-card grow">
             <h2>Execution Log</h2>
-            <div id="executionLog" className="execution-log">
+            <ol
+              id="executionLog"
+              className="execution-log"
+              aria-label="Execution log"
+              aria-live="polite"
+              aria-relevant="additions"
+            >
               {execLog.map((e, i) => (
-                <div key={i} className="execution-entry">
-                  <span className="execution-dot" /> {e}
-                </div>
+                <li key={i} className="execution-entry">
+                  <span className="execution-dot" aria-hidden="true" /> {e}
+                </li>
               ))}
-            </div>
+            </ol>
           </section>
         </aside>
-      </div>
+      </main>
 
       <nav className="hud-dock" aria-label="HUD controls">
         <button
