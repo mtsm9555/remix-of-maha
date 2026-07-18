@@ -35,3 +35,7 @@ export * from "./storage/storageTypes";
 export * from "./storage/fileStorage";
 export * from "./storage/persistenceManager";
 export * from "./worker/workerLoop";
+export * from "./reasoning/reasoningTypes";
+export * from "./reasoning/reasoningEngine";
+export * from "./reasoning/reasoningMemory";
+export * from "./reasoning/reasoningManager";

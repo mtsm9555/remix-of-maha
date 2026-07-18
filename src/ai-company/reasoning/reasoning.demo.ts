@@ -1,8 +1,8 @@
 // src/index.ts
 
-import { ReasoningEngine } from "./reasoning/reasoningEngine";
-import { ReasoningMemory } from "./reasoning/reasoningMemory";
-import { ReasoningManager } from "./reasoning/reasoningManager";
+import { ReasoningEngine } from "./reasoningEngine";
+import { ReasoningMemory } from "./reasoningMemory";
+import { ReasoningManager } from "./reasoningManager";
 
 const engine = new ReasoningEngine();
 const memory = new ReasoningMemory();
