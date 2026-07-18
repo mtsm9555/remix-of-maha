@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Route as OSRoute } from "./os";
+import { OSPage } from "./os";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -10,5 +10,5 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Maha OS HUD interface." },
     ],
   }),
-  component: OSRoute.options.component!,
+  component: OSPage,
 });

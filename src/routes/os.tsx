@@ -46,7 +46,7 @@ function fmtTime(d = new Date()) {
   return d.toLocaleTimeString(undefined, { hour12: false });
 }
 
-function OSPage() {
+export function OSPage() {
   const waveCanvasRef = useRef<HTMLCanvasElement>(null);
   const neuralCanvasRef = useRef<HTMLCanvasElement>(null);
   const particleLayerRef = useRef<HTMLDivElement>(null);
