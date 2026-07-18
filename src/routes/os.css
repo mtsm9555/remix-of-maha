@@ -316,3 +316,42 @@
   .maha-os .hud-dock { bottom: 12px; gap: 6px; padding: 6px; }
   .maha-os .dock-btn { min-width: 52px; min-height: 52px; font-size: 9px; }
 }
+
+/* A11y: strip default list styling on newly semantic lists */
+.maha-os .task-list,
+.maha-os .timeline,
+.maha-os .execution-log,
+.maha-os .agents-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.maha-os .brand-title {
+  font: inherit;
+  margin: 0;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+/* Skip link */
+.maha-os .skip-link {
+  position: absolute;
+  left: 12px;
+  top: -100px;
+  z-index: 100;
+  padding: 10px 14px;
+  background: var(--cyan);
+  color: #001018;
+  border-radius: 10px;
+  font: 700 12px/1 "DM Sans", system-ui, sans-serif;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+.maha-os .skip-link:focus { top: 12px; outline: none; }
+
+/* Universal focus ring for keyboard users */
+.maha-os :focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
