@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import "./os.css";
 import ReactorCore from "@/components/ReactorCore";
+import AudioWaveform from "@/components/AudioWaveform";
 
 export const Route = createFileRoute("/os")({
   head: () => ({
@@ -345,7 +346,10 @@ export function OSPage() {
             <div className="callout c4"><b>SYS-CTRL</b> · ADAPTIVE ON</div>
 
             <div className="core-stage" aria-hidden="true">
-              <ReactorCore state={mode === "executing" ? "speaking" : mode} />
+              <div className="waveform-wrapper flex flex-col items-center">
+                <AudioWaveform isActive={mode === "listening"} />
+                <ReactorCore state={mode === "executing" ? "speaking" : mode} />
+              </div>
             </div>
 
             <div className="core-caption">
