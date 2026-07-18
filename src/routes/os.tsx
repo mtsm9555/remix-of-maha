@@ -1,8 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
-  AudioLines, Brain, Search, LayoutGrid, Play,
-  Shield, Network, Wrench, Bot, Eye,
+  Shield, Network, Wrench, Bot, Eye, Cpu, Activity,
 } from "lucide-react";
 import "./os.css";
 
@@ -10,21 +9,14 @@ export const Route = createFileRoute("/os")({
   head: () => ({
     meta: [
       { title: "MAHA AI OS" },
-      { name: "description", content: "MAHA AI OS — bento HUD interface." },
+      { name: "description", content: "MAHA AI OS — neural HUD interface." },
     ],
   }),
   component: OSPage,
 });
 
-const STATES = ["READY", "LISTENING", "THINKING", "SEARCHING", "PLANNING", "EXECUTING"];
-
-const MISSIONS = [
-  { label: "LISTENING", Icon: AudioLines, active: true },
-  { label: "THINKING", Icon: Brain, active: false },
-  { label: "SEARCHING", Icon: Search, active: false },
-  { label: "PLANNING", Icon: LayoutGrid, active: false },
-  { label: "EXECUTING", Icon: Play, active: false },
-];
+type Mode = "idle" | "listening" | "thinking" | "executing";
+const MODES: Mode[] = ["idle", "listening", "thinking", "executing"];
 
 const AGENTS = [
   { label: "Memory Engine", Icon: Shield, status: "Active" },
@@ -34,12 +26,38 @@ const AGENTS = [
   { label: "Vision Module", Icon: Eye, status: "Parsing" },
 ];
 
+const INITIAL_TASKS = ["Monitor AI Core", "Watch Metrics", "Track Agents"];
+
+const ACTIVITIES = [
+  "Voice Engine Initialized", "Memory Module Connected", "Neural Network Synced",
+  "Knowledge Graph Updated", "Agent Network Online", "Search Pipeline Activated",
+  "Execution Queue Created", "System Diagnostics Complete", "Context Analysis Started",
+  "Task Scheduler Running", "Live Monitoring Enabled", "Data Stream Connected",
+  "Reasoning Engine Ready", "Workflow Executed", "Response Generated",
+];
+
+const EXEC_LOGS = [
+  "Analyzing Request...", "Loading Memory...", "Routing Tools...",
+  "Generating Response...", "Executing Workflow...", "Updating Context...",
+  "Running Agent...", "Saving Session...", "Processing Input...", "Preparing Output...",
+];
+
+function fmtTime(d = new Date()) {
+  return d.toLocaleTimeString(undefined, { hour12: false });
+}
+
 function OSPage() {
-  const memoryCanvasRef = useRef<HTMLCanvasElement>(null);
   const waveCanvasRef = useRef<HTMLCanvasElement>(null);
+  const neuralCanvasRef = useRef<HTMLCanvasElement>(null);
+  const particleLayerRef = useRef<HTMLDivElement>(null);
   const [clock, setClock] = useState("");
-  const [status, setStatus] = useState("READY");
+  const [mode, setMode] = useState<Mode>("idle");
   const [metrics, setMetrics] = useState({ cpu: 14, mem: 4.8, net: 2, tmp: 32 });
+  const [timeline, setTimeline] = useState(() =>
+    ACTIVITIES.slice(0, 5).map((m) => ({ msg: m, time: fmtTime() }))
+  );
+  const [execLog, setExecLog] = useState<string[]>([]);
+  const [tasks] = useState(INITIAL_TASKS);
 
   useEffect(() => {
     const tick = () => setClock(new Date().toLocaleTimeString(undefined, { hour12: false }));
@@ -60,54 +78,41 @@ function OSPage() {
     return () => clearInterval(t);
   }, []);
 
+  // Mode cycle for voice waveform
   useEffect(() => {
-    let idx = 0;
     const t = setInterval(() => {
-      idx = (idx + 1) % STATES.length;
-      setStatus(STATES[idx]);
+      setMode(MODES[Math.floor(Math.random() * MODES.length)]);
+    }, 5000);
+    return () => clearInterval(t);
+  }, []);
+
+  // Timeline live feed
+  useEffect(() => {
+    const t = setInterval(() => {
+      const msg = ACTIVITIES[Math.floor(Math.random() * ACTIVITIES.length)];
+      setTimeline((prev) => [{ msg, time: fmtTime() }, ...prev].slice(0, 12));
     }, 4000);
     return () => clearInterval(t);
   }, []);
 
-  // Memory latent-space graph (bars)
+  // Execution log
   useEffect(() => {
-    const canvas = memoryCanvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    let raf = 0;
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-    resize();
-    const N = 32;
-    const draw = () => {
-      const W = canvas.width, H = canvas.height;
-      ctx.clearRect(0, 0, W, H);
-      const gap = 3;
-      const bw = (W - (N - 1) * gap) / N;
-      for (let i = 0; i < N; i++) {
-        const h = Math.abs(Math.sin(i * 0.3 + Date.now() * 0.001)) * H * 0.85 + 4;
-        const alpha = 0.15 + (h / H) * 0.6;
-        ctx.fillStyle = `rgba(34,211,238,${alpha})`;
-        ctx.fillRect(i * (bw + gap), H - h, bw, h);
-      }
-      raf = requestAnimationFrame(draw);
-    };
-    draw();
-    const ro = new ResizeObserver(resize);
-    ro.observe(canvas);
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
+    const t = setInterval(() => {
+      const msg = EXEC_LOGS[Math.floor(Math.random() * EXEC_LOGS.length)];
+      setExecLog((prev) => [msg, ...prev].slice(0, 8));
+    }, 3000);
+    return () => clearInterval(t);
   }, []);
 
-  // Voice wave (smooth sine)
+  // Voice waveform — canvas (ported from waveform.js)
   useEffect(() => {
     const canvas = waveCanvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     let raf = 0;
+    const N = 120;
+    const data = Array.from({ length: N }, () => Math.random() * 20);
     const resize = () => {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
@@ -116,49 +121,129 @@ function OSPage() {
     const draw = () => {
       const W = canvas.width, H = canvas.height;
       ctx.clearRect(0, 0, W, H);
-      const bars = 60;
-      const gap = 2;
-      const bw = (W - (bars - 1) * gap) / bars;
-      const t = Date.now() * 0.005;
-      for (let i = 0; i < bars; i++) {
-        const wave = Math.sin(i * 0.4 + t) * 0.4 + Math.sin(i * 0.2 + t * 1.3) * 0.4;
-        const h = Math.abs(wave) * H * 0.9 + 2;
-        ctx.fillStyle = "#22d3ee";
-        ctx.shadowColor = "#22d3ee";
-        ctx.shadowBlur = 6;
-        ctx.fillRect(i * (bw + gap), (H - h) / 2, bw, h);
+      // grid
+      ctx.strokeStyle = "rgba(0,234,255,.05)";
+      ctx.lineWidth = 1;
+      for (let x = 0; x < W; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+      for (let y = 0; y < H; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+      // update
+      const scale = mode === "listening" ? 90 : mode === "thinking" ? 40 : mode === "executing" ? 70 : 12;
+      for (let i = 0; i < N; i++) data[i] = Math.random() * scale;
+      // glow strip
+      const grad = ctx.createLinearGradient(0, 0, W, 0);
+      grad.addColorStop(0, "rgba(0,234,255,.1)");
+      grad.addColorStop(0.5, "rgba(0,234,255,.5)");
+      grad.addColorStop(1, "rgba(0,234,255,.1)");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, H / 2 - 2, W, 4);
+      // wave
+      ctx.beginPath();
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = "#00eaff";
+      const slice = W / N;
+      for (let i = 0; i < N; i++) {
+        const x = i * slice;
+        const y = H / 2 + Math.sin(i * 0.3) * data[i];
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
       }
-      ctx.shadowBlur = 0;
+      ctx.stroke();
+      // bars
+      const bars = 50, gap = W / bars;
+      for (let i = 0; i < bars; i++) {
+        const v = Math.random() * (mode === "listening" ? 60 : mode === "executing" ? 50 : 15);
+        ctx.fillStyle = "rgba(0,234,255,.6)";
+        ctx.fillRect(i * gap, H / 2 - v / 2, 3, v);
+      }
       raf = requestAnimationFrame(draw);
     };
     draw();
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
     return () => { cancelAnimationFrame(raf); ro.disconnect(); };
-  }, []);
+  }, [mode]);
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key !== "Enter") return;
-    setStatus("EXECUTING");
-    setTimeout(() => setStatus("READY"), 2500);
-  };
+  // Neural particles + connecting lines (ported from particles.js)
+  useEffect(() => {
+    const layer = particleLayerRef.current;
+    const canvas = neuralCanvasRef.current;
+    if (!layer || !canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const MAX = 60;
+    const nodes: { el: HTMLSpanElement; x: number; y: number; sx: number; sy: number }[] = [];
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    for (let i = 0; i < MAX; i++) {
+      const el = document.createElement("span");
+      const size = Math.random() * 4 + 1;
+      Object.assign(el.style, {
+        position: "absolute",
+        width: size + "px",
+        height: size + "px",
+        borderRadius: "50%",
+        background: "#00eaff",
+        boxShadow: "0 0 12px #00eaff",
+        opacity: String(Math.random()),
+        pointerEvents: "none",
+      });
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+      el.style.left = x + "px";
+      el.style.top = y + "px";
+      layer.appendChild(el);
+      nodes.push({ el, x, y, sx: (Math.random() - 0.5) * 0.5, sy: (Math.random() - 0.5) * 0.5 });
+    }
+
+    let raf = 0;
+    const tick = () => {
+      raf = requestAnimationFrame(tick);
+      for (const p of nodes) {
+        p.x += p.sx; p.y += p.sy;
+        if (p.x < 0) p.x = window.innerWidth;
+        if (p.x > window.innerWidth) p.x = 0;
+        if (p.y < 0) p.y = window.innerHeight;
+        if (p.y > window.innerHeight) p.y = 0;
+        p.el.style.left = p.x + "px";
+        p.el.style.top = p.y + "px";
+      }
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 140) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(0,234,255,${1 - d / 140})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+    };
+    tick();
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+      nodes.forEach((n) => n.el.remove());
+    };
+  }, []);
 
   return (
     <div className="maha-os">
+      <canvas ref={neuralCanvasRef} className="neural-canvas" />
+      <div ref={particleLayerRef} className="particles-layer" />
       <div className="background-grid" />
       <div className="background-glow" />
-      <div className="background-particles">
-        {Array.from({ length: 32 }).map((_, i) => (
-          <span
-            key={i}
-            style={{
-              left: `${(i * 37) % 100}%`,
-              animationDelay: `${(i * 0.7) % 12}s`,
-              animationDuration: `${10 + (i % 6)}s`,
-            }}
-          />
-        ))}
-      </div>
       <div className="background-scanner" />
 
       {/* Header */}
@@ -172,124 +257,104 @@ function OSPage() {
         </div>
         <div className="header-right">
           <div className="clock">{clock}</div>
-          <div>MISSION · NEURAL_SYNC_04</div>
+          <div>MODE · {mode.toUpperCase()}</div>
           <div className="status"><span className="dot" /> SYSTEMS OPERATIONAL</div>
         </div>
       </header>
 
-      {/* Bento grid */}
-      <div className="bento">
-        {/* Mission + Metrics */}
-        <section className="tile tile-mission">
-          <div className="mission-head">
-            <div className="tile-title"><span className="dot" /> Mission Status</div>
-            <div className="mission-directive">
-              <div className="label">Current Directive</div>
-              <div className="value">Neural Optimization Phase II</div>
+      <div className="layout">
+        {/* LEFT — Tasks + Timeline */}
+        <aside className="col left-panel">
+          <section className="hud-card">
+            <h2><Activity size={12} /> Active Tasks</h2>
+            <div className="task-list">
+              {tasks.map((t) => (
+                <div key={t} className="task-item"><span className="task-status" /> {t}</div>
+              ))}
             </div>
-            <ul className="mission-list">
-              {MISSIONS.map(({ label, Icon, active }) => (
-                <li key={label} className={active ? "active" : ""}>
-                  <Icon size={14} />
-                  <span style={{ minWidth: 84 }}>{label}</span>
-                  <div className="bar"><i /></div>
+          </section>
+
+          <section className="hud-card grow">
+            <h2><Cpu size={12} /> System Metrics</h2>
+            <div className="metrics-grid">
+              <div className="metric-cell"><div className="lbl">CPU</div><div className="val">{metrics.cpu}%</div><div className="tinybar"><i style={{ width: `${metrics.cpu}%` }} /></div></div>
+              <div className="metric-cell"><div className="lbl">MEM</div><div className="val">{metrics.mem}GB</div><div className="tinybar"><i style={{ width: `${metrics.mem * 10}%` }} /></div></div>
+              <div className="metric-cell"><div className="lbl">NET</div><div className="val">{metrics.net}ms</div><div className="tinybar"><i style={{ width: `${metrics.net * 10}%` }} /></div></div>
+              <div className="metric-cell"><div className="lbl">TMP</div><div className="val">{metrics.tmp}°</div><div className="tinybar"><i style={{ width: `${metrics.tmp * 2}%` }} /></div></div>
+            </div>
+          </section>
+
+          <section className="hud-card grow">
+            <h2>Mission Timeline</h2>
+            <div id="timeline" className="timeline">
+              {timeline.map((e, i) => (
+                <div key={i} className="timeline-item">
+                  <div className="timeline-title">{e.msg}</div>
+                  <div className="timeline-time">{e.time}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </aside>
+
+        {/* CENTER — Core + Wave */}
+        <main className="col center-panel">
+          <section className="core-tile">
+            <div className="core-topbar">
+              <span className="brand">MAHA_OS // V.4.0.2</span>
+              <span className="secure"><span className="dot" /> Secure Link</span>
+            </div>
+
+            <div className="callout c1"><b>OPT-78</b> · AES-256 · 6,582 PKT</div>
+            <div className="callout c2"><b>NODE-05</b> · 0.98s · LOAD 34%</div>
+            <div className="callout c3"><b>LINK-23</b> · 18ms · 1.2Gbps</div>
+            <div className="callout c4"><b>SYS-CTRL</b> · ADAPTIVE ON</div>
+
+            <div className="core-stage">
+              <div className="ring-outer" />
+              <div className="ring-mid" />
+              <div className="ring-inner" />
+              <div className="core-orb"><div className="diamond" /></div>
+            </div>
+
+            <div className="core-caption">
+              <div className="title">MAHA</div>
+              <div className="sub">AI Core</div>
+              <div className="state">// {mode.toUpperCase()}</div>
+            </div>
+          </section>
+
+          <section className="hud-card wave-tile">
+            <h2>Voice Waveform</h2>
+            <canvas id="voiceWave" ref={waveCanvasRef} />
+          </section>
+        </main>
+
+        {/* RIGHT — Agents + Execution Log */}
+        <aside className="col right-panel">
+          <section className="hud-card">
+            <h2>Active Agents</h2>
+            <ul className="agents-list">
+              {AGENTS.map(({ label, Icon, status: s }) => (
+                <li key={label}>
+                  <div className="name"><Icon size={14} /> {label}</div>
+                  <div className={`badge ${s === "Idle" ? "idle" : ""}`}>{s}</div>
                 </li>
               ))}
             </ul>
-          </div>
+          </section>
 
-          <div>
-            <div className="divider" />
-            <div className="tile-title" style={{ marginBottom: 12 }}>System Metrics</div>
-            <div className="metrics-grid">
-              <div className="metric-cell">
-                <div className="lbl">CPU.LOAD</div>
-                <div className="val">{metrics.cpu}%</div>
-                <div className="tinybar"><i style={{ width: `${metrics.cpu}%` }} /></div>
-              </div>
-              <div className="metric-cell">
-                <div className="lbl">MEM.USE</div>
-                <div className="val">{metrics.mem}GB</div>
-                <div className="tinybar"><i style={{ width: `${metrics.mem * 10}%` }} /></div>
-              </div>
-              <div className="metric-cell">
-                <div className="lbl">NET.LAT</div>
-                <div className="val">{metrics.net}ms</div>
-                <div className="tinybar"><i style={{ width: `${metrics.net * 10}%` }} /></div>
-              </div>
-              <div className="metric-cell">
-                <div className="lbl">CORE.TMP</div>
-                <div className="val">{metrics.tmp}°C</div>
-                <div className="tinybar"><i style={{ width: `${metrics.tmp * 2}%` }} /></div>
-              </div>
+          <section className="hud-card grow">
+            <h2>Execution Log</h2>
+            <div id="executionLog" className="execution-log">
+              {execLog.map((e, i) => (
+                <div key={i} className="execution-entry">
+                  <span className="execution-dot" /> {e}
+                </div>
+              ))}
             </div>
-          </div>
-        </section>
-
-        {/* Core stage */}
-        <section className="tile tile-core">
-          <div className="core-topbar">
-            <span className="brand">MAHA_OS // V.4.0.2</span>
-            <span className="secure"><span className="dot" /> Secure Connection</span>
-          </div>
-
-          <div className="callout c1"><b>OPT-78</b> · AES-256 · 6,582 PKT</div>
-          <div className="callout c2"><b>NODE-05</b> · 0.98s · LOAD 34%</div>
-          <div className="callout c3"><b>LINK-23</b> · 18ms · 1.2Gbps</div>
-          <div className="callout c4"><b>SYS-CTRL</b> · ADAPTIVE ON</div>
-
-          <div className="core-stage">
-            <div className="ring-outer" />
-            <div className="ring-mid" />
-            <div className="ring-inner" />
-            <div className="core-orb"><div className="diamond" /></div>
-          </div>
-
-          <div className="core-caption">
-            <div className="title">MAHA</div>
-            <div className="sub">AI Core</div>
-            <div className="state">// {status}</div>
-          </div>
-
-          <div className="voice-strip">
-            <canvas ref={waveCanvasRef} />
-            <div className="lbl">Awaiting Voice Input</div>
-          </div>
-        </section>
-
-        {/* Memory */}
-        <section className="tile tile-memory">
-          <div className="memory-head">
-            <div className="tile-title">Memory Latent Space</div>
-            <div className="count">NODES: 4,192</div>
-          </div>
-          <canvas ref={memoryCanvasRef} />
-        </section>
-
-        {/* Command */}
-        <section className="tile tile-command">
-          <div className="cmd-input">
-            <span className="prompt">CMD_&gt;</span>
-            <input placeholder="Enter system command or neural query" onKeyDown={onKeyDown} />
-            <button className="exec">EXEC</button>
-          </div>
-          <div className="log-strip">
-            RECENT_LOGS · <b>[USER_AUTH_GRANTED]</b> · [CORE_UPGRADE_COMPLETE] · <b>[NEURAL_LINK_ESTABLISHED]</b> · [AGENT_M04_SYNCED]
-          </div>
-        </section>
-
-        {/* Agents */}
-        <section className="tile tile-agents">
-          <div className="tile-title">Active Agents</div>
-          <ul className="agents-list">
-            {AGENTS.map(({ label, Icon, status: s }) => (
-              <li key={label}>
-                <div className="name"><Icon size={14} /> {label}</div>
-                <div className={`badge ${s === "Idle" ? "idle" : ""}`}>{s}</div>
-              </li>
-            ))}
-          </ul>
-        </section>
+          </section>
+        </aside>
       </div>
     </div>
   );
