@@ -20,7 +20,10 @@
   padding: 24px;
   selection-color: rgba(34, 211, 238, 0.3);
 }
-.maha-os * { box-sizing: border-box; }
+.maha-os, .maha-os * { box-sizing: border-box; }
+@media (max-width: 480px) {
+  .maha-os { padding: 16px; }
+}
 
 /* backgrounds */
 .maha-os .background-grid {
