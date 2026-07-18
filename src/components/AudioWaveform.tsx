@@ -20,10 +20,10 @@ export default function AudioWaveform({
     useRef<AnalyserNode | null>(null);
 
   const dataArrayRef =
-    useRef<Uint8Array | null>(null);
+    useRef<Uint8Array<ArrayBuffer> | null>(null);
 
   const animationRef =
-    useRef<number>();
+    useRef<number | undefined>(undefined);
 
   useEffect(() => {
 
@@ -69,7 +69,7 @@ export default function AudioWaveform({
               .frequencyBinCount;
 
           dataArrayRef.current =
-            new Uint8Array(
+            new Uint8Array(new ArrayBuffer(
               bufferLength
             );
 
