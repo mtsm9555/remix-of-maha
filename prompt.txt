@@ -1,0 +1,59 @@
+# MAHA AI OS — /os UI Prompt Specification
+
+A futuristic, Jarvis-inspired holographic dashboard rendered at the `/os` route.
+Dark cyberpunk theme with cyan (#00eaff) accents on a deep navy (#030711) base.
+
+## Layout
+
+Three-column HUD grid:
+- Left column: MISSION STATUS panel (Listening, Thinking, Searching, Planning,
+  Executing with dot-progress bars) and SYSTEM METRICS panel (CPU, Memory,
+  Network, Storage bars with live mini-sparkline charts).
+- Center: floating data callouts (OPT-78, NODE-05, LINK-23, SYS-CTRL) around a
+  large AI CORE with 4 concentric rings + dashed rotating ring and a pulsing
+  glowing core. Below: "MAHA / AI CORE" title with a cycling status
+  (READY → LISTENING → THINKING → SEARCHING → PLANNING → EXECUTING).
+- Right column: ACTIVE AGENTS list (Memory Engine, Knowledge Graph, Tool
+  Router, Automation Agent, Vision Module — each with ONLINE pulse dot),
+  MEMORY GRAPH (animated network canvas), VOICE WAVE (animated bar canvas).
+
+Top bar: MAHA AI OS logo + version, date/clock panel, SYSTEM STATUS indicator,
+corner radar. Bottom: command dock (+ button, 3x3 grid button, "Ask MAHA
+anything…" input, more button, wave-icon mic button).
+
+## Background Effects (current)
+
+- `.background-grid` — faint cyan grid overlay.
+- `.background-circuits` — subtle circuit texture.
+- `.background-particles` — 40 floating cyan particles rising slowly, each
+  with staggered `animationDelay` and randomized `animationDuration` (8–14s).
+  Rendered as absolutely-positioned `<span>` elements with a `float-up`
+  keyframe animation (translateY from 100vh to -10vh + fade in/out).
+- `.background-scanner` — a horizontal cyan light sweep (linear-gradient bar)
+  moving top-to-bottom every ~8s via a `scan-sweep` keyframe, evoking a
+  scanning laser across the HUD.
+
+## Motion / Interaction
+
+- Live clock ticks every 1s.
+- System metric bars re-randomize every 2.5s.
+- Core status cycles through AI states every 4s.
+- Memory graph: 10 nodes drifting with connecting lines under distance 90px.
+- Voice wave: 48 sinusoidal bars animated via requestAnimationFrame.
+- Pressing Enter in the dock input sets status PROCESSING → EXECUTING → READY.
+
+## Style Tokens
+
+- Background: `#030711` / `#07111d`
+- Accent: `#00eaff` (cyan), `#59f3ff`, `#009dff`
+- Text: `#d9ffff`, muted `#7ec7d4`
+- Panels: `rgba(8,18,30,0.72)` with `rgba(0,234,255,0.14)` borders
+- Glow shadows: `0 0 25px rgba(0,234,255,0.12)` and stronger on core/rings
+- Font: Inter / Segoe UI, uppercase HUD labels, wide letter-spacing
+
+## Files
+
+- `src/routes/os.tsx` — React component (HUD structure, canvases, particles,
+  scanner, dock, state cycling).
+- `src/routes/os.css` — theme variables, layout grid, panel styling,
+  keyframes (`float-up`, `scan-sweep`, ring rotations, core pulse, radar).
