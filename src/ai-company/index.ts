@@ -31,3 +31,7 @@ export * from "./audit/auditLog";
 export * from "./testing/systemTest";
 export * from "./orchestrator/orchestratorTypes";
 export * from "./orchestrator/orchestrator";
+export * from "./storage/storageTypes";
+export * from "./storage/fileStorage";
+export * from "./storage/persistenceManager";
+export * from "./worker/workerLoop";
