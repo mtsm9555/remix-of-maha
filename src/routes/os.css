@@ -568,6 +568,92 @@
   font-size: 11px;
 }
 
+.vision-panel-wrap {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 60;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.vision-panel {
+  width: min(420px, 92vw);
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(8, 12, 20, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 234, 255, 0.15);
+  color: #e6f7ff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.vision-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.vision-header h2 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+  flex: 1;
+}
+
+.vision-close {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 234, 255, 0.2);
+  color: #e6f7ff;
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+}
+
+.upload-btn {
+  width: 100%;
+  height: 54px;
+  border: none;
+  cursor: pointer;
+  border-radius: 14px;
+  color: white;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #00eaff, #008cff);
+}
+
+.upload-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.image-preview {
+  margin-top: 20px;
+}
+
+.image-preview img {
+  width: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+  max-height: 320px;
+}
+
+.vision-analysis {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
 /* Command bar */
 .command-bar {
   position: fixed; left: 50%; bottom: 32px;
