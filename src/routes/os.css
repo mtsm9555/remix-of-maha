@@ -542,3 +542,93 @@
   .command-bar { width: calc(100vw - 80px); bottom: 20px; }
   .floating-menu { bottom: 22px; right: 14px; }
 }
+
+/* ============ Uploaded FX/Reactor/Waveform CSS ============ */
+.background-fx {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: -3;
+  background: radial-gradient(circle at center, #071018, #02060d 80%);
+}
+.bg-vignette {
+  position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background: radial-gradient(circle, transparent 40%, rgba(0,0,0,.8) 100%);
+}
+.bg-glow {
+  position: fixed; top: 50%; left: 50%;
+  width: 700px; height: 700px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,234,255,.12), transparent 70%);
+  filter: blur(100px);
+  z-index: -1;
+  animation: glowPulse 8s ease infinite;
+}
+@keyframes glowPulse {
+  0%   { opacity:.4; transform: translate(-50%,-50%) scale(1); }
+  50%  { opacity:.8; transform: translate(-50%,-50%) scale(1.2); }
+  100% { opacity:.4; transform: translate(-50%,-50%) scale(1); }
+}
+
+/* Reactor Core */
+.reactor-container {
+  position: relative;
+  width: 420px; height: 420px;
+  display: flex; align-items: center; justify-content: center;
+}
+.ring { position: absolute; border-radius: 50%; }
+.ring-outer  { width: 420px; height: 420px; border: 2px solid;  opacity: .25; }
+.ring-middle { width: 330px; height: 330px; border: 2px dashed; opacity: .4;  }
+.ring-inner  { width: 250px; height: 250px; border: 2px solid;  opacity: .7;  }
+.core-glow {
+  position: absolute; width: 170px; height: 170px;
+  border-radius: 50%; filter: blur(60px);
+}
+.core-center {
+  position: relative; width: 180px; height: 180px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+}
+.core-inner { width: 120px; height: 120px; border-radius: 50%; }
+.core-text  { position: absolute; text-align: center; color: white; }
+.core-text h2   { margin: 0; letter-spacing: 10px; font-size: 32px; }
+.core-text span { font-size: 12px; opacity: .8; letter-spacing: 3px; }
+.orbit  { position: absolute; width: 300px; height: 300px; }
+.orbit-2 { width: 370px; height: 370px; }
+.node {
+  position: absolute; top: -5px; left: 50%;
+  width: 12px; height: 12px; border-radius: 50%;
+  box-shadow: 0 0 20px currentColor;
+}
+.scan-line {
+  position: absolute; width: 420px; height: 2px;
+  background: rgba(255,255,255,.3);
+  box-shadow: 0 0 20px #00eaff;
+  transform-origin: center;
+}
+@media (max-width: 768px) {
+  .reactor-container { width: 280px; height: 280px; }
+  .ring-outer  { width: 280px; height: 280px; }
+  .ring-middle { width: 220px; height: 220px; }
+  .ring-inner  { width: 160px; height: 160px; }
+  .core-center { width: 120px; height: 120px; }
+  .core-inner  { width: 80px;  height: 80px;  }
+  .core-text h2 { font-size: 20px; }
+  .scan-line { width: 280px; }
+}
+
+/* Audio Waveform (override earlier absolute positioning) */
+.maha-waveform .waveform-wrapper {
+  position: static;
+  top: auto; left: auto; transform: none;
+  width: 100%;
+  display: flex; justify-content: center; align-items: center;
+  margin-bottom: 0;
+  pointer-events: none;
+}
+.waveform-canvas {
+  width: 800px; height: 120px; max-width: 90vw;
+  opacity: .95;
+  filter: drop-shadow(0 0 20px #00eaff);
+}
+.wave-error {
+  color: #ff6b6b; font-size: 14px; text-align: center; opacity: .8;
+}
