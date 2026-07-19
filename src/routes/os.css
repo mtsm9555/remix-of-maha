@@ -543,6 +543,27 @@
   .floating-menu { bottom: 22px; right: 14px; }
 }
 
+/* Uploaded Home.tsx class aliases */
+.hero-section {
+  position: relative; z-index: 2;
+  flex: 1; width: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px;
+}
+.reactor-wrapper {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-message {
+  margin: 12px 0 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px; font-weight: 300;
+  color: #e0f7ff; opacity: .85;
+  letter-spacing: .04em;
+  text-align: center;
+}
+
 /* ============ Uploaded FX/Reactor/Waveform CSS ============ */
 .background-fx {
   position: fixed; inset: 0; width: 100%; height: 100%;

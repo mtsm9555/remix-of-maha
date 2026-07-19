@@ -170,17 +170,17 @@ export function OSPage() {
         <span>AI OPERATING SYSTEM</span>
       </header>
 
-      <section className="maha-hero">
+      <section className="maha-hero hero-section">
         <div className="maha-waveform">
           <AudioWaveform active={mode === "listening"} />
         </div>
 
-        <div className="maha-reactor">
+        <div className="reactor-wrapper maha-reactor">
           <CircularWaveform />
           <ReactorCore state={mode} />
         </div>
 
-        <p className="assistant-message" aria-live="polite">
+        <p className="hero-message assistant-message" aria-live="polite">
           {reply}
         </p>
 
