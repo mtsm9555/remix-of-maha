@@ -6,7 +6,7 @@ import { createLovableAiGatewayProvider } from "./ai-gateway.server";
 const askSchema = z.object({ prompt: z.string().min(1).max(4000) });
 
 export const askMaha = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => askSchema.parse(data))
+  .validator((data: unknown) => askSchema.parse(data))
   .handler(async ({ data }) => {
     const key = process.env.LOVABLE_API_KEY;
     if (!key) throw new Error("LOVABLE_API_KEY not configured");
@@ -26,7 +26,7 @@ const transcribeSchema = z.object({
 });
 
 export const transcribeMaha = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => transcribeSchema.parse(data))
+  .validator((data: unknown) => transcribeSchema.parse(data))
   .handler(async ({ data }) => {
     const key = process.env.LOVABLE_API_KEY;
     if (!key) throw new Error("LOVABLE_API_KEY not configured");
@@ -63,7 +63,7 @@ const analyzeSchema = z.object({
 });
 
 export const analyzeImage = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => analyzeSchema.parse(data))
+  .validator((data: unknown) => analyzeSchema.parse(data))
   .handler(async ({ data }) => {
     const key = process.env.LOVABLE_API_KEY;
     if (!key) throw new Error("LOVABLE_API_KEY not configured");

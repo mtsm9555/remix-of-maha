@@ -32,7 +32,7 @@ export const Route = createFileRoute("/os")({
 
 type Mode = "idle" | "listening" | "thinking" | "speaking";
 
-export function OSPage() {
+function OSPage() {
   const [mode, setMode] = useState<Mode>("idle");
   const { frequencyData, state: micState } = useMicrophone();
   const { isSpeaking, volume, speechStart, speechEnd } = useVoiceActivity();
@@ -51,7 +51,10 @@ export function OSPage() {
     searchingMemory: false,
     executingTask: false,
   });
-  const isDesktop = typeof window !== "undefined" && !!window.mahaAPI;
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    setIsDesktop(typeof window !== "undefined" && !!window.mahaAPI);
+  }, []);
   const reactorState: AIState =
     mode === "speaking" ? "speaking" :
     mode === "listening" ? "listening" :
