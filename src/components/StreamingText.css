@@ -1,0 +1,26 @@
+.streaming-text {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 20px;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 400;
+  background: linear-gradient(90deg, #00eaff, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.streaming-text .cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: #00eaff;
+  -webkit-text-fill-color: #00eaff;
+  animation: streaming-blink 1s infinite;
+}
+
+@keyframes streaming-blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
