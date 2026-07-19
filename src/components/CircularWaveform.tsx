@@ -1,8 +1,17 @@
 import { useEffect, useRef } from "react";
 import { theme } from "@/lib/maha/theme";
 
-export default function CircularWaveform() {
+interface CircularWaveformProps {
+  data?: Uint8Array | null;
+}
+
+export default function CircularWaveform({ data }: CircularWaveformProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const dataRef = useRef<Uint8Array | null>(null);
+
+  useEffect(() => {
+    dataRef.current = data ?? null;
+  }, [data]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -22,17 +31,25 @@ export default function CircularWaveform() {
       const cx = canvas.width / 2;
       const cy = canvas.height / 2;
       const bars = 180;
+      const freq = dataRef.current;
       for (let i = 0; i < bars; i++) {
         const angle = (Math.PI * 2 * i) / bars;
-        const wave = Math.sin(frame * 0.03 + i * 0.2);
         const radius = 170;
-        const length = 10 + Math.abs(wave) * 35;
+        let amplitude: number;
+        if (freq && freq.length) {
+          amplitude = freq[i % freq.length] / 255;
+        } else {
+          amplitude = Math.abs(Math.sin(frame * 0.03 + i * 0.2)) * 0.6;
+        }
+        const length = 10 + amplitude * 60;
         const x1 = cx + Math.cos(angle) * radius;
         const y1 = cy + Math.sin(angle) * radius;
         const x2 = cx + Math.cos(angle) * (radius + length);
         const y2 = cy + Math.sin(angle) * (radius + length);
-        ctx.strokeStyle = theme.cyan;
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = `rgba(0, 217, 255, ${0.4 + amplitude * 0.6})`;
+        ctx.lineWidth = 1 + amplitude * 2;
+        ctx.shadowBlur = amplitude * 20;
+        ctx.shadowColor = theme.cyan;
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
