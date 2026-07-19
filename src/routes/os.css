@@ -396,8 +396,15 @@
 
 /* ============ NEW MINIMAL LAYOUT ============ */
 .maha-home {
+  /* Theme tokens sourced from src/lib/maha/theme.ts */
+  --maha-bg: #03060d;
+  --maha-cyan: #00d9ff;
+  --maha-green: #00ffb3;
+  --maha-blue: #6aa8ff;
+  --maha-gold: #ffc857;
+  --maha-glass: rgba(255,255,255,.05);
   position: fixed; inset: 0;
-  background: #020617;
+  background: var(--maha-bg);
   color: #e0f7ff;
   font-family: "DM Sans", "Inter", system-ui, sans-serif;
   display: flex; flex-direction: column;

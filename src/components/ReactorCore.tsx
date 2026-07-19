@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { theme } from "@/lib/maha/theme";
 
 type ReactorState = "idle" | "listening" | "thinking" | "speaking";
 
@@ -7,10 +8,10 @@ interface ReactorCoreProps {
 }
 
 const colors: Record<ReactorState, string> = {
-  idle: "#00d9ff",
-  listening: "#00ffb3",
-  thinking: "#6aa8ff",
-  speaking: "#ffc857",
+  idle: theme.cyan,
+  listening: theme.green,
+  thinking: theme.blue,
+  speaking: theme.gold,
 };
 
 export default function ReactorCore({ state = "idle" }: ReactorCoreProps) {
