@@ -19,6 +19,7 @@ import { useVoiceActivity } from "@/hooks/useVoiceActivity";
 import { useRealtime } from "@/hooks/useRealtime";
 import { useAIState } from "@/hooks/useAIState";
 import type { AIState } from "@/services/stateMachine";
+import { audioBus } from "@/services/audioBus";
 
 type Mode = "idle" | "listening" | "thinking" | "speaking";
 
@@ -183,8 +184,11 @@ export default function OSPage() {
       return;
     }
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      streamRef.current = stream;
+      // Prefer the shared bus stream so we don't request a second mic handle.
+      const shared = audioBus.getStream();
+      const stream =
+        shared ?? (await navigator.mediaDevices.getUserMedia({ audio: true }));
+      streamRef.current = shared ? null : stream; // don't stop the shared stream
       const mimeType = MediaRecorder.isTypeSupported("audio/webm")
         ? "audio/webm"
         : MediaRecorder.isTypeSupported("audio/mp4")
