@@ -11,6 +11,7 @@ const ReactorScene = lazy(() => import("@/three/ReactorScene"));
 import CircularWaveform from "@/components/CircularWaveform";
 import CommandBar, { type CommandBarHandle } from "@/components/CommandBar";
 import FloatingMenu from "@/components/FloatingMenu";
+import MahaSidebar from "@/components/MahaSidebar";
 import StateTransition from "@/components/StateTransition";
 import StreamingText from "@/components/StreamingText";
 import AppErrorBoundary from "@/components/AppErrorBoundary";
@@ -249,6 +250,8 @@ export default function OSPage() {
       <ParticleEngine isSpeaking={isSpeaking} volume={volume} state={reactorState} />
 
       <a href="#maha-command" className="maha-skip-link">Skip to command input</a>
+
+      <MahaSidebar />
 
       <header className="maha-header" role="banner">
         <div className="maha-brand">
