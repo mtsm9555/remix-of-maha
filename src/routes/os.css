@@ -632,3 +632,112 @@
 .wave-error {
   color: #ff6b6b; font-size: 14px; text-align: center; opacity: .8;
 }
+
+/* ============ Command Bar (uploaded) ============ */
+.commandbar-wrapper {
+  position: fixed; bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  width: 100%; display: flex; justify-content: center;
+  z-index: 100;
+}
+.commandbar {
+  width: min(900px, 92vw); height: 72px;
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 16px; border-radius: 999px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(0,234,255,.15);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 0 40px rgba(0,234,255,.08);
+}
+.command-input {
+  flex: 1; height: 100%; border: none;
+  background: transparent; color: white;
+  font-size: 15px; outline: none;
+}
+.command-input::placeholder { color: rgba(255,255,255,.45); }
+.cmd-icon-btn {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: none; cursor: pointer; color: #c9f7ff;
+  background: rgba(255,255,255,.04);
+  display: flex; align-items: center; justify-content: center;
+  transition: .25s;
+}
+.cmd-icon-btn:hover { background: rgba(0,234,255,.12); transform: translateY(-2px); }
+.voice-btn {
+  width: 54px; height: 54px; border-radius: 50%;
+  border: none; cursor: pointer; color: white;
+  background: linear-gradient(135deg, #00d9ff, #00aaff);
+  box-shadow: 0 0 25px rgba(0,234,255,.45);
+  display: flex; align-items: center; justify-content: center;
+  transition: .25s;
+}
+.voice-btn:hover { transform: scale(1.08); }
+.send-btn {
+  width: 46px; height: 46px; border-radius: 50%;
+  border: none; cursor: pointer; color: white;
+  background: rgba(255,255,255,.08);
+  display: flex; align-items: center; justify-content: center;
+  transition: .25s;
+}
+.send-btn:hover { background: rgba(0,234,255,.15); }
+@media (max-width: 768px) {
+  .commandbar { height: 64px; gap: 8px; padding: 0 10px; }
+  .voice-btn { width: 48px; height: 48px; }
+  .send-btn { width: 40px; height: 40px; }
+}
+
+/* ============ Floating Menu (uploaded) ============ */
+.menu-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.4);
+  backdrop-filter: blur(8px);
+  opacity: 0; visibility: hidden;
+  transition: .3s; z-index: 180;
+}
+.menu-overlay.active { opacity: 1; visibility: visible; }
+.floating-menu {
+  position: fixed; top: 50%; right: -420px;
+  transform: translateY(-50%);
+  width: 340px; border-radius: 30px; padding: 28px;
+  background: rgba(10,16,26,.85);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(0,234,255,.15);
+  box-shadow: 0 0 50px rgba(0,234,255,.12);
+  transition: right .4s ease;
+  z-index: 200;
+}
+.floating-menu.open { right: 30px; }
+.menu-header { margin-bottom: 28px; }
+.menu-header h3 { margin: 0; color: white; font-size: 28px; letter-spacing: 4px; }
+.menu-header span { color: rgba(255,255,255,.55); font-size: 12px; letter-spacing: 2px; }
+.menu-items { display: flex; flex-direction: column; gap: 12px; }
+.menu-item {
+  border: none; cursor: pointer; width: 100%;
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px; border-radius: 18px; color: white;
+  background: rgba(255,255,255,.04);
+  transition: .25s;
+}
+.menu-item:hover { transform: translateX(-4px); background: rgba(0,234,255,.08); }
+.menu-icon {
+  width: 42px; height: 42px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: #000; box-shadow: 0 0 20px currentColor;
+}
+.menu-item span { font-size: 15px; font-weight: 500; }
+.menu-fab {
+  position: fixed; right: 30px; bottom: 120px;
+  width: 64px; height: 64px; border-radius: 50%;
+  border: none; cursor: pointer; color: white;
+  background: linear-gradient(135deg, #00d9ff, #0077ff);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 30px rgba(0,234,255,.35);
+  transition: .3s; z-index: 210;
+}
+.menu-fab:hover { transform: scale(1.08); }
+.menu-fab.active { background: linear-gradient(135deg, #ff5f6d, #ff2d55); }
+@media (max-width: 768px) {
+  .floating-menu { width: calc(100vw - 30px); right: -100vw; }
+  .floating-menu.open { right: 15px; }
+  .menu-fab { width: 58px; height: 58px; right: 18px; bottom: 100px; }
+}
