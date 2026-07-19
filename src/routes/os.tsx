@@ -11,6 +11,7 @@ import CircularWaveform from "@/components/CircularWaveform";
 import CommandBar, { type CommandBarHandle } from "@/components/CommandBar";
 import FloatingMenu from "@/components/FloatingMenu";
 import StateTransition from "@/components/StateTransition";
+import StreamingText from "@/components/StreamingText";
 import { useMemory } from "@/hooks/useMemory";
 import { transcribeMaha } from "@/lib/mahaCommand.functions";
 import { useMicrophone } from "@/hooks/useMicrophone";
@@ -250,9 +251,9 @@ export function OSPage() {
           </div>
         </div>
 
-        <p className="hero-message assistant-message" aria-live="polite">
-          {realtimeResponse || reply}
-        </p>
+        <div className="hero-message assistant-message" aria-live="polite">
+          <StreamingText text={realtimeResponse || reply || ""} speed={15} />
+        </div>
 
         <StateTransition state={reactorState} />
 
