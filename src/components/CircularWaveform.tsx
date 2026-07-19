@@ -14,9 +14,9 @@ export default function CircularWaveform() {
 
     let frame = 0;
     let raf = 0;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    const draw = () => {
-      frame++;
+    const drawFrame = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const cx = canvas.width / 2;
       const cy = canvas.height / 2;
@@ -37,11 +37,29 @@ export default function CircularWaveform() {
         ctx.lineTo(x2, y2);
         ctx.stroke();
       }
-      raf = requestAnimationFrame(draw);
     };
 
-    draw();
-    return () => cancelAnimationFrame(raf);
+    const loop = () => {
+      frame++;
+      drawFrame();
+      raf = requestAnimationFrame(loop);
+    };
+
+    const start = () => {
+      cancelAnimationFrame(raf);
+      if (mq.matches) {
+        drawFrame(); // render one static frame
+      } else {
+        loop();
+      }
+    };
+
+    start();
+    mq.addEventListener("change", start);
+    return () => {
+      cancelAnimationFrame(raf);
+      mq.removeEventListener("change", start);
+    };
   }, []);
 
   return <canvas ref={canvasRef} className="circular-wave" aria-hidden />;
