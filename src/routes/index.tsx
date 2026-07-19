@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { OSPage } from "./os";
+import OSPage from "@/components/OSPage";
 
 export const Route = createFileRoute("/")({
   head: () => ({
