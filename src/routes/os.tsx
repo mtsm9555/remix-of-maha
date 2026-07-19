@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import "./os.css";
 import BackgroundFX from "@/components/BackgroundFX";
 import AudioWaveform from "@/components/AudioWaveform";
 import ReactorCore from "@/components/ReactorCore";
-import CommandBar from "@/components/CommandBar";
+import CommandBar, { type CommandBarHandle } from "@/components/CommandBar";
 import FloatingMenu from "@/components/FloatingMenu";
+import { askMaha, transcribeMaha } from "@/lib/mahaCommand.functions";
 
 export const Route = createFileRoute("/os")({
   head: () => ({
@@ -20,7 +22,125 @@ export const Route = createFileRoute("/os")({
 type Mode = "idle" | "listening" | "thinking" | "speaking";
 
 export function OSPage() {
-  const [mode] = useState<Mode>("idle");
+  const [mode, setMode] = useState<Mode>("idle");
+  const [reply, setReply] = useState("How can I help?");
+  const [attachments, setAttachments] = useState<string[]>([]);
+  const commandRef = useRef<CommandBarHandle>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const recorderRef = useRef<MediaRecorder | null>(null);
+  const chunksRef = useRef<Blob[]>([]);
+  const streamRef = useRef<MediaStream | null>(null);
+
+  const ask = useServerFn(askMaha);
+  const transcribe = useServerFn(transcribeMaha);
+
+  const runPrompt = useCallback(
+    async (prompt: string) => {
+      setMode("thinking");
+      setReply("Thinking…");
+      try {
+        const { reply: text } = await ask({ data: { prompt } });
+        setReply(text || "…");
+        setMode("speaking");
+        window.setTimeout(() => setMode("idle"), 2200);
+      } catch (e) {
+        setReply(e instanceof Error ? e.message : "Something went wrong.");
+        setMode("idle");
+      }
+    },
+    [ask],
+  );
+
+  const handleSend = (message: string) => {
+    const suffix = attachments.length
+      ? `\n\n[Attached: ${attachments.join(", ")}]`
+      : "";
+    setAttachments([]);
+    void runPrompt(message + suffix);
+  };
+
+  const handleAttach = () => fileInputRef.current?.click();
+
+  const handleFilesPicked = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files ?? []);
+    if (files.length) {
+      setAttachments((prev) => [...prev, ...files.map((f) => f.name)]);
+      setReply(`Attached ${files.map((f) => f.name).join(", ")}`);
+    }
+    e.target.value = "";
+  };
+
+  const handleKeyboard = () => commandRef.current?.focus();
+
+  const stopRecording = useCallback(async () => {
+    const rec = recorderRef.current;
+    if (!rec || rec.state === "inactive") return;
+    await new Promise<void>((resolve) => {
+      rec.addEventListener("stop", () => resolve(), { once: true });
+      rec.stop();
+    });
+    streamRef.current?.getTracks().forEach((t) => t.stop());
+    streamRef.current = null;
+    recorderRef.current = null;
+
+    const mimeType = rec.mimeType || "audio/webm";
+    const blob = new Blob(chunksRef.current, { type: mimeType });
+    chunksRef.current = [];
+    if (blob.size < 1024) {
+      setReply("Recording was too short. Try again.");
+      setMode("idle");
+      return;
+    }
+    setMode("thinking");
+    setReply("Transcribing…");
+    try {
+      const buf = await blob.arrayBuffer();
+      let binary = "";
+      const bytes = new Uint8Array(buf);
+      for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+      const audioBase64 = btoa(binary);
+      const { text } = await transcribe({ data: { audioBase64, mimeType } });
+      const clean = text.trim();
+      if (!clean) {
+        setReply("Didn't catch that. Try again.");
+        setMode("idle");
+        return;
+      }
+      commandRef.current?.setValue(clean);
+      await runPrompt(clean);
+    } catch (e) {
+      setReply(e instanceof Error ? e.message : "Transcription failed.");
+      setMode("idle");
+    }
+  }, [transcribe, runPrompt]);
+
+  const handleVoice = async () => {
+    if (mode === "listening") {
+      await stopRecording();
+      return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
+      const mimeType = MediaRecorder.isTypeSupported("audio/webm")
+        ? "audio/webm"
+        : MediaRecorder.isTypeSupported("audio/mp4")
+          ? "audio/mp4"
+          : "";
+      const rec = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
+      recorderRef.current = rec;
+      chunksRef.current = [];
+      rec.ondataavailable = (ev) => {
+        if (ev.data.size > 0) chunksRef.current.push(ev.data);
+      };
+      rec.start();
+      setMode("listening");
+      setReply("Listening… tap the mic to stop.");
+    } catch {
+      setReply("Microphone access denied.");
+      setMode("idle");
+    }
+  };
 
   return (
     <main className="maha-home">
@@ -33,7 +153,7 @@ export function OSPage() {
 
       <section className="maha-hero">
         <div className="maha-waveform">
-          <AudioWaveform active />
+          <AudioWaveform active={mode === "listening"} />
         </div>
 
         <div className="maha-reactor">
@@ -41,11 +161,33 @@ export function OSPage() {
         </div>
 
         <p className="assistant-message" aria-live="polite">
-          How can I help?
+          {reply}
         </p>
+
+        {attachments.length > 0 && (
+          <p className="assistant-attachments" aria-live="polite">
+            📎 {attachments.join(", ")}
+          </p>
+        )}
       </section>
 
-      <CommandBar />
+      <input
+        ref={fileInputRef}
+        type="file"
+        multiple
+        hidden
+        onChange={handleFilesPicked}
+      />
+
+      <CommandBar
+        ref={commandRef}
+        onSend={handleSend}
+        onVoice={handleVoice}
+        onAttach={handleAttach}
+        onKeyboard={handleKeyboard}
+        isVoiceActive={mode === "listening"}
+        isBusy={mode === "thinking"}
+      />
       <FloatingMenu />
     </main>
   );
