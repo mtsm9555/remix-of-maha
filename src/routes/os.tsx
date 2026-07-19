@@ -10,6 +10,7 @@ const ReactorScene = lazy(() => import("@/three/ReactorScene"));
 import CircularWaveform from "@/components/CircularWaveform";
 import CommandBar, { type CommandBarHandle } from "@/components/CommandBar";
 import FloatingMenu from "@/components/FloatingMenu";
+import StateTransition from "@/components/StateTransition";
 import { transcribeMaha } from "@/lib/mahaCommand.functions";
 import { useMicrophone } from "@/hooks/useMicrophone";
 import { useVoiceActivity } from "@/hooks/useVoiceActivity";
@@ -249,6 +250,8 @@ export function OSPage() {
         <p className="hero-message assistant-message" aria-live="polite">
           {realtimeResponse || reply}
         </p>
+
+        <StateTransition state={reactorState} />
 
         {attachments.length > 0 && (
           <p className="assistant-attachments" aria-live="polite">
