@@ -1,11 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { ClientOnly, createFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import "./os.css";
 import BackgroundFX from "@/components/BackgroundFX";
 import ParticleEngine from "@/components/ParticleEngine";
 import AudioWaveform from "@/components/AudioWaveform";
 import ReactorCore from "@/components/ReactorCore";
+const ReactorScene = lazy(() => import("@/three/ReactorScene"));
 import CircularWaveform from "@/components/CircularWaveform";
 import CommandBar, { type CommandBarHandle } from "@/components/CommandBar";
 import FloatingMenu from "@/components/FloatingMenu";
@@ -230,6 +231,13 @@ export function OSPage() {
         <div className="reactor-wrapper maha-reactor">
           <CircularWaveform data={frequencyData} intensity={volume} state={reactorState} />
           <ReactorCore state={reactorState} />
+          <div className="reactor-3d-container" aria-hidden="true">
+            <ClientOnly fallback={null}>
+              <Suspense fallback={null}>
+                <ReactorScene state={reactorState} volume={volume} />
+              </Suspense>
+            </ClientOnly>
+          </div>
         </div>
 
         <p className="hero-message assistant-message" aria-live="polite">
