@@ -33,7 +33,7 @@ export function OSPage() {
 
       <section className="maha-hero">
         <div className="maha-waveform">
-          <AudioWaveform active={mode !== "idle"} />
+          <AudioWaveform active />
         </div>
 
         <div className="maha-reactor">
