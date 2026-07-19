@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MemoryPanel from "@/components/MemoryPanel";
 import {
   Brain,
   Eye,
@@ -11,7 +12,7 @@ import {
 import { theme } from "@/lib/maha/theme";
 
 const menuItems = [
-  { label: "Memory", icon: Brain, color: theme.cyan },
+  { label: "Memory", icon: Brain, color: theme.cyan, action: "memory" as const },
   { label: "Vision", icon: Eye, color: theme.green },
   { label: "Files", icon: FolderOpen, color: theme.gold },
   { label: "Planner", icon: CalendarDays, color: theme.blue },
@@ -20,6 +21,7 @@ const menuItems = [
 
 export default function FloatingMenu() {
   const [open, setOpen] = useState(false);
+  const [memoryOpen, setMemoryOpen] = useState(false);
 
   return (
     <>
@@ -40,7 +42,18 @@ export default function FloatingMenu() {
           {menuItems.map((item) => {
             const Icon = item.icon;
             return (
-              <button key={item.label} className="menu-item" role="menuitem" type="button">
+              <button
+                key={item.label}
+                className="menu-item"
+                role="menuitem"
+                type="button"
+                onClick={() => {
+                  if ("action" in item && item.action === "memory") {
+                    setMemoryOpen((v) => !v);
+                    setOpen(false);
+                  }
+                }}
+              >
                 <div className="menu-icon" style={{ background: item.color }}>
                   <Icon size={18} />
                 </div>
@@ -60,6 +73,12 @@ export default function FloatingMenu() {
       >
         {open ? <X size={22} /> : <Sparkles size={22} />}
       </button>
+
+      {memoryOpen && (
+        <div className="memory-panel-wrap">
+          <MemoryPanel onClose={() => setMemoryOpen(false)} />
+        </div>
+      )}
     </>
   );
 }

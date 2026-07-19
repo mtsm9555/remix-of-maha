@@ -11,6 +11,7 @@ import CircularWaveform from "@/components/CircularWaveform";
 import CommandBar, { type CommandBarHandle } from "@/components/CommandBar";
 import FloatingMenu from "@/components/FloatingMenu";
 import StateTransition from "@/components/StateTransition";
+import { useMemory } from "@/hooks/useMemory";
 import { transcribeMaha } from "@/lib/mahaCommand.functions";
 import { useMicrophone } from "@/hooks/useMicrophone";
 import { useVoiceActivity } from "@/hooks/useVoiceActivity";
@@ -83,6 +84,7 @@ export function OSPage() {
   const recorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const streamRef = useRef<MediaStream | null>(null);
+  const { addMemory } = useMemory();
 
   const transcribe = useServerFn(transcribeMaha);
 
@@ -127,6 +129,7 @@ export function OSPage() {
       ? `\n\n[Attached: ${attachments.join(", ")}]`
       : "";
     setAttachments([]);
+    addMemory(message, "conversation");
     void runPrompt(message + suffix);
   };
 
