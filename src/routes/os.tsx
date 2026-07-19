@@ -51,6 +51,7 @@ export function OSPage() {
     searchingMemory: false,
     executingTask: false,
   });
+  const isDesktop = typeof window !== "undefined" && !!window.mahaAPI;
   const reactorState: AIState =
     mode === "speaking" ? "speaking" :
     mode === "listening" ? "listening" :
