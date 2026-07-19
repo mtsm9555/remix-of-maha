@@ -51,6 +51,7 @@ export function OSPage() {
     searchingMemory: false,
     executingTask: false,
   });
+  const isDesktop = typeof window !== "undefined" && !!window.mahaAPI;
   const reactorState: AIState =
     mode === "speaking" ? "speaking" :
     mode === "listening" ? "listening" :
@@ -232,6 +233,11 @@ export function OSPage() {
         >
           <span className="dot" /> {realtimeConnected ? "LIVE" : "OFFLINE"}
         </span>
+        {isDesktop && (
+          <span className="maha-realtime-status" data-connected="true" aria-label="Desktop mode">
+            <span className="dot" /> DESKTOP
+          </span>
+        )}
       </header>
 
       <section className="maha-hero hero-section">
