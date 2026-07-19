@@ -431,7 +431,7 @@
     radial-gradient(900px circle at 85% 85%, rgba(0,217,255,.08), transparent 55%),
     var(--maha-bg);
   color: var(--maha-text);
-  font-family: "Work Sans", "Inter", system-ui, sans-serif;
+  font-family: "Rubik", "Inter", system-ui, sans-serif;
   display: flex; flex-direction: column;
   align-items: stretch; justify-content: flex-start;
   padding: 20px 24px 120px 96px; /* leave room for sidebar */
@@ -567,7 +567,7 @@
   box-shadow: 0 0 12px var(--maha-accent);
 }
 .maha-header h1 {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Space Mono", "JetBrains Mono", ui-monospace, monospace;
   font-size: 20px; font-weight: 700; letter-spacing: .12em;
   color: #fff; margin: 0; text-transform: uppercase;
 }
@@ -576,7 +576,7 @@
 }
 .maha-subtitle {
   margin-top: 6px;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Space Mono", "JetBrains Mono", ui-monospace, monospace;
   font-size: 10px; letter-spacing: .22em;
   color: var(--maha-muted); text-transform: uppercase;
   padding-left: 42px;
@@ -590,8 +590,8 @@
   padding: 6px 12px;
   border: 1px solid var(--maha-line);
   background: var(--maha-surface-2);
-  border-radius: 4px;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  border-radius: 999px;
+  font-family: "Space Mono", ui-monospace, monospace;
   font-size: 10px; letter-spacing: .18em;
   color: var(--maha-muted); text-transform: uppercase;
 }
