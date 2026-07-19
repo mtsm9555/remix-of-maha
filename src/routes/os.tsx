@@ -33,7 +33,7 @@ export function OSPage() {
 
       <section className="maha-hero">
         <div className="maha-waveform">
-          <AudioWaveform />
+          <AudioWaveform active />
         </div>
 
         <div className="maha-reactor">
