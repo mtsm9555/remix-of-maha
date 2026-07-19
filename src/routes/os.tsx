@@ -5,6 +5,7 @@ import "./os.css";
 import BackgroundFX from "@/components/BackgroundFX";
 import AudioWaveform from "@/components/AudioWaveform";
 import ReactorCore from "@/components/ReactorCore";
+import CircularWaveform from "@/components/CircularWaveform";
 import CommandBar, { type CommandBarHandle } from "@/components/CommandBar";
 import FloatingMenu from "@/components/FloatingMenu";
 import { transcribeMaha } from "@/lib/mahaCommand.functions";
@@ -175,6 +176,7 @@ export function OSPage() {
         </div>
 
         <div className="maha-reactor">
+          <CircularWaveform />
           <ReactorCore state={mode} />
         </div>
 
