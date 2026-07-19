@@ -437,19 +437,40 @@
 }
 
 .maha-header {
-  position: relative; z-index: 2; text-align: center;
+  position: relative; z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 8px;
 }
+.maha-brand { display: flex; flex-direction: column; min-width: 0; }
 .maha-header h1 {
   font-family: "Space Grotesk", sans-serif;
   font-size: 22px; font-weight: 700; letter-spacing: .5em;
   color: #fff; margin: 0; padding-left: .5em;
 }
-.maha-header span {
-  display: block; margin-top: 6px;
+.maha-subtitle {
+  margin-top: 4px;
   font-family: "JetBrains Mono", monospace;
-  font-size: 9px; letter-spacing: .35em;
-  color: #7bb8c9; text-transform: uppercase;
+  font-size: 10px; letter-spacing: .3em;
+  color: #8fc3d6; text-transform: uppercase;
 }
+.maha-status-group {
+  display: flex; align-items: center; gap: 8px;
+  flex-wrap: wrap; justify-content: flex-end;
+}
+.maha-skip-link {
+  position: absolute; left: 8px; top: 8px;
+  transform: translateY(-140%);
+  background: #00d9ff; color: #001018;
+  padding: 8px 12px; border-radius: 8px;
+  font: 600 13px/1 "DM Sans", sans-serif;
+  z-index: 300; transition: transform .2s ease;
+}
+.maha-skip-link:focus { transform: translateY(0); outline: none; }
 
 .maha-hero {
   position: relative; z-index: 2;
