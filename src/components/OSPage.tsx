@@ -252,8 +252,15 @@ export default function OSPage() {
 
       <header className="maha-header" role="banner">
         <div className="maha-brand">
-          <h1>MAHA</h1>
-          <span className="maha-subtitle">AI Operating System</span>
+          <div className="maha-brand-row">
+            <span className="maha-brand-mark" aria-hidden="true">
+              <span />
+            </span>
+            <h1>
+              MAHA<em>OS</em>
+            </h1>
+          </div>
+          <span className="maha-subtitle">v2.0.4 · Neural Runtime · Session #MH-8829-QX</span>
         </div>
         <div className="maha-status-group" role="status" aria-live="polite">
           <span
@@ -272,36 +279,103 @@ export default function OSPage() {
         </div>
       </header>
 
-      <section className="maha-hero hero-section">
-        <div className="maha-waveform">
-          <AudioWaveform active={mode === "listening"} />
-        </div>
-
-        <div className="reactor-wrapper maha-reactor">
-          <CircularWaveform data={frequencyData} intensity={volume} state={reactorState} />
-          <ReactorCore state={reactorState} />
-          <div className="reactor-3d-container" aria-hidden="true">
-            <AppErrorBoundary label="reactor_3d" fallback={null}>
-              <ClientOnly fallback={null}>
-                <Suspense fallback={null}>
-                  <ReactorScene state={reactorState} volume={volume} />
-                </Suspense>
-              </ClientOnly>
-            </AppErrorBoundary>
+      <section className="maha-deck">
+        <section className="maha-hero hero-section">
+          <div className="maha-waveform">
+            <AudioWaveform active={mode === "listening"} />
           </div>
-        </div>
 
-        <div className="hero-message assistant-message" role="status" aria-live="polite">
-          <StreamingText text={realtimeResponse || reply || ""} speed={15} />
-        </div>
+          <div className="reactor-wrapper maha-reactor">
+            <CircularWaveform data={frequencyData} intensity={volume} state={reactorState} />
+            <ReactorCore state={reactorState} />
+            <div className="reactor-3d-container" aria-hidden="true">
+              <AppErrorBoundary label="reactor_3d" fallback={null}>
+                <ClientOnly fallback={null}>
+                  <Suspense fallback={null}>
+                    <ReactorScene state={reactorState} volume={volume} />
+                  </Suspense>
+                </ClientOnly>
+              </AppErrorBoundary>
+            </div>
 
-        <StateTransition state={reactorState} />
+            {/* Decorative HUD callouts */}
+            <span className="hud-callout hud-callout-tl" aria-hidden="true">RADIAL_SYNC <b>092</b></span>
+            <span className="hud-callout hud-callout-br" aria-hidden="true">CORE_STABLE <b>88%</b></span>
+          </div>
 
-        {attachments.length > 0 && (
-          <p className="assistant-attachments" aria-live="polite">
-            📎 {attachments.join(", ")}
-          </p>
-        )}
+          <div className="hero-message assistant-message" role="status" aria-live="polite">
+            <StreamingText text={realtimeResponse || reply || ""} speed={15} />
+          </div>
+
+          <StateTransition state={reactorState} />
+
+          {attachments.length > 0 && (
+            <p className="assistant-attachments" aria-live="polite">
+              📎 {attachments.join(", ")}
+            </p>
+          )}
+        </section>
+
+        <aside className="maha-telemetry" aria-label="System telemetry">
+          <div className="tele-block">
+            <p className="tele-label">System Diagnostics</p>
+            <div className="tele-metrics">
+              <div className="tele-metric">
+                <span className="k">Neural Load</span>
+                <span className="v">{Math.min(99, Math.round(volume * 3.6 + 12))}<i>%</i></span>
+                <div className="bar"><i style={{ width: `${Math.min(99, Math.round(volume * 3.6 + 12))}%` }} /></div>
+              </div>
+              <div className="tele-metric">
+                <span className="k">Sync Latency</span>
+                <span className="v">{realtimeConnected ? 12 : 148}<i>ms</i></span>
+                <div className="bar"><i style={{ width: realtimeConnected ? "18%" : "82%" }} /></div>
+              </div>
+              <div className="tele-metric">
+                <span className="k">Active Threads</span>
+                <span className="v">1,024</span>
+                <div className="bar"><i style={{ width: "64%" }} /></div>
+              </div>
+              <div className="tele-metric">
+                <span className="k">Memory Buffer</span>
+                <span className="v">42<i>%</i></span>
+                <div className="bar"><i style={{ width: "42%" }} /></div>
+              </div>
+            </div>
+          </div>
+
+          <div className="tele-block">
+            <p className="tele-label">Sub-System Status</p>
+            <ul className="tele-status">
+              <li><span className="pip pip-ok" /><span>MEMORY_BUFFER_SYNC</span><em>NOMINAL</em></li>
+              <li><span className="pip pip-ok" /><span>REASONING_ENGINE</span><em>ACTIVE</em></li>
+              <li><span className="pip pip-ok" /><span>KNOWLEDGE_GRAPH</span><em>ONLINE</em></li>
+              <li>
+                <span className={realtimeConnected ? "pip pip-ok" : "pip pip-err"} />
+                <span>UPLINK_CARRIER</span>
+                <em className={realtimeConnected ? "e-ok" : "e-err"}>
+                  {realtimeConnected ? "SECURE" : "LOST"}
+                </em>
+              </li>
+            </ul>
+          </div>
+
+          <div className="tele-block tele-grow">
+            <p className="tele-label">Terminal Output</p>
+            <div className="tele-term">
+              <div>[08:24:12] INITIALIZING KERNEL…</div>
+              <div>[08:24:12] LOADING NEURAL WEIGHTS: OK</div>
+              <div>[08:24:13] SCANNING LOCAL PORTS…</div>
+              <div>[08:24:13] AGENT_ROSTER: 6 READY</div>
+              <div className="hi">[08:24:14] SYSTEM STANDBY // AWAITING USER INPUT</div>
+              <div className="cursor">▊</div>
+            </div>
+          </div>
+
+          <div className="tele-foot">
+            <span>0x9F2A_C04D</span>
+            <span>ORBIT · GEO-STATIONARY</span>
+          </div>
+        </aside>
       </section>
 
       <input ref={fileInputRef} type="file" multiple hidden onChange={handleFilesPicked} />
