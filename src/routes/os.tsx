@@ -11,6 +11,7 @@ import FloatingMenu from "@/components/FloatingMenu";
 import { transcribeMaha } from "@/lib/mahaCommand.functions";
 import { useMicrophone } from "@/hooks/useMicrophone";
 import { useVoiceActivity } from "@/hooks/useVoiceActivity";
+import { useRealtime } from "@/hooks/useRealtime";
 
 export const Route = createFileRoute("/os")({
   head: () => ({
@@ -28,6 +29,7 @@ export function OSPage() {
   const [mode, setMode] = useState<Mode>("idle");
   const { frequencyData, state: micState } = useMicrophone();
   const { isSpeaking, volume, speechStart, speechEnd } = useVoiceActivity();
+  const { connected: realtimeConnected } = useRealtime();
   const vadState: Mode = isSpeaking ? "listening" : "idle";
   const reactorState: Mode = mode === "idle" ? (vadState === "listening" ? "listening" : micState) : mode;
 
@@ -197,6 +199,13 @@ export function OSPage() {
       <header className="maha-header">
         <h1>MAHA</h1>
         <span>AI OPERATING SYSTEM</span>
+        <span
+          className="maha-realtime-status"
+          data-connected={realtimeConnected ? "true" : "false"}
+          aria-label={realtimeConnected ? "Realtime connected" : "Realtime offline"}
+        >
+          <span className="dot" /> {realtimeConnected ? "LIVE" : "OFFLINE"}
+        </span>
       </header>
 
       <section className="maha-hero hero-section">
