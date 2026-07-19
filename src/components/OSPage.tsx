@@ -248,21 +248,28 @@ export default function OSPage() {
       <BackgroundFX />
       <ParticleEngine isSpeaking={isSpeaking} volume={volume} state={reactorState} />
 
-      <header className="maha-header">
-        <h1>MAHA</h1>
-        <span>AI OPERATING SYSTEM</span>
-        <span
-          className="maha-realtime-status"
-          data-connected={realtimeConnected ? "true" : "false"}
-          aria-label={realtimeConnected ? "Realtime connected" : "Realtime offline"}
-        >
-          <span className="dot" /> {realtimeConnected ? "LIVE" : "OFFLINE"}
-        </span>
-        {isDesktop && (
-          <span className="maha-realtime-status" data-connected="true" aria-label="Desktop mode">
-            <span className="dot" /> DESKTOP
+      <a href="#maha-command" className="maha-skip-link">Skip to command input</a>
+
+      <header className="maha-header" role="banner">
+        <div className="maha-brand">
+          <h1>MAHA</h1>
+          <span className="maha-subtitle">AI Operating System</span>
+        </div>
+        <div className="maha-status-group" role="status" aria-live="polite">
+          <span
+            className="maha-realtime-status"
+            data-connected={realtimeConnected ? "true" : "false"}
+            aria-label={realtimeConnected ? "Realtime connected" : "Realtime offline"}
+          >
+            <span className="dot" aria-hidden="true" />
+            {realtimeConnected ? "Live" : "Offline"}
           </span>
-        )}
+          {isDesktop && (
+            <span className="maha-realtime-status" data-connected="true" aria-label="Desktop mode">
+              <span className="dot" aria-hidden="true" /> Desktop
+            </span>
+          )}
+        </div>
       </header>
 
       <section className="maha-hero hero-section">
@@ -284,7 +291,7 @@ export default function OSPage() {
           </div>
         </div>
 
-        <div className="hero-message assistant-message" aria-live="polite">
+        <div className="hero-message assistant-message" role="status" aria-live="polite">
           <StreamingText text={realtimeResponse || reply || ""} speed={15} />
         </div>
 
@@ -300,6 +307,7 @@ export default function OSPage() {
       <input ref={fileInputRef} type="file" multiple hidden onChange={handleFilesPicked} />
 
       <CommandBar
+        id="maha-command"
         ref={commandRef}
         onSend={handleSend}
         onVoice={handleVoice}
