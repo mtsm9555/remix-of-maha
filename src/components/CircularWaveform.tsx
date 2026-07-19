@@ -4,12 +4,15 @@ import { theme } from "@/lib/maha/theme";
 interface CircularWaveformProps {
   data?: Uint8Array | null;
   intensity?: number;
+  state?: "idle" | "listening" | "thinking" | "speaking";
 }
 
-export default function CircularWaveform({ data, intensity = 0 }: CircularWaveformProps) {
+export default function CircularWaveform({ data, intensity = 0, state = "idle" }: CircularWaveformProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dataRef = useRef<Uint8Array | null>(null);
   const intensityRef = useRef(0);
+  const stateRef = useRef(state);
+  useEffect(() => { stateRef.current = state; }, [state]);
 
   useEffect(() => {
     dataRef.current = data ?? null;
@@ -54,7 +57,12 @@ export default function CircularWaveform({ data, intensity = 0 }: CircularWavefo
         const y1 = cy + Math.sin(angle) * radius;
         const x2 = cx + Math.cos(angle) * (radius + length);
         const y2 = cy + Math.sin(angle) * (radius + length);
-        ctx.strokeStyle = `rgba(0, 217, 255, ${0.4 + amplitude * 0.6})`;
+        const color =
+          stateRef.current === "listening" ? "0, 255, 179" :
+          stateRef.current === "thinking" ? "255, 200, 87" :
+          stateRef.current === "speaking" ? "232, 246, 255" :
+          "0, 217, 255";
+        ctx.strokeStyle = `rgba(${color}, ${0.4 + amplitude * 0.6})`;
         ctx.lineWidth = 1 + amplitude * 2;
         ctx.shadowBlur = amplitude * 20;
         ctx.shadowColor = theme.cyan;
