@@ -1,0 +1,9 @@
+{
+  "appId": "com.maha.desktop",
+  "productName": "MAHA",
+  "directories": { "output": "release" },
+  "files": ["dist/**/*", "electron/**/*"],
+  "win": { "target": "nsis" },
+  "mac": { "target": "dmg" },
+  "linux": { "target": "AppImage" }
+}
