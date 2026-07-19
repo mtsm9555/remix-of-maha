@@ -32,7 +32,7 @@ export const Route = createFileRoute("/os")({
 
 type Mode = "idle" | "listening" | "thinking" | "speaking";
 
-function OSPage() {
+export function OSPage() {
   const [mode, setMode] = useState<Mode>("idle");
   const { frequencyData, state: micState } = useMicrophone();
   const { isSpeaking, volume, speechStart, speechEnd } = useVoiceActivity();
