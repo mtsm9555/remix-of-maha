@@ -52,6 +52,8 @@ export function useVoiceActivity() {
   useEffect(() => {
 
     let frameId = 0;
+    let localStream: MediaStream | null = null;
+    let localContext: AudioContext | null = null;
 
     const init = async () => {
 
@@ -63,9 +65,11 @@ export function useVoiceActivity() {
             .getUserMedia({
               audio: true
             });
+        localStream = stream;
 
         const context =
           new AudioContext();
+        localContext = context;
 
         const source =
           context
@@ -223,6 +227,8 @@ export function useVoiceActivity() {
       cancelAnimationFrame(
         frameId
       );
+      localStream?.getTracks().forEach((t) => t.stop());
+      localContext?.close().catch(() => {});
 
     };
 
