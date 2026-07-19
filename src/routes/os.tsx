@@ -175,12 +175,12 @@ export function OSPage() {
           <AudioWaveform active={mode === "listening"} />
         </div>
 
-        <div className="maha-reactor">
+        <div className="reactor-wrapper maha-reactor">
           <CircularWaveform />
           <ReactorCore state={mode} />
         </div>
 
-        <p className="assistant-message" aria-live="polite">
+        <p className="hero-message assistant-message" aria-live="polite">
           {reply}
         </p>
 
