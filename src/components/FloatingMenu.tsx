@@ -1,5 +1,6 @@
 import { useState } from "react";
 import MemoryPanel from "@/components/MemoryPanel";
+import VisionPanel from "@/components/VisionPanel";
 import {
   Brain,
   Eye,
@@ -13,7 +14,7 @@ import { theme } from "@/lib/maha/theme";
 
 const menuItems = [
   { label: "Memory", icon: Brain, color: theme.cyan, action: "memory" as const },
-  { label: "Vision", icon: Eye, color: theme.green },
+  { label: "Vision", icon: Eye, color: theme.green, action: "vision" as const },
   { label: "Files", icon: FolderOpen, color: theme.gold },
   { label: "Planner", icon: CalendarDays, color: theme.blue },
   { label: "Settings", icon: Settings, color: theme.glass },
@@ -22,6 +23,7 @@ const menuItems = [
 export default function FloatingMenu() {
   const [open, setOpen] = useState(false);
   const [memoryOpen, setMemoryOpen] = useState(false);
+  const [visionOpen, setVisionOpen] = useState(false);
 
   return (
     <>
@@ -52,6 +54,10 @@ export default function FloatingMenu() {
                     setMemoryOpen((v) => !v);
                     setOpen(false);
                   }
+                  if ("action" in item && item.action === "vision") {
+                    setVisionOpen((v) => !v);
+                    setOpen(false);
+                  }
                 }}
               >
                 <div className="menu-icon" style={{ background: item.color }}>
@@ -77,6 +83,12 @@ export default function FloatingMenu() {
       {memoryOpen && (
         <div className="memory-panel-wrap">
           <MemoryPanel onClose={() => setMemoryOpen(false)} />
+        </div>
+      )}
+
+      {visionOpen && (
+        <div className="vision-panel-wrap">
+          <VisionPanel onClose={() => setVisionOpen(false)} />
         </div>
       )}
     </>
