@@ -9,6 +9,7 @@ import CircularWaveform from "@/components/CircularWaveform";
 import CommandBar, { type CommandBarHandle } from "@/components/CommandBar";
 import FloatingMenu from "@/components/FloatingMenu";
 import { transcribeMaha } from "@/lib/mahaCommand.functions";
+import { useMicrophone } from "@/hooks/useMicrophone";
 
 export const Route = createFileRoute("/os")({
   head: () => ({
@@ -24,6 +25,8 @@ type Mode = "idle" | "listening" | "thinking" | "speaking";
 
 export function OSPage() {
   const [mode, setMode] = useState<Mode>("idle");
+  const { frequencyData, state: micState } = useMicrophone();
+  const reactorState: Mode = mode === "idle" ? micState : mode;
   const [reply, setReply] = useState("How can I help?");
   const [attachments, setAttachments] = useState<string[]>([]);
   const commandRef = useRef<CommandBarHandle>(null);
@@ -176,8 +179,8 @@ export function OSPage() {
         </div>
 
         <div className="reactor-wrapper maha-reactor">
-          <CircularWaveform />
-          <ReactorCore state={mode} />
+          <CircularWaveform data={frequencyData} />
+          <ReactorCore state={reactorState} />
         </div>
 
         <p className="hero-message assistant-message" aria-live="polite">
