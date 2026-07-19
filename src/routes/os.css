@@ -1179,10 +1179,13 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-left: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
   font-size: 10px;
   letter-spacing: 0.2em;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(230, 245, 255, 0.75);
   text-transform: uppercase;
 }
 .maha-realtime-status .dot {
@@ -1192,7 +1195,11 @@
   background: #ff5566;
   box-shadow: 0 0 6px #ff5566;
 }
-.maha-realtime-status[data-connected="true"] { color: #00ffb3; }
+.maha-realtime-status[data-connected="true"] {
+  color: #7bffd4;
+  border-color: rgba(0,255,179,.25);
+  background: rgba(0,255,179,.06);
+}
 .maha-realtime-status[data-connected="true"] .dot {
   background: #00ffb3;
   box-shadow: 0 0 8px #00ffb3;
