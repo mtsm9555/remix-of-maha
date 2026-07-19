@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import "./os.css";
 import BackgroundFX from "@/components/BackgroundFX";
+import ParticleEngine from "@/components/ParticleEngine";
 import AudioWaveform from "@/components/AudioWaveform";
 import ReactorCore from "@/components/ReactorCore";
 import CircularWaveform from "@/components/CircularWaveform";
@@ -207,6 +208,7 @@ export function OSPage() {
   return (
     <main className="maha-home">
       <BackgroundFX />
+      <ParticleEngine isSpeaking={isSpeaking} volume={volume} state={reactorState} />
 
       <header className="maha-header">
         <h1>MAHA</h1>

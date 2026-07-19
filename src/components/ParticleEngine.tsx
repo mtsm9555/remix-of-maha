@@ -1,0 +1,119 @@
+import { useEffect, useRef } from "react";
+
+interface Props {
+  isSpeaking: boolean;
+  volume: number;
+  state?: "idle" | "listening" | "thinking" | "speaking";
+}
+
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;
+  life: number;
+  maxLife: number;
+  opacity: number;
+}
+
+const STATE_COLORS: Record<NonNullable<Props["state"]>, string> = {
+  idle: "0, 217, 255",
+  listening: "0, 255, 179",
+  thinking: "106, 168, 255",
+  speaking: "255, 200, 87",
+};
+
+export default function ParticleEngine({ isSpeaking, volume, state = "idle" }: Props) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const particles = useRef<Particle[]>([]);
+  const isSpeakingRef = useRef(isSpeaking);
+  const volumeRef = useRef(volume);
+  const stateRef = useRef(state);
+
+  useEffect(() => { isSpeakingRef.current = isSpeaking; }, [isSpeaking]);
+  useEffect(() => { volumeRef.current = volume; }, [volume]);
+  useEffect(() => { stateRef.current = state; }, [state]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const spawnBurst = (multiplier = 1) => {
+      const v = volumeRef.current;
+      const count = Math.max(20, Math.floor(v * 1.5)) * multiplier;
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 2 + Math.random() * 6;
+        particles.current.push({
+          x: cx,
+          y: cy,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          size: 1 + Math.random() * 4,
+          life: 120,
+          maxLife: 120,
+          opacity: 1,
+        });
+      }
+    };
+
+    let previous = false;
+    let raf = 0;
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const speaking = isSpeakingRef.current;
+      const v = volumeRef.current;
+
+      if (speaking && !previous) spawnBurst();
+      if (speaking && Math.random() < 0.15) spawnBurst();
+      if (v > 70) { spawnBurst(); spawnBurst(); spawnBurst(); }
+      previous = speaking;
+
+      const color = STATE_COLORS[stateRef.current] ?? STATE_COLORS.idle;
+
+      particles.current = particles.current.filter((p) => p.life > 0);
+      particles.current.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.98;
+        p.vy *= 0.98;
+        p.life--;
+        p.opacity = p.life / p.maxLife;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${color}, ${p.opacity})`;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = `rgb(${color})`;
+        ctx.fill();
+      });
+
+      if (!reduce) raf = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+      particles.current = [];
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="particle-engine" aria-hidden="true" />;
+}
