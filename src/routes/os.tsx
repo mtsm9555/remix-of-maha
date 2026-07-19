@@ -10,6 +10,7 @@ import CommandBar, { type CommandBarHandle } from "@/components/CommandBar";
 import FloatingMenu from "@/components/FloatingMenu";
 import { transcribeMaha } from "@/lib/mahaCommand.functions";
 import { useMicrophone } from "@/hooks/useMicrophone";
+import { useVoiceActivity } from "@/hooks/useVoiceActivity";
 
 export const Route = createFileRoute("/os")({
   head: () => ({
@@ -26,7 +27,32 @@ type Mode = "idle" | "listening" | "thinking" | "speaking";
 export function OSPage() {
   const [mode, setMode] = useState<Mode>("idle");
   const { frequencyData, state: micState } = useMicrophone();
-  const reactorState: Mode = mode === "idle" ? micState : mode;
+  const { isSpeaking, volume, speechStart, speechEnd } = useVoiceActivity();
+  const vadState: Mode = isSpeaking ? "listening" : "idle";
+  const reactorState: Mode = mode === "idle" ? (vadState === "listening" ? "listening" : micState) : mode;
+
+  useEffect(() => {
+    if (speechEnd && mode === "idle") setMode("thinking");
+  }, [speechEnd, mode]);
+
+  useEffect(() => {
+    if (speechStart) {
+      // energy pulse trigger via class toggle
+      const el = document.querySelector(".maha-reactor");
+      if (!el) return;
+      el.classList.add("energy-pulse");
+      const t = window.setTimeout(() => el.classList.remove("energy-pulse"), 600);
+      return () => window.clearTimeout(t);
+    }
+  }, [speechStart]);
+
+  useEffect(() => {
+    if (mode === "thinking" && !isSpeaking) {
+      const t = window.setTimeout(() => setMode("idle"), 1400);
+      return () => window.clearTimeout(t);
+    }
+  }, [mode, isSpeaking]);
+
   const [reply, setReply] = useState("How can I help?");
   const [attachments, setAttachments] = useState<string[]>([]);
   const commandRef = useRef<CommandBarHandle>(null);
