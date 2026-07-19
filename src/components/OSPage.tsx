@@ -1,6 +1,7 @@
 import { ClientOnly } from "@tanstack/react-router";
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
+import { toast } from "sonner";
 import "@/routes/os.css";
 import BackgroundFX from "@/components/BackgroundFX";
 import ParticleEngine from "@/components/ParticleEngine";
@@ -12,6 +13,7 @@ import CommandBar, { type CommandBarHandle } from "@/components/CommandBar";
 import FloatingMenu from "@/components/FloatingMenu";
 import StateTransition from "@/components/StateTransition";
 import StreamingText from "@/components/StreamingText";
+import AppErrorBoundary from "@/components/AppErrorBoundary";
 import { useMemory } from "@/hooks/useMemory";
 import { transcribeMaha } from "@/lib/mahaCommand.functions";
 import { useMicrophone } from "@/hooks/useMicrophone";
@@ -20,6 +22,7 @@ import { useRealtime } from "@/hooks/useRealtime";
 import { useAIState } from "@/hooks/useAIState";
 import type { AIState } from "@/services/stateMachine";
 import { audioBus } from "@/services/audioBus";
+import { isAbortError, toUserMessage } from "@/lib/errors";
 
 type Mode = "idle" | "listening" | "thinking" | "speaking";
 
@@ -82,8 +85,18 @@ export default function OSPage() {
   const { addMemory } = useMemory();
 
   const transcribe = useServerFn(transcribeMaha);
+  const abortRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    return () => {
+      abortRef.current?.abort();
+    };
+  }, []);
 
   const runPrompt = useCallback(async (prompt: string) => {
+    abortRef.current?.abort();
+    const ctrl = new AbortController();
+    abortRef.current = ctrl;
     setMode("thinking");
     setReply("Thinking…");
     try {
@@ -91,28 +104,49 @@ export default function OSPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt }),
+        signal: ctrl.signal,
       });
       if (!res.ok || !res.body) {
-        const msg = await res.text().catch(() => "");
-        throw new Error(msg || `Request failed: ${res.status}`);
+        let msg = `Request failed (${res.status}).`;
+        try {
+          const payload = await res.json();
+          if (payload?.error?.message) msg = payload.error.message;
+        } catch {
+          const text = await res.text().catch(() => "");
+          if (text) msg = text;
+        }
+        throw new Error(msg);
       }
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
       let acc = "";
       setReply("");
       setMode("speaking");
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        acc += decoder.decode(value, { stream: true });
-        setReply(acc);
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          acc += decoder.decode(value, { stream: true });
+          setReply(acc);
+        }
+        acc += decoder.decode();
+        setReply(acc || "…");
+      } finally {
+        try { reader.releaseLock(); } catch { /* noop */ }
       }
-      acc += decoder.decode();
-      setReply(acc || "…");
       window.setTimeout(() => setMode("idle"), 1600);
     } catch (e) {
-      setReply(e instanceof Error ? e.message : "Something went wrong.");
+      if (isAbortError(e)) {
+        setReply("Cancelled.");
+        setMode("idle");
+        return;
+      }
+      const msg = toUserMessage(e);
+      setReply(msg);
+      toast.error(msg);
       setMode("idle");
+    } finally {
+      if (abortRef.current === ctrl) abortRef.current = null;
     }
   }, []);
 
@@ -240,11 +274,13 @@ export default function OSPage() {
           <CircularWaveform data={frequencyData} intensity={volume} state={reactorState} />
           <ReactorCore state={reactorState} />
           <div className="reactor-3d-container" aria-hidden="true">
-            <ClientOnly fallback={null}>
-              <Suspense fallback={null}>
-                <ReactorScene state={reactorState} volume={volume} />
-              </Suspense>
-            </ClientOnly>
+            <AppErrorBoundary label="reactor_3d" fallback={null}>
+              <ClientOnly fallback={null}>
+                <Suspense fallback={null}>
+                  <ReactorScene state={reactorState} volume={volume} />
+                </Suspense>
+              </ClientOnly>
+            </AppErrorBoundary>
           </div>
         </div>
 
