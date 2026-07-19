@@ -55,3 +55,31 @@ export const transcribeMaha = createServerFn({ method: "POST" })
     const json = (await res.json()) as { text?: string };
     return { text: json.text ?? "" };
   });
+
+const analyzeSchema = z.object({
+  imageBase64: z.string().min(1),
+  mimeType: z.string().default("image/png"),
+  prompt: z.string().default("Describe this image in 2-3 sentences. List key objects."),
+});
+
+export const analyzeImage = createServerFn({ method: "POST" })
+  .inputValidator((data: unknown) => analyzeSchema.parse(data))
+  .handler(async ({ data }) => {
+    const key = process.env.LOVABLE_API_KEY;
+    if (!key) throw new Error("LOVABLE_API_KEY not configured");
+    const gateway = createLovableAiGatewayProvider(key);
+    const dataUrl = `data:${data.mimeType};base64,${data.imageBase64}`;
+    const { text } = await generateText({
+      model: gateway("google/gemini-3-flash-preview"),
+      messages: [
+        {
+          role: "user",
+          content: [
+            { type: "text", text: data.prompt },
+            { type: "image", image: dataUrl },
+          ],
+        },
+      ],
+    });
+    return { analysis: text };
+  });
