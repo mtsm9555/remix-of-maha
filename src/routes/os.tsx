@@ -29,9 +29,21 @@ export function OSPage() {
   const [mode, setMode] = useState<Mode>("idle");
   const { frequencyData, state: micState } = useMicrophone();
   const { isSpeaking, volume, speechStart, speechEnd } = useVoiceActivity();
-  const { connected: realtimeConnected } = useRealtime();
+  const {
+    connected: realtimeConnected,
+    response: realtimeResponse,
+    waitingResponse,
+    streamingResponse,
+    receivingAudio,
+  } = useRealtime();
   const vadState: Mode = isSpeaking ? "listening" : "idle";
-  const reactorState: Mode = mode === "idle" ? (vadState === "listening" ? "listening" : micState) : mode;
+  const realtimeState: Mode | null =
+    receivingAudio || streamingResponse ? "speaking" :
+    waitingResponse ? "thinking" :
+    null;
+  const reactorState: Mode =
+    realtimeState ??
+    (mode === "idle" ? (vadState === "listening" ? "listening" : micState) : mode);
 
   useEffect(() => {
     if (speechEnd && mode === "idle") setMode("thinking");
@@ -214,12 +226,12 @@ export function OSPage() {
         </div>
 
         <div className="reactor-wrapper maha-reactor">
-          <CircularWaveform data={frequencyData} intensity={volume} />
+          <CircularWaveform data={frequencyData} intensity={volume} state={reactorState} />
           <ReactorCore state={reactorState} />
         </div>
 
         <p className="hero-message assistant-message" aria-live="polite">
-          {reply}
+          {realtimeResponse || reply}
         </p>
 
         {attachments.length > 0 && (
