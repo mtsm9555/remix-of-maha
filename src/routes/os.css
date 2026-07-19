@@ -354,6 +354,23 @@
   outline: 2px solid var(--cyan);
   outline-offset: 2px;
   border-radius: 8px;
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.35);
+  transition: box-shadow 120ms ease, outline-color 120ms ease;
+}
+.maha-os a:focus-visible,
+.maha-os button:focus-visible,
+.maha-os [role="button"]:focus-visible,
+.maha-os input:focus-visible,
+.maha-os textarea:focus-visible,
+.maha-os select:focus-visible {
+  outline: 2px solid #7ff3ff;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.45), 0 0 18px rgba(34, 211, 238, 0.35);
+}
+/* Ensure interactive elements have a visible hover cursor + state */
+.maha-os button:not(:disabled):hover,
+.maha-os [role="button"]:not([aria-disabled="true"]):hover {
+  filter: brightness(1.12);
 }
 .reactor-idle {
   box-shadow:
@@ -401,12 +418,12 @@
   --maha-surface: #0f0f2b;
   --maha-surface-2: #141432;
   --maha-line: #1e1e5a;
-  --maha-line-soft: rgba(79, 70, 229, 0.18);
+  --maha-line-soft: rgba(129, 122, 255, 0.28);
   --maha-accent: #4f46e5;
-  --maha-accent-soft: #7c7bff;
+  --maha-accent-soft: #a5a4ff;
   --maha-cyan: #00d9ff; /* reactor core glow — kept */
-  --maha-text: #e6e7ff;
-  --maha-muted: #8b8fbf;
+  --maha-text: #eef0ff;
+  --maha-muted: #b8bcdf;
   --maha-glass: rgba(255,255,255,.04);
   position: fixed; inset: 0;
   background:
@@ -557,7 +574,7 @@
   margin: 0;
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 9px; letter-spacing: .32em; text-transform: uppercase;
-  color: var(--maha-accent-soft); opacity: .85;
+  color: var(--maha-accent-soft); opacity: 1;
   display: flex; align-items: center; gap: 8px;
 }
 .tele-label::after {
@@ -599,7 +616,7 @@
   border-radius: 4px;
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 10px; letter-spacing: .12em;
-  color: rgba(230,231,255,.75);
+  color: #eef0ff;
 }
 .tele-status li em { font-style: normal; color: var(--maha-accent-soft); font-weight: 700; }
 .tele-status li em.e-err { color: #f87171; }
@@ -616,7 +633,7 @@
   border-radius: 8px;
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 11px; line-height: 1.7;
-  color: rgba(124,123,255,.85);
+  color: #c9c7ff;
   overflow: hidden;
   position: relative;
 }
@@ -635,7 +652,7 @@
   display: flex; justify-content: space-between;
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--maha-muted); opacity: .7;
+  color: var(--maha-muted); opacity: 1;
   padding-top: 4px; border-top: 1px dashed var(--maha-line-soft);
 }
 
@@ -644,10 +661,10 @@
   position: absolute;
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--maha-muted);
+  color: var(--maha-text);
   padding: 5px 9px;
-  background: rgba(15,15,43,.6);
-  border: 1px solid var(--maha-line-soft);
+  background: rgba(10,10,26,.85);
+  border: 1px solid var(--maha-accent-soft);
   border-radius: 4px;
   backdrop-filter: blur(6px);
   white-space: nowrap;
