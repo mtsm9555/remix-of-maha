@@ -654,6 +654,177 @@
   line-height: 1.5;
 }
 
+.planner-panel-wrap {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 60;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.planner-panel {
+  width: min(420px, 92vw);
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(8, 12, 20, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 234, 255, 0.15);
+  color: #e6f7ff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.planner-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.planner-header h2 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.planner-close {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 234, 255, 0.2);
+  color: #e6f7ff;
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+}
+
+.planner-input {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.planner-input input {
+  flex: 1;
+  height: 50px;
+  border: 1px solid rgba(0, 234, 255, 0.15);
+  border-radius: 12px;
+  padding: 0 15px;
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+.planner-input input:focus {
+  border-color: rgba(0, 234, 255, 0.45);
+}
+
+.planner-input button {
+  width: 50px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(135deg, #00eaff, #008cff);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.planner-list {
+  margin-top: 8px;
+}
+
+.task-card {
+  margin-top: 12px;
+  padding: 15px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.task-card h4 {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.task-card small {
+  opacity: 0.6;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.task-card[data-priority="high"] {
+  border-left: 3px solid #ff5577;
+}
+.task-card[data-priority="medium"] {
+  border-left: 3px solid #ffb547;
+}
+.task-card[data-priority="low"] {
+  border-left: 3px solid #00ff9d;
+}
+
+.task-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.task-actions button {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 234, 255, 0.15);
+  color: #e6f7ff;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+}
+
+.task-actions button:hover {
+  background: rgba(0, 234, 255, 0.12);
+}
+
+.goal-tracker {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.goal-tracker h4 {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.goal-bar {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.goal-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00eaff, #00ff9d);
+  transition: width 0.3s ease;
+}
+
+.goal-tracker span {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  opacity: 0.6;
+}
+
 /* Command bar */
 .command-bar {
   position: fixed; left: 50%; bottom: 32px;

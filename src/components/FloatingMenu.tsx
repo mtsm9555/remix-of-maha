@@ -1,6 +1,7 @@
 import { useState } from "react";
 import MemoryPanel from "@/components/MemoryPanel";
 import VisionPanel from "@/components/VisionPanel";
+import PlannerPanel from "@/components/PlannerPanel";
 import {
   Brain,
   Eye,
@@ -16,7 +17,7 @@ const menuItems = [
   { label: "Memory", icon: Brain, color: theme.cyan, action: "memory" as const },
   { label: "Vision", icon: Eye, color: theme.green, action: "vision" as const },
   { label: "Files", icon: FolderOpen, color: theme.gold },
-  { label: "Planner", icon: CalendarDays, color: theme.blue },
+  { label: "Planner", icon: CalendarDays, color: theme.blue, action: "planner" as const },
   { label: "Settings", icon: Settings, color: theme.glass },
 ];
 
@@ -24,6 +25,7 @@ export default function FloatingMenu() {
   const [open, setOpen] = useState(false);
   const [memoryOpen, setMemoryOpen] = useState(false);
   const [visionOpen, setVisionOpen] = useState(false);
+  const [plannerOpen, setPlannerOpen] = useState(false);
 
   return (
     <>
@@ -58,6 +60,10 @@ export default function FloatingMenu() {
                     setVisionOpen((v) => !v);
                     setOpen(false);
                   }
+                  if ("action" in item && item.action === "planner") {
+                    setPlannerOpen((v) => !v);
+                    setOpen(false);
+                  }
                 }}
               >
                 <div className="menu-icon" style={{ background: item.color }}>
@@ -89,6 +95,12 @@ export default function FloatingMenu() {
       {visionOpen && (
         <div className="vision-panel-wrap">
           <VisionPanel onClose={() => setVisionOpen(false)} />
+        </div>
+      )}
+
+      {plannerOpen && (
+        <div className="planner-panel-wrap">
+          <PlannerPanel onClose={() => setPlannerOpen(false)} />
         </div>
       )}
     </>
