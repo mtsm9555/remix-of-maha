@@ -1,29 +1,50 @@
-import { Paperclip, Mic } from "lucide-react";
-import { useState } from "react";
+import { useState, type KeyboardEvent } from "react";
+import { Paperclip, Mic, Send, Keyboard } from "lucide-react";
 
-export default function CommandBar() {
-  const [value, setValue] = useState("");
+interface CommandBarProps {
+  onSend?: (message: string) => void;
+  onVoice?: () => void;
+  onAttach?: () => void;
+}
+
+export default function CommandBar({ onSend, onVoice, onAttach }: CommandBarProps) {
+  const [message, setMessage] = useState("");
+
+  const handleSend = () => {
+    if (!message.trim()) return;
+    onSend?.(message);
+    setMessage("");
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") handleSend();
+  };
+
   return (
-    <form
-      className="command-bar"
-      onSubmit={(e) => {
-        e.preventDefault();
-        setValue("");
-      }}
-    >
-      <button type="button" className="cmd-icon" aria-label="Attach file">
-        <Paperclip size={18} />
-      </button>
-      <input
-        type="text"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        placeholder="Ask MAHA..."
-        aria-label="Ask MAHA"
-      />
-      <button type="button" className="cmd-icon cmd-mic" aria-label="Voice input">
-        <Mic size={18} />
-      </button>
-    </form>
+    <div className="commandbar-wrapper">
+      <div className="commandbar">
+        <button className="cmd-icon-btn" onClick={onAttach} aria-label="Attach file" type="button">
+          <Paperclip size={18} />
+        </button>
+        <input
+          type="text"
+          placeholder="Ask MAHA anything..."
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className="command-input"
+          aria-label="Ask MAHA"
+        />
+        <button className="cmd-icon-btn" aria-label="Keyboard" type="button">
+          <Keyboard size={18} />
+        </button>
+        <button className="voice-btn" onClick={onVoice} aria-label="Voice input" type="button">
+          <Mic size={20} />
+        </button>
+        <button className="send-btn" onClick={handleSend} aria-label="Send" type="button">
+          <Send size={18} />
+        </button>
+      </div>
+    </div>
   );
 }
