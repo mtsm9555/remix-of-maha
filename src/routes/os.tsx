@@ -170,7 +170,7 @@ export function OSPage() {
         <span>AI OPERATING SYSTEM</span>
       </header>
 
-      <section className="maha-hero">
+      <section className="maha-hero hero-section">
         <div className="maha-waveform">
           <AudioWaveform active={mode === "listening"} />
         </div>
