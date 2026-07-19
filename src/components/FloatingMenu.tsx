@@ -8,13 +8,14 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
+import { theme } from "@/lib/maha/theme";
 
 const menuItems = [
-  { label: "Memory", icon: Brain, color: "#00d9ff" },
-  { label: "Vision", icon: Eye, color: "#00ffb3" },
-  { label: "Files", icon: FolderOpen, color: "#ffc857" },
-  { label: "Planner", icon: CalendarDays, color: "#ff7b72" },
-  { label: "Settings", icon: Settings, color: "#b388ff" },
+  { label: "Memory", icon: Brain, color: theme.cyan },
+  { label: "Vision", icon: Eye, color: theme.green },
+  { label: "Files", icon: FolderOpen, color: theme.gold },
+  { label: "Planner", icon: CalendarDays, color: theme.blue },
+  { label: "Settings", icon: Settings, color: theme.glass },
 ];
 
 export default function FloatingMenu() {

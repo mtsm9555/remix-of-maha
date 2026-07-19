@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { theme } from "@/lib/maha/theme";
 
 interface AudioWaveformProps {
   active?: boolean;
@@ -30,12 +31,12 @@ export default function AudioWaveform({ active = true }: AudioWaveformProps) {
         analyser.getByteTimeDomainData(dataArray as unknown as Uint8Array<ArrayBuffer>);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.shadowBlur = 20;
-        ctx.shadowColor = "#00eaff";
+        ctx.shadowColor = theme.cyan;
         ctx.lineWidth = 3;
         const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-        gradient.addColorStop(0, "#00d9ff");
-        gradient.addColorStop(0.5, "#00ffff");
-        gradient.addColorStop(1, "#00d9ff");
+        gradient.addColorStop(0, theme.cyan);
+        gradient.addColorStop(0.5, theme.green);
+        gradient.addColorStop(1, theme.cyan);
         ctx.strokeStyle = gradient;
         ctx.beginPath();
         const sliceWidth = canvas.width / bufferLength;

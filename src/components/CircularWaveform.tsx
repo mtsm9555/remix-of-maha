@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { theme } from "@/lib/maha/theme";
 
 export default function CircularWaveform() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -30,7 +31,7 @@ export default function CircularWaveform() {
         const y1 = cy + Math.sin(angle) * radius;
         const x2 = cx + Math.cos(angle) * (radius + length);
         const y2 = cy + Math.sin(angle) * (radius + length);
-        ctx.strokeStyle = "#00eaff";
+        ctx.strokeStyle = theme.cyan;
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(x1, y1);
