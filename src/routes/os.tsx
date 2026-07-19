@@ -205,7 +205,7 @@ export function OSPage() {
         </div>
 
         <div className="reactor-wrapper maha-reactor">
-          <CircularWaveform data={frequencyData} />
+          <CircularWaveform data={frequencyData} intensity={volume} />
           <ReactorCore state={reactorState} />
         </div>
 
