@@ -89,7 +89,15 @@ export default function ParticleEngine({ isSpeaking, volume, state = "idle" }: P
 
       const color = hexToRgb(STATE_COLORS[stateRef.current] ?? STATE_COLORS.idle);
 
+      // Cap the particle pool to prevent runaway allocations under sustained load.
+      if (particles.current.length > 400) {
+        particles.current.splice(0, particles.current.length - 400);
+      }
       particles.current = particles.current.filter((p) => p.life > 0);
+      // shadowBlur is per-particle expensive; set once for the batch.
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = `rgb(${color})`;
+      ctx.fillStyle = `rgba(${color}, 1)`;
       particles.current.forEach((p) => {
         p.x += p.vx;
         p.y += p.vy;
@@ -97,22 +105,33 @@ export default function ParticleEngine({ isSpeaking, volume, state = "idle" }: P
         p.vy *= 0.98;
         p.life--;
         p.opacity = p.life / p.maxLife;
+        ctx.globalAlpha = p.opacity;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${color}, ${p.opacity})`;
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = `rgb(${color})`;
         ctx.fill();
       });
+      ctx.globalAlpha = 1;
+      ctx.shadowBlur = 0;
 
       if (!reduce) raf = requestAnimationFrame(animate);
     };
 
-    animate();
+    if (!reduce) animate();
+
+    const onVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      } else if (!reduce && !raf) {
+        animate();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
+      document.removeEventListener("visibilitychange", onVisibility);
       particles.current = [];
     };
   }, []);
