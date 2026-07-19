@@ -6,18 +6,23 @@ export default function BackgroundFX() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = window.innerWidth < 768;
+    const particleCount = isMobile ? 50 : 100;
+
     let animationId = 0;
+    let staticLayer: HTMLCanvasElement | null = null;
+
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      staticLayer = buildStaticLayer();
     };
-    resize();
-    window.addEventListener("resize", resize);
 
-    const particles = Array.from({ length: 140 }, () => ({
+    const particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
       size: Math.random() * 2.5,
@@ -25,22 +30,22 @@ export default function BackgroundFX() {
       opacity: Math.random() * 0.8,
     }));
 
-    const drawGrid = () => {
+    const drawGrid = (c: CanvasRenderingContext2D) => {
       ctx.strokeStyle = "rgba(0,234,255,.04)";
       ctx.lineWidth = 1;
       const spacing = 80;
+      c.strokeStyle = "rgba(0,234,255,.04)";
+      c.lineWidth = 1;
+      c.beginPath();
       for (let x = 0; x < canvas.width; x += spacing) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
-        ctx.stroke();
+        c.moveTo(x, 0);
+        c.lineTo(x, canvas.height);
       }
       for (let y = 0; y < canvas.height; y += spacing) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
+        c.moveTo(0, y);
+        c.lineTo(canvas.width, y);
       }
+      c.stroke();
     };
 
     const drawParticles = () => {
@@ -57,18 +62,27 @@ export default function BackgroundFX() {
       });
     };
 
-    const drawCircuits = () => {
-      ctx.strokeStyle = "rgba(0,234,255,.06)";
-      ctx.lineWidth = 2;
-      for (let i = 0; i < 10; i++) {
+    // Circuits are static — draw once to an offscreen canvas and blit each frame.
+    const buildStaticLayer = (): HTMLCanvasElement => {
+      const off = document.createElement("canvas");
+      off.width = canvas.width;
+      off.height = canvas.height;
+      const octx = off.getContext("2d");
+      if (!octx) return off;
+      drawGrid(octx);
+      octx.strokeStyle = "rgba(0,234,255,.06)";
+      octx.lineWidth = 2;
+      const circuitCount = isMobile ? 5 : 10;
+      for (let i = 0; i < circuitCount; i++) {
         const sx = Math.random() * canvas.width;
         const sy = Math.random() * canvas.height;
-        ctx.beginPath();
-        ctx.moveTo(sx, sy);
-        ctx.lineTo(sx + 120, sy);
-        ctx.lineTo(sx + 120, sy + 80);
-        ctx.stroke();
+        octx.beginPath();
+        octx.moveTo(sx, sy);
+        octx.lineTo(sx + 120, sy);
+        octx.lineTo(sx + 120, sy + 80);
+        octx.stroke();
       }
+      return off;
     };
 
     let scanPosition = 0;
@@ -83,19 +97,41 @@ export default function BackgroundFX() {
       ctx.fillRect(0, scanPosition - 80, canvas.width, 160);
     };
 
-    const animate = () => {
+    const drawStatic = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawGrid();
+      if (staticLayer) ctx.drawImage(staticLayer, 0, 0);
       drawParticles();
-      drawCircuits();
       drawScan();
+    };
+
+    const animate = () => {
+      drawStatic();
       animationId = requestAnimationFrame(animate);
     };
-    animate();
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    if (reduce) {
+      drawStatic();
+    } else {
+      animate();
+    }
+
+    const onVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationId);
+        animationId = 0;
+      } else if (!reduce && !animationId) {
+        animate();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", resize);
+      document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
 
