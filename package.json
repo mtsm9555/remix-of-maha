@@ -3,6 +3,7 @@
   "private": true,
   "sideEffects": false,
   "type": "module",
+  "main": "electron/main.cjs",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -14,8 +15,7 @@
     "test:watch": "vitest",
     "test:unit": "vitest run src/tests/unit",
     "test:integration": "vitest run src/tests/integration",
-    "test:coverage": "vitest run --coverage"
-  ,
+    "test:coverage": "vitest run --coverage",
     "electron": "electron .",
     "electron:dev": "NODE_ENV=development electron .",
     "electron:build": "vite build && electron-builder",
