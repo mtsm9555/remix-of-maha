@@ -12,7 +12,7 @@ class AudioBus {
   private stream: MediaStream | null = null;
   private context: AudioContext | null = null;
   private analyser: AnalyserNode | null = null;
-  private buffer: Uint8Array = new Uint8Array(0);
+  private buffer: Uint8Array<ArrayBuffer> = new Uint8Array(new ArrayBuffer(0));
   private listeners = new Set<Listener>();
   private rafId = 0;
   private starting: Promise<void> | null = null;
@@ -50,7 +50,7 @@ class AudioBus {
         analyser.smoothingTimeConstant = 0.8;
         source.connect(analyser);
         this.analyser = analyser;
-        this.buffer = new Uint8Array(analyser.frequencyBinCount);
+        this.buffer = new Uint8Array(new ArrayBuffer(analyser.frequencyBinCount));
         this.loop();
       } catch (err) {
         console.error("[audioBus] mic init failed", err);
@@ -80,7 +80,7 @@ class AudioBus {
     this.context?.close().catch(() => {});
     this.context = null;
     this.analyser = null;
-    this.buffer = new Uint8Array(0);
+    this.buffer = new Uint8Array(new ArrayBuffer(0));
     this.volume = 0;
   }
 }
