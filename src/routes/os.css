@@ -625,24 +625,20 @@
   position: relative;
   display: flex; flex-direction: column; gap: 14px;
   padding: 18px;
-  background: linear-gradient(180deg, rgba(20,20,50,.75), rgba(10,10,26,.7));
-  border: 1px solid var(--maha-line);
-  border-radius: 14px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
   backdrop-filter: blur(18px);
-  box-shadow: 0 20px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.04);
+  box-shadow: none;
   overflow: hidden;
   min-height: 0;
 }
-.maha-telemetry::before {
-  content: ""; position: absolute; top: 0; left: 12px; right: 12px; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--maha-accent), transparent);
-  opacity: .6;
-}
+.maha-telemetry::before { content: none; }
 .tele-block { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
 .tele-block.tele-grow { flex: 1; min-height: 0; }
 .tele-label {
   margin: 0;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Space Mono", ui-monospace, monospace;
   font-size: 9px; letter-spacing: .32em; text-transform: uppercase;
   color: var(--maha-accent-soft); opacity: 1;
   display: flex; align-items: center; gap: 8px;
@@ -653,19 +649,25 @@
 
 .tele-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .tele-metric {
-  padding: 10px 12px;
-  background: rgba(30,30,90,.28);
+  padding: 12px 14px;
+  background: linear-gradient(180deg, rgba(30,30,90,.55), rgba(20,20,50,.55));
   border: 1px solid var(--maha-line-soft);
-  border-radius: 8px;
+  border-radius: 14px;
   display: flex; flex-direction: column; gap: 6px;
+  transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.tele-metric:hover {
+  border-color: var(--maha-accent);
+  box-shadow: 0 0 20px rgba(79,70,229,.25);
+  transform: translateY(-1px);
 }
 .tele-metric .k {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Space Mono", ui-monospace, monospace;
   font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
   color: var(--maha-muted);
 }
 .tele-metric .v {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Space Mono", ui-monospace, monospace;
   font-size: 20px; font-weight: 700; color: #fff; line-height: 1;
 }
 .tele-metric .v i { font-style: normal; font-size: 11px; color: var(--maha-muted); margin-left: 3px; font-weight: 400; }
@@ -680,11 +682,12 @@
 .tele-status { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
 .tele-status li {
   display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px;
-  padding: 8px 10px;
-  background: rgba(30,30,90,.22);
+  padding: 10px 12px;
+  background: linear-gradient(90deg, rgba(30,30,90,.5), rgba(20,20,50,.35));
+  border: 1px solid var(--maha-line-soft);
   border-left: 2px solid var(--maha-accent);
-  border-radius: 4px;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  border-radius: 10px;
+  font-family: "Space Mono", ui-monospace, monospace;
   font-size: 10px; letter-spacing: .12em;
   color: #eef0ff;
 }
@@ -698,10 +701,10 @@
 .tele-term {
   flex: 1; min-height: 140px;
   padding: 12px;
-  background: #05051a;
-  border: 1px solid var(--maha-line);
-  border-radius: 8px;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  background: radial-gradient(circle at top left, rgba(79,70,229,.08), transparent 60%), #05051a;
+  border: 1px solid var(--maha-line-soft);
+  border-radius: 14px;
+  font-family: "Space Mono", ui-monospace, monospace;
   font-size: 11px; line-height: 1.7;
   color: #c9c7ff;
   overflow: hidden;
@@ -720,7 +723,7 @@
 
 .tele-foot {
   display: flex; justify-content: space-between;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Space Mono", ui-monospace, monospace;
   font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
   color: var(--maha-muted); opacity: 1;
   padding-top: 4px; border-top: 1px dashed var(--maha-line-soft);
@@ -729,7 +732,7 @@
 /* ===== HUD callouts around reactor ===== */
 .hud-callout {
   position: absolute;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: "Space Mono", ui-monospace, monospace;
   font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
   color: var(--maha-text);
   padding: 5px 9px;
