@@ -1,18 +1,13 @@
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import type { AIState } from "@/services/stateMachine";
+import { STATE_COLORS, RING_SPEEDS } from "@/lib/stateColors";
 
 interface Props {
-  state: "idle" | "listening" | "thinking" | "speaking";
+  state: AIState;
   volume?: number;
 }
-
-const COLORS = {
-  idle: "#00d9ff",
-  listening: "#00ffb3",
-  thinking: "#6aa8ff",
-  speaking: "#ffc857",
-} as const;
 
 export default function Reactor3D({ state, volume = 0 }: Props) {
   const groupRef = useRef<THREE.Group>(null);
@@ -21,8 +16,9 @@ export default function Reactor3D({ state, volume = 0 }: Props) {
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
-    groupRef.current.rotation.y += delta * 0.15;
-    groupRef.current.rotation.x += delta * 0.05;
+    const speed = RING_SPEEDS[state];
+    groupRef.current.rotation.y += delta * speed;
+    groupRef.current.rotation.x += delta * speed * 0.33;
 
     if (coreRef.current) {
       const base = 1 + Math.sin(performance.now() * 0.002) * 0.05;
@@ -38,7 +34,7 @@ export default function Reactor3D({ state, volume = 0 }: Props) {
     }
   });
 
-  const color = COLORS[state];
+  const color = STATE_COLORS[state];
 
   return (
     <group ref={groupRef}>

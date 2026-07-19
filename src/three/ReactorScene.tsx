@@ -1,9 +1,10 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, Sparkles } from "@react-three/drei";
 import Reactor3D from "./Reactor3D";
+import type { AIState } from "@/services/stateMachine";
 
 interface Props {
-  state: "idle" | "listening" | "thinking" | "speaking";
+  state: AIState;
   volume?: number;
 }
 

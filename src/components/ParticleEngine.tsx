@@ -1,9 +1,11 @@
 import { useEffect, useRef } from "react";
+import type { AIState } from "@/services/stateMachine";
+import { STATE_COLORS, PARTICLE_SPAWN_RATE } from "@/lib/stateColors";
 
 interface Props {
   isSpeaking: boolean;
   volume: number;
-  state?: "idle" | "listening" | "thinking" | "speaking";
+  state?: AIState;
 }
 
 interface Particle {
@@ -17,12 +19,11 @@ interface Particle {
   opacity: number;
 }
 
-const STATE_COLORS: Record<NonNullable<Props["state"]>, string> = {
-  idle: "0, 217, 255",
-  listening: "0, 255, 179",
-  thinking: "106, 168, 255",
-  speaking: "255, 200, 87",
-};
+function hexToRgb(hex: string): string {
+  const h = hex.replace("#", "");
+  const n = parseInt(h.length === 3 ? h.split("").map((c) => c + c).join("") : h, 16);
+  return `${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}`;
+}
 
 export default function ParticleEngine({ isSpeaking, volume, state = "idle" }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -81,11 +82,12 @@ export default function ParticleEngine({ isSpeaking, volume, state = "idle" }: P
       const v = volumeRef.current;
 
       if (speaking && !previous) spawnBurst();
-      if (speaking && Math.random() < 0.15) spawnBurst();
+      const rate = PARTICLE_SPAWN_RATE[stateRef.current] ?? 0;
+      if (rate > 0 && Math.random() < rate / 60) spawnBurst();
       if (v > 70) { spawnBurst(); spawnBurst(); spawnBurst(); }
       previous = speaking;
 
-      const color = STATE_COLORS[stateRef.current] ?? STATE_COLORS.idle;
+      const color = hexToRgb(STATE_COLORS[stateRef.current] ?? STATE_COLORS.idle);
 
       particles.current = particles.current.filter((p) => p.life > 0);
       particles.current.forEach((p) => {
