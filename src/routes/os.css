@@ -354,6 +354,23 @@
   outline: 2px solid var(--cyan);
   outline-offset: 2px;
   border-radius: 8px;
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.35);
+  transition: box-shadow 120ms ease, outline-color 120ms ease;
+}
+.maha-os a:focus-visible,
+.maha-os button:focus-visible,
+.maha-os [role="button"]:focus-visible,
+.maha-os input:focus-visible,
+.maha-os textarea:focus-visible,
+.maha-os select:focus-visible {
+  outline: 2px solid #7ff3ff;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.45), 0 0 18px rgba(34, 211, 238, 0.35);
+}
+/* Ensure interactive elements have a visible hover cursor + state */
+.maha-os button:not(:disabled):hover,
+.maha-os [role="button"]:not([aria-disabled="true"]):hover {
+  filter: brightness(1.12);
 }
 .reactor-idle {
   box-shadow:
