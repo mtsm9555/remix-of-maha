@@ -7,7 +7,7 @@ import AudioWaveform from "@/components/AudioWaveform";
 import ReactorCore from "@/components/ReactorCore";
 import CommandBar, { type CommandBarHandle } from "@/components/CommandBar";
 import FloatingMenu from "@/components/FloatingMenu";
-import { askMaha, transcribeMaha } from "@/lib/mahaCommand.functions";
+import { transcribeMaha } from "@/lib/mahaCommand.functions";
 
 export const Route = createFileRoute("/os")({
   head: () => ({
@@ -31,7 +31,6 @@ export function OSPage() {
   const chunksRef = useRef<Blob[]>([]);
   const streamRef = useRef<MediaStream | null>(null);
 
-  const ask = useServerFn(askMaha);
   const transcribe = useServerFn(transcribeMaha);
 
   const runPrompt = useCallback(
@@ -39,16 +38,35 @@ export function OSPage() {
       setMode("thinking");
       setReply("Thinking…");
       try {
-        const { reply: text } = await ask({ data: { prompt } });
-        setReply(text || "…");
+        const res = await fetch("/api/maha/stream", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt }),
+        });
+        if (!res.ok || !res.body) {
+          const msg = await res.text().catch(() => "");
+          throw new Error(msg || `Request failed: ${res.status}`);
+        }
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let acc = "";
+        setReply("");
         setMode("speaking");
-        window.setTimeout(() => setMode("idle"), 2200);
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          acc += decoder.decode(value, { stream: true });
+          setReply(acc);
+        }
+        acc += decoder.decode();
+        setReply(acc || "…");
+        window.setTimeout(() => setMode("idle"), 1600);
       } catch (e) {
         setReply(e instanceof Error ? e.message : "Something went wrong.");
         setMode("idle");
       }
     },
-    [ask],
+    [],
   );
 
   const handleSend = (message: string) => {

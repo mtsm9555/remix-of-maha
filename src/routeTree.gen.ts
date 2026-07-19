@@ -47,6 +47,7 @@ import { Route as ApiModelsFallbackStatsRouteImport } from './routes/api/models/
 import { Route as ApiModelsCostsByTaskRouteImport } from './routes/api/models/costs-by-task'
 import { Route as ApiModelsCostsRouteImport } from './routes/api/models/costs'
 import { Route as ApiManagerSplatRouteImport } from './routes/api/manager/$'
+import { Route as ApiMahaStreamRouteImport } from './routes/api/maha/stream'
 import { Route as ApiGpuQueueRouteImport } from './routes/api/gpu/queue'
 import { Route as ApiGpuHealthRouteImport } from './routes/api/gpu/health'
 import { Route as ApiGpuGpusRouteImport } from './routes/api/gpu/gpus'
@@ -546,6 +547,11 @@ const ApiModelsCostsRoute = ApiModelsCostsRouteImport.update({
 const ApiManagerSplatRoute = ApiManagerSplatRouteImport.update({
   id: '/api/manager/$',
   path: '/api/manager/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMahaStreamRoute = ApiMahaStreamRouteImport.update({
+  id: '/api/maha/stream',
+  path: '/api/maha/stream',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiGpuQueueRoute = ApiGpuQueueRouteImport.update({
@@ -2345,6 +2351,7 @@ export interface FileRoutesByFullPath {
   '/api/gpu/gpus': typeof ApiGpuGpusRoute
   '/api/gpu/health': typeof ApiGpuHealthRoute
   '/api/gpu/queue': typeof ApiGpuQueueRouteWithChildren
+  '/api/maha/stream': typeof ApiMahaStreamRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/models/costs': typeof ApiModelsCostsRoute
   '/api/models/costs-by-task': typeof ApiModelsCostsByTaskRoute
@@ -2692,6 +2699,7 @@ export interface FileRoutesByTo {
   '/api/gpu/gpus': typeof ApiGpuGpusRoute
   '/api/gpu/health': typeof ApiGpuHealthRoute
   '/api/gpu/queue': typeof ApiGpuQueueRouteWithChildren
+  '/api/maha/stream': typeof ApiMahaStreamRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/models/costs': typeof ApiModelsCostsRoute
   '/api/models/costs-by-task': typeof ApiModelsCostsByTaskRoute
@@ -3040,6 +3048,7 @@ export interface FileRoutesById {
   '/api/gpu/gpus': typeof ApiGpuGpusRoute
   '/api/gpu/health': typeof ApiGpuHealthRoute
   '/api/gpu/queue': typeof ApiGpuQueueRouteWithChildren
+  '/api/maha/stream': typeof ApiMahaStreamRoute
   '/api/manager/$': typeof ApiManagerSplatRoute
   '/api/models/costs': typeof ApiModelsCostsRoute
   '/api/models/costs-by-task': typeof ApiModelsCostsByTaskRoute
@@ -3389,6 +3398,7 @@ export interface FileRouteTypes {
     | '/api/gpu/gpus'
     | '/api/gpu/health'
     | '/api/gpu/queue'
+    | '/api/maha/stream'
     | '/api/manager/$'
     | '/api/models/costs'
     | '/api/models/costs-by-task'
@@ -3736,6 +3746,7 @@ export interface FileRouteTypes {
     | '/api/gpu/gpus'
     | '/api/gpu/health'
     | '/api/gpu/queue'
+    | '/api/maha/stream'
     | '/api/manager/$'
     | '/api/models/costs'
     | '/api/models/costs-by-task'
@@ -4083,6 +4094,7 @@ export interface FileRouteTypes {
     | '/api/gpu/gpus'
     | '/api/gpu/health'
     | '/api/gpu/queue'
+    | '/api/maha/stream'
     | '/api/manager/$'
     | '/api/models/costs'
     | '/api/models/costs-by-task'
@@ -4431,6 +4443,7 @@ export interface RootRouteChildren {
   ApiGpuGpusRoute: typeof ApiGpuGpusRoute
   ApiGpuHealthRoute: typeof ApiGpuHealthRoute
   ApiGpuQueueRoute: typeof ApiGpuQueueRouteWithChildren
+  ApiMahaStreamRoute: typeof ApiMahaStreamRoute
   ApiManagerSplatRoute: typeof ApiManagerSplatRoute
   ApiModelsCostsRoute: typeof ApiModelsCostsRoute
   ApiModelsCostsByTaskRoute: typeof ApiModelsCostsByTaskRoute
@@ -4940,6 +4953,13 @@ declare module '@tanstack/react-router' {
       path: '/api/manager/$'
       fullPath: '/api/manager/$'
       preLoaderRoute: typeof ApiManagerSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/maha/stream': {
+      id: '/api/maha/stream'
+      path: '/api/maha/stream'
+      fullPath: '/api/maha/stream'
+      preLoaderRoute: typeof ApiMahaStreamRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/gpu/queue': {
@@ -7688,6 +7708,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiGpuGpusRoute: ApiGpuGpusRoute,
   ApiGpuHealthRoute: ApiGpuHealthRoute,
   ApiGpuQueueRoute: ApiGpuQueueRouteWithChildren,
+  ApiMahaStreamRoute: ApiMahaStreamRoute,
   ApiManagerSplatRoute: ApiManagerSplatRoute,
   ApiModelsCostsRoute: ApiModelsCostsRoute,
   ApiModelsCostsByTaskRoute: ApiModelsCostsByTaskRoute,
