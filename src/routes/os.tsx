@@ -14,6 +14,8 @@ import { transcribeMaha } from "@/lib/mahaCommand.functions";
 import { useMicrophone } from "@/hooks/useMicrophone";
 import { useVoiceActivity } from "@/hooks/useVoiceActivity";
 import { useRealtime } from "@/hooks/useRealtime";
+import { useAIState } from "@/hooks/useAIState";
+import type { AIState } from "@/services/stateMachine";
 
 export const Route = createFileRoute("/os")({
   head: () => ({
@@ -38,14 +40,18 @@ export function OSPage() {
     streamingResponse,
     receivingAudio,
   } = useRealtime();
-  const vadState: Mode = isSpeaking ? "listening" : "idle";
-  const realtimeState: Mode | null =
-    receivingAudio || streamingResponse ? "speaking" :
-    waitingResponse ? "thinking" :
-    null;
-  const reactorState: Mode =
-    realtimeState ??
-    (mode === "idle" ? (vadState === "listening" ? "listening" : micState) : mode);
+  const derivedState = useAIState({
+    isSpeaking,
+    waitingResponse: waitingResponse || mode === "thinking",
+    receivingAudio: receivingAudio || streamingResponse,
+    analyzingImage: false,
+    searchingMemory: false,
+    executingTask: false,
+  });
+  const reactorState: AIState =
+    mode === "speaking" ? "speaking" :
+    mode === "listening" ? "listening" :
+    derivedState === "idle" && micState !== "idle" ? (micState as AIState) : derivedState;
 
   useEffect(() => {
     if (speechEnd && mode === "idle") setMode("thinking");
