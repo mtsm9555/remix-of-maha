@@ -233,6 +233,11 @@ export function OSPage() {
         >
           <span className="dot" /> {realtimeConnected ? "LIVE" : "OFFLINE"}
         </span>
+        {isDesktop && (
+          <span className="maha-realtime-status" data-connected="true" aria-label="Desktop mode">
+            <span className="dot" /> DESKTOP
+          </span>
+        )}
       </header>
 
       <section className="maha-hero hero-section">
