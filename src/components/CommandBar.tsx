@@ -19,10 +19,11 @@ interface CommandBarProps {
   onKeyboard?: () => void;
   isVoiceActive?: boolean;
   isBusy?: boolean;
+  id?: string;
 }
 
 const CommandBar = forwardRef<CommandBarHandle, CommandBarProps>(function CommandBar(
-  { onSend, onVoice, onAttach, onKeyboard, isVoiceActive, isBusy },
+  { onSend, onVoice, onAttach, onKeyboard, isVoiceActive, isBusy, id },
   ref,
 ) {
   const [message, setMessage] = useState("");
@@ -53,7 +54,7 @@ const CommandBar = forwardRef<CommandBarHandle, CommandBarProps>(function Comman
   };
 
   return (
-    <div className="commandbar-wrapper">
+    <div className="commandbar-wrapper" role="region" aria-label="Command input">
       <div className="commandbar">
         <button
           className="cmd-icon-btn"
@@ -65,6 +66,7 @@ const CommandBar = forwardRef<CommandBarHandle, CommandBarProps>(function Comman
           <Paperclip size={18} />
         </button>
         <input
+          id={id}
           ref={inputRef}
           type="text"
           placeholder={isVoiceActive ? "Listening…" : "Ask MAHA anything..."}
@@ -73,6 +75,8 @@ const CommandBar = forwardRef<CommandBarHandle, CommandBarProps>(function Comman
           onKeyDown={handleKeyDown}
           className="command-input"
           aria-label="Ask MAHA"
+          autoComplete="off"
+          enterKeyHint="send"
           disabled={isBusy}
         />
         <button
