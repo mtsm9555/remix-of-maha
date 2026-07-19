@@ -3,15 +3,21 @@ import { theme } from "@/lib/maha/theme";
 
 interface CircularWaveformProps {
   data?: Uint8Array | null;
+  intensity?: number;
 }
 
-export default function CircularWaveform({ data }: CircularWaveformProps) {
+export default function CircularWaveform({ data, intensity = 0 }: CircularWaveformProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dataRef = useRef<Uint8Array | null>(null);
+  const intensityRef = useRef(0);
 
   useEffect(() => {
     dataRef.current = data ?? null;
   }, [data]);
+
+  useEffect(() => {
+    intensityRef.current = intensity;
+  }, [intensity]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -32,6 +38,7 @@ export default function CircularWaveform({ data }: CircularWaveformProps) {
       const cy = canvas.height / 2;
       const bars = 180;
       const freq = dataRef.current;
+      const boost = Math.min(intensityRef.current / 80, 1);
       for (let i = 0; i < bars; i++) {
         const angle = (Math.PI * 2 * i) / bars;
         const radius = 170;
@@ -41,6 +48,7 @@ export default function CircularWaveform({ data }: CircularWaveformProps) {
         } else {
           amplitude = Math.abs(Math.sin(frame * 0.03 + i * 0.2)) * 0.6;
         }
+        amplitude = Math.min(1, amplitude + boost * 0.35);
         const length = 10 + amplitude * 60;
         const x1 = cx + Math.cos(angle) * radius;
         const y1 = cy + Math.sin(angle) * radius;
