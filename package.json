@@ -15,6 +15,11 @@
     "test:unit": "vitest run src/tests/unit",
     "test:integration": "vitest run src/tests/integration",
     "test:coverage": "vitest run --coverage"
+  ,
+    "electron": "electron .",
+    "electron:dev": "NODE_ENV=development electron .",
+    "electron:build": "vite build && electron-builder",
+    "dist": "electron-builder"
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^3.0.7",
