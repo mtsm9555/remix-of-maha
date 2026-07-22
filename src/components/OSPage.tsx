@@ -1,396 +1,126 @@
-import { ClientOnly } from "@tanstack/react-router";
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { useServerFn } from "@tanstack/react-start";
-import { toast } from "sonner";
-import "@/routes/os.css";
-import BackgroundFX from "@/components/BackgroundFX";
-import ParticleEngine from "@/components/ParticleEngine";
-import AudioWaveform from "@/components/AudioWaveform";
-import ReactorCore from "@/components/ReactorCore";
-const ReactorScene = lazy(() => import("@/three/ReactorScene"));
-import CircularWaveform from "@/components/CircularWaveform";
-import CommandBar, { type CommandBarHandle } from "@/components/CommandBar";
-import FloatingMenu from "@/components/FloatingMenu";
-import StateTransition from "@/components/StateTransition";
-import StreamingText from "@/components/StreamingText";
-import AppErrorBoundary from "@/components/AppErrorBoundary";
-import { useMemory } from "@/hooks/useMemory";
-import { transcribeMaha } from "@/lib/mahaCommand.functions";
-import { useMicrophone } from "@/hooks/useMicrophone";
-import { useVoiceActivity } from "@/hooks/useVoiceActivity";
-import { useRealtime } from "@/hooks/useRealtime";
-import { useAIState } from "@/hooks/useAIState";
-import type { AIState } from "@/services/stateMachine";
-import { audioBus } from "@/services/audioBus";
-import { isAbortError, toUserMessage } from "@/lib/errors";
-
-type Mode = "idle" | "listening" | "thinking" | "speaking";
+import { useState } from "react";
+import { Mic, Brain, Eye, Wrench, Settings, PanelRight } from "lucide-react";
+import ReactorCore from "./ReactorCore";
 
 export default function OSPage() {
-  const [mode, setMode] = useState<Mode>("idle");
-  const { frequencyData, state: micState } = useMicrophone();
-  const { isSpeaking, volume, speechStart, speechEnd } = useVoiceActivity();
-  const {
-    connected: realtimeConnected,
-    response: realtimeResponse,
-    waitingResponse,
-    streamingResponse,
-    receivingAudio,
-  } = useRealtime();
-  const derivedState = useAIState({
-    isSpeaking,
-    waitingResponse: waitingResponse || mode === "thinking",
-    receivingAudio: receivingAudio || streamingResponse,
-    analyzingImage: false,
-    searchingMemory: false,
-    executingTask: false,
-  });
-  const [isDesktop, setIsDesktop] = useState(false);
-  useEffect(() => {
-    setIsDesktop(typeof window !== "undefined" && !!window.mahaAPI);
-  }, []);
-  const reactorState: AIState =
-    mode === "speaking" ? "speaking" :
-    mode === "listening" ? "listening" :
-    derivedState === "idle" && micState !== "idle" ? (micState as AIState) : derivedState;
-
-  useEffect(() => {
-    if (speechEnd && mode === "idle") setMode("thinking");
-  }, [speechEnd, mode]);
-
-  useEffect(() => {
-    if (speechStart) {
-      const el = document.querySelector(".maha-reactor");
-      if (!el) return;
-      el.classList.add("energy-pulse");
-      const t = window.setTimeout(() => el.classList.remove("energy-pulse"), 600);
-      return () => window.clearTimeout(t);
-    }
-  }, [speechStart]);
-
-  useEffect(() => {
-    if (mode === "thinking" && !isSpeaking) {
-      const t = window.setTimeout(() => setMode("idle"), 1400);
-      return () => window.clearTimeout(t);
-    }
-  }, [mode, isSpeaking]);
-
-  const [reply, setReply] = useState("How can I help?");
-  const [attachments, setAttachments] = useState<string[]>([]);
-  const commandRef = useRef<CommandBarHandle>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const recorderRef = useRef<MediaRecorder | null>(null);
-  const chunksRef = useRef<Blob[]>([]);
-  const streamRef = useRef<MediaStream | null>(null);
-  const { addMemory } = useMemory();
-
-  const transcribe = useServerFn(transcribeMaha);
-  const abortRef = useRef<AbortController | null>(null);
-
-  useEffect(() => {
-    return () => {
-      abortRef.current?.abort();
-    };
-  }, []);
-
-  const runPrompt = useCallback(async (prompt: string) => {
-    abortRef.current?.abort();
-    const ctrl = new AbortController();
-    abortRef.current = ctrl;
-    setMode("thinking");
-    setReply("Thinking…");
-    try {
-      const res = await fetch("/api/maha/stream", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt }),
-        signal: ctrl.signal,
-      });
-      if (!res.ok || !res.body) {
-        let msg = `Request failed (${res.status}).`;
-        try {
-          const payload = await res.json();
-          if (payload?.error?.message) msg = payload.error.message;
-        } catch {
-          const text = await res.text().catch(() => "");
-          if (text) msg = text;
-        }
-        throw new Error(msg);
-      }
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let acc = "";
-      setReply("");
-      setMode("speaking");
-      try {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          acc += decoder.decode(value, { stream: true });
-          setReply(acc);
-        }
-        acc += decoder.decode();
-        setReply(acc || "…");
-      } finally {
-        try { reader.releaseLock(); } catch { /* noop */ }
-      }
-      window.setTimeout(() => setMode("idle"), 1600);
-    } catch (e) {
-      if (isAbortError(e)) {
-        setReply("Cancelled.");
-        setMode("idle");
-        return;
-      }
-      const msg = toUserMessage(e);
-      setReply(msg);
-      toast.error(msg);
-      setMode("idle");
-    } finally {
-      if (abortRef.current === ctrl) abortRef.current = null;
-    }
-  }, []);
-
-  const handleSend = (message: string) => {
-    const suffix = attachments.length ? `\n\n[Attached: ${attachments.join(", ")}]` : "";
-    setAttachments([]);
-    addMemory(message, "conversation");
-    void runPrompt(message + suffix);
-  };
-
-  const handleAttach = () => fileInputRef.current?.click();
-
-  const handleFilesPicked = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files ?? []);
-    if (files.length) {
-      setAttachments((prev) => [...prev, ...files.map((f) => f.name)]);
-      setReply(`Attached ${files.map((f) => f.name).join(", ")}`);
-    }
-    e.target.value = "";
-  };
-
-  const handleKeyboard = () => commandRef.current?.focus();
-
-  const stopRecording = useCallback(async () => {
-    const rec = recorderRef.current;
-    if (!rec || rec.state === "inactive") return;
-    await new Promise<void>((resolve) => {
-      rec.addEventListener("stop", () => resolve(), { once: true });
-      rec.stop();
-    });
-    streamRef.current?.getTracks().forEach((t) => t.stop());
-    streamRef.current = null;
-    recorderRef.current = null;
-
-    const mimeType = rec.mimeType || "audio/webm";
-    const blob = new Blob(chunksRef.current, { type: mimeType });
-    chunksRef.current = [];
-    if (blob.size < 1024) {
-      setReply("Recording was too short. Try again.");
-      setMode("idle");
-      return;
-    }
-    setMode("thinking");
-    setReply("Transcribing…");
-    try {
-      const buf = await blob.arrayBuffer();
-      let binary = "";
-      const bytes = new Uint8Array(buf);
-      for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
-      const audioBase64 = btoa(binary);
-      const { text } = await transcribe({ data: { audioBase64, mimeType } });
-      const clean = text.trim();
-      if (!clean) {
-        setReply("Didn't catch that. Try again.");
-        setMode("idle");
-        return;
-      }
-      commandRef.current?.setValue(clean);
-      await runPrompt(clean);
-    } catch (e) {
-      setReply(e instanceof Error ? e.message : "Transcription failed.");
-      setMode("idle");
-    }
-  }, [transcribe, runPrompt]);
-
-  const handleVoice = async () => {
-    if (mode === "listening") {
-      await stopRecording();
-      return;
-    }
-    try {
-      // Prefer the shared bus stream so we don't request a second mic handle.
-      const shared = audioBus.getStream();
-      const stream =
-        shared ?? (await navigator.mediaDevices.getUserMedia({ audio: true }));
-      streamRef.current = shared ? null : stream; // don't stop the shared stream
-      const mimeType = MediaRecorder.isTypeSupported("audio/webm")
-        ? "audio/webm"
-        : MediaRecorder.isTypeSupported("audio/mp4")
-          ? "audio/mp4"
-          : "";
-      const rec = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream);
-      recorderRef.current = rec;
-      chunksRef.current = [];
-      rec.ondataavailable = (ev) => {
-        if (ev.data.size > 0) chunksRef.current.push(ev.data);
-      };
-      rec.start();
-      setMode("listening");
-      setReply("Listening… tap the mic to stop.");
-    } catch {
-      setReply("Microphone access denied.");
-      setMode("idle");
-    }
-  };
+  const [dashboardOpen, setDashboardOpen] = useState(false);
 
   return (
-    <main className="maha-home">
-      <BackgroundFX />
-      <ParticleEngine isSpeaking={isSpeaking} volume={volume} state={reactorState} />
+    <div className="min-h-screen bg-[#07101D] text-white overflow-hidden relative">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.08),transparent_60%)]" />
 
-      <a href="#maha-command" className="maha-skip-link">Skip to command input</a>
-
-      <header className="maha-header" role="banner">
-        <div className="maha-brand">
-          <div className="maha-brand-row">
-            <span className="maha-brand-mark" aria-hidden="true">
-              <span />
-            </span>
-            <h1>
-              MAHA<em>OS</em>
-            </h1>
-          </div>
-          <span className="maha-subtitle">v2.0.4 · Neural Runtime · Session #MH-8829-QX</span>
+      <header className="absolute top-0 left-0 right-0 z-20 px-8 py-6 flex justify-between items-center">
+        <div>
+          <h1 className="text-xl font-bold tracking-wider">MAHA AI OS</h1>
+          <p className="text-xs tracking-[0.3em] text-cyan-400">V2.0</p>
         </div>
-        <div className="maha-status-group" role="status" aria-live="polite">
-          <span
-            className="maha-realtime-status"
-            data-connected={realtimeConnected ? "true" : "false"}
-            aria-label={realtimeConnected ? "Realtime connected" : "Realtime offline"}
-          >
-            <span className="dot" aria-hidden="true" />
-            {realtimeConnected ? "Live" : "Offline"}
-          </span>
-          {isDesktop && (
-            <span className="maha-realtime-status" data-connected="true" aria-label="Desktop mode">
-              <span className="dot" aria-hidden="true" /> Desktop
-            </span>
-          )}
+        <div className="text-right">
+          <p className="text-xs uppercase tracking-widest text-slate-400">System Status</p>
+          <p className="text-cyan-400 font-semibold">Nominal</p>
         </div>
       </header>
 
-      <section className="maha-deck">
-        <section className="maha-hero hero-section">
-          <div className="maha-waveform">
-            <AudioWaveform active={mode === "listening"} />
-          </div>
+      <main className="flex flex-col items-center justify-center min-h-screen px-6">
+        <div className="relative">
+          <ReactorCore />
+          <div className="absolute inset-0 blur-3xl bg-cyan-400/10 rounded-full pointer-events-none" />
+        </div>
 
-          <div className="reactor-wrapper maha-reactor">
-            <CircularWaveform data={frequencyData} intensity={volume} state={reactorState} />
-            <ReactorCore state={reactorState} />
-            <div className="reactor-3d-container" aria-hidden="true">
-              <AppErrorBoundary label="reactor_3d" fallback={null}>
-                <ClientOnly fallback={null}>
-                  <Suspense fallback={null}>
-                    <ReactorScene state={reactorState} volume={volume} />
-                  </Suspense>
-                </ClientOnly>
-              </AppErrorBoundary>
-            </div>
+        <div className="mt-8 text-center">
+          <h1 className="text-6xl md:text-7xl font-bold tracking-[0.35em]">MAHA</h1>
+          <p className="mt-2 text-cyan-400 tracking-[0.45em] text-sm uppercase">AI Core</p>
+        </div>
 
-            {/* Decorative HUD callouts */}
-            <span className="hud-callout hud-callout-tl" aria-hidden="true">RADIAL_SYNC <b>092</b></span>
-            <span className="hud-callout hud-callout-br" aria-hidden="true">CORE_STABLE <b>88%</b></span>
-          </div>
-
-          <div className="hero-message assistant-message" role="status" aria-live="polite">
-            <StreamingText text={realtimeResponse || reply || ""} speed={15} />
-          </div>
-
-          <StateTransition state={reactorState} />
-
-          {attachments.length > 0 && (
-            <p className="assistant-attachments" aria-live="polite">
-              📎 {attachments.join(", ")}
-            </p>
-          )}
-        </section>
-
-        <aside className="maha-telemetry" aria-label="System telemetry">
-          <div className="tele-block">
-            <p className="tele-label">System Diagnostics</p>
-            <div className="tele-metrics">
-              <div className="tele-metric">
-                <span className="k">Neural Load</span>
-                <span className="v">{Math.min(99, Math.round(volume * 3.6 + 12))}<i>%</i></span>
-                <div className="bar"><i style={{ width: `${Math.min(99, Math.round(volume * 3.6 + 12))}%` }} /></div>
-              </div>
-              <div className="tele-metric">
-                <span className="k">Sync Latency</span>
-                <span className="v">{realtimeConnected ? 12 : 148}<i>ms</i></span>
-                <div className="bar"><i style={{ width: realtimeConnected ? "18%" : "82%" }} /></div>
-              </div>
-              <div className="tele-metric">
-                <span className="k">Active Threads</span>
-                <span className="v">1,024</span>
-                <div className="bar"><i style={{ width: "64%" }} /></div>
-              </div>
-              <div className="tele-metric">
-                <span className="k">Memory Buffer</span>
-                <span className="v">42<i>%</i></span>
-                <div className="bar"><i style={{ width: "42%" }} /></div>
-              </div>
+        <div className="mt-8 w-full max-w-2xl">
+          <div className="h-20 rounded-2xl border border-cyan-400/20 bg-[#0A172C]/70 backdrop-blur-lg flex items-center justify-center">
+            <div className="flex gap-2 items-end h-10">
+              {[...Array(20)].map((_, i) => (
+                <div
+                  key={i}
+                  className="w-1 rounded-full bg-cyan-400 animate-pulse"
+                  style={{ height: `${10 + ((i * 13) % 40)}px` }}
+                />
+              ))}
             </div>
           </div>
+        </div>
 
-          <div className="tele-block">
-            <p className="tele-label">Sub-System Status</p>
-            <ul className="tele-status">
-              <li><span className="pip pip-ok" /><span>MEMORY_BUFFER_SYNC</span><em>NOMINAL</em></li>
-              <li><span className="pip pip-ok" /><span>REASONING_ENGINE</span><em>ACTIVE</em></li>
-              <li><span className="pip pip-ok" /><span>KNOWLEDGE_GRAPH</span><em>ONLINE</em></li>
-              <li>
-                <span className={realtimeConnected ? "pip pip-ok" : "pip pip-err"} />
-                <span>UPLINK_CARRIER</span>
-                <em className={realtimeConnected ? "e-ok" : "e-err"}>
-                  {realtimeConnected ? "SECURE" : "LOST"}
-                </em>
-              </li>
-            </ul>
+        <div className="w-full max-w-4xl mt-10">
+          <div className="h-16 rounded-full border border-cyan-400/30 bg-[#0A172C]/80 backdrop-blur-xl flex items-center px-6 shadow-[0_0_30px_rgba(34,211,238,.15)]">
+            <input
+              placeholder="Ask MAHA anything..."
+              className="flex-1 bg-transparent outline-none text-white placeholder:text-cyan-400/50"
+            />
+            <button
+              type="button"
+              aria-label="Voice input"
+              className="h-12 w-12 rounded-full border border-cyan-400 flex items-center justify-center hover:bg-cyan-400/10 transition"
+            >
+              <Mic size={20} />
+            </button>
           </div>
+        </div>
 
-          <div className="tele-block tele-grow">
-            <p className="tele-label">Terminal Output</p>
-            <div className="tele-term">
-              <div>[08:24:12] INITIALIZING KERNEL…</div>
-              <div>[08:24:12] LOADING NEURAL WEIGHTS: OK</div>
-              <div>[08:24:13] SCANNING LOCAL PORTS…</div>
-              <div>[08:24:13] AGENT_ROSTER: 6 READY</div>
-              <div className="hi">[08:24:14] SYSTEM STANDBY // AWAITING USER INPUT</div>
-              <div className="cursor">▊</div>
+        <button
+          type="button"
+          onClick={() => setDashboardOpen(true)}
+          className="mt-6 px-6 py-3 rounded-full border border-cyan-400/30 bg-[#0A172C] text-cyan-400 tracking-widest text-xs hover:bg-cyan-400/10 transition"
+        >
+          OPEN ADVANCED DASHBOARD
+        </button>
+      </main>
+
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-4 z-20">
+        <DockButton icon={<Brain size={18} />} label="Memory" />
+        <DockButton icon={<Eye size={18} />} label="Vision" />
+        <DockButton icon={<Wrench size={18} />} label="Tools" />
+        <DockButton icon={<Settings size={18} />} label="Settings" />
+      </div>
+
+      {dashboardOpen && (
+        <>
+          <div
+            className="fixed inset-0 bg-black/60 z-30"
+            onClick={() => setDashboardOpen(false)}
+          />
+          <div className="fixed right-0 top-0 bottom-0 w-full max-w-[420px] bg-[#0A172C] border-l border-cyan-400/20 z-40 p-6 overflow-y-auto">
+            <div className="flex justify-between items-center">
+              <h2 className="text-lg font-bold">Advanced Dashboard</h2>
+              <button type="button" aria-label="Close dashboard" onClick={() => setDashboardOpen(false)}>
+                <PanelRight />
+              </button>
+            </div>
+            <div className="mt-8 space-y-4">
+              <PanelCard title="Memory Graph" />
+              <PanelCard title="Planner Agent" />
+              <PanelCard title="Vision Module" />
+              <PanelCard title="Tool Activity" />
+              <PanelCard title="Notifications" />
             </div>
           </div>
+        </>
+      )}
+    </div>
+  );
+}
 
-          <div className="tele-foot">
-            <span>0x9F2A_C04D</span>
-            <span>ORBIT · GEO-STATIONARY</span>
-          </div>
-        </aside>
-      </section>
+function DockButton({ icon, label }: { icon: React.ReactNode; label: string }) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      className="h-12 w-12 rounded-full bg-[#0A172C] border border-cyan-400/20 flex items-center justify-center hover:bg-cyan-400/10 transition"
+    >
+      {icon}
+    </button>
+  );
+}
 
-      <input ref={fileInputRef} type="file" multiple hidden onChange={handleFilesPicked} />
-
-      <CommandBar
-        id="maha-command"
-        ref={commandRef}
-        onSend={handleSend}
-        onVoice={handleVoice}
-        onAttach={handleAttach}
-        onKeyboard={handleKeyboard}
-        isVoiceActive={mode === "listening"}
-        isBusy={mode === "thinking"}
-      />
-      <FloatingMenu />
-    </main>
+function PanelCard({ title }: { title: string }) {
+  return (
+    <div className="rounded-2xl border border-cyan-400/20 bg-[#07101D] p-4">
+      <h3 className="font-semibold">{title}</h3>
+      <p className="text-sm text-slate-400 mt-2">Connect existing MAHA module here.</p>
+    </div>
   );
 }
